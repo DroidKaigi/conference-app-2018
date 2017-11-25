@@ -36,20 +36,12 @@ workflows:
     - gradle-runner@1.7.7:
         inputs:
         - gradle_file: "$GRADLE_BUILD_FILE_PATH"
-        - gradle_task: assembleDebug
-        - gradlew_path: "$GRADLEW_PATH"
-     - gradle-runner@1.7.7:
-        inputs:
-        - gradle_file: "$GRADLE_BUILD_FILE_PATH"
-        - gradle_task: testDebugUnitTest
+        - gradle_task: assembleDebug testDebugUnitTest
         - gradlew_path: "$GRADLEW_PATH"
     - deploy-to-bitrise-io@1.3.7: {}
     - cache-push@1.1.4: {}
 app:
   envs:
-  - opts:
-      is_expand: false
-    GRADLE_BUILD_FILE_PATH: build.gradle
-  - opts:
-      is_expand: false
-    GRADLEW_PATH: "./gradlew"
+    - is_expand: false
+    - GRADLE_BUILD_FILE_PATH: build.gradle
+    - GRADLEW_PATH: "./gradlew"
