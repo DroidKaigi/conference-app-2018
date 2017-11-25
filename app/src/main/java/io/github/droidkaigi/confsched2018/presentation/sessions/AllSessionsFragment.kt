@@ -15,7 +15,6 @@ class AllSessionsFragment : Fragment(), Injectable {
             inflater.inflate(R.layout.fragment_all_sessions, container, false)
 
     companion object {
-
         fun newInstance(): AllSessionsFragment = AllSessionsFragment()
     }
 }
