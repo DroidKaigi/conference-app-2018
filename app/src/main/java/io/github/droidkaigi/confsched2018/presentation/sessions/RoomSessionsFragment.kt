@@ -7,9 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.databinding.FragmentRoomSessionsBinding
+import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 
-class RoomSessionsFragment : Fragment() {
+class RoomSessionsFragment : Fragment(), Injectable {
 
     private lateinit var roomName: String
 

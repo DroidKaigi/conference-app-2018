@@ -9,9 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
+import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 
-class SessionsFragment : Fragment() {
+class SessionsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSessionsBinding
     private lateinit var sessionsViewPagerAdapter: SessionsViewPagerAdapter
 

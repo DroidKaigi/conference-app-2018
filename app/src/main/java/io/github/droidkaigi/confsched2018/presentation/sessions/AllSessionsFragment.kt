@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.di.Injectable
 
-class AllSessionsFragment : Fragment() {
+class AllSessionsFragment : Fragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? =
