@@ -16,7 +16,7 @@ workflows:
     - cache-pull@1.0.0: {}
     - script@1.1.4:
         title: Do anything with Script step
-    - install-missing-android-tools@2.0.2: {}
+    - install-missing-android-tools@2.0.5: {}
     - gradle-runner@1.7.7:
         inputs:
         - gradle_file: "$GRADLE_BUILD_FILE_PATH"
