@@ -74,7 +74,7 @@ class AllSessionsViewModelTest {
         whenever(repository.sessions).doReturn(Flowable.empty())
         viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
 
-        viewModel.onCreated()
+        viewModel.onCreate()
 
         verify(repository).refreshSessions()
     }
