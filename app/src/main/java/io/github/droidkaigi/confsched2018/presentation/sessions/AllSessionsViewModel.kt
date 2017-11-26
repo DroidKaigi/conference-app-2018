@@ -1,28 +1,32 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.*
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.mapper.toResult
+import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class AllSessionsViewModel @Inject constructor(val repository: SessionRepository) : ViewModel() {
+class AllSessionsViewModel @Inject constructor(
+        private val repository: SessionRepository,
+        private val schedulerProvider: SchedulerProvider
+) : ViewModel(), LifecycleObserver {
     val sessions: MutableLiveData<Result<List<Session>>> = MutableLiveData()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     init {
         repository.sessions
-                .toResult()
+                .toResult(schedulerProvider)
                 .subscribeBy { sessions.value = it }
                 .addTo(compositeDisposable)
     }
 
-    fun onCreated() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
         repository
                 .refreshSessions()
                 .subscribeBy(onError = { it.printStackTrace() })

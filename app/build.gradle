@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.github.ben-manes.versions'
 
 android {
     compileSdkVersion 27
@@ -22,7 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
+
 kapt {
     generateStubs = true
 }
@@ -85,8 +88,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 }
+
+
 repositories {
     mavenCentral()
 }
-
-apply plugin: 'kotlin-android-extensions'

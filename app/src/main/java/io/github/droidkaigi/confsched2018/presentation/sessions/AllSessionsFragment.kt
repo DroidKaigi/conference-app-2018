@@ -34,7 +34,7 @@ class AllSessionsFragment : Fragment(), Injectable {
                 }
             }
         })
-        sessionsViewModel.onCreated()
+        lifecycle.addObserver(sessionsViewModel)
     }
 
     companion object {

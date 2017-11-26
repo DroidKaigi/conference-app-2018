@@ -7,7 +7,6 @@ import android.arch.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import io.github.droidkaigi.confsched2018.presentation.ViewModelFactory
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 
 @Module

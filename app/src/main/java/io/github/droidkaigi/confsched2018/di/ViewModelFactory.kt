@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation
+package io.github.droidkaigi.confsched2018.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

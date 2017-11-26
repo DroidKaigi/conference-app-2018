@@ -11,6 +11,8 @@ import io.github.droidkaigi.confsched2018.data.db.AppDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDao
 import io.github.droidkaigi.confsched2018.data.repository.SessionDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
+import io.github.droidkaigi.confsched2018.util.rx.AppSchedulerProvider
+import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -38,8 +40,12 @@ internal class AppModule {
 
     @Singleton
     @Provides
-    fun provideSessionReposiotry(api: DroidKaigiApi, dbDao: SessionDao): SessionRepository =
-            SessionDataRepository(api, dbDao)
+    fun provideSessionReposiotry(
+            api: DroidKaigiApi,
+            dbDao: SessionDao,
+            schedulerProvider: SchedulerProvider
+    ): SessionRepository =
+            SessionDataRepository(api, dbDao, schedulerProvider)
 
 
     @Singleton
@@ -51,5 +57,8 @@ internal class AppModule {
     @Provides
     fun provideSessionsDao(db: AppDatabase): SessionDao = db.sessionDao()
 
+    @Singleton
+    @Provides
+    fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
 
 }
