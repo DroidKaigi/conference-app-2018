@@ -69,7 +69,7 @@ class AllSessionsViewModelTest {
     }
 
     @Test
-    fun onCreated() {
+    fun onCreate() {
         whenever(repository.refreshSessions()).doReturn(Completable.complete())
         whenever(repository.sessions).doReturn(Flowable.empty())
         viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
