@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,8 +8,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.di.Injectable
+import io.github.droidkaigi.confsched2018.presentation.Result
 import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
@@ -23,6 +26,15 @@ class AllSessionsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         sessionsViewModel = ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
+
+        sessionsViewModel.sessions.observe(this, Observer {
+            when (it) {
+                is Result.Success -> {
+                    Toast.makeText(context, "size : " + it.data.size, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+        sessionsViewModel.onCreated()
     }
 
     companion object {
