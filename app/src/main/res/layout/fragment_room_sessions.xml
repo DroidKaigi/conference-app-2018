@@ -1,20 +1,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/sessions_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsFragment">
-
-        <TextView
-            android:id="@+id/roomname"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
-
-    </FrameLayout>
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 </layout>

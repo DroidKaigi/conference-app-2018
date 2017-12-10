@@ -6,14 +6,10 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragm
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 
-@Module
-abstract class FragmentBuildersModule {
-    @ContributesAndroidInjector
-    abstract fun contributeSessionsFragment(): SessionsFragment
+@Module abstract class FragmentBuildersModule {
+    @ContributesAndroidInjector abstract fun contributeSessionsFragment(): SessionsFragment
 
-    @ContributesAndroidInjector
-    abstract fun contributeAllSessionsFragment(): AllSessionsFragment
+    @ContributesAndroidInjector abstract fun contributeAllSessionsFragment(): AllSessionsFragment
 
-    @ContributesAndroidInjector
-    abstract fun contributeRoomSessionsFragment(): RoomSessionsFragment
+    @ContributesAndroidInjector abstract fun contributeRoomSessionsFragment(): RoomSessionsFragment
 }

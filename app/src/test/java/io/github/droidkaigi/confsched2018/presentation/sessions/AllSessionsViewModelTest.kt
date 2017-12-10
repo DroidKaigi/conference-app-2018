@@ -19,18 +19,15 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class AllSessionsViewModelTest {
-    @Mock
-    private val repository: SessionRepository = mock()
+    @Mock private val repository: SessionRepository = mock()
 
     private lateinit var viewModel: AllSessionsViewModel
 
-    @Before
-    fun init() {
+    @Before fun init() {
         whenever(repository.refreshSessions()).doReturn(Completable.complete())
     }
 
-    @Test
-    fun sessions_Empty() {
+    @Test fun sessions_Empty() {
         whenever(repository.sessions).doReturn(Flowable.empty())
         viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
         val result: Observer<Result<List<Session>>> = mock()
@@ -42,8 +39,7 @@ class AllSessionsViewModelTest {
 
     }
 
-    @Test
-    fun sessions_Basic() {
+    @Test fun sessions_Basic() {
         val sessions = listOf(mock<Session>())
         whenever(repository.sessions).doReturn(Flowable.just(sessions))
         viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
@@ -55,8 +51,7 @@ class AllSessionsViewModelTest {
         verify(result).onChanged(Result.success(sessions))
     }
 
-    @Test
-    fun sessions_Error() {
+    @Test fun sessions_Error() {
         val runtimeException = RuntimeException("test")
         whenever(repository.sessions).doReturn(Flowable.error(runtimeException))
         viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
@@ -66,17 +61,6 @@ class AllSessionsViewModelTest {
 
         verify(repository).sessions
         verify(result).onChanged(Result.failure(runtimeException.message!!, runtimeException))
-    }
-
-    @Test
-    fun onCreate() {
-        whenever(repository.refreshSessions()).doReturn(Completable.complete())
-        whenever(repository.sessions).doReturn(Flowable.empty())
-        viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
-
-        viewModel.onCreate()
-
-        verify(repository).refreshSessions()
     }
 
 }
