@@ -34,7 +34,6 @@ dependencies {
     implementation project(':common')
 
     // Kotlin
-    implementation 'com.android.support:support-v4:27.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     // Retrofit
@@ -59,6 +58,7 @@ dependencies {
     kapt 'android.arch.persistence.room:compiler:1.0.0'
 
     // Support Library
+    implementation 'com.android.support:support-v4:27.0.1'
     implementation 'com.android.support:appcompat-v7:27.0.1'
     implementation 'com.android.support:design:27.0.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
@@ -68,15 +68,18 @@ dependencies {
     // DataBinding
     kapt "com.android.databinding:compiler:3.0.1"
 
-    // LeakCanary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-
     // Dagger
     implementation 'com.google.dagger:dagger:2.13'
     implementation 'com.google.dagger:dagger-android:2.13'
     implementation 'com.google.dagger:dagger-android-support:2.13'
     kapt 'com.google.dagger:dagger-compiler:2.13'
     kapt 'com.google.dagger:dagger-android-processor:2.13'
+
+    // LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
+    // Stetho
+    implementation 'com.facebook.stetho:stetho:1.5.0'
 
     // Test
     testImplementation 'junit:junit:4.12'

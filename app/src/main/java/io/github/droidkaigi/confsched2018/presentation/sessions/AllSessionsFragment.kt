@@ -14,11 +14,14 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var sessionsViewModel: AllSessionsViewModel
+
     private lateinit var binding: FragmentAllSessionsBinding
     private lateinit var adapter: SessionsAdapter
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val sessionsViewModel: AllSessionsViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,9 +32,9 @@ class AllSessionsFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sessionsViewModel = ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
+
         adapter = SessionsAdapter()
-        binding.sessions.adapter = adapter
+        binding.sessionsRecycler.adapter = adapter
 
         sessionsViewModel.sessions.observe(this, Observer { result ->
             when (result) {

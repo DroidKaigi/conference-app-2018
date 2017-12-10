@@ -21,6 +21,7 @@ class SessionsAdapter : RecyclerView.Adapter<SessionsAdapter.SessionViewHolder>(
     override fun onBindViewHolder(holder: SessionViewHolder?, position: Int) {
         val sessionViewHolder = holder!!
         sessionViewHolder.binding.session = sessions[position]
+        sessionViewHolder.binding.speakers.text = sessions[position].speakers.joinToString { it.name }
     }
 
     override fun getItemCount(): Int = sessions.size

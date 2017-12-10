@@ -8,7 +8,9 @@ import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.db.AppDatabase
-import io.github.droidkaigi.confsched2018.data.db.SessionDao
+import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
+import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
+import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import io.github.droidkaigi.confsched2018.data.repository.SessionDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.util.rx.AppSchedulerProvider
@@ -31,7 +33,7 @@ internal class AppModule {
                 .build()
         return Retrofit.Builder()
                 .client(httpClient)
-                .baseUrl("https://droidkaigi.github.io/2017/")
+                .baseUrl("https://sessionize.com/api/v2/rxafxyj8/view/")
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
@@ -42,10 +44,12 @@ internal class AppModule {
     @Provides
     fun provideSessionReposiotry(
             api: DroidKaigiApi,
-            dbDao: SessionDao,
+            sessionDbDao: SessionDao,
+            speakerDao: SpeakerDao,
+            sessionSpeakerJoinDao: SessionSpeakerJoinDao,
             schedulerProvider: SchedulerProvider
     ): SessionRepository =
-            SessionDataRepository(api, dbDao, schedulerProvider)
+            SessionDataRepository(api, sessionDbDao, speakerDao, sessionSpeakerJoinDao, schedulerProvider)
 
 
     @Singleton
@@ -56,6 +60,14 @@ internal class AppModule {
     @Singleton
     @Provides
     fun provideSessionsDao(db: AppDatabase): SessionDao = db.sessionDao()
+
+    @Singleton
+    @Provides
+    fun provideSpeakerDao(db: AppDatabase): SpeakerDao = db.speakerDao()
+
+    @Singleton
+    @Provides
+    fun provideSessionSpeakerJoinDao(db: AppDatabase): SessionSpeakerJoinDao = db.sessionSpeakerDao()
 
     @Singleton
     @Provides

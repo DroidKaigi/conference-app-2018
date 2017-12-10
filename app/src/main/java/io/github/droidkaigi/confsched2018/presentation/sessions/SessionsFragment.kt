@@ -1,6 +1,9 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -11,10 +14,14 @@ import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.presentation.Result
+import javax.inject.Inject
 
 class SessionsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSessionsBinding
     private lateinit var sessionsViewPagerAdapter: SessionsViewPagerAdapter
+    private lateinit var sessionsViewModel: SessionsViewModel
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,15 +35,17 @@ class SessionsFragment : Fragment(), Injectable {
         sessionsViewPagerAdapter = SessionsViewPagerAdapter(fragmentManager!!)
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
-        // TODO : Use api response for tabs
-        val rooms = arrayListOf(
-                Room("A"),
-                Room("B"),
-                Room("C"),
-                Room("D"),
-                Room("E")
-        )
-        sessionsViewPagerAdapter.setRooms(rooms)
+        sessionsViewModel = ViewModelProviders.of(this, viewModelFactory).get(SessionsViewModel::class.java)
+
+        sessionsViewModel.rooms.observe(this, Observer { result ->
+            when (result) {
+                is Result.Success -> {
+                    sessionsViewPagerAdapter.setRooms(result.data)
+                }
+            }
+        })
+        lifecycle.addObserver(sessionsViewModel)
+
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
 
     }
@@ -84,7 +93,7 @@ class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentState
 
     override fun getCount(): Int = tabs.size
 
-    fun setRooms(rooms: ArrayList<Room>) {
+    fun setRooms(rooms: List<Room>) {
         roomTabs = rooms.mapTo(arrayListOf()) {
             Tab.RoomTab(it)
         }

@@ -1,7 +1,8 @@
-package io.github.droidkaigi.confsched2018.data.db
+package io.github.droidkaigi.confsched2018.data.db.dao
 
 import android.arch.persistence.room.*
-import io.github.droidkaigi.confsched2018.data.entity.SessionEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
 import io.reactivex.Flowable
 
 
@@ -21,4 +22,7 @@ abstract class SessionDao {
         deleteAll()
         insert(newSessions)
     }
+
+    @Query("SELECT room_name FROM session GROUP BY room_name")
+    abstract fun getAllRoom(): Flowable<List<RoomEntity>>
 }
