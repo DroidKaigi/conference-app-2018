@@ -5,7 +5,6 @@ import com.squareup.leakcanary.LeakCanary
 class DebugApp : App() {
     override fun onCreate() {
         super.onCreate()
-
     }
 
     override fun setupLeakCanary() {

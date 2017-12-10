@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
-import android.util.Log
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionEntity
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionSpeakerJoinEntity
@@ -16,9 +15,9 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Flowable.just
 import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -37,13 +36,13 @@ class SessionDataRepository @Inject constructor(
             Flowables.combineLatest(
                     sessionSpeakerJoinDao.getAllSessions(),
                     speakerDao.getAllSpeaker(),
-                    Flowable.concat<List<Int>>(just(listOf()), favoriteDatabase.favorites),
+                    favoriteDatabase.favorites.onErrorReturn { listOf() },
                     { sessionEntities, speakerEntities, favList ->
                         sessionEntities.toSessions(speakerEntities, favList)
                     })
                     .subscribeOn(schedulerProvider.computation())
                     .doOnNext {
-                        Log.d("SessionDataRepository", "size:" + it.size + " current:" + System.currentTimeMillis())
+                        Timber.d("""size:${it.size} current:${System.currentTimeMillis()}""")
                     }
     override val roomSessions: Flowable<Map<Room, List<Session>>>
             = sessions.map { sessionList -> sessionList.groupBy { it.room } }

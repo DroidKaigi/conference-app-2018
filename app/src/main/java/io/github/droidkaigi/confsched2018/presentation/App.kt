@@ -1,21 +1,35 @@
 package io.github.droidkaigi.confsched2018.presentation
 
 import android.app.Activity
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
+import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.di.AppInjector
 import javax.inject.Inject
 
-open class App : Application(), HasActivityInjector {
+open class App : MultiDexApplication(), HasActivityInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
+        setupFirebase()
         setupLeakCanary()
         setupDagger()
         setupStetho()
+    }
+
+    private fun setupFirebase() {
+        if (!FirebaseApp.getApps(this).isEmpty()) {
+            val fireStore = FirebaseFirestore.getInstance()
+            val settings = FirebaseFirestoreSettings.Builder()
+                    .setPersistenceEnabled(true)
+                    .build()
+            fireStore.firestoreSettings = settings
+        }
     }
 
     private fun setupStetho() {

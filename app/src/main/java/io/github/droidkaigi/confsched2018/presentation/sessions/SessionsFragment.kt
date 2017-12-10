@@ -61,10 +61,6 @@ class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentState
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = arrayListOf<Tab.RoomTab>()
 
-    init {
-        setupTabs()
-    }
-
     sealed class Tab(val title: String) {
         object All : Tab("All")
         data class RoomTab(val room: Room) : Tab(room.name)
