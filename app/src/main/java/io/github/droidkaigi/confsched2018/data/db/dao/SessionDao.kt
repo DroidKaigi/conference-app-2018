@@ -8,7 +8,7 @@ import io.reactivex.Flowable
 
 @Dao abstract class SessionDao {
     @Query("SELECT * FROM session")
-    abstract fun getAllSession(): Flowable<List<SessionEntity>>
+    abstract fun getAllSessions(): Flowable<List<SessionEntity>>
 
     @Query("DELETE FROM session")
     abstract fun deleteAll()
