@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.databinding.RowSessionBinding
 import io.github.droidkaigi.confsched2018.model.Session
 
-class SessionsAdapter : RecyclerView.Adapter<SessionsAdapter.SessionViewHolder>() {
+class SessionsAdapter(private val onFavoriteClickListener: (Session) -> Unit = {}) : RecyclerView.Adapter<SessionsAdapter.SessionViewHolder>() {
     var sessions = listOf<Session>()
         set(value) {
             field = value
@@ -20,8 +20,13 @@ class SessionsAdapter : RecyclerView.Adapter<SessionsAdapter.SessionViewHolder>(
 
     override fun onBindViewHolder(holder: SessionViewHolder?, position: Int) {
         val sessionViewHolder = holder!!
-        sessionViewHolder.binding.session = sessions[position]
-        sessionViewHolder.binding.speakers.text = sessions[position].speakers.joinToString { it.name }
+        val session = sessions[position]
+        sessionViewHolder.binding.session = session
+        sessionViewHolder.binding.speakers.text = session.speakers.joinToString { it.name }
+        sessionViewHolder.binding.favorite.setOnClickListener {
+            onFavoriteClickListener(session)
+        }
+
     }
 
     override fun getItemCount(): Int = sessions.size

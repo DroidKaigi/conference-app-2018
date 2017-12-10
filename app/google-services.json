@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "639166715559",
+    "firebase_url": "https://droidkaigi-b701b.firebaseio.com",
+    "project_id": "droidkaigi-b701b",
+    "storage_bucket": "droidkaigi-b701b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639166715559:android:827b38a93b159b88",
+        "android_client_info": {
+          "package_name": "io.github.droidkaigi.confsched2018.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639166715559-5i9mhhvkvlqehn0ge0a8qun44nur99bd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOjQh4i3S2Ydg_yWCYOZ3aKvhyHFfGP68"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

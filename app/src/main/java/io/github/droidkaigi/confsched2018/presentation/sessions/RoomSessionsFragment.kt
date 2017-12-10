@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -12,6 +11,7 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentRoomSessionsBindin
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.ext.observe
 import javax.inject.Inject
 
 class RoomSessionsFragment : Fragment(), Injectable {
@@ -45,7 +45,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
 
 
         sessionsViewModel.roomName = roomName
-        sessionsViewModel.sessions.observe(this, Observer { result ->
+        sessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
                     adapter.sessions = result.data

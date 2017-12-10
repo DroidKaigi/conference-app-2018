@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -15,6 +14,7 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.ext.observe
 import javax.inject.Inject
 
 class SessionsFragment : Fragment(), Injectable {
@@ -37,7 +37,7 @@ class SessionsFragment : Fragment(), Injectable {
 
         sessionsViewModel = ViewModelProviders.of(this, viewModelFactory).get(SessionsViewModel::class.java)
 
-        sessionsViewModel.rooms.observe(this, Observer { result ->
+        sessionsViewModel.rooms.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
                     sessionsViewPagerAdapter.setRooms(result.data)

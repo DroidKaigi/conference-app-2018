@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.db.AppDatabase
+import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
+import io.github.droidkaigi.confsched2018.data.db.FavoriteFirebaseDatabase
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
@@ -45,10 +47,14 @@ internal class AppModule {
             sessionDbDao: SessionDao,
             speakerDao: SpeakerDao,
             sessionSpeakerJoinDao: SessionSpeakerJoinDao,
+            favoriteDatabase: FavoriteDatabase,
             schedulerProvider: SchedulerProvider
     ): SessionRepository =
-            SessionDataRepository(api, sessionDbDao, speakerDao, sessionSpeakerJoinDao, schedulerProvider)
+            SessionDataRepository(api, sessionDbDao, speakerDao, sessionSpeakerJoinDao, favoriteDatabase, schedulerProvider)
 
+    @Singleton @Provides
+    fun provideFavoriteDatabase(): FavoriteDatabase =
+            FavoriteFirebaseDatabase()
 
     @Singleton @Provides
     fun provideDb(app: Application): AppDatabase =

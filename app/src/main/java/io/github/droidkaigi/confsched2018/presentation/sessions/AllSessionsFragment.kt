@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -11,6 +10,7 @@ import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.ext.observe
 import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
@@ -32,13 +32,18 @@ class AllSessionsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter = SessionsAdapter()
+        adapter = SessionsAdapter({ session ->
+            sessionsViewModel.favorite(session)
+        })
         binding.sessionsRecycler.adapter = adapter
 
-        sessionsViewModel.sessions.observe(this, Observer { result ->
+        sessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
                     adapter.sessions = result.data
+                }
+                is Result.Failure -> {
+                    result.e.printStackTrace()
                 }
             }
         })

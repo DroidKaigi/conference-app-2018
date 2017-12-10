@@ -15,4 +15,5 @@
     <string name="my_item_setting">設定</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_description_favorite_button">Favorite button</string>
 </resources>
