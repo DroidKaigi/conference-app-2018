@@ -6,8 +6,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
 import io.reactivex.Flowable
 
 
-@Dao
-abstract class SessionDao {
+@Dao abstract class SessionDao {
     @Query("SELECT * FROM session")
     abstract fun getAllSession(): Flowable<List<SessionEntity>>
 
@@ -17,8 +16,7 @@ abstract class SessionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(sessions: List<SessionEntity>)
 
-    @Transaction
-    open fun clearAndInsert(newSessions: List<SessionEntity>) {
+    @Transaction open fun clearAndInsert(newSessions: List<SessionEntity>) {
         deleteAll()
         insert(newSessions)
     }

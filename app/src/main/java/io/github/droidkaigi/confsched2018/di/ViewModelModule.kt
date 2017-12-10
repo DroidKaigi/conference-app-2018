@@ -11,23 +11,18 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewM
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
 
-@Module
-abstract class ViewModelModule {
-    @Binds
-    @IntoMap
+@Module abstract class ViewModelModule {
+    @Binds @IntoMap
     @ViewModelKey(AllSessionsViewModel::class)
     abstract fun bindAllSessionsViewModel(allSessionsViewModel: AllSessionsViewModel): ViewModel
 
-    @Binds
-    @IntoMap
+    @Binds @IntoMap
     @ViewModelKey(SessionsViewModel::class)
     abstract fun bindSessionsViewModel(sessionsViewModel: SessionsViewModel): ViewModel
 
-    @Binds
-    @IntoMap
+    @Binds @IntoMap
     @ViewModelKey(RoomSessionsViewModel::class)
     abstract fun bindRoomSessionsViewModel(sessionsViewModel: RoomSessionsViewModel): ViewModel
 
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

@@ -24,8 +24,7 @@ import javax.inject.Singleton
 
 @Module(includes = arrayOf(ViewModelModule::class))
 internal class AppModule {
-    @Singleton
-    @Provides
+    @Singleton @Provides
     fun provideDroidKaigiService(): DroidKaigiApi {
         val httpClient = OkHttpClient
                 .Builder()
@@ -40,8 +39,7 @@ internal class AppModule {
                 .create<DroidKaigiApi>(DroidKaigiApi::class.java)
     }
 
-    @Singleton
-    @Provides
+    @Singleton @Provides
     fun provideSessionReposiotry(
             api: DroidKaigiApi,
             sessionDbDao: SessionDao,
@@ -52,25 +50,20 @@ internal class AppModule {
             SessionDataRepository(api, sessionDbDao, speakerDao, sessionSpeakerJoinDao, schedulerProvider)
 
 
-    @Singleton
-    @Provides
+    @Singleton @Provides
     fun provideDb(app: Application): AppDatabase =
             Room.databaseBuilder(app, AppDatabase::class.java, "droidkaigi.db").build()
 
-    @Singleton
-    @Provides
+    @Singleton @Provides
     fun provideSessionsDao(db: AppDatabase): SessionDao = db.sessionDao()
 
-    @Singleton
-    @Provides
+    @Singleton @Provides
     fun provideSpeakerDao(db: AppDatabase): SpeakerDao = db.speakerDao()
 
-    @Singleton
-    @Provides
+    @Singleton @Provides
     fun provideSessionSpeakerJoinDao(db: AppDatabase): SessionSpeakerJoinDao = db.sessionSpeakerDao()
 
-    @Singleton
-    @Provides
+    @Singleton @Provides
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
 
 }

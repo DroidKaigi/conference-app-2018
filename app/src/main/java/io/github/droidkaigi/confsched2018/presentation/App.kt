@@ -9,8 +9,7 @@ import io.github.droidkaigi.confsched2018.di.AppInjector
 import javax.inject.Inject
 
 open class App : Application(), HasActivityInjector {
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun onCreate() {
         super.onCreate()
@@ -20,7 +19,7 @@ open class App : Application(), HasActivityInjector {
     }
 
     private fun setupStetho() {
-        Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this)
     }
 
     open fun setupLeakCanary() {

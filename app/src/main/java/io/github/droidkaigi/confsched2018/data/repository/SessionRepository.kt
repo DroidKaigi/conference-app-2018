@@ -11,7 +11,6 @@ interface SessionRepository {
     val roomSessions: Flowable<Map<Room, List<Session>>>
     val rooms: Flowable<List<Room>>
 
-    @CheckResult
-    fun refreshSessions(): Completable
+    @CheckResult fun refreshSessions(): Completable
 
 }

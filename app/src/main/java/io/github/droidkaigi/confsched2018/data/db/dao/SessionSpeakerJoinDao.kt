@@ -9,10 +9,8 @@ import io.reactivex.Flowable
 import org.intellij.lang.annotations.Language
 
 
-@Dao
-abstract class SessionSpeakerJoinDao {
-    @Insert
-    abstract fun insert(sessionSpeakerJoin: List<SessionSpeakerJoinEntity>)
+@Dao abstract class SessionSpeakerJoinDao {
+    @Insert abstract fun insert(sessionSpeakerJoin: List<SessionSpeakerJoinEntity>)
 
     @Language("RoomSql")
     @Query("SELECT * FROM session")

@@ -17,8 +17,7 @@ class AllSessionsFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentAllSessionsBinding
     private lateinit var adapter: SessionsAdapter
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: AllSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
     }

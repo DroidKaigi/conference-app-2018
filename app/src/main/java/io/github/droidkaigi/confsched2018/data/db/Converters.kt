@@ -5,12 +5,10 @@ import java.util.*
 
 class Converters {
     companion object {
-        @JvmStatic
-        @TypeConverter
+        @JvmStatic @TypeConverter
         fun fromTimestamp(value: Long?): Date? = if (value == null) null else Date(value)
 
-        @JvmStatic
-        @TypeConverter
+        @JvmStatic @TypeConverter
         fun dateToTimestamp(date: Date?): Long? = date?.time
     }
 }

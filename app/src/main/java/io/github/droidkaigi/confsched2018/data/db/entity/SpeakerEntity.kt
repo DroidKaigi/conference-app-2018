@@ -7,8 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "speaker")
 class SpeakerEntity(
-        @PrimaryKey
-        var id: String,
+        @PrimaryKey var id: String,
         @ColumnInfo(name = "speaker_name")
         var name: String,
         @ColumnInfo(name = "speaker_image_url")
