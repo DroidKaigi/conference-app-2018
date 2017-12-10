@@ -8,6 +8,6 @@ data class SessionWithSpeakers(
         @Relation(
                 parentColumn = "id",
                 entityColumn = "sessionId",
-                projection = arrayOf("speakerId"),
+                projection = ["speakerId"],
                 entity = SessionSpeakerJoinEntity::class)
         var speakerIdList: List<String> = emptyList())

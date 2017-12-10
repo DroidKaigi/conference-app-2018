@@ -24,7 +24,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = arrayOf(ViewModelModule::class))
+@Module(includes = [(ViewModelModule::class)])
 internal class AppModule {
     @Singleton @Provides
     fun provideDroidKaigiService(): DroidKaigiApi {

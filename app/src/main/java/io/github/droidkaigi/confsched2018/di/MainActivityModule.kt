@@ -5,6 +5,6 @@ import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 
 @Module abstract class MainActivityModule {
-    @ContributesAndroidInjector(modules = arrayOf(FragmentBuildersModule::class))
+    @ContributesAndroidInjector(modules = [(FragmentBuildersModule::class)])
     abstract fun contributeMainActivity(): MainActivity
 }
