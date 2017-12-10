@@ -12,12 +12,12 @@ workflows:
     steps:
     - activate-ssh-key@3.1.1:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@3.5.2: {}
+    - git-clone@3.6.2: {}
     - cache-pull@1.0.0: {}
     - script@1.1.4:
         title: Do anything with Script step
     - install-missing-android-tools@2.0.5: {}
-    - gradle-runner@1.7.7:
+    - gradle-runner@1.8.0:
         inputs:
         - gradle_file: "$GRADLE_BUILD_FILE_PATH"
         - gradle_task: assembleRelease
@@ -28,12 +28,12 @@ workflows:
     steps:
     - activate-ssh-key@3.1.1:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@3.5.2: {}
+    - git-clone@3.6.2: {}
     - cache-pull@1.0.0: {}
     - script@1.1.4:
         title: Do anything with Script step
     - install-missing-android-tools@2.0.2: {}
-    - gradle-runner@1.7.7:
+    - gradle-runner@1.8.0:
         inputs:
         - gradle_file: "$GRADLE_BUILD_FILE_PATH"
         - gradle_task: assembleDebug testDebugUnitTest
