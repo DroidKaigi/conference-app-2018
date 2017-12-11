@@ -13,12 +13,13 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
-import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+    @Inject lateinit var navigationController: NavigationController
 
 
     private val binding: ActivityMainBinding by lazy {
@@ -50,14 +51,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->
             when (item.itemId) {
                 R.id.navigation_sessions -> {
-                    supportFragmentManager
-                            .beginTransaction()
-                            .disallowAddToBackStack()
-                            .replace(R.id.content, SessionsFragment.newInstance())
-                            .commit()
-
+                    navigationController.navigateToSessions()
                 }
                 R.id.navigation_search -> {
+                    navigationController.navigateToSearch()
                 }
                 R.id.navigation_my_sessions -> {
                 }

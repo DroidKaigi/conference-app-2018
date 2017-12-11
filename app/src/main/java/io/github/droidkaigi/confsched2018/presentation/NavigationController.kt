@@ -1,0 +1,33 @@
+package io.github.droidkaigi.confsched2018.presentation
+
+import android.support.v4.app.FragmentManager
+import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
+import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
+import javax.inject.Inject
+
+class NavigationController @Inject constructor(mainActivity: MainActivity) {
+    private val containerId: Int
+    private val fragmentManager: FragmentManager
+
+    init {
+        this.containerId = R.id.content
+        this.fragmentManager = mainActivity.supportFragmentManager
+    }
+
+    fun navigateToSessions() {
+        fragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(containerId, SessionsFragment.newInstance())
+                .commitAllowingStateLoss()
+    }
+
+    fun navigateToSearch() {
+        fragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(containerId, SearchFragment.newInstance())
+                .commitAllowingStateLoss()
+    }
+}
