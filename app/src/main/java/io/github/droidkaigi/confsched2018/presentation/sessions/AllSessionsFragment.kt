@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import timber.log.Timber
 import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
@@ -43,7 +44,7 @@ class AllSessionsFragment : Fragment(), Injectable {
                     adapter.sessions = result.data
                 }
                 is Result.Failure -> {
-                    result.e.printStackTrace()
+                    Timber.e(result.e)
                 }
             }
         })

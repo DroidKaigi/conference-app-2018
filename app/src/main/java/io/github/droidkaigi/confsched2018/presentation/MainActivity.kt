@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
+        supportActionBar!!.setHomeButtonEnabled(false) // disable the button
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false) // remove the left caret
+        supportActionBar!!.setDisplayShowHomeEnabled(false)
+
 
         setupBottomNavigation(savedInstanceState)
         setupNavigationDrawer()

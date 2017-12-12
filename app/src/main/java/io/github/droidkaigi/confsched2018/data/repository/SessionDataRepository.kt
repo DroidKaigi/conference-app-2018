@@ -10,8 +10,10 @@ import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSessions
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -44,6 +46,11 @@ class SessionDataRepository @Inject constructor(
                     .doOnNext {
                         Timber.d("""size:${it.size} current:${System.currentTimeMillis()}""")
                     }
+    override val speakers: Flowable<List<Speaker>> =
+            speakerDao.getAllSpeaker().map { speakers ->
+                speakers.map { speaker -> speaker.toSpeaker() }
+            }
+
     override val roomSessions: Flowable<Map<Room, List<Session>>>
             = sessions.map { sessionList -> sessionList.groupBy { it.room } }
 

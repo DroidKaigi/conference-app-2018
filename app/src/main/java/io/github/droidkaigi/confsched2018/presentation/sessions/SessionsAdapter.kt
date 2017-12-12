@@ -40,14 +40,14 @@ class SessionsAdapter(private val onFavoriteClickListener: (Session) -> Unit = {
     private fun diffCallback(old: List<Session>): DiffUtil.Callback {
         return object : DiffUtil.Callback() {
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                    sessions[oldItemPosition].id == sessions[newItemPosition].id
+                    old[oldItemPosition].id == sessions[newItemPosition].id
 
             override fun getOldListSize(): Int = old.size
 
             override fun getNewListSize(): Int = sessions.size
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                    sessions[oldItemPosition] == sessions[newItemPosition]
+                    old[oldItemPosition] == sessions[newItemPosition]
         }
     }
 

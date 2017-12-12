@@ -14,25 +14,25 @@ fun List<SessionWithSpeakers>.toSessions(speakerEntities: List<SpeakerEntity>, f
             Session(
                     id = sessionEntity.session!!.id,
                     title = sessionEntity.session!!.title,
+                    desc = sessionEntity.session!!.desc,
                     isFavorited = favList!!.map { it.toString() }.contains(sessionEntity.session!!.id),
                     format = sessionEntity.session!!.sessionFormat,
                     room = Room(sessionEntity.session!!.room.name),
                     speakers = sessionEntity.speakerIdList.mapTo(arrayListOf<Speaker>()) { speakerId ->
                         val speakerEntity = speakerEntities.first { it.id == speakerId }
-                        Speaker(
-                                name = speakerEntity.name,
-                                imageUrl = speakerEntity.imageUrl,
-                                twitterName = speakerEntity.twitterName,
-                                githubName = speakerEntity.githubName
-                        )
-
+                        speakerEntity.toSpeaker()
                     }
             )
 
         }
 
-fun Flowable<List<RoomEntity>>.toRooms(): Flowable<List<Room>> {
-    return map { roomEntities ->
-        roomEntities.map { Room(it.name) }
-    }
+fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
+        name = name,
+        imageUrl = imageUrl,
+        twitterName = twitterName,
+        githubName = githubName
+)
+
+fun Flowable<List<RoomEntity>>.toRooms(): Flowable<List<Room>> = map { roomEntities ->
+    roomEntities.map { Room(it.name) }
 }

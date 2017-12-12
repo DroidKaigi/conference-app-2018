@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import io.github.droidkaigi.confsched2018.presentation.search.SearchViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
@@ -23,6 +24,11 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     @Binds @IntoMap
     @ViewModelKey(RoomSessionsViewModel::class)
     abstract fun bindRoomSessionsViewModel(sessionsViewModel: RoomSessionsViewModel): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

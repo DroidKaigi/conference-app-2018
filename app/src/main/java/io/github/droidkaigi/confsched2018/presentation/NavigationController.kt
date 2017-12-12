@@ -18,7 +18,6 @@ class NavigationController @Inject constructor(mainActivity: MainActivity) {
     fun navigateToSessions() {
         fragmentManager
                 .beginTransaction()
-                .addToBackStack(null)
                 .replace(containerId, SessionsFragment.newInstance())
                 .commitAllowingStateLoss()
     }
@@ -26,7 +25,6 @@ class NavigationController @Inject constructor(mainActivity: MainActivity) {
     fun navigateToSearch() {
         fragmentManager
                 .beginTransaction()
-                .addToBackStack(null)
                 .replace(containerId, SearchFragment.newInstance())
                 .commitAllowingStateLoss()
     }

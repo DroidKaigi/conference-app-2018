@@ -5,7 +5,6 @@ import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 fun <T> Flowable<T>.toResult(schedulerProvider: SchedulerProvider): Flowable<Result<T>> =
@@ -17,10 +16,10 @@ fun <T> Flowable<T>.toResult(schedulerProvider: SchedulerProvider): Flowable<Res
                     .startWith(Result.inProgress())
         }
 
-fun <T> Single<T>.toResult(): Observable<Result<T>> =
+fun <T> Single<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> =
         compose { item ->
             item
                     .map { Result.success(it) }
                     .onErrorReturn { e -> Result.failure(e.message ?: "unknown", e) }
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .observeOn(schedulerProvider.ui())
         }.toObservable().startWith(Result.inProgress())

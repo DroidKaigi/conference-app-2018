@@ -23,6 +23,7 @@ fun List<Session>?.toSessionEntity(categories: List<Category>?, rooms: List<io.g
         this!!.mapTo(arrayListOf()) { responseSession ->
             SessionEntity(id = responseSession.id!!,
                     title = responseSession.title!!,
+                    desc = responseSession.description!!,
                     sessionFormat = categories.categoryValueName(0, responseSession.categoryItems!![0]),
                     room = RoomEntity(rooms.roomName(responseSession.roomId))
             )

@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.di.AppInjector
+import timber.log.Timber
 import javax.inject.Inject
 
 open class App : MultiDexApplication(), HasActivityInjector {
@@ -16,10 +17,15 @@ open class App : MultiDexApplication(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        setupTimber()
         setupFirebase()
         setupLeakCanary()
         setupDagger()
         setupStetho()
+    }
+
+    private fun setupTimber() {
+        Timber.plant(Timber.DebugTree())
     }
 
     private fun setupFirebase() {
