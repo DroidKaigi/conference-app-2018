@@ -34,5 +34,4 @@ class RoomSessionsViewModel @Inject constructor(
         compositeDisposable.clear()
     }
 
-
 }

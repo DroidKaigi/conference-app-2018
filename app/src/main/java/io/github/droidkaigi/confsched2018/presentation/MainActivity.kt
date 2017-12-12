@@ -15,12 +15,10 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
 import javax.inject.Inject
 
-
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     @Inject lateinit var navigationController: NavigationController
-
 
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
@@ -40,10 +38,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
-        supportActionBar!!.setHomeButtonEnabled(false) // disable the button
-        supportActionBar!!.setDisplayHomeAsUpEnabled(false) // remove the left caret
-        supportActionBar!!.setDisplayShowHomeEnabled(false)
-
 
         setupBottomNavigation(savedInstanceState)
         setupNavigationDrawer()
@@ -110,8 +104,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
     }
 
-
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
-
 
 }

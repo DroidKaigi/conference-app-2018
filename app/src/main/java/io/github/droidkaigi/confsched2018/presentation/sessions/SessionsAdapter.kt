@@ -51,5 +51,4 @@ class SessionsAdapter(private val onFavoriteClickListener: (Session) -> Unit = {
         }
     }
 
-
 }

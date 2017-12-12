@@ -10,7 +10,6 @@ interface FavoriteDatabase {
     @get:CheckResult
     val favorites: Flowable<List<Int>>
 
-
     @CheckResult
     fun favorite(session: Session): Single<Boolean>
 }

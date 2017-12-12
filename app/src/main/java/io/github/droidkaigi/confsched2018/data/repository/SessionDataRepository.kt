@@ -22,7 +22,6 @@ import io.reactivex.rxkotlin.Flowables
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class SessionDataRepository @Inject constructor(
         private val api: DroidKaigiApi,
         private val sessionDao: SessionDao,
@@ -54,7 +53,6 @@ class SessionDataRepository @Inject constructor(
     override val roomSessions: Flowable<Map<Room, List<Session>>>
             = sessions.map { sessionList -> sessionList.groupBy { it.room } }
 
-
     override fun favorite(session: Session): Single<Boolean> = favoriteDatabase.favorite(session)
 
     override fun refreshSessions(): Completable {
@@ -68,6 +66,5 @@ class SessionDataRepository @Inject constructor(
                 .toCompletable()
     }
 }
-
 
 

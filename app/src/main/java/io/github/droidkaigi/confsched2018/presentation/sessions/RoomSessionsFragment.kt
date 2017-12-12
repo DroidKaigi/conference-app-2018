@@ -29,20 +29,17 @@ class RoomSessionsFragment : Fragment(), Injectable {
         roomName = arguments!!.getString(ARG_ROOM_NAME)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentRoomSessionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = SessionsAdapter()
         binding.sessionsRecycler.adapter = adapter
-
 
         sessionsViewModel.roomName = roomName
         sessionsViewModel.sessions.observe(this, { result ->

@@ -16,7 +16,6 @@
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_my_sessions" />
 
-
     <item
         android:id="@+id/navigation_notification"
         android:icon="@drawable/ic_notifications_black_24dp"

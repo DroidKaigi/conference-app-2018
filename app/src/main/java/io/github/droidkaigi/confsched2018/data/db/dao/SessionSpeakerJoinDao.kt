@@ -9,7 +9,6 @@ import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.reactivex.Flowable
 import org.intellij.lang.annotations.Language
 
-
 @Dao abstract class SessionSpeakerJoinDao {
     @Insert abstract fun insert(sessionSpeakerJoin: List<SessionSpeakerJoinEntity>)
 

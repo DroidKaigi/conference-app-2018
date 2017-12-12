@@ -13,7 +13,6 @@ import io.reactivex.android.MainThreadDisposable
 
 class FavoriteFirebaseDatabase : FavoriteDatabase {
 
-
     private var isInitialized = false
 
     @CheckResult
@@ -70,7 +69,6 @@ class FavoriteFirebaseDatabase : FavoriteDatabase {
         }
     }
 
-
     @get:CheckResult
     override val favorites: Flowable<List<Int>> = getCurrentUser()
             .flatMap { return@flatMap setupFavoritesDocument(it) }
@@ -120,7 +118,6 @@ class FavoriteFirebaseDatabase : FavoriteDatabase {
                 } else {
                     e.onNext(listOf())
                 }
-
 
             })
 

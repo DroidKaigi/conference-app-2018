@@ -8,16 +8,16 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.reactivex.Flowable
 
-
 fun List<SessionWithSpeakers>.toSessions(speakerEntities: List<SpeakerEntity>, favList: List<Int>?): List<Session> =
         mapTo(arrayListOf<Session>()) { sessionEntity ->
+            val session = sessionEntity.session!!
             Session(
-                    id = sessionEntity.session!!.id,
-                    title = sessionEntity.session!!.title,
-                    desc = sessionEntity.session!!.desc,
-                    isFavorited = favList!!.map { it.toString() }.contains(sessionEntity.session!!.id),
-                    format = sessionEntity.session!!.sessionFormat,
-                    room = Room(sessionEntity.session!!.room.name),
+                    id = session.id,
+                    title = session.title,
+                    desc = session.desc,
+                    isFavorited = favList!!.map { it.toString() }.contains(session.id),
+                    format = session.sessionFormat,
+                    room = Room(session.room.name),
                     speakers = sessionEntity.speakerIdList.mapTo(arrayListOf<Speaker>()) { speakerId ->
                         val speakerEntity = speakerEntities.first { it.id == speakerId }
                         speakerEntity.toSpeaker()

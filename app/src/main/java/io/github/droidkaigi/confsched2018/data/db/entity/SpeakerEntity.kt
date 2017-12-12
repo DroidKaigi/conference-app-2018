@@ -4,7 +4,6 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
-
 @Entity(tableName = "speaker")
 class SpeakerEntity(
         @PrimaryKey var id: String,

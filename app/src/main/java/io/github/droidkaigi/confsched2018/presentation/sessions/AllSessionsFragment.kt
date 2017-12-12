@@ -29,7 +29,6 @@ class AllSessionsFragment : Fragment(), Injectable {
         return binding.root
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

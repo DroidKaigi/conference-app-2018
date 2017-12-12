@@ -6,7 +6,6 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-
 fun <T> Flowable<T>.toResult(schedulerProvider: SchedulerProvider): Flowable<Result<T>> =
         compose { item ->
             item

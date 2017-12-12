@@ -23,7 +23,6 @@ class SessionsViewModel @Inject constructor(
     }
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         repository
@@ -36,6 +35,5 @@ class SessionsViewModel @Inject constructor(
         super.onCleared()
         compositeDisposable.clear()
     }
-
 
 }

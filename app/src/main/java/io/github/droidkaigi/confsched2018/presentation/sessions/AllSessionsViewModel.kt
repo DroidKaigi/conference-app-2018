@@ -25,7 +25,6 @@ class AllSessionsViewModel @Inject constructor(
     }
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-
     fun favorite(session: Session) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
         favoriteSingle.subscribe().addTo(compositeDisposable)

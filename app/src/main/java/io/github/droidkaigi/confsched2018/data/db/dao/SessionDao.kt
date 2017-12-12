@@ -5,7 +5,6 @@ import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
 import io.reactivex.Flowable
 
-
 @Dao abstract class SessionDao {
     @Query("SELECT * FROM session")
     abstract fun getAllSessions(): Flowable<List<SessionEntity>>

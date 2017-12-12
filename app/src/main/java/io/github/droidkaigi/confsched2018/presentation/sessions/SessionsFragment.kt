@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
-
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle

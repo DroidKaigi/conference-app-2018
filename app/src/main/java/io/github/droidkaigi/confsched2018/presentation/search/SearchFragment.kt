@@ -16,7 +16,6 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class SearchFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSearchBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -24,7 +23,6 @@ class SearchFragment : Fragment(), Injectable {
     private val searchViewModel: SearchViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +33,6 @@ class SearchFragment : Fragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
         (activity!! as AppCompatActivity).supportActionBar!!.title = ""
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -71,10 +68,7 @@ class SearchFragment : Fragment(), Injectable {
         val searchView = menuSearchItem.actionView as SearchView
         searchView.isIconified = false
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchViewModel.onQuery(query.orEmpty())
-                return false
-            }
+            override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 searchViewModel.onQuery(newText.orEmpty())
@@ -82,9 +76,7 @@ class SearchFragment : Fragment(), Injectable {
             }
         })
 
-
     }
-
 
     companion object {
         fun newInstance(): SearchFragment = SearchFragment()

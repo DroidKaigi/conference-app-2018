@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.di
 
-
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
