@@ -27,6 +27,8 @@ android {
             applicationIdSuffix ".debug"
         }
         release {
+            // TODO: Remove this line before release
+            applicationIdSuffix ".debug"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -41,7 +43,7 @@ kapt {
 }
 
 dependencies {
-    implementation project(':common')
+    implementation project(':common-jvm')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -90,6 +92,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:11.6.2'
     implementation 'com.google.firebase:firebase-auth:11.6.2'
 
+    // ThreeTenABP for JSR-310 backport
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+
+    // groupie for RecyclerView Adapter
+    implementation 'com.xwray:groupie-databinding:2.0.0-alpha2'
+
     // MultiDex
     implementation 'com.android.support:multidex:1.0.2'
 
@@ -101,6 +109,11 @@ dependencies {
 
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.4.0'
+    kapt 'com.github.bumptech.glide:compiler:4.4.0'
 
     // Test
     testImplementation 'junit:junit:4.12'

@@ -31,7 +31,7 @@ class SessionsFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionsViewPagerAdapter = SessionsViewPagerAdapter(fragmentManager!!)
+        sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager)
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
         sessionsViewModel = ViewModelProviders.of(this, viewModelFactory).get(SessionsViewModel::class.java)
@@ -58,7 +58,7 @@ class SessionsFragment : Fragment(), Injectable {
 class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
     private val tabs = arrayListOf<Tab>()
-    private var roomTabs = arrayListOf<Tab.RoomTab>()
+    private var roomTabs = mutableListOf<Tab.RoomTab>()
 
     sealed class Tab(val title: String) {
         object All : Tab("All")
@@ -89,9 +89,9 @@ class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentState
     override fun getCount(): Int = tabs.size
 
     fun setRooms(rooms: List<Room>) {
-        roomTabs = rooms.mapTo(arrayListOf()) {
+        roomTabs = rooms.map {
             Tab.RoomTab(it)
-        }
+        }.toMutableList()
         setupTabs()
     }
 

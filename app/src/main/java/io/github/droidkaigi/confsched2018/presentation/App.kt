@@ -2,12 +2,12 @@ package io.github.droidkaigi.confsched2018.presentation
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.os.Process
 import android.support.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.di.AppInjector
@@ -22,6 +22,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
         super.onCreate()
         setupTimber()
         setupFirebase()
+        setupThreeTenABP()
         setupLeakCanary()
         setupDagger()
         setupStetho()
@@ -32,7 +33,6 @@ open class App : MultiDexApplication(), HasActivityInjector {
     }
 
     private fun setupFirebase() {
-        Timber.d("pid:%s", Process.myPid())
         if (!FirebaseApp.getApps(this).isEmpty()) {
             val fireStore = FirebaseFirestore.getInstance()
             val settings = FirebaseFirestoreSettings.Builder()
@@ -40,6 +40,10 @@ open class App : MultiDexApplication(), HasActivityInjector {
                     .build()
             fireStore.firestoreSettings = settings
         }
+    }
+
+    private fun setupThreeTenABP() {
+        AndroidThreeTen.init(this)
     }
 
     private fun setupStetho() {

@@ -20,19 +20,23 @@ fun List<Session>?.toSessionSpeakerJoinEntity(): List<SessionSpeakerJoinEntity> 
 }
 
 fun List<Session>?.toSessionEntity(categories: List<Category>?, rooms: List<io.github.droidkaigi.confsched2018.data.api.response.Room>?): List<SessionEntity> =
-        this!!.mapTo(arrayListOf()) { responseSession ->
-            SessionEntity(id = responseSession.id!!,
+        this!!.map { responseSession ->
+            SessionEntity(
+                    id = responseSession.id!!,
                     title = responseSession.title!!,
                     desc = responseSession.description!!,
+                    stime = responseSession.startsAt!!,
+                    etime = responseSession.endsAt!!,
                     sessionFormat = categories.categoryValueName(0, responseSession.categoryItems!![0]),
                     room = RoomEntity(rooms.roomName(responseSession.roomId))
             )
         }
 
 fun List<Speaker>?.toSpeakerEntity(): List<SpeakerEntity> =
-        this!!.mapTo(arrayListOf()) { responseSpeaker ->
+        this!!.map { responseSpeaker ->
             SpeakerEntity(id = responseSpeaker.id!!,
-                    name = responseSpeaker.fullName!!
+                    name = responseSpeaker.fullName!!,
+                    imageUrl = responseSpeaker.profilePicture.orEmpty()
             )
         }
 

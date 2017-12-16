@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionSpeakerJoinEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
 
 @Database(entities = [(SessionEntity::class), (SpeakerEntity::class), (SessionSpeakerJoinEntity::class)], version = 1)
 @TypeConverters(Converters::class)

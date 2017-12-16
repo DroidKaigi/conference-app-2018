@@ -5,11 +5,13 @@ import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.ForeignKey.CASCADE
 
 @Entity(tableName = "session_speaker_join", primaryKeys = ["sessionId", "speakerId"],
-        foreignKeys = [(ForeignKey(
+        foreignKeys = [
+            (ForeignKey(
                 entity = SessionEntity::class,
                 parentColumns = arrayOf("id"),
                 childColumns = arrayOf("sessionId"),
-                onDelete = CASCADE)), (ForeignKey(
+                    onDelete = CASCADE)),
+            (ForeignKey(
                 entity = SpeakerEntity::class,
                 parentColumns = arrayOf("id"),
                 childColumns = arrayOf("speakerId"),

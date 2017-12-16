@@ -6,22 +6,31 @@ import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.Speaker
+import io.github.droidkaigi.confsched2018.model.parseDate
 import io.reactivex.Flowable
+import org.threeten.bp.ZoneId
 
 fun List<SessionWithSpeakers>.toSessions(speakerEntities: List<SpeakerEntity>, favList: List<Int>?): List<Session> =
-        mapTo(arrayListOf<Session>()) { sessionEntity ->
-            val session = sessionEntity.session!!
+        map { sessionWithSpeaker ->
+            val session = sessionWithSpeaker.session!!
+            require(!sessionWithSpeaker.speakerIdList.isEmpty())
+            val speakers = sessionWithSpeaker.speakerIdList.map { speakerId ->
+                val speakerEntity = speakerEntities.first { it.id == speakerId }
+                speakerEntity.toSpeaker()
+            }
+            require(!speakers.isEmpty())
             Session(
                     id = session.id,
                     title = session.title,
                     desc = session.desc,
+                    startTime = parseDate(session.stime.atZone(ZoneId.systemDefault())
+                            .toInstant().toEpochMilli()),
+                    endTime = parseDate(session.etime.atZone(ZoneId.systemDefault())
+                            .toInstant().toEpochMilli()),
                     isFavorited = favList!!.map { it.toString() }.contains(session.id),
                     format = session.sessionFormat,
                     room = Room(session.room.name),
-                    speakers = sessionEntity.speakerIdList.mapTo(arrayListOf<Speaker>()) { speakerId ->
-                        val speakerEntity = speakerEntities.first { it.id == speakerId }
-                        speakerEntity.toSpeaker()
-                    }
+                    speakers = speakers
             )
 
         }

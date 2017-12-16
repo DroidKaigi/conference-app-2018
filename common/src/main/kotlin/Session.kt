@@ -1,14 +1,12 @@
 package io.github.droidkaigi.confsched2018.model
 
-import java.util.*
-
 data class Session(
         // FIXME: delete unused default values
         var id: String,
         var title: String,
         var desc: String = "",
-        var stime: Date = Date(0),
-        var etime: Date = Date(0),
+        var startTime: Date = Date(),
+        var endTime: Date = Date(),
         var durationMin: Int = 0,
         var type: String = "",
         var topic: Topic = Topic("", ""),

@@ -18,14 +18,15 @@ class AllSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
     val sessions: LiveData<Result<List<Session>>> by lazy {
         repository.sessions
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    fun favorite(session: Session) {
+    fun onFavoriteClick(session: Session) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
         favoriteSingle.subscribe().addTo(compositeDisposable)
     }

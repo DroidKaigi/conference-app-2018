@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.util.rx;
+package io.github.droidkaigi.confsched2018.util.rx
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

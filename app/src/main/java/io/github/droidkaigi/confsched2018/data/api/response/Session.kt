@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.api.response
 
 import com.google.gson.annotations.SerializedName
+import org.threeten.bp.LocalDateTime
 
 data class Session(
         @SerializedName("id")
@@ -14,11 +15,11 @@ data class Session(
         @SerializedName("description")
         val description: String? = null,
         @SerializedName("startsAt")
-        val startsAt: String? = null,
+        val startsAt: LocalDateTime? = null,
         @SerializedName("title")
         val title: String? = null,
         @SerializedName("endsAt")
-        val endsAt: String? = null,
+        val endsAt: LocalDateTime? = null,
         @SerializedName("roomId")
         val roomId: Int? = null,
         @SerializedName("categoryItems")
