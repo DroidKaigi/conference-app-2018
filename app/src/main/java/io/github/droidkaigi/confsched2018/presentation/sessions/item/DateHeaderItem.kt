@@ -20,8 +20,8 @@ data class ReadableDateTimePair(val date: String, val time: String) : Comparable
     override fun compareTo(other: ReadableDateTimePair): Int {
         if (date > other.date) return 1
         if (date < other.date) return -1
-        if (time < other.time) return 1
-        if (time > other.time) return -1
+        if (time > other.time) return 1
+        if (time < other.time) return -1
         return 0
 
     }
