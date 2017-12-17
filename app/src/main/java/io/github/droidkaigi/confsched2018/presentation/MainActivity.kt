@@ -3,11 +3,9 @@ package io.github.droidkaigi.confsched2018.presentation
 import android.annotation.SuppressLint
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.internal.BottomNavigationItemView
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.ViewGroup
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -55,6 +53,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                     navigationController.navigateToSearch()
                 }
                 R.id.navigation_my_sessions -> {
+                    navigationController.navigateToFavoriteSessions()
                 }
 
                 R.id.navigation_notification -> {
@@ -66,26 +65,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         if (savedInstanceState == null) {
             binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
         }
-
-        // for disable shifting mode
-        val bottomNavigationMenuView: ViewGroup = binding.bottomNavigation.getChildAt(0) as ViewGroup
-
-        bottomNavigationMenuView.javaClass
-                .declaredFields
-                .filter { it.name == "mShiftingMode" }
-                .map {
-                    it.isAccessible = true
-                    it.setBoolean(bottomNavigationMenuView, false)
-                }
-
-        (0 until bottomNavigationMenuView.childCount)
-                .mapNotNull { bottomNavigationMenuView.getChildAt(it) as? BottomNavigationItemView }
-                .forEach {
-                    it.apply {
-                        setShiftingMode(false)
-                        setChecked(false)
-                    }
-                }
     }
 
     private fun setupNavigationDrawer() {

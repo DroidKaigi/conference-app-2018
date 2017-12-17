@@ -20,4 +20,9 @@
     <!-- Session -->
     <string name="day1">DAY1</string>
     <string name="day2">DAY2</string>
+
+    <!-- Search-->
+    <string name="search_before_tab_session">セッション</string>
+    <string name="search_before_tab_topic">トピック</string>
+    <string name="search_before_tab_user">ユーザー</string>
 </resources>
