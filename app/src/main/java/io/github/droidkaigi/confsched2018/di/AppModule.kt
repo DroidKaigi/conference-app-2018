@@ -6,13 +6,17 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
+import io.github.droidkaigi.confsched2018.data.api.FeedApi
+import io.github.droidkaigi.confsched2018.data.api.FeedFireStoreApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeSerializer
 import io.github.droidkaigi.confsched2018.data.db.AppDatabase
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
-import io.github.droidkaigi.confsched2018.data.db.FavoriteFirebaseDatabase
+import io.github.droidkaigi.confsched2018.data.db.FavoriteFireStoreDatabase
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
+import io.github.droidkaigi.confsched2018.data.repository.FeedDataRepository
+import io.github.droidkaigi.confsched2018.data.repository.FeedRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.util.rx.AppSchedulerProvider
@@ -27,6 +31,26 @@ import javax.inject.Singleton
 
 @Module(includes = [(ViewModelModule::class)])
 internal class AppModule {
+
+    @Singleton @Provides
+    fun provideSessionReposiotry(
+            api: DroidKaigiApi,
+            appDatabase: AppDatabase,
+            sessionDbDao: SessionDao,
+            speakerDao: SpeakerDao,
+            sessionSpeakerJoinDao: SessionSpeakerJoinDao,
+            favoriteDatabase: FavoriteDatabase,
+            schedulerProvider: SchedulerProvider
+    ): SessionRepository =
+            SessionDataRepository(api, appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao, favoriteDatabase, schedulerProvider)
+
+    @Singleton @Provides
+    fun provideFeedReposiotry(
+            feedApi: FeedApi,
+            schedulerProvider: SchedulerProvider
+    ): FeedRepository =
+            FeedDataRepository(feedApi, schedulerProvider)
+
     @Singleton @Provides
     fun provideDroidKaigiService(): DroidKaigiApi {
         val httpClient = OkHttpClient
@@ -45,21 +69,13 @@ internal class AppModule {
                 .create<DroidKaigiApi>(DroidKaigiApi::class.java)
     }
 
+
     @Singleton @Provides
-    fun provideSessionReposiotry(
-            api: DroidKaigiApi,
-            appDatabase: AppDatabase,
-            sessionDbDao: SessionDao,
-            speakerDao: SpeakerDao,
-            sessionSpeakerJoinDao: SessionSpeakerJoinDao,
-            favoriteDatabase: FavoriteDatabase,
-            schedulerProvider: SchedulerProvider
-    ): SessionRepository =
-            SessionDataRepository(api, appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao, favoriteDatabase, schedulerProvider)
+    fun provideFeedApi(): FeedApi = FeedFireStoreApi()
 
     @Singleton @Provides
     fun provideFavoriteDatabase(): FavoriteDatabase =
-            FavoriteFirebaseDatabase()
+            FavoriteFireStoreDatabase()
 
     @Singleton @Provides
     fun provideDb(app: Application): AppDatabase =

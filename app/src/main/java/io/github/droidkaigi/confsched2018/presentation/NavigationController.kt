@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation
 
 import android.support.v4.app.FragmentManager
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
 import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
@@ -34,6 +35,13 @@ class NavigationController @Inject constructor(mainActivity: MainActivity) {
         fragmentManager
                 .beginTransaction()
                 .replace(containerId, FavoriteSessionsFragment.newInstance())
+                .commitAllowingStateLoss()
+    }
+
+    fun navigateToFeed() {
+        fragmentManager
+                .beginTransaction()
+                .replace(containerId, FeedFragment.newInstance())
                 .commitAllowingStateLoss()
     }
 }

@@ -6,7 +6,7 @@ import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
-import io.github.droidkaigi.confsched2018.presentation.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import java.util.*
 
 class DateSessionsGroup(val dataBindingComponent: FragmentDataBindingComponent) : UpdatingGroup() {
@@ -18,7 +18,8 @@ class DateSessionsGroup(val dataBindingComponent: FragmentDataBindingComponent) 
             SessionItem(it, onFavoriteClickListener, dataBindingComponent)
         }
 
-        val dateSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>> = sessionItems.groupBy {
+        val dateSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>>
+                = sessionItems.groupBy {
             ReadableDateTimePair(it.session.startTime.toReadableDateString(),
                     it.session.startTime.toReadableTimeString())
         }.toSortedMap()
@@ -35,10 +36,19 @@ class DateSessionsGroup(val dataBindingComponent: FragmentDataBindingComponent) 
     }
 
     fun getDateFromPositionOrNull(firstItemPosition: Int): Date? {
-        var item = getItem(firstItemPosition)
-        item = item as? SessionItem ?: getItem(firstItemPosition + 1)
+        if (firstItemPosition < 0) return null
+
+        var item = getItemOrNull(firstItemPosition) ?: return null
+        item = item as? SessionItem ?: getItemOrNull(firstItemPosition + 1) ?: return null
         item as? SessionItem ?: return null
 
         return item.session.startTime
+    }
+
+    private fun getItemOrNull(i: Int): Item<*>? {
+        if (itemCount <= i) {
+            return null
+        }
+        return getItem(i)
     }
 }

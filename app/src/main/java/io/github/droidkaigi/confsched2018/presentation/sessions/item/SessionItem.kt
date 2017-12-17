@@ -8,7 +8,7 @@ import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSessionBinding
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.presentation.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 
 data class SessionItem(

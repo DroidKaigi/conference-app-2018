@@ -13,7 +13,7 @@ import io.reactivex.*
 import io.reactivex.android.MainThreadDisposable
 import timber.log.Timber
 
-class FavoriteFirebaseDatabase : FavoriteDatabase {
+class FavoriteFireStoreDatabase : FavoriteDatabase {
 
     private var isInitialized = false
 

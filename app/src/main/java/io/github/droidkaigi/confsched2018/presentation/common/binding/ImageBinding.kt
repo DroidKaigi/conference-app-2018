@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.binding
+package io.github.droidkaigi.confsched2018.presentation.common.binding
 
 import android.databinding.BindingMethod
 import android.databinding.BindingMethods

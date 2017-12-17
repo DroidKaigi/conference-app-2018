@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import io.github.droidkaigi.confsched2018.presentation.feed.FeedViewModel
 import io.github.droidkaigi.confsched2018.presentation.search.SearchViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.FavoriteSessionsViewModel
@@ -32,6 +33,11 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     @Binds @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(FeedViewModel::class)
+    abstract fun bindFeedViewModel(searchViewModel: FeedViewModel): ViewModel
+
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

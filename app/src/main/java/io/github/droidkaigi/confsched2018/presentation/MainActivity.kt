@@ -55,11 +55,13 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 R.id.navigation_my_sessions -> {
                     navigationController.navigateToFavoriteSessions()
                 }
-
                 R.id.navigation_notification -> {
+                    navigationController.navigateToFeed()
                 }
                 else -> throw NotImplementedError()
             }
+            supportActionBar?.title = item.title
+
             true
         })
         if (savedInstanceState == null) {
