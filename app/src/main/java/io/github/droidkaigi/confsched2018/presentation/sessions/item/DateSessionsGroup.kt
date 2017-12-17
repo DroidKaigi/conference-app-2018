@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
 import com.xwray.groupie.Item
 import com.xwray.groupie.UpdatingGroup
+import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
@@ -31,5 +32,13 @@ class DateSessionsGroup(val dataBindingComponent: FragmentDataBindingComponent) 
             dateSessions.addAll(list?.toMutableList().orEmpty())
         }
         update(dateSessions)
+    }
+
+    fun getDateFromPositionOrNull(firstItemPosition: Int): Date? {
+        var item = getItem(firstItemPosition)
+        item = item as? SessionItem ?: getItem(firstItemPosition + 1)
+        item as? SessionItem ?: return null
+
+        return item.session.startTime
     }
 }

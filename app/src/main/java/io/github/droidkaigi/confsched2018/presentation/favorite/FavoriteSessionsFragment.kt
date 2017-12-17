@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -22,9 +21,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.binding.FragmentDataBindingComponent
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateHeaderItem
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.SessionItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -101,44 +98,42 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
         binding.sessionsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val transitionSet = TransitionSet()
-                        .addTransition(Fade(Fade.OUT).setStartDelay(400))
-                        .addTransition(Fade(Fade.IN))
-                        .excludeTarget(binding.sessionsRecycler, true)
-                TransitionManager
-                        .beginDelayedTransition(
-                                binding.sessionsConstraintLayout,
-                                transitionSet)
-                when (newState) {
-                    AbsListView.OnScrollListener.SCROLL_STATE_IDLE -> {
-                        dayInvisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
-                    }
-                    else -> {
-                        dayVisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
-                    }
-                }
+                val visibleDayHeader = newState == RecyclerView.SCROLL_STATE_IDLE
+                setDayHeaderVisibility(visibleDayHeader)
             }
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val firstItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                var item = groupAdapter.getItem(firstItemPosition)
-                item = item as? DateHeaderItem ?: groupAdapter.getItem(firstItemPosition + 1)
-                when (item) {
-                    is SessionItem -> {
-                        val dayTitle = if (item.session.startTime.getDate() == 2) {
-                            getString(R.string.day1)
-                        } else {
-                            getString(R.string.day2)
-                        }
-                        // Prevent requestLayout()
-                        if (dayTitle != binding.day.text) {
-                            binding.day.text = dayTitle
-                        }
-                    }
+                val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
+                val date = sessionsGroup.getDateFromPositionOrNull(firstPosition) ?: return
+                val dateOfMonth = date.getDate()
+                val dayTitle = if (dateOfMonth == 2) {
+                    getString(R.string.day1)
+                } else {
+                    getString(R.string.day2)
+                }
+                // Prevent requestLayout()
+                if (dayTitle != binding.day.text) {
+                    binding.day.text = dayTitle
                 }
             }
         })
+    }
+
+    private fun setDayHeaderVisibility(visibleDayHeader: Boolean) {
+        val transitionSet = TransitionSet()
+                .addTransition(Fade(Fade.OUT).setStartDelay(400))
+                .addTransition(Fade(Fade.IN))
+                .excludeTarget(binding.sessionsRecycler, true)
+        TransitionManager
+                .beginDelayedTransition(
+                        binding.sessionsConstraintLayout,
+                        transitionSet)
+        if (visibleDayHeader) {
+            dayInvisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
+        } else {
+            dayVisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
+        }
     }
 
     companion object {
