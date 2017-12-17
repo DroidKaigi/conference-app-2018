@@ -1,15 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/action_search"
         android:title="Search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        />
     <item
         android:id="@+id/action_filter"
-        app:showAsAction="always"
         android:icon="@drawable/ic_filter_list_black_24dp"
-        android:title="Filter" />
+        android:title="Filter"
+        app:showAsAction="always"
+        />
 
 </menu>

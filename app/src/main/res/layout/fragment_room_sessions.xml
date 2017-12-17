@@ -1,16 +1,49 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
 
     </data>
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/sessions_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/shape_round_corner"
+            android:elevation="4dp"
+            android:paddingBottom="6dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:text="DAY1"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="lollipop"
+            />
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/sessions_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-    />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
 </layout>
