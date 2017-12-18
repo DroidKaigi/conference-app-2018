@@ -1,12 +1,8 @@
 package io.github.droidkaigi.confsched2018.data.api.response
 
-import com.google.gson.annotations.SerializedName
 
 data class CategoryItem(
-        @SerializedName("name")
-        val name: String? = null,
-        @SerializedName("id")
-        val id: Int? = null,
-        @SerializedName("sort")
-        val sort: Int? = null
+        val name: String?,
+        val id: Int?,
+        val sort: Int?
 )

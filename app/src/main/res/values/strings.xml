@@ -18,6 +18,7 @@
     <string name="content_description_favorite_button">Favorite button</string>
 
     <!-- Session -->
+    <string name="day_title">DAY%d</string>
     <string name="day1">DAY1</string>
     <string name="day2">DAY2</string>
 

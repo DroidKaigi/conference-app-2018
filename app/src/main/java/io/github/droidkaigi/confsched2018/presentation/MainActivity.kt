@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation
 
-import android.annotation.SuppressLint
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -41,7 +40,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         setupNavigationDrawer()
     }
 
-    @SuppressLint("RestrictedApi")
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->

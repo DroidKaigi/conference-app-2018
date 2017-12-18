@@ -4,9 +4,8 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.constraint.ConstraintSet
-import android.support.transition.Fade
+import android.support.transition.TransitionInflater
 import android.support.transition.TransitionManager
-import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,7 +21,9 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
+import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -41,14 +42,14 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
     private val dayVisibleConstraintSet by lazy {
         ConstraintSet().apply {
             clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day, ConstraintSet.VISIBLE)
+            setVisibility(R.id.day_header, ConstraintSet.VISIBLE)
         }
     }
 
-    private val dayInvisibleConstraintSet by lazy {
+    private val dayGoneConstraintSet by lazy {
         ConstraintSet().apply {
             clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day, ConstraintSet.GONE)
+            setVisibility(R.id.day_header, ConstraintSet.GONE)
         }
     }
 
@@ -93,47 +94,31 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                 //TODO
             })
         }
-        binding.sessionsRecycler.adapter = groupAdapter
-        val linearLayoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
-        binding.sessionsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                val visibleDayHeader = newState == RecyclerView.SCROLL_STATE_IDLE
-                setDayHeaderVisibility(visibleDayHeader)
-            }
+        binding.sessionsRecycler.apply {
+            adapter = groupAdapter
 
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                val date = sessionsGroup.getDateFromPositionOrNull(firstPosition) ?: return
-                val dateOfMonth = date.getDate()
-                val dayTitle = if (dateOfMonth == 2) {
-                    getString(R.string.day1)
-                } else {
-                    getString(R.string.day2)
-                }
-                // Prevent requestLayout()
-                if (dayTitle != binding.day.text) {
-                    binding.day.text = dayTitle
-                }
-            }
-        })
+            addOnScrollListener(
+                    onScrollStateChanged = { _: RecyclerView?, newState: Int ->
+                        setDayHeaderVisibility(newState != RecyclerView.SCROLL_STATE_IDLE)
+                    },
+                    onScrolled = { _, _, _ ->
+                        val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        val firstDay = sessionsGroup.getDateOrNull(0) ?: return@addOnScrollListener
+                        val date = sessionsGroup.getDateOrNull(firstPosition) ?: return@addOnScrollListener
+                        val dateOfMonth = date.getDate()
+                        val dayTitle = if (dateOfMonth == firstDay.getDate()) R.string.day1 else R.string.day2
+                        binding.dayHeader.setTextIfChanged(getString(dayTitle))
+                    })
+        }
     }
 
     private fun setDayHeaderVisibility(visibleDayHeader: Boolean) {
-        val transitionSet = TransitionSet()
-                .addTransition(Fade(Fade.OUT).setStartDelay(400))
-                .addTransition(Fade(Fade.IN))
-                .excludeTarget(binding.sessionsRecycler, true)
-        TransitionManager
-                .beginDelayedTransition(
-                        binding.sessionsConstraintLayout,
-                        transitionSet)
-        if (visibleDayHeader) {
-            dayInvisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
-        } else {
-            dayVisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
-        }
+        val transition = TransitionInflater
+                .from(context)
+                .inflateTransition(R.transition.date_header_visibility)
+        TransitionManager.beginDelayedTransition(binding.sessionsConstraintLayout, transition)
+        val constraintSet = if (visibleDayHeader) dayVisibleConstraintSet else dayGoneConstraintSet
+        constraintSet.applyTo(binding.sessionsConstraintLayout)
     }
 
     companion object {

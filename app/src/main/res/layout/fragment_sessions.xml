@@ -20,6 +20,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tabMode="scrollable"
             />
 
         <android.support.v4.view.ViewPager

@@ -1,27 +1,18 @@
 package io.github.droidkaigi.confsched2018.data.api.response
 
-import com.google.gson.annotations.SerializedName
 import org.threeten.bp.LocalDateTime
+import se.ansman.kotshi.JsonSerializable
 
+@JsonSerializable
 data class Session(
-        @SerializedName("id")
-        val id: String? = null,
-        @SerializedName("isServiceSession")
-        val isServiceSession: Boolean? = null,
-        @SerializedName("isPlenumSession")
-        val isPlenumSession: Boolean? = null,
-        @SerializedName("speakers")
-        val speakers: List<String?>? = null,
-        @SerializedName("description")
-        val description: String? = null,
-        @SerializedName("startsAt")
-        val startsAt: LocalDateTime? = null,
-        @SerializedName("title")
-        val title: String? = null,
-        @SerializedName("endsAt")
-        val endsAt: LocalDateTime? = null,
-        @SerializedName("roomId")
-        val roomId: Int? = null,
-        @SerializedName("categoryItems")
-        val categoryItems: List<Int?>? = null
+        val id: String?,
+        val isServiceSession: Boolean?,
+        val isPlenumSession: Boolean?,
+        val speakers: List<String?>?,
+        val description: String?,
+        val startsAt: LocalDateTime?,
+        val title: String?,
+        val endsAt: LocalDateTime?,
+        val roomId: Int?,
+        val categoryItems: List<Int?>?
 )

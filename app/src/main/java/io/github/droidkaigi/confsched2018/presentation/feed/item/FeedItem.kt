@@ -10,10 +10,10 @@ import io.github.droidkaigi.confsched2018.model.Post
 
 data class FeedItem(
         val post: Post,
-        val feedItemCollapsed: ConstraintSet,
-        val feedItemExpanded: ConstraintSet,
-        val expandTransition: Transition,
-        var expanded: Boolean = false
+        private val feedItemCollapsed: ConstraintSet,
+        private val feedItemExpanded: ConstraintSet,
+        private val expandTransition: Transition,
+        private var expanded: Boolean = false
 ) : BindableItem<ItemFeedBinding>(
         post.hashCode().toLong()
 ) {

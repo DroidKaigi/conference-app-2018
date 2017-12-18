@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <changeBounds />
+    <fade android:fadingMode="fade_in" />
+    <fade
+        android:fadingMode="fade_out"
+        android:startDelay="400"
+        />
+    <targets>
+        <target android:targetId="@+id/day_header" />
+    </targets>
+
+</transitionSet>

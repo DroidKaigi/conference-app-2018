@@ -10,11 +10,12 @@ import io.github.droidkaigi.confsched2018.databinding.ItemSessionBinding
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
+import io.github.droidkaigi.confsched2018.util.ext.toGone
 
 data class SessionItem(
         val session: Session,
         private val onFavoriteClickListener: (Session) -> Unit = {},
-        val dataBindingComponent: FragmentDataBindingComponent
+        private val dataBindingComponent: FragmentDataBindingComponent
 ) : BindableItem<ItemSessionBinding>(
         session.id.toLong()
 ) {
@@ -45,7 +46,7 @@ data class SessionItem(
                         .transform(CircleCrop())
                         .into(imageView)
             } else {
-                imageView.visibility = View.GONE
+                imageView.toGone()
             }
         }
 

@@ -6,9 +6,8 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.constraint.ConstraintSet
-import android.support.transition.Fade
+import android.support.transition.TransitionInflater
 import android.support.transition.TransitionManager
-import android.support.transition.TransitionSet
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -26,7 +25,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
-import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,20 +38,6 @@ class SearchFragment : Fragment(), Injectable {
 
     private val searchViewModel: SearchViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
-    }
-
-    private val dayVisibleConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_search)
-            setVisibility(R.id.day, ConstraintSet.VISIBLE)
-        }
-    }
-
-    private val dayInvisibleConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day, ConstraintSet.GONE)
-        }
     }
 
     private val onFavoriteClickListener = { session: Session ->
@@ -110,48 +95,37 @@ class SearchFragment : Fragment(), Injectable {
                 //TODO
             })
         }
-        binding.sessionsRecycler.adapter = groupAdapter
-        val linearLayoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
-        binding.sessionsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (binding.searchResultGroup.visibility == View.VISIBLE) return
-                val visibleDayHeader = newState == RecyclerView.SCROLL_STATE_IDLE
-                setDayHeaderVisibility(visibleDayHeader)
-            }
+        binding.sessionsRecycler.apply {
+            adapter = groupAdapter
 
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                val date = sessionsGroup.getDateFromPositionOrNull(firstPosition) ?: return
-                val dateOfMonth = date.getDate()
-                val dayTitle = if (dateOfMonth == 2) {
-                    getString(R.string.day1)
-                } else {
-                    getString(R.string.day2)
-                }
-                // Prevent requestLayout()
-                if (dayTitle != binding.day.text) {
-                    binding.day.text = dayTitle
-                }
-            }
-        })
+            addOnScrollListener(
+                    onScrollStateChanged = { _: RecyclerView?, newState: Int ->
+                        if (binding.sessionsRecycler.isGone()) return@addOnScrollListener
+                        setDayHeaderVisibility(newState != RecyclerView.SCROLL_STATE_IDLE)
+                    },
+                    onScrolled = { _, _, _ ->
+                        val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        val dayTitle = getString(R.string.day_title, sessionsGroup.getDateSinceBeginOrNull(firstPosition))
+                        binding.dayHeader.setTextIfChanged(dayTitle)
+                    })
+        }
     }
 
     private fun setDayHeaderVisibility(visibleDayHeader: Boolean) {
-        val transitionSet = TransitionSet()
-                .addTransition(Fade(Fade.OUT).setStartDelay(400))
-                .addTransition(Fade(Fade.IN))
-                .excludeTarget(binding.sessionsRecycler, true)
-        TransitionManager
-                .beginDelayedTransition(
-                        binding.sessionsConstraintLayout,
-                        transitionSet)
-        if (visibleDayHeader) {
-            dayInvisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
+        val transition = TransitionInflater
+                .from(context)
+                .inflateTransition(R.transition.date_header_visibility)
+        TransitionManager.beginDelayedTransition(binding.sessionsConstraintLayout, transition)
+        val constraintSet = if (visibleDayHeader) {
+            binding.sessionsConstraintLayout
+                    .clone()
+                    .apply { setVisibility(R.id.day_header, ConstraintSet.VISIBLE) }
         } else {
-            dayVisibleConstraintSet.applyTo(binding.sessionsConstraintLayout)
+            binding.sessionsConstraintLayout
+                    .clone()
+                    .apply { setVisibility(R.id.day_header, ConstraintSet.GONE) }
         }
+        constraintSet.applyTo(binding.sessionsConstraintLayout)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -165,12 +139,12 @@ class SearchFragment : Fragment(), Injectable {
             override fun onQueryTextChange(newText: String?): Boolean {
                 val query = newText.orEmpty()
                 searchViewModel.onQuery(query)
-                if (query.isBlank()) {
-                    binding.searchBeforeGroup.visibility = View.VISIBLE
-                    binding.searchResultGroup.visibility = View.GONE
+                if (query.isNotBlank()) {
+                    binding.searchBeforeGroup.toGone()
+                    binding.searchResultGroup.toVisible()
                 } else {
-                    binding.searchBeforeGroup.visibility = View.GONE
-                    binding.searchResultGroup.visibility = View.VISIBLE
+                    binding.searchBeforeGroup.toVisible()
+                    binding.searchResultGroup.toGone()
                 }
                 return false
             }

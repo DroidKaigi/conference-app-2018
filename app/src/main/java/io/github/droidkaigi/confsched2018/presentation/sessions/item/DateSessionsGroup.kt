@@ -7,9 +7,11 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.util.ext.toLocalDate
+import org.threeten.bp.Period
 import java.util.*
 
-class DateSessionsGroup(val dataBindingComponent: FragmentDataBindingComponent) : UpdatingGroup() {
+class DateSessionsGroup(private val dataBindingComponent: FragmentDataBindingComponent) : UpdatingGroup() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session) -> Unit = {}
@@ -35,11 +37,17 @@ class DateSessionsGroup(val dataBindingComponent: FragmentDataBindingComponent) 
         update(dateSessions)
     }
 
-    fun getDateFromPositionOrNull(firstItemPosition: Int): Date? {
-        if (firstItemPosition < 0) return null
+    fun getDateSinceBeginOrNull(firstPosition: Int): Int? {
+        val firstDay = getDateOrNull(0) ?: return null
+        val date = getDateOrNull(firstPosition) ?: return null
+        return Period.between(firstDay.toLocalDate(), date.toLocalDate()).days + 1
+    }
 
-        var item = getItemOrNull(firstItemPosition) ?: return null
-        item = item as? SessionItem ?: getItemOrNull(firstItemPosition + 1) ?: return null
+    fun getDateOrNull(position: Int): Date? {
+        if (position < 0) return null
+
+        var item = getItemOrNull(position) ?: return null
+        item = item as? SessionItem ?: getItemOrNull(position + 1) ?: return null
         item as? SessionItem ?: return null
 
         return item.session.startTime
@@ -51,4 +59,5 @@ class DateSessionsGroup(val dataBindingComponent: FragmentDataBindingComponent) 
         }
         return getItem(i)
     }
+
 }

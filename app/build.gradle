@@ -50,8 +50,10 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.3.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.3.0"
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'se.ansman.kotshi:api:0.3.0-beta1'
+    kapt 'se.ansman.kotshi:compiler:0.3.0-beta1'
 
     // Android Architecture Components
     implementation 'android.arch.lifecycle:runtime:1.0.3'
@@ -64,7 +66,7 @@ dependencies {
     // RxJava
     implementation "io.reactivex.rxjava2:rxjava:2.1.6"
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
     // OkHttp
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
