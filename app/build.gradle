@@ -22,13 +22,30 @@ android {
             }
         }
     }
-    buildTypes {
+    signingConfigs {
         debug {
-            applicationIdSuffix ".debug"
+            storeFile rootProject.file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
         }
         release {
-            // TODO: Remove this line before release
-            applicationIdSuffix ".debug"
+            storeFile rootProject.file("release.keystore")
+            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            versionNameSuffix "-debug"
+        }
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            zipAlignEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

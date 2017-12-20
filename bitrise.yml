@@ -3,8 +3,8 @@ format_version: '4'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: android
 trigger_map:
-- push_branch: "*"
-  workflow: primary
+- push_branch: "master"
+  workflow: deploy
 - pull_request_source_branch: "*"
   workflow: primary
 workflows:
@@ -14,15 +14,26 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@3.6.2: {}
     - cache-pull@1.0.0: {}
-    - script@1.1.4:
-        title: Do anything with Script step
+    - file-downloader@0.9.1:
+        run_if: ".IsCI"
+        title: Keystore Download
+        inputs:
+        - source: "$BITRISEIO_ANDROID_KEYSTORE_URL"
+        - destination: "$BITRISE_SOURCE_DIR/app/release.keystore"
+    - file-downloader@0.9.1:
+        run_if: ".IsCI"
+        title: Google Services JSON Download
+        inputs:
+        - source: "$BITRISEIO_GOOGLESERVICES_URL"
+        - destination: "$BITRISE_SOURCE_DIR/app/google-services.json"
     - install-missing-android-tools@2.0.5: {}
     - gradle-runner@1.8.0:
         inputs:
         - gradle_file: "$GRADLE_BUILD_FILE_PATH"
-        - gradle_task: assembleRelease
+        - gradle_task: assembleDebug testDebugUnitTest assembleRelease
         - gradlew_path: "$GRADLEW_PATH"
     - deploy-to-bitrise-io@1.3.7: {}
+    - script@1.1.4: "sh $BITRISE_SOURCE_DIR/deploy.sh"
     - cache-push@1.1.4: {}
   primary:
     steps:
