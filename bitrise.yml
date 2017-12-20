@@ -19,7 +19,7 @@ workflows:
         title: Keystore Download
         inputs:
         - source: "$BITRISEIO_ANDROID_KEYSTORE_URL"
-        - destination: "$BITRISE_SOURCE_DIR/app/release.keystore"
+        - destination: "$BITRISE_SOURCE_DIR/release.keystore"
     - install-missing-android-tools@2.0.5: {}
     - gradle-runner@1.8.0:
         inputs:
