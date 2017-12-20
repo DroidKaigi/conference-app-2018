@@ -30,7 +30,7 @@ workflows:
     - gradle-runner@1.8.0:
         inputs:
         - gradle_file: "$GRADLE_BUILD_FILE_PATH"
-        - gradle_task: assembleDebug testDebugUnitTest assembleRelease
+        - gradle_task: testDebugUnitTest assembleRelease
         - gradlew_path: "$GRADLEW_PATH"
     - deploy-to-bitrise-io@1.3.7: {}
     - script@1.1.3:
