@@ -22,6 +22,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
+import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import timber.log.Timber
@@ -99,15 +100,15 @@ class AllSessionsFragment : Fragment(), Injectable {
 
             addOnScrollListener(
                     onScrollStateChanged = { _: RecyclerView?, newState: Int ->
+                        if (binding.sessionsRecycler.isGone()) return@addOnScrollListener
                         setDayHeaderVisibility(newState != RecyclerView.SCROLL_STATE_IDLE)
                     },
                     onScrolled = { _, _, _ ->
                         val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                        val firstDay = sessionsGroup.getDateOrNull(0) ?: return@addOnScrollListener
-                        val date = sessionsGroup.getDateOrNull(firstPosition) ?: return@addOnScrollListener
-                        val dateOfMonth = date.getDate()
-                        val dayTitle = if (dateOfMonth == firstDay.getDate()) R.string.day1 else R.string.day2
-                        binding.dayHeader.setTextIfChanged(getString(dayTitle))
+                        val dayNumber = sessionsGroup.getDateSinceBeginOrNull(firstPosition)
+                        dayNumber ?: return@addOnScrollListener
+                        val dayTitle = getString(R.string.session_day_title, dayNumber)
+                        binding.dayHeader.setTextIfChanged(dayTitle)
                     })
         }
     }

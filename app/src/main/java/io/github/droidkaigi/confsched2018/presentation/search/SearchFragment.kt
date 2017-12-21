@@ -105,7 +105,9 @@ class SearchFragment : Fragment(), Injectable {
                     },
                     onScrolled = { _, _, _ ->
                         val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                        val dayTitle = getString(R.string.day_title, sessionsGroup.getDateSinceBeginOrNull(firstPosition))
+                        val dayNumber = sessionsGroup.getDateSinceBeginOrNull(firstPosition)
+                        dayNumber ?: return@addOnScrollListener
+                        val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)
                     })
         }

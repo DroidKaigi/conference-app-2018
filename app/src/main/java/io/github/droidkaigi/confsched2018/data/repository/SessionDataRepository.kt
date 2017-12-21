@@ -10,7 +10,7 @@ import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
-import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSessions
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
@@ -38,18 +38,23 @@ class SessionDataRepository @Inject constructor(
     override val sessions: Flowable<List<Session>> =
             Flowables.combineLatest(
                     sessionSpeakerJoinDao.getAllSessions()
+                            .filter { it.isNotEmpty() }
                             .doOnNext { if (DEBUG) Timber.d("getAllSessions") },
                     speakerDao.getAllSpeaker()
+                            .filter { it.isNotEmpty() }
                             .doOnNext { if (DEBUG) Timber.d("getAllSpeaker") },
                     Flowable.concat(Flowable.just(listOf()), favoriteDatabase.favorites.onErrorReturn { listOf() })
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
                     { sessionEntities, speakerEntities, favList ->
-                        sessionEntities.toSessions(speakerEntities, favList)
+                        sessionEntities.map {
+                            it.toSession(speakerEntities, favList)
+                        }
                     })
                     .subscribeOn(schedulerProvider.computation())
                     .doOnNext {
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
+
     override val speakers: Flowable<List<Speaker>> =
             speakerDao.getAllSpeaker().map { speakers ->
                 speakers.map { speaker -> speaker.toSpeaker() }
@@ -74,7 +79,7 @@ class SessionDataRepository @Inject constructor(
     }
 
     companion object {
-        const val DEBUG = false
+        const val DEBUG = true
     }
 }
 

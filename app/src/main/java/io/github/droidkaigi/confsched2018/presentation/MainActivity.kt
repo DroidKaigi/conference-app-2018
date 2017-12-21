@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 this,
                 binding.drawerLayout,
                 binding.toolbar,
-                R.string.drawer_open, /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
+                R.string.content_description_drawer_open, /* "open drawer" description for accessibility */
+                R.string.content_description_drawer_close  /* "close drawer" description for accessibility */
         )
     }
 
