@@ -1,26 +1,27 @@
 <resources>
-    <!-- BottomNavigationBar -->
-    <string name="title_sessions">セッション</string>
-    <string name="title_search">検索</string>
-    <string name="title_my_sessions">マイセッション</string>
-    <string name="title_notification">お知らせ</string>
-
     <!-- NavigationDrawer -->
-    <string name="my_item_map">会場マップ</string>
-    <string name="my_item_sponsor">スポンサー</string>
-    <string name="my_item_info">このアプリについて</string>
-    <string name="my_item_setting">設定</string>
+    <string name="nav_item_map">会場マップ</string>
+    <string name="nav_item_sponsor">スポンサー</string>
+    <string name="nav_item_info">このアプリについて</string>
+    <string name="nav_item_setting">設定</string>
     <string name="content_description_drawer_open">ナビゲーションドロワーを開く</string>
     <string name="content_description_drawer_close">ナビゲーションドロワーを閉じる</string>
 
     <!-- Session -->
+    <string name="session_title">セッション</string>
     <string name="session_day_title">DAY%d</string>
     <string name="content_description_favorite_button">Favorite button</string>
 
     <!-- Search-->
+    <string name="search_title">検索</string>
     <string name="search_before_tab_session">セッション</string>
     <string name="search_before_tab_topic">トピック</string>
     <string name="search_before_tab_user">ユーザー</string>
     <string name="content_description_expand_button">expand button</string>
 
+    <!-- Favorite -->
+    <string name="favorite_title">マイセッション</string>
+
+    <!-- Feed -->
+    <string name="feed_title">お知らせ</string>
 </resources>
