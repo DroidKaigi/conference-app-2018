@@ -50,7 +50,7 @@ internal class AppModule {
             feedApi: FeedApi,
             schedulerProvider: SchedulerProvider
     ): FeedRepository =
-            FeedDataRepository(feedApi, schedulerProvider)
+            FeedDataRepository(feedApi)
 
     @Singleton @Provides
     fun provideDroidKaigiService(): DroidKaigiApi {
