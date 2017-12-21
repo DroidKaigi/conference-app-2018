@@ -14,6 +14,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import timber.log.Timber
 import javax.inject.Inject
 
 class SessionsFragment : Fragment(), Injectable {
@@ -38,8 +39,16 @@ class SessionsFragment : Fragment(), Injectable {
 
         sessionsViewModel.rooms.observe(this, { result ->
             when (result) {
+                is Result.InProgress -> {
+                    binding.progress.show()
+                }
                 is Result.Success -> {
+                    binding.progress.hide()
                     sessionsViewPagerAdapter.setRooms(result.data)
+                }
+                is Result.Failure -> {
+                    Timber.e(result.e)
+                    binding.progress.hide()
                 }
             }
         })
