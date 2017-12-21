@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">conference-app-2018</string>
+    <string name="app_name">DroidKaigi 2018</string>
 
     <string name="title_sessions">セッション</string>
     <string name="title_search">検索</string>
