@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "89287d226fe659bf5c5f7c068fdf1af4",
+    "identityHash": "f0992db4f5a5af5c3688fbc02d60e64c",
     "entities": [
       {
         "tableName": "session",
@@ -158,7 +158,16 @@
           ],
           "autoGenerate": false
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_session_speaker_join_speakerId",
+            "unique": false,
+            "columnNames": [
+              "speakerId"
+            ],
+            "createSql": "CREATE  INDEX `index_session_speaker_join_speakerId` ON `${TABLE_NAME}` (`speakerId`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "session",
@@ -187,7 +196,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"89287d226fe659bf5c5f7c068fdf1af4\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f0992db4f5a5af5c3688fbc02d60e64c\")"
     ]
   }
 }
