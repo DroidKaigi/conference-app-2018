@@ -6,10 +6,10 @@ import io.github.droidkaigi.confsched2018.model.parseDate
 fun List<io.github.droidkaigi.confsched2018.data.api.response.Post>.toFeeds():
         List<Post> = map {
     Post(
-            title = it.title,
-            content = it.content,
-            date = parseDate(it.date.time),
-            published = it.published,
-            tag = it.tag
+            title = it.title!!,
+            content = it.content!!,
+            date = parseDate(it.date!!.time),
+            published = it.published!!,
+            type = it.type!!
     )
 }

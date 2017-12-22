@@ -5,5 +5,5 @@ data class Post(
         val content: String,
         val date: Date,
         val published: Boolean,
-        val tag: String
+        val type: String
 )

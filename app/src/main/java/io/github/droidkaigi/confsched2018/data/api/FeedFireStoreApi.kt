@@ -49,6 +49,6 @@ class FeedFireStoreApi : FeedApi {
             }, BackpressureStrategy.DROP)
 
     companion object {
-        private const val DEBUG: Boolean = false
+        private const val DEBUG: Boolean = true
     }
 }
