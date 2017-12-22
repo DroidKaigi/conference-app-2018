@@ -2,14 +2,13 @@ package io.github.droidkaigi.confsched2018.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedViewModel
 import io.github.droidkaigi.confsched2018.presentation.search.SearchViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
-import io.github.droidkaigi.confsched2018.presentation.sessions.FavoriteSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
 

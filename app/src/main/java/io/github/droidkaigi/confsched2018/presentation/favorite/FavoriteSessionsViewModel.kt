@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.sessions
+package io.github.droidkaigi.confsched2018.presentation.favorite
 
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData

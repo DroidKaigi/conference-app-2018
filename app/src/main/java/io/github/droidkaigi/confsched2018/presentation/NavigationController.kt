@@ -2,9 +2,9 @@ package io.github.droidkaigi.confsched2018.presentation
 
 import android.support.v4.app.FragmentManager
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
 import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
-import io.github.droidkaigi.confsched2018.presentation.sessions.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 import javax.inject.Inject
 
