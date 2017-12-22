@@ -47,8 +47,7 @@ internal class AppModule {
 
     @Singleton @Provides
     fun provideFeedReposiotry(
-            feedApi: FeedApi,
-            schedulerProvider: SchedulerProvider
+            feedApi: FeedApi
     ): FeedRepository =
             FeedDataRepository(feedApi)
 

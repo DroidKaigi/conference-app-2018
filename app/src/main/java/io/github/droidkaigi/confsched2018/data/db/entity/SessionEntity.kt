@@ -7,14 +7,14 @@ import org.threeten.bp.LocalDateTime
 
 @Entity(tableName = "session")
 data class SessionEntity(
-        @PrimaryKey var id: String = "",
-        var title: String = "",
-        var desc: String = "",
-        var stime: LocalDateTime = LocalDateTime.of(1, 1, 1, 1, 1),
-        var etime: LocalDateTime = LocalDateTime.of(1, 1, 1, 1, 1),
-        var durationMin: Int = 0,
-        var type: String = "",
-        var lang: String = "",
-        var sessionFormat: String = "",
-        @Embedded var room: RoomEntity = RoomEntity()
+        @PrimaryKey var id: String,
+        var title: String,
+        var desc: String,
+        var stime: LocalDateTime,
+        var etime: LocalDateTime,
+        var sessionFormat: String,
+        var language: String,
+        var topic: String,
+        var level: String,
+        @Embedded var room: RoomEntity
 )

@@ -4,5 +4,5 @@ import android.arch.persistence.room.ColumnInfo
 
 data class RoomEntity(
         @ColumnInfo(name = "room_name")
-        var name: String = ""
+        var name: String
 )

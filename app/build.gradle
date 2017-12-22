@@ -57,10 +57,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies {
     implementation project(':common-jvm')
 

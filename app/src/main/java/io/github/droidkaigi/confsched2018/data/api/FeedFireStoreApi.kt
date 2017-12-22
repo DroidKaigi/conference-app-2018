@@ -18,10 +18,10 @@ class FeedFireStoreApi : FeedApi {
                 }
                 if (DEBUG) Timber.d("FireStore:getFeeds")
                 val database = FirebaseFirestore.getInstance()
-                val posts = database.collection("posts")
+                val postCollection = database.collection("posts")
                         .whereEqualTo("published", true)
                         .orderBy("date", Query.Direction.DESCENDING)
-                val removable = posts.addSnapshotListener(EventListener { documentSnapshot, exception ->
+                val removable = postCollection.addSnapshotListener(EventListener { documentSnapshot, exception ->
                     if (exception != null) {
                         if (DEBUG) Timber.d("FireStore:getFeeds onChange exception")
                         e.onError(exception)

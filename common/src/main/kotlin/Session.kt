@@ -1,18 +1,17 @@
 package io.github.droidkaigi.confsched2018.model
 
 data class Session(
-        // FIXME: delete unused default values
         var id: String,
         var title: String,
-        var desc: String = "",
-        var startTime: Date = Date(),
-        var endTime: Date = Date(),
-        var durationMin: Int = 0,
-        var type: String = "",
-        var topic: Topic = Topic("", ""),
+        var desc: String,
+        var startTime: Date,
+        var endTime: Date,
         var room: Room = Room(""),
-        var lang: String = "",
         var format: String,
-        var isFavorited: Boolean = false,
+        var sessionFormat: String,
+        var language: String,
+        var topic: String,
+        var level: String,
+        var isFavorited: Boolean,
         var speakers: List<Speaker>
 )

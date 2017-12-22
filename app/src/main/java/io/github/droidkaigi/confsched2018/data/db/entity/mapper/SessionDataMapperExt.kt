@@ -30,6 +30,10 @@ fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList:
             isFavorited = favList!!.map { it.toString() }.contains(session.id),
             format = session.sessionFormat,
             room = Room(session.room.name),
+            level = session.level,
+            language = session.language,
+            topic = session.topic,
+            sessionFormat = session.sessionFormat,
             speakers = speakers
     )
 }
@@ -37,8 +41,10 @@ fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList:
 fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
         name = name,
         imageUrl = imageUrl,
-        twitterName = twitterName,
-        githubName = githubName
+        twitterUrl = twitterUrl,
+        companyUrl = companyUrl,
+        blogUrl = blogUrl,
+        githubUrl = githubUrl
 )
 
 fun Flowable<List<RoomEntity>>.toRooms(): Flowable<List<Room>> = map { roomEntities ->

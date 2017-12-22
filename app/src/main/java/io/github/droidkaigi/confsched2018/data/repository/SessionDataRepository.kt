@@ -2,9 +2,9 @@ package io.github.droidkaigi.confsched2018.data.repository
 
 import android.arch.persistence.room.RoomDatabase
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionEntity
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionSpeakerJoinEntity
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSpeakerEntity
+import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionEntities
+import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionSpeakerJoinEntities
+import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSpeakerEntities
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
@@ -45,10 +45,10 @@ class SessionDataRepository @Inject constructor(
                             .doOnNext { if (DEBUG) Timber.d("getAllSpeaker") },
                     Flowable.concat(Flowable.just(listOf()), favoriteDatabase.favorites.onErrorReturn { listOf() })
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
-                    { sessionEntities, speakerEntities, favList ->
-                        sessionEntities.map {
-                            it.toSession(speakerEntities, favList)
-                        }
+                    { sessionEntities,
+                      speakerEntities,
+                      favList ->
+                        sessionEntities.map { it.toSession(speakerEntities, favList) }
                     })
                     .subscribeOn(schedulerProvider.computation())
                     .doOnNext {
@@ -69,9 +69,9 @@ class SessionDataRepository @Inject constructor(
         return api.getSessions()
                 .doOnSuccess { response ->
                     database.runInTransaction {
-                        speakerDao.clearAndInsert(response.speakers.toSpeakerEntity())
-                        sessionDao.clearAndInsert(response.sessions.toSessionEntity(response.categories, response.rooms))
-                        sessionSpeakerJoinDao.insert(response.sessions.toSessionSpeakerJoinEntity())
+                        speakerDao.clearAndInsert(response.speakers.toSpeakerEntities())
+                        sessionDao.clearAndInsert(response.sessions.toSessionEntities(response.categories, response.rooms))
+                        sessionSpeakerJoinDao.insert(response.sessions.toSessionSpeakerJoinEntities())
                     }
                 }
                 .subscribeOn(schedulerProvider.computation())

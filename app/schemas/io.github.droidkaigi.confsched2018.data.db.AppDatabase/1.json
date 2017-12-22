@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0e0944517d8a3cc1c992687e86e22a6a",
+    "identityHash": "89287d226fe659bf5c5f7c068fdf1af4",
     "entities": [
       {
         "tableName": "session",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `desc` TEXT NOT NULL, `stime` INTEGER NOT NULL, `etime` INTEGER NOT NULL, `durationMin` INTEGER NOT NULL, `type` TEXT NOT NULL, `lang` TEXT NOT NULL, `sessionFormat` TEXT NOT NULL, `room_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `desc` TEXT NOT NULL, `stime` INTEGER NOT NULL, `etime` INTEGER NOT NULL, `sessionFormat` TEXT NOT NULL, `language` TEXT NOT NULL, `topic` TEXT NOT NULL, `level` TEXT NOT NULL, `room_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -39,26 +39,26 @@
             "notNull": true
           },
           {
-            "fieldPath": "durationMin",
-            "columnName": "durationMin",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lang",
-            "columnName": "lang",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
             "fieldPath": "sessionFormat",
             "columnName": "sessionFormat",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "language",
+            "columnName": "language",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "topic",
+            "columnName": "topic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -80,7 +80,7 @@
       },
       {
         "tableName": "speaker",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `speaker_name` TEXT NOT NULL, `speaker_image_url` TEXT NOT NULL, `speaker_twitter_name` TEXT NOT NULL, `speaker_github_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `speaker_name` TEXT NOT NULL, `speaker_image_url` TEXT NOT NULL, `speaker_twitter_url` TEXT, `speaker_company_url` TEXT, `speaker_blog_url` TEXT, `speaker_github_url` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -101,16 +101,28 @@
             "notNull": true
           },
           {
-            "fieldPath": "twitterName",
-            "columnName": "speaker_twitter_name",
+            "fieldPath": "twitterUrl",
+            "columnName": "speaker_twitter_url",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "githubName",
-            "columnName": "speaker_github_name",
+            "fieldPath": "companyUrl",
+            "columnName": "speaker_company_url",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
+          },
+          {
+            "fieldPath": "blogUrl",
+            "columnName": "speaker_blog_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "githubUrl",
+            "columnName": "speaker_github_url",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -175,7 +187,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0e0944517d8a3cc1c992687e86e22a6a\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"89287d226fe659bf5c5f7c068fdf1af4\")"
     ]
   }
 }
