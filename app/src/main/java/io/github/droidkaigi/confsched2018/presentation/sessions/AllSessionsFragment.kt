@@ -91,7 +91,7 @@ class AllSessionsFragment : Fragment(), Injectable {
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsGroup)
-            setOnItemClickListener({ item, view ->
+            setOnItemClickListener({ _, _ ->
                 //TODO
             })
         }

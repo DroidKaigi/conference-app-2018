@@ -78,7 +78,7 @@ class FeedFragment : Fragment(), Injectable {
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(postsGroup)
-            setOnItemClickListener({ item, view ->
+            setOnItemClickListener({ _, _ ->
                 //TODO
             })
         }
