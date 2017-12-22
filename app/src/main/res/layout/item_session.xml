@@ -61,6 +61,23 @@
                 tools:text="Room A"
                 />
 
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="12dp"
+                android:background="#64ffda"
+                android:gravity="center"
+                android:maxLines="3"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:text="@{session.level}"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Room A"
+                />
 
             <TextView
                 android:id="@+id/title"
@@ -84,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="2dp"
+                android:layout_marginEnd="20dp"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="@{session.desc}"
@@ -106,14 +124,13 @@
                 app:layout_constraintTop_toBottomOf="@id/description"
                 />
 
-            <!-- TODO: When I can use official api, I will set this text -->
             <TextView
                 android:id="@+id/topic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
-                android:text="開発環境 / Productivity and Tools"
+                android:text="@{session.topic}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_top"
                 />
