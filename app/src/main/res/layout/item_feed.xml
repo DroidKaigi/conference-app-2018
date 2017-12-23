@@ -42,16 +42,15 @@
             app:layout_constraintTop_toBottomOf="@id/date"
             tools:text="マイセッションを見つけよう!"
             />
-        <io.github.droidkaigi.confsched2018.presentation.common.view.EllipsizingTextView
+        <TextView
             android:id="@+id/content"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/feed_collapse_content_size"
             android:layout_marginBottom="22dp"
             android:layout_marginEnd="72dp"
             android:layout_marginStart="22dp"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:maxLines="3"
             android:text="@{post.content}"
             android:textAppearance="@style/TextAppearance.App.Caption"
             app:layout_constraintEnd_toEndOf="parent"

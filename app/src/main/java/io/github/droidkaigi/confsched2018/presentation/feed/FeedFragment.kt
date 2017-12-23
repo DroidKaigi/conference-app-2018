@@ -38,6 +38,8 @@ class FeedFragment : Fragment(), Injectable {
             val buttonSize = resources.getDimensionPixelSize(R.dimen.feed_expand_button_size)
             setTransformPivot(R.id.expand_icon, buttonSize / 2F, buttonSize / 2F)
             setRotation(R.id.expand_icon, 180F)
+
+            constrainHeight(R.id.content, ConstraintSet.WRAP_CONTENT)
         }
     }
 

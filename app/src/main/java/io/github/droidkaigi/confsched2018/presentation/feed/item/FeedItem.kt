@@ -25,10 +25,8 @@ data class FeedItem(
             // FIXME: Animation!!
             TransitionManager.beginDelayedTransition(viewBinding.feedItemConstraintLayout, expandTransition)
             if (!expanded) {
-                viewBinding.content.maxLines = 3
                 feedItemCollapsed.applyTo(viewBinding.feedItemConstraintLayout)
             } else {
-                viewBinding.content.maxLines = 15
                 feedItemExpanded.applyTo(viewBinding.feedItemConstraintLayout)
             }
         }
