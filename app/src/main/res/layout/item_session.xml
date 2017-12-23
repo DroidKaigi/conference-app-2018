@@ -63,7 +63,7 @@
 
             <TextView
                 android:id="@+id/level"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="18dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginTop="12dp"
@@ -72,7 +72,6 @@
                 android:maxLines="3"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
-                android:text="@{session.level}"
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -130,7 +129,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
-                android:text="@{session.topic}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_top"
                 />

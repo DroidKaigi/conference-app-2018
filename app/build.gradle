@@ -113,7 +113,8 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
 
     // groupie for RecyclerView Adapter
-    implementation 'com.xwray:groupie-databinding:2.0.0-alpha2'
+    implementation 'com.xwray:groupie-databinding:2.0.0-beta1'
+    implementation 'com.xwray:groupie:2.0.0-beta1'
 
     // MultiDex
     implementation 'com.android.support:multidex:1.0.2'

@@ -1,23 +1,23 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
+import android.support.v4.app.Fragment
 import com.xwray.groupie.Item
 import com.xwray.groupie.UpdatingGroup
 import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.util.ext.toLocalDate
 import org.threeten.bp.Period
 import java.util.*
 
-class DateSessionsGroup(private val dataBindingComponent: FragmentDataBindingComponent) : UpdatingGroup() {
+class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session) -> Unit = {}
     ) {
         val sessionItems = sessions.map {
-            SessionItem(it, onFavoriteClickListener, dataBindingComponent)
+            SessionItem(it, onFavoriteClickListener, fragment)
         }
 
         val dateSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>>

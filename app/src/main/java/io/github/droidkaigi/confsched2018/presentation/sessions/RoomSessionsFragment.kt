@@ -20,7 +20,6 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
@@ -33,9 +32,8 @@ class RoomSessionsFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentRoomSessionsBinding
     private lateinit var roomName: String
-    private val dataBindingComponent = FragmentDataBindingComponent(this)
 
-    private val sessionsGroup = DateSessionsGroup(dataBindingComponent)
+    private val sessionsGroup = DateSessionsGroup(this)
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: RoomSessionsViewModel by lazy {
@@ -71,7 +69,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentRoomSessionsBinding.inflate(inflater, container, false, dataBindingComponent)
+        binding = FragmentRoomSessionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

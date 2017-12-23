@@ -16,7 +16,6 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentFeedBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.feed.item.FeedItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
@@ -26,7 +25,6 @@ class FeedFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentFeedBinding
 
-    private val dataBindingComponent = FragmentDataBindingComponent(this)
     private val postsGroup = UpdatingGroup()
 
     private val feedItemCollapsed by lazy {
@@ -50,7 +48,7 @@ class FeedFragment : Fragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentFeedBinding.inflate(inflater, container, false, dataBindingComponent)
+        binding = FragmentFeedBinding.inflate(inflater, container, false)
         lifecycle.addObserver(postsViewModel)
         return binding.root
     }

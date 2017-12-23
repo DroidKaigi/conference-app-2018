@@ -14,4 +14,16 @@ data class Session(
         var level: String,
         var isFavorited: Boolean,
         var speakers: List<Speaker>
-)
+) {
+
+
+    fun getTopic(lang: Lang): String = topic
+            .split("/")
+            .getOrElse(lang.ordinal, { topic })
+            .trim()
+
+    fun getLevel(lang: Lang): String = level
+            .split("/")
+            .getOrElse(lang.ordinal, { level })
+            .trim()
+}

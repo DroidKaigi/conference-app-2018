@@ -22,7 +22,6 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSearchBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
 import io.github.droidkaigi.confsched2018.util.ext.*
@@ -32,9 +31,8 @@ import javax.inject.Inject
 class SearchFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSearchBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val dataBindingComponent = FragmentDataBindingComponent(this)
 
-    private val sessionsGroup = DateSessionsGroup(dataBindingComponent)
+    private val sessionsGroup = DateSessionsGroup(this)
 
     private val searchViewModel: SearchViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
