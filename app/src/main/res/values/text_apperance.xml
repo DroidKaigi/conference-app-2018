@@ -1,0 +1,33 @@
+<resources>
+    <!-- Dense scripts Styles -->
+    <!-- see https://material.io/guidelines/style/typography.html#typography-other-typographic-guidelines -->
+    <style name="TextAppearance.App.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">21sp</item>
+        <item name="android:fontFamily">@font/notosans_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.Subhead" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/notosans_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/notosans_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/notosans_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/notosans_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/notosans_regular</item>
+    </style>
+</resources>
