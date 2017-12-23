@@ -25,9 +25,10 @@ fun <T> Publisher<T>.toLiveData() = LiveDataReactiveStreams.fromPublisher(this)
 ```
 
 # Architecture
-This app uses an Android Architecture Components(AAC) based architecture using AAC(LiveData, ViewModel, Room), Kotlin, RxJava, DataBinding, dependency injection.
+This app uses an Android Architecture Components(AAC) based architecture using AAC(LiveData, ViewModel, Room), Kotlin, RxJava, DataBinding, dependency injection, Firebase.
 
-<image src="https://user-images.githubusercontent.com/1386930/34080607-5b5f1caa-e384-11e7-99d9-b01c4f26b162.png" width="400" />
+<image src="https://user-images.githubusercontent.com/1386930/34318268-f8b7eece-e806-11e7-8b18-d9fc64dcd24e.png" width="500" />
+
 
 ## CREDIT
 Android Open Source Project  
