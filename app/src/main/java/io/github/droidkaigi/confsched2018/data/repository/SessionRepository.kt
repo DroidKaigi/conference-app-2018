@@ -13,6 +13,8 @@ interface SessionRepository {
     val speakers: Flowable<List<Speaker>>
     val roomSessions: Flowable<Map<Room, List<Session>>>
     val rooms: Flowable<List<Room>>
+    val topicSessions: Flowable<Map<String, List<Session>>>
+    val levelSessions: Flowable<Map<String, List<Session>>>
 
     @CheckResult fun refreshSessions(): Completable
     @CheckResult fun favorite(session: Session): Single<Boolean>

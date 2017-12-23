@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.data.api.response
 
-
 data class Speaker(
         val firstName: String?,
         val lastName: String?,

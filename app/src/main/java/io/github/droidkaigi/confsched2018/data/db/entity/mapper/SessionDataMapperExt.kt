@@ -10,7 +10,6 @@ import io.github.droidkaigi.confsched2018.model.parseDate
 import io.reactivex.Flowable
 import org.threeten.bp.ZoneId
 
-
 fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList: List<Int>?): Session {
     val session = session!!
     require(!speakerIdList.isEmpty())

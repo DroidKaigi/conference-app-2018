@@ -16,7 +16,6 @@ data class Session(
         var speakers: List<Speaker>
 ) {
 
-
     fun getTopic(lang: Lang): String = topic
             .split("/")
             .getOrElse(lang.ordinal, { topic })

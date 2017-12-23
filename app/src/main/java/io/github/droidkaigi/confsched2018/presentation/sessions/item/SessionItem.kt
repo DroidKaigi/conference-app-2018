@@ -1,18 +1,15 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
-import android.databinding.DataBindingUtil
 import android.support.v4.app.Fragment
 import android.view.View
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.xwray.groupie.databinding.BindableItem
-import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSessionBinding
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.lang
-import java.util.*
 
 data class SessionItem(
         val session: Session,
@@ -21,10 +18,6 @@ data class SessionItem(
 ) : BindableItem<ItemSessionBinding>(
         session.id.toLong()
 ) {
-    override fun createViewHolder(itemView: View): ViewHolder<ItemSessionBinding> {
-        val viewDataBinding: ItemSessionBinding = DataBindingUtil.bind(itemView)
-        return ViewHolder(viewDataBinding)
-    }
 
     override fun bind(viewBinding: ItemSessionBinding, position: Int) {
         viewBinding.session = session

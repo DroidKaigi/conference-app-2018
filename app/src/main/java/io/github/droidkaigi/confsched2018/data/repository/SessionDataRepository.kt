@@ -63,6 +63,12 @@ class SessionDataRepository @Inject constructor(
     override val roomSessions: Flowable<Map<Room, List<Session>>>
             = sessions.map { sessionList -> sessionList.groupBy { it.room } }
 
+    override val topicSessions: Flowable<Map<String, List<Session>>>
+            = sessions.map { sessionList -> sessionList.groupBy { it.topic } }
+
+    override val levelSessions: Flowable<Map<String, List<Session>>>
+            = sessions.map { sessionList -> sessionList.groupBy { it.topic } }
+
     override fun favorite(session: Session): Single<Boolean> = favoriteDatabase.favorite(session)
 
     override fun refreshSessions(): Completable {
@@ -82,5 +88,4 @@ class SessionDataRepository @Inject constructor(
         const val DEBUG = true
     }
 }
-
 

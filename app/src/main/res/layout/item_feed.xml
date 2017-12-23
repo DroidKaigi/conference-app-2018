@@ -70,6 +70,5 @@
             app:srcCompat="@drawable/ic_expand_more_black_24dp"
             />
 
-
     </android.support.constraint.ConstraintLayout>
 </layout>
