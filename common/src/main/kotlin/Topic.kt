@@ -6,7 +6,7 @@ data class Topic(
 ) {
 
     fun getNameByLang(lang: Lang): String = name
-            .split("/")
+            .split(" / ")
             .getOrElse(lang.ordinal, { name })
             .trim()
 }

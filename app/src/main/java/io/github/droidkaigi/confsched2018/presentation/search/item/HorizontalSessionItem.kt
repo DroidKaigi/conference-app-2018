@@ -32,8 +32,6 @@ class HorizontalSessionItem(
                 binding.context.getDisplaySize().width,
                 binding.context.resources.getFloat(R.dimen.horizontal_visible_item_count))
         itemView.layoutParams.width = width
-        itemView.layoutParams.height = binding.context.resources.getDimensionPixelSize(R.dimen.search_session_item_height)
-
         return viewHolder
     }
 

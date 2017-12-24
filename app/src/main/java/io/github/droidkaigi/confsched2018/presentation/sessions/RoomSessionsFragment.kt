@@ -55,7 +55,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
     }
 
     private val onFavoriteClickListener = { session: Session ->
-        // Just for response
+        // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
