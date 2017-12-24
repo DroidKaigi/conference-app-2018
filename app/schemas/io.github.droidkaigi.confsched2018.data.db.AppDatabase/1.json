@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f0992db4f5a5af5c3688fbc02d60e64c",
+    "identityHash": "3a1c9ae4c1982578f5d4e354ca0e3d5e",
     "entities": [
       {
         "tableName": "session",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `desc` TEXT NOT NULL, `stime` INTEGER NOT NULL, `etime` INTEGER NOT NULL, `sessionFormat` TEXT NOT NULL, `language` TEXT NOT NULL, `topic` TEXT NOT NULL, `level` TEXT NOT NULL, `room_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `desc` TEXT NOT NULL, `stime` INTEGER NOT NULL, `etime` INTEGER NOT NULL, `sessionFormat` TEXT NOT NULL, `language` TEXT NOT NULL, `level_id` INTEGER NOT NULL, `level_name` TEXT NOT NULL, `topic_id` INTEGER NOT NULL, `topic_name` TEXT NOT NULL, `room_id` INTEGER NOT NULL, `room_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -51,15 +51,33 @@
             "notNull": true
           },
           {
-            "fieldPath": "topic",
-            "columnName": "topic",
+            "fieldPath": "level.id",
+            "columnName": "level_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level.name",
+            "columnName": "level_name",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "level",
-            "columnName": "level",
+            "fieldPath": "topic.id",
+            "columnName": "topic_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "topic.name",
+            "columnName": "topic_name",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "room.id",
+            "columnName": "room_id",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -196,7 +214,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f0992db4f5a5af5c3688fbc02d60e64c\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3a1c9ae4c1982578f5d4e354ca0e3d5e\")"
     ]
   }
 }

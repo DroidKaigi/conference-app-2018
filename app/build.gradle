@@ -106,7 +106,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.13'
 
     // Firebase
-    // FIXME: Adjust version for emulator
+    // Adjust version for emulator
     implementation 'com.google.firebase:firebase-firestore:11.4.2'
     implementation 'com.google.firebase:firebase-auth:11.4.2'
 

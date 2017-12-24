@@ -20,6 +20,6 @@ import io.reactivex.Flowable
         insert(newSessions)
     }
 
-    @Query("SELECT room_name FROM session GROUP BY room_name")
+    @Query("SELECT room_id, room_name FROM session GROUP BY room_id ORDER BY room_id")
     abstract fun getAllRoom(): Flowable<List<RoomEntity>>
 }

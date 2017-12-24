@@ -79,6 +79,7 @@ class SearchSessionFragment : Fragment(), Injectable {
         binding.searchSessionRecycler.apply {
             adapter = groupAdapter
         }
+
     }
 
     companion object {

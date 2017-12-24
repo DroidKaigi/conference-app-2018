@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
+import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
@@ -18,7 +19,7 @@ class SearchSessionViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
-    val levelSessions: LiveData<Result<Map<String, List<Session>>>> by lazy {
+    val levelSessions: LiveData<Result<Map<Level, List<Session>>>> by lazy {
         repository.levelSessions
                 .toResult(schedulerProvider)
                 .toLiveData()

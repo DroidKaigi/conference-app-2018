@@ -1,13 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.api.response.mapper
 
-import io.github.droidkaigi.confsched2018.data.api.response.Category
-import io.github.droidkaigi.confsched2018.data.api.response.Room
-import io.github.droidkaigi.confsched2018.data.api.response.Session
-import io.github.droidkaigi.confsched2018.data.api.response.Speaker
-import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SessionSpeakerJoinEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
+import io.github.droidkaigi.confsched2018.data.api.response.*
+import io.github.droidkaigi.confsched2018.data.db.entity.*
 
 fun List<Session>?.toSessionSpeakerJoinEntities(): List<SessionSpeakerJoinEntity> {
     val sessionSpeakerJoinEntity: MutableList<SessionSpeakerJoinEntity> = arrayListOf()
@@ -25,17 +19,21 @@ fun List<Session>?.toSessionEntities(categories: List<Category>?, rooms: List<io
         }
 
 fun Session.toSessionEntity(categories: List<Category>?, rooms: List<Room>?): SessionEntity {
+    val sessionFormt = categories.category(0, categoryItems!![0])
+    val language = categories.category(1, categoryItems[1])
+    val topic = categories.category(2, categoryItems[2])
+    val level = categories.category(3, categoryItems[3])
     return SessionEntity(
             id = id!!,
             title = title!!,
             desc = description!!,
             stime = startsAt!!,
             etime = endsAt!!,
-            sessionFormat = categories.categoryValueName(0, categoryItems!![0]),
-            language = categories.categoryValueName(1, categoryItems[1]),
-            topic = categories.categoryValueName(2, categoryItems[2]),
-            level = categories.categoryValueName(3, categoryItems[3]),
-            room = RoomEntity(rooms.roomName(roomId))
+            sessionFormat = sessionFormt.name!!,
+            language = language.name!!,
+            topic = TopicEntity(topic.id!!, topic.name!!),
+            level = LevelEntity(level.id!!, level.name!!),
+            room = RoomEntity(roomId!!, rooms.roomName(roomId))
     )
 }
 
@@ -59,8 +57,8 @@ fun List<Speaker>?.toSpeakerEntities(): List<SpeakerEntity> =
             )
         }
 
-private fun List<Category>?.categoryValueName(categoryIndex: Int, categoryId: Int?): String =
-        this!![categoryIndex].items!!.first { it!!.id == categoryId }!!.name!!
+private fun List<Category>?.category(categoryIndex: Int, categoryId: Int?): CategoryItem =
+        this!![categoryIndex].items!!.first { it!!.id == categoryId }!!
 
 private fun List<Room>?.roomName(roomId: Int?): String =
         this!!.first { it.id == roomId }.name!!

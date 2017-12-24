@@ -6,23 +6,12 @@ data class Session(
         var desc: String,
         var startTime: Date,
         var endTime: Date,
-        var room: Room = Room(""),
+        var room: Room,
         var format: String,
         var sessionFormat: String,
         var language: String,
-        var topic: String,
-        var level: String,
+        var topic: Topic,
+        var level: Level,
         var isFavorited: Boolean,
         var speakers: List<Speaker>
-) {
-
-    fun getTopic(lang: Lang): String = topic
-            .split("/")
-            .getOrElse(lang.ordinal, { topic })
-            .trim()
-
-    fun getLevel(lang: Lang): String = level
-            .split("/")
-            .getOrElse(lang.ordinal, { level })
-            .trim()
-}
+)

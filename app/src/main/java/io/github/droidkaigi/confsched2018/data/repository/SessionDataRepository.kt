@@ -12,9 +12,7 @@ import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
-import io.github.droidkaigi.confsched2018.model.Room
-import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.model.Speaker
+import io.github.droidkaigi.confsched2018.model.*
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -63,11 +61,11 @@ class SessionDataRepository @Inject constructor(
     override val roomSessions: Flowable<Map<Room, List<Session>>>
             = sessions.map { sessionList -> sessionList.groupBy { it.room } }
 
-    override val topicSessions: Flowable<Map<String, List<Session>>>
+    override val topicSessions: Flowable<Map<Topic, List<Session>>>
             = sessions.map { sessionList -> sessionList.groupBy { it.topic } }
 
-    override val levelSessions: Flowable<Map<String, List<Session>>>
-            = sessions.map { sessionList -> sessionList.groupBy { it.topic } }
+    override val levelSessions: Flowable<Map<Level, List<Session>>>
+            = sessions.map { sessionList -> sessionList.groupBy { it.level } }
 
     override fun favorite(session: Session): Single<Boolean> = favoriteDatabase.favorite(session)
 
@@ -85,7 +83,7 @@ class SessionDataRepository @Inject constructor(
     }
 
     companion object {
-        const val DEBUG = true
+        const val DEBUG = false
     }
 }
 
