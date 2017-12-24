@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.sessions
+package io.github.droidkaigi.confsched2018.presentation.favorite
 
 import android.arch.lifecycle.Observer
 import com.nhaarman.mockito_kotlin.*
@@ -16,10 +16,10 @@ import org.mockito.Mock
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class AllSessionsViewModelTest {
+class FavoriteSessionsViewModelTest {
     @Mock private val repository: SessionRepository = mock()
 
-    private lateinit var viewModel: AllSessionsViewModel
+    private lateinit var viewModel: FavoriteSessionsViewModel
 
     @Before fun init() {
         whenever(repository.refreshSessions()).doReturn(Completable.complete())
@@ -27,7 +27,7 @@ class AllSessionsViewModelTest {
 
     @Test fun sessions_Empty() {
         whenever(repository.sessions).doReturn(Flowable.empty())
-        viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
+        viewModel = FavoriteSessionsViewModel(repository, TestSchedulerProvider())
         val result: Observer<Result<List<Session>>> = mock()
 
         viewModel.sessions.observeForever(result)
@@ -38,21 +38,23 @@ class AllSessionsViewModelTest {
     }
 
     @Test fun sessions_Basic() {
-        val sessions = listOf(mock<Session>())
+        val favoritedSession = mock<Session>()
+        whenever(favoritedSession.isFavorited).doReturn(true)
+        val sessions = listOf(mock<Session>(), favoritedSession, mock<Session>())
         whenever(repository.sessions).doReturn(Flowable.just(sessions))
-        viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
+        viewModel = FavoriteSessionsViewModel(repository, TestSchedulerProvider())
         val result: Observer<Result<List<Session>>> = mock()
 
         viewModel.sessions.observeForever(result)
 
         verify(repository).sessions
-        verify(result).onChanged(Result.success(sessions))
+        verify(result).onChanged(Result.success(listOf(favoritedSession)))
     }
 
     @Test fun sessions_Error() {
         val runtimeException = RuntimeException("test")
         whenever(repository.sessions).doReturn(Flowable.error(runtimeException))
-        viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
+        viewModel = FavoriteSessionsViewModel(repository, TestSchedulerProvider())
         val result: Observer<Result<List<Session>>> = mock()
 
         viewModel.sessions.observeForever(result)
@@ -64,7 +66,7 @@ class AllSessionsViewModelTest {
 
     @Test fun favorite() {
         whenever(repository.favorite(any())).doReturn(Single.just(true))
-        viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
+        viewModel = FavoriteSessionsViewModel(repository, TestSchedulerProvider())
         val session = mock<Session>()
 
         viewModel.onFavoriteClick(session)

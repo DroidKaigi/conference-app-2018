@@ -1,14 +1,8 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
-import android.arch.persistence.room.RoomDatabase
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionEntities
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionSpeakerJoinEntities
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSpeakerEntities
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
-import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
-import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
-import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
+import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
@@ -23,22 +17,19 @@ import javax.inject.Inject
 
 class SessionDataRepository @Inject constructor(
         private val api: DroidKaigiApi,
-        private val database: RoomDatabase,
-        private val sessionDao: SessionDao,
-        private val speakerDao: SpeakerDao,
-        private val sessionSpeakerJoinDao: SessionSpeakerJoinDao,
+        private val sessionDatabase: SessionDatabase,
         private val favoriteDatabase: FavoriteDatabase,
         private val schedulerProvider: SchedulerProvider
 ) : SessionRepository {
 
     override val rooms: Flowable<List<Room>> =
-            sessionDao.getAllRoom().toRooms()
+            sessionDatabase.getAllRoom().toRooms()
     override val sessions: Flowable<List<Session>> =
             Flowables.combineLatest(
-                    sessionSpeakerJoinDao.getAllSessions()
+                    sessionDatabase.getAllSessions()
                             .filter { it.isNotEmpty() }
                             .doOnNext { if (DEBUG) Timber.d("getAllSessions") },
-                    speakerDao.getAllSpeaker()
+                    sessionDatabase.getAllSpeaker()
                             .filter { it.isNotEmpty() }
                             .doOnNext { if (DEBUG) Timber.d("getAllSpeaker") },
                     Flowable.concat(Flowable.just(listOf()), favoriteDatabase.favorites.onErrorReturn { listOf() })
@@ -54,7 +45,8 @@ class SessionDataRepository @Inject constructor(
                     }
 
     override val speakers: Flowable<List<Speaker>> =
-            speakerDao.getAllSpeaker().map { speakers ->
+            sessionDatabase.getAllSpeaker()
+                    .map { speakers ->
                 speakers.map { speaker -> speaker.toSpeaker() }
             }
 
@@ -72,11 +64,7 @@ class SessionDataRepository @Inject constructor(
     override fun refreshSessions(): Completable {
         return api.getSessions()
                 .doOnSuccess { response ->
-                    database.runInTransaction {
-                        speakerDao.clearAndInsert(response.speakers.toSpeakerEntities())
-                        sessionDao.clearAndInsert(response.sessions.toSessionEntities(response.categories, response.rooms))
-                        sessionSpeakerJoinDao.insert(response.sessions.toSessionSpeakerJoinEntities())
-                    }
+                    sessionDatabase.save(response)
                 }
                 .subscribeOn(schedulerProvider.computation())
                 .toCompletable()

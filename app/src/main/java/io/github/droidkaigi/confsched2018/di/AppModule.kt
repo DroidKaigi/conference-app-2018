@@ -10,9 +10,7 @@ import io.github.droidkaigi.confsched2018.data.api.FeedApi
 import io.github.droidkaigi.confsched2018.data.api.FeedFireStoreApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeJsonAdapter
-import io.github.droidkaigi.confsched2018.data.db.AppDatabase
-import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
-import io.github.droidkaigi.confsched2018.data.db.FavoriteFireStoreDatabase
+import io.github.droidkaigi.confsched2018.data.db.*
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
@@ -36,14 +34,19 @@ internal class AppModule {
     @Singleton @Provides
     fun provideSessionReposiotry(
             api: DroidKaigiApi,
-            appDatabase: AppDatabase,
-            sessionDbDao: SessionDao,
-            speakerDao: SpeakerDao,
-            sessionSpeakerJoinDao: SessionSpeakerJoinDao,
+            sessionDatabase: SessionDatabase,
             favoriteDatabase: FavoriteDatabase,
             schedulerProvider: SchedulerProvider
     ): SessionRepository =
-            SessionDataRepository(api, appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao, favoriteDatabase, schedulerProvider)
+            SessionDataRepository(api, sessionDatabase, favoriteDatabase, schedulerProvider)
+
+    @Singleton @Provides
+    fun provideSessionDatabase(
+            appDatabase: AppDatabase,
+            sessionDbDao: SessionDao,
+            speakerDao: SpeakerDao,
+            sessionSpeakerJoinDao: SessionSpeakerJoinDao
+    ): SessionDatabase = SessionRoomDatabase(appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao)
 
     @Singleton @Provides
     fun provideFeedReposiotry(

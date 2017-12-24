@@ -8,13 +8,13 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
+import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import timber.log.Timber
 import javax.inject.Inject
 
 class SearchSessionViewModel @Inject constructor(
@@ -30,7 +30,9 @@ class SearchSessionViewModel @Inject constructor(
 
     fun onFavoriteClick(session: Session) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
-        favoriteSingle.subscribeBy(onError = { e -> Timber.e(e) }).addTo(compositeDisposable)
+        favoriteSingle
+                .subscribeBy(onError = defaultErrorHandler())
+                .addTo(compositeDisposable)
     }
 
     override fun onCleared() {

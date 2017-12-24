@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.db.entity.mapper
 
+import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
@@ -44,5 +45,9 @@ fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
 )
 
 fun Flowable<List<RoomEntity>>.toRooms(): Flowable<List<Room>> = map { roomEntities ->
-    roomEntities.map { Room(it.id, it.name) }
+    roomEntities.toRooms()
 }
+
+@VisibleForTesting
+fun List<RoomEntity>.toRooms() =
+        map { Room(it.id, it.name) }
