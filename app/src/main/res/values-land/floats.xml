@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="horizontal_visible_item_count" format="float" type="dimen">2.6</item>
+</resources>

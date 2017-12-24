@@ -14,7 +14,7 @@ data class SessionEntity(
         var etime: LocalDateTime,
         var sessionFormat: String,
         var language: String,
-        var topic: String,
-        var level: String,
+        @Embedded var level: LevelEntity,
+        @Embedded var topic: TopicEntity,
         @Embedded var room: RoomEntity
 )

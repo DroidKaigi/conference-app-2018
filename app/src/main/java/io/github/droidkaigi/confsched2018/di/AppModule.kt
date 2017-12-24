@@ -70,7 +70,6 @@ internal class AppModule {
                 .create<DroidKaigiApi>(DroidKaigiApi::class.java)
     }
 
-
     @Singleton @Provides
     fun provideFeedApi(): FeedApi = FeedFireStoreApi()
 

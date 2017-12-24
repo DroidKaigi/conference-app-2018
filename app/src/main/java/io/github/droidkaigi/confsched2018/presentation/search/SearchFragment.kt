@@ -39,7 +39,7 @@ class SearchFragment : Fragment(), Injectable {
     }
 
     private val onFavoriteClickListener = { session: Session ->
-        // Just for response
+        // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
@@ -103,7 +103,7 @@ class SearchFragment : Fragment(), Injectable {
                     },
                     onScrolled = { _, _, _ ->
                         val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                        val dayNumber = sessionsGroup.getDateSinceBeginOrNull(firstPosition)
+                        val dayNumber = sessionsGroup.getDateCountSinceBeginOrNull(firstPosition)
                         dayNumber ?: return@addOnScrollListener
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)
@@ -164,13 +164,12 @@ class SearchBeforeViewPagerAdapter(val context: Context, fragmentManager: Fragme
         User(R.string.search_before_tab_user);
     }
 
-
     override fun getPageTitle(position: Int): CharSequence = context.getString(Tab.values()[position].title)
 
     override fun getItem(position: Int): Fragment {
         val tab = Tab.values()[position]
         return when (tab) {
-            Tab.Session -> AllSessionsFragment.newInstance()
+            Tab.Session -> SearchSessionFragment.newInstance()
             Tab.Topic -> AllSessionsFragment.newInstance()
             Tab.User -> AllSessionsFragment.newInstance()
         }

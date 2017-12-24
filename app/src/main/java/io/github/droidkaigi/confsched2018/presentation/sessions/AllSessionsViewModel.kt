@@ -12,6 +12,8 @@ import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
+import timber.log.Timber
 import javax.inject.Inject
 
 class AllSessionsViewModel @Inject constructor(
@@ -28,7 +30,7 @@ class AllSessionsViewModel @Inject constructor(
 
     fun onFavoriteClick(session: Session) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
-        favoriteSingle.subscribe().addTo(compositeDisposable)
+        favoriteSingle.subscribeBy(onError = { e -> Timber.e(e) }).addTo(compositeDisposable)
     }
 
     override fun onCleared() {

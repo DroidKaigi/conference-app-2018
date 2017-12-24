@@ -10,6 +10,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
+import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLolipop
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
@@ -46,15 +47,19 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
             when (item.itemId) {
                 R.id.navigation_sessions -> {
                     navigationController.navigateToSessions()
+                    binding.toolbar.elevationForPostLolipop = 0F
                 }
                 R.id.navigation_search -> {
                     navigationController.navigateToSearch()
+                    binding.toolbar.elevationForPostLolipop = 0F
                 }
                 R.id.navigation_my_sessions -> {
                     navigationController.navigateToFavoriteSessions()
+                    binding.toolbar.elevationForPostLolipop = resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
                 }
                 R.id.navigation_notification -> {
                     navigationController.navigateToFeed()
+                    binding.toolbar.elevationForPostLolipop = resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
                 }
                 else -> throw NotImplementedError()
             }

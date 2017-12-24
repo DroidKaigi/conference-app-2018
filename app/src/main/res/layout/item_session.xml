@@ -32,7 +32,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             >
 
             <TextView
@@ -42,11 +42,11 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.App.Caption"
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:startDate="@{session.startTime}"
-                android:textAppearance="@style/TextAppearance.App.Caption"
                 tools:text="10:30 - 11:00"
                 />
 
@@ -57,9 +57,9 @@
                 android:layout_marginStart="8dp"
                 android:maxLines="3"
                 android:text="@{session.room.name}"
+                android:textAppearance="@style/TextAppearance.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
-                android:textAppearance="@style/TextAppearance.App.Caption"
                 tools:text="Room A"
                 />
 
@@ -74,9 +74,9 @@
                 android:maxLines="3"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
+                android:textAppearance="@style/TextAppearance.App.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textAppearance="@style/TextAppearance.App.Body2"
                 tools:text="Room A"
                 />
 
@@ -95,14 +95,13 @@
                 tools:text="テストセッション"
                 />
 
-
             <TextView
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="20dp"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="@{session.desc}"
@@ -132,9 +131,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:textAppearance="@style/TextAppearance.App.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_top"
-                android:textAppearance="@style/TextAppearance.App.Body2"
                 />
 
             <View
@@ -233,7 +232,6 @@
                 app:layout_constraintTop_toTopOf="@id/speaker_image_1"
                 app:layout_goneMarginStart="36dp"
                 />
-
 
             <ImageView
                 android:id="@+id/favorite"

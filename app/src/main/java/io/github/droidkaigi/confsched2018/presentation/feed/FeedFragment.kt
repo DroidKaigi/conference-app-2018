@@ -85,7 +85,6 @@ class FeedFragment : Fragment(), Injectable {
         binding.feedRecycler.adapter = groupAdapter
     }
 
-
     companion object {
         fun newInstance(): FeedFragment = FeedFragment()
     }

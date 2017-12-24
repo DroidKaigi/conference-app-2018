@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedViewModel
+import io.github.droidkaigi.confsched2018.presentation.search.SearchSessionViewModel
 import io.github.droidkaigi.confsched2018.presentation.search.SearchViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
@@ -30,13 +31,17 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     abstract fun bindRoomSessionsViewModel(sessionsViewModel: RoomSessionsViewModel): ViewModel
 
     @Binds @IntoMap
+    @ViewModelKey(SearchSessionViewModel::class)
+    abstract fun bindSearchSessionViewModel(sessionsViewModel: SearchSessionViewModel): ViewModel
+
+
+    @Binds @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(FeedViewModel::class)
     abstract fun bindFeedViewModel(searchViewModel: FeedViewModel): ViewModel
-
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

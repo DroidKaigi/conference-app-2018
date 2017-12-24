@@ -53,7 +53,7 @@ class AllSessionsFragment : Fragment(), Injectable {
     }
 
     private val onFavoriteClickListener = { session: Session ->
-        // Just for response
+        // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
@@ -103,7 +103,7 @@ class AllSessionsFragment : Fragment(), Injectable {
                     },
                     onScrolled = { _, _, _ ->
                         val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                        val dayNumber = sessionsGroup.getDateSinceBeginOrNull(firstPosition)
+                        val dayNumber = sessionsGroup.getDateCountSinceBeginOrNull(firstPosition)
                         dayNumber ?: return@addOnScrollListener
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)

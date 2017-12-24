@@ -106,8 +106,9 @@ dependencies {
     kapt 'com.google.dagger:dagger-android-processor:2.13'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-firestore:11.6.2'
-    implementation 'com.google.firebase:firebase-auth:11.6.2'
+    // Adjust version for emulator
+    implementation 'com.google.firebase:firebase-firestore:11.4.2'
+    implementation 'com.google.firebase:firebase-auth:11.4.2'
 
     // ThreeTenABP for JSR-310 backport
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'

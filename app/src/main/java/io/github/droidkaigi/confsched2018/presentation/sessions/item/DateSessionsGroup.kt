@@ -37,7 +37,7 @@ class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
         update(dateSessions)
     }
 
-    fun getDateSinceBeginOrNull(firstPosition: Int): Int? {
+    fun getDateCountSinceBeginOrNull(firstPosition: Int): Int? {
         val firstDay = getDateOrNull(0) ?: return null
         val date = getDateOrNull(firstPosition) ?: return null
         return Period.between(firstDay.toLocalDate(), date.toLocalDate()).days + 1
