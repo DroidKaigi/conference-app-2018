@@ -16,7 +16,6 @@ class ImageBinding {}
 
 @BindingAdapter("bind:colorTint", "app:srcCompat")
 fun ImageView.setColorTint(@ColorInt color: Int, drawable: Drawable) {
-    drawable ?: return
     val wrappedDrawable = DrawableCompat.wrap(drawable.mutate())
     DrawableCompat.setTint(wrappedDrawable, color)
     setImageDrawable(wrappedDrawable)
