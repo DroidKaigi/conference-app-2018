@@ -99,9 +99,9 @@
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="12dp"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="@{session.desc}"
@@ -112,41 +112,18 @@
                 tools:text="Material is the metaphor A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic."
                 />
 
-            <View
-                android:id="@+id/divider_top"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:background="#21000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description"
-                />
-
             <TextView
                 android:id="@+id/topic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:textAppearance="@style/TextAppearance.App.Body2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_top"
-                />
-
-            <View
-                android:id="@+id/divider_bottom"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:background="#21000000"
+                android:layout_marginTop="16dp"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.App.Caption"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topic"
+                app:layout_constraintTop_toBottomOf="@id/description"
                 />
 
             <ImageView
@@ -206,15 +183,15 @@
                 android:id="@+id/speaker_image_1"
                 android:layout_width="@dimen/speaker_image"
                 android:layout_height="@dimen/speaker_image"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="32dp"
                 android:contentDescription="@string/content_description_favorite_button"
                 android:padding="16dp"
                 android:scaleType="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_bottom"
+                app:layout_constraintTop_toBottomOf="@id/topic"
                 tools:src="@drawable/ic_person_black_24dp"
                 />
 
@@ -235,14 +212,17 @@
 
             <ImageView
                 android:id="@+id/favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/FavoriteButton"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:contentDescription="@string/content_description_favorite_button"
                 android:padding="16dp"
                 android:scaleType="center"
+                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
+                tools:src="@drawable/ic_favorite_black_24dp"
                 />
 
         </android.support.constraint.ConstraintLayout>

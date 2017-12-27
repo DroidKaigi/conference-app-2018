@@ -195,11 +195,8 @@
 
             <ImageView
                 android:id="@+id/favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/content_description_favorite_button"
-                android:padding="16dp"
-                android:scaleType="center"
+                style="@style/FavoriteButton"
+                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"

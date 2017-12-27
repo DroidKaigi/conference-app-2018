@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
+import android.support.v7.widget.SimpleItemAnimator
 import android.view.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -95,6 +96,7 @@ class SearchFragment : Fragment(), Injectable {
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
             addOnScrollListener(
                     onScrollStateChanged = { _: RecyclerView?, newState: Int ->

@@ -9,6 +9,7 @@ import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import timber.log.Timber
 import javax.inject.Inject
+
 
 class AllSessionsFragment : Fragment(), Injectable {
 
@@ -95,6 +97,7 @@ class AllSessionsFragment : Fragment(), Injectable {
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
             addOnScrollListener(
                     onScrollStateChanged = { _: RecyclerView?, newState: Int ->

@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2018.presentation
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.support.multidex.MultiDexApplication
+import android.support.v7.app.AppCompatDelegate
 import com.facebook.stetho.Stetho
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,6 +23,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
         super.onCreate()
         setupTimber()
         setupFirebase()
+        setupVectorDrawable()
         setupThreeTenABP()
         setupLeakCanary()
         setupDagger()
@@ -40,6 +42,10 @@ open class App : MultiDexApplication(), HasActivityInjector {
                     .build()
             fireStore.firestoreSettings = settings
         }
+    }
+
+    private fun setupVectorDrawable() {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
     private fun setupThreeTenABP() {

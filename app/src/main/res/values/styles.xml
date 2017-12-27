@@ -1,12 +1,31 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/background</item>
+    <style name="TabLayout">
+        <item name="tabTextColor">?colorControlNormal</item>
+        <item name="tabSelectedTextColor">?colorControlNormal</item>
     </style>
+
+    <style name="DayHeader">
+        <item name="android:background">@drawable/shape_round_corner</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:textColor">@color/day_header_text_color</item>
+        <item name="android:fontFamily">@font/notosans_medium</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">12dp</item>
+    </style>
+
+    <style name="FavoriteButton">
+        <item name="android:background">?actionBarItemBackground</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:contentDescription">@string/content_description_favorite_button</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
 
 </resources>

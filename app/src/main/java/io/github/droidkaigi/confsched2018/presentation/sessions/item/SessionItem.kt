@@ -21,7 +21,7 @@ data class SessionItem(
 
     override fun bind(viewBinding: ItemSessionBinding, position: Int) {
         viewBinding.session = session
-        viewBinding.topic.text = session.topic.getNameByLang(lang())
+        viewBinding.topic.text = session.topic.name
         viewBinding.level.text = session.level.getNameByLang(lang())
         val speakerImages = arrayOf(
                 viewBinding.speakerImage1,
