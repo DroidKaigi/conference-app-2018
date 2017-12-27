@@ -9,6 +9,7 @@ import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,6 +96,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
             addOnScrollListener(
                     onScrollStateChanged = { _: RecyclerView?, newState: Int ->

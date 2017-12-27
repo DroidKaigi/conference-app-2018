@@ -8,5 +8,5 @@
         android:topLeftRadius="30dp"
         android:topRightRadius="30dp"
         />
-    <solid android:color="@color/button_material_light" />
+    <solid android:color="@color/card_background_color" />
 </shape>

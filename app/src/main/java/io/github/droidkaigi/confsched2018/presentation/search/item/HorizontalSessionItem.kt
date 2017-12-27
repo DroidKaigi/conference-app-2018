@@ -11,7 +11,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import io.github.droidkaigi.confsched2018.util.ViewSizeCalculator.calculateViewSizeByScreenAndCount
 import io.github.droidkaigi.confsched2018.util.ext.context
-import io.github.droidkaigi.confsched2018.util.ext.getDisplaySize
+import io.github.droidkaigi.confsched2018.util.ext.displaySize
 import io.github.droidkaigi.confsched2018.util.ext.getFloat
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.lang
@@ -29,7 +29,7 @@ class HorizontalSessionItem(
         val binding = viewHolder.binding
 
         val width = calculateViewSizeByScreenAndCount(
-                binding.context.getDisplaySize().width,
+                binding.context.displaySize().width,
                 binding.context.resources.getFloat(R.dimen.horizontal_visible_item_count))
         itemView.layoutParams.width = width
         return viewHolder
@@ -84,6 +84,5 @@ class HorizontalSessionItem(
     override fun hashCode(): Int {
         return session.hashCode()
     }
-
 
 }
