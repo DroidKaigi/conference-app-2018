@@ -19,6 +19,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
@@ -36,6 +37,8 @@ class AllSessionsFragment : Fragment(), Injectable {
     private val sessionsGroup = DateSessionsGroup(this)
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var navigationController: NavigationController
+
     private val sessionsViewModel: AllSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
     }
@@ -92,7 +95,7 @@ class AllSessionsFragment : Fragment(), Injectable {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsGroup)
             setOnItemClickListener({ _, _ ->
-                //TODO
+                navigationController.navigateToDetail()
             })
         }
         binding.sessionsRecycler.apply {
