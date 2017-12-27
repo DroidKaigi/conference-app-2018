@@ -18,7 +18,7 @@ import javax.inject.Singleton
 internal class AppModule {
 
     @Singleton @Provides
-    fun provideSessionReposiotry(
+    fun provideSessionRepository(
             api: DroidKaigiApi,
             sessionDatabase: SessionDatabase,
             favoriteDatabase: FavoriteDatabase,
@@ -27,7 +27,7 @@ internal class AppModule {
             SessionDataRepository(api, sessionDatabase, favoriteDatabase, schedulerProvider)
 
     @Singleton @Provides
-    fun provideFeedReposiotry(
+    fun provideFeedRepository(
             feedApi: FeedApi
     ): FeedRepository =
             FeedDataRepository(feedApi)
