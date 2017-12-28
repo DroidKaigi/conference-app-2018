@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2018.presentation.search.item
 import android.support.v4.app.Fragment
 import android.view.View
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -18,7 +19,8 @@ import io.github.droidkaigi.confsched2018.util.lang
 
 class HorizontalSessionItem(
         val session: Session,
-        private val onFavoriteClickListener: (Session) -> Unit = {},
+        private val onFavoriteClickListener: (Session) -> Unit,
+        private val onItemClickListener: OnItemClickListener,
         private val fragment: Fragment
 ) : BindableItem<ItemHorizontalSessionBinding>(
         session.id.hashCode().toLong()
@@ -63,6 +65,9 @@ class HorizontalSessionItem(
         }
 
         viewBinding.speakers.text = session.speakers.joinToString { it.name }
+        viewBinding.root.setOnClickListener { view ->
+            onItemClickListener.onItemClick(this, view)
+        }
         viewBinding.favorite.setOnClickListener {
             onFavoriteClickListener(session)
         }

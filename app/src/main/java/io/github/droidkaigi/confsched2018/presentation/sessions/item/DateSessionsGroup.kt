@@ -14,7 +14,7 @@ import java.util.*
 class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
     fun updateSessions(
             sessions: List<Session>,
-            onFavoriteClickListener: (Session) -> Unit = {}
+            onFavoriteClickListener: (Session) -> Unit
     ) {
         val sessionItems = sessions.map {
             SessionItem(it, onFavoriteClickListener, fragment)

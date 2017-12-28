@@ -20,8 +20,10 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentRoomSessionsBindin
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.SessionItem
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -35,6 +37,8 @@ class RoomSessionsFragment : Fragment(), Injectable {
     private lateinit var roomName: String
 
     private val sessionsGroup = DateSessionsGroup(this)
+
+    @Inject lateinit var navigationController: NavigationController
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: RoomSessionsViewModel by lazy {
@@ -98,8 +102,9 @@ class RoomSessionsFragment : Fragment(), Injectable {
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsGroup)
-            setOnItemClickListener({ _, _ ->
-                //TODO
+            setOnItemClickListener({ item, _ ->
+                val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
+                navigationController.navigateToDetailActivity(sessionItem.session)
             })
         }
         binding.sessionsRecycler.apply {

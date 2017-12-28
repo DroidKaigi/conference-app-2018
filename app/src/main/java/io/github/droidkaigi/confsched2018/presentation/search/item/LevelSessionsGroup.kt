@@ -13,7 +13,7 @@ class LevelSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
 
     fun updateSessions(
             levelSessions: Map<Level, List<Session>>,
-            onFavoriteClickListener: (Session) -> Unit = {}
+            onFavoriteClickListener: (Session) -> Unit
     ) {
         val list = mutableListOf<Item<*>>()
         levelSessions.keys.sortedBy { it.id }.map { level ->

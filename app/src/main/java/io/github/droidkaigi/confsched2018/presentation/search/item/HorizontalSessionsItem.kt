@@ -3,9 +3,7 @@ package io.github.droidkaigi.confsched2018.presentation.search.item
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.Item
-import com.xwray.groupie.UpdatingGroup
+import com.xwray.groupie.*
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -16,12 +14,18 @@ import io.github.droidkaigi.confsched2018.model.Session
 class HorizontalSessionsItem(
         val level: Level,
         var sessions: List<Session>,
-        private val onFavoriteClickListener: (Session) -> Unit = {},
+        private val onFavoriteClickListener: (Session) -> Unit,
         private val fragment: Fragment, private val scrollPositionMap: HashMap<Int, LevelSessionsGroup.PositionAndOffset>
 ) : BindableItem<ItemSearchHorizontalSessionsBinding>(
         level.id.toLong()
 ) {
     private val updatingGroup = UpdatingGroup()
+    private lateinit var onItemClickListener: OnItemClickListener
+
+    override fun bind(holder: ViewHolder<ItemSearchHorizontalSessionsBinding>, position: Int, payloads: MutableList<Any>, onItemClickListener: OnItemClickListener?, onItemLongClickListener: OnItemLongClickListener?) {
+        this.onItemClickListener = onItemClickListener!!
+        super.bind(holder, position, payloads, onItemClickListener, onItemLongClickListener)
+    }
 
     override fun bind(viewBinding: ItemSearchHorizontalSessionsBinding, position: Int) {
         val items = mutableListOf<Item<*>>()
@@ -34,7 +38,7 @@ class HorizontalSessionsItem(
             (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(scroll.position, scroll.offset)
         }
         sessions.forEach {
-            items.add(HorizontalSessionItem(it, onFavoriteClickListener, fragment))
+            items.add(HorizontalSessionItem(it, onFavoriteClickListener, onItemClickListener, fragment))
         }
         updatingGroup.update(items)
     }

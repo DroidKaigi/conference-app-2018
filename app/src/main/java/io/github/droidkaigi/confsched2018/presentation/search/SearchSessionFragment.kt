@@ -12,7 +12,9 @@ import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchSessionBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.search.item.HorizontalSessionItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.LevelSessionsGroup
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
@@ -24,6 +26,7 @@ class SearchSessionFragment : Fragment(), Injectable {
 
     private val sessionsGroup = LevelSessionsGroup(this)
 
+    @Inject lateinit var navigationController: NavigationController
     private val searchSessionViewModel: SearchSessionViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchSessionViewModel::class.java)
     }
@@ -72,8 +75,9 @@ class SearchSessionFragment : Fragment(), Injectable {
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsGroup)
-            setOnItemClickListener({ _, _ ->
-                //TODO
+            setOnItemClickListener({ item, _ ->
+                val sessionItem = (item as? HorizontalSessionItem) ?: return@setOnItemClickListener
+                navigationController.navigateToDetailActivity(sessionItem.session)
             })
         }
         binding.searchSessionRecycler.apply {
