@@ -14,7 +14,7 @@ import javax.inject.Singleton
     NetworkModule::class,
     DatabaseModule::class,
     MainActivityBuilder::class,
-    DetailActivityBuilder::class
+    SessionDetailActivityBuilder::class
 ])
 interface AppComponent {
     @Component.Builder

@@ -4,8 +4,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.presentation.detail.DetailActivity
 import io.github.droidkaigi.confsched2018.presentation.detail.DetailFragment
+import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
 import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
@@ -52,6 +52,6 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     }
 
     fun navigateToDetailActivity(session: Session) {
-        DetailActivity.start(activity, session)
+        SessionDetailActivity.start(activity, session)
     }
 }

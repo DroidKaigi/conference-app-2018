@@ -15,7 +15,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import javax.inject.Inject
 
-class DetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class SessionDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
 
@@ -32,7 +32,7 @@ class DetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     companion object {
         val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun start(context: Context, session: Session) {
-            context.startActivity(Intent(context, DetailActivity::class.java).apply {
+            context.startActivity(Intent(context, SessionDetailActivity::class.java).apply {
                 putExtra(EXTRA_SESSION_ID, session.id)
             })
         }
