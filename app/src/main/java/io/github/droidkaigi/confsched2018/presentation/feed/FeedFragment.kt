@@ -51,7 +51,6 @@ class FeedFragment : Fragment(), Injectable {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentFeedBinding.inflate(inflater, container, false)
-        lifecycle.addObserver(postsViewModel)
         return binding.root
     }
 

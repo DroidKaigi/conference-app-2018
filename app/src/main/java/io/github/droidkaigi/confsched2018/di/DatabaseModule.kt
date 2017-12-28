@@ -10,8 +10,7 @@ import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import javax.inject.Singleton
 
-@Module(includes = [(ViewModelModule::class)])
-internal class DatabaseModule {
+@Module internal class DatabaseModule {
 
     @Singleton @Provides
     fun provideSessionDatabase(

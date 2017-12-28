@@ -64,7 +64,6 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentAllSessionsBinding.inflate(inflater, container, false)
-        lifecycle.addObserver(sessionsViewModel)
         return binding.root
     }
 

@@ -13,8 +13,8 @@ import javax.inject.Singleton
     AppModule::class,
     NetworkModule::class,
     DatabaseModule::class,
-    MainActivityModule::class,
-    DetailActivityModule::class
+    MainActivityBuilder::class,
+    DetailActivityBuilder::class
 ])
 interface AppComponent {
     @Component.Builder

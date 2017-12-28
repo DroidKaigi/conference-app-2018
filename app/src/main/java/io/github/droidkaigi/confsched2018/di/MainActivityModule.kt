@@ -1,10 +1,11 @@
 package io.github.droidkaigi.confsched2018.di
 
+import android.support.v7.app.AppCompatActivity
+import dagger.Binds
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 
-@Module abstract class MainActivityModule {
-    @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
-    abstract fun contributeMainActivity(): MainActivity
+@Module
+interface MainActivityModule {
+    @Binds fun providesAppCompatActivity(mainActivity: MainActivity): AppCompatActivity
 }

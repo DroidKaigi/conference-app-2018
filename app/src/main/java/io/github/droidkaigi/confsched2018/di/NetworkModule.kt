@@ -16,8 +16,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = [(ViewModelModule::class)])
-internal class NetworkModule {
+@Module internal class NetworkModule {
 
     @Singleton @Provides
     fun provideDroidKaigiService(): DroidKaigiApi {
