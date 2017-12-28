@@ -1,4 +1,7 @@
 <resources>
+    <!-- Common -->
+    <string name="time_period">%1$s - %2$s</string>
+
     <!-- NavigationDrawer -->
     <string name="nav_item_map">会場マップ</string>
     <string name="nav_item_sponsor">スポンサー</string>
