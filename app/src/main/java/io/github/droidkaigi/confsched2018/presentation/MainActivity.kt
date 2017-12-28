@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
 
         setupBottomNavigation(savedInstanceState)

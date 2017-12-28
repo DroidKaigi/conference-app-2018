@@ -8,7 +8,14 @@ import io.github.droidkaigi.confsched2018.presentation.App
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [(AndroidInjectionModule::class), (AppModule::class), (MainActivityModule::class)])
+@Component(modules = [
+    AndroidInjectionModule::class,
+    AppModule::class,
+    NetworkModule::class,
+    DatabaseModule::class,
+    MainActivityBuilder::class,
+    SessionDetailActivityBuilder::class
+])
 interface AppComponent {
     @Component.Builder
     interface Builder {

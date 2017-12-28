@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailViewModel
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedViewModel
 import io.github.droidkaigi.confsched2018.presentation.search.SearchSessionViewModel
@@ -20,7 +21,7 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
 
     @Binds @IntoMap
     @ViewModelKey(FavoriteSessionsViewModel::class)
-    abstract fun bindFavoriteSessionsViewModel(allSessionsViewModel: FavoriteSessionsViewModel): ViewModel
+    abstract fun bindFavoriteSessionsViewModel(favoriteSessionsViewModel: FavoriteSessionsViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SessionsViewModel::class)
@@ -28,11 +29,11 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
 
     @Binds @IntoMap
     @ViewModelKey(RoomSessionsViewModel::class)
-    abstract fun bindRoomSessionsViewModel(sessionsViewModel: RoomSessionsViewModel): ViewModel
+    abstract fun bindRoomSessionsViewModel(roomSessionsViewModel: RoomSessionsViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchSessionViewModel::class)
-    abstract fun bindSearchSessionViewModel(sessionsViewModel: SearchSessionViewModel): ViewModel
+    abstract fun bindSearchSessionViewModel(searchSessionViewModel: SearchSessionViewModel): ViewModel
 
 
     @Binds @IntoMap
@@ -41,7 +42,11 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
 
     @Binds @IntoMap
     @ViewModelKey(FeedViewModel::class)
-    abstract fun bindFeedViewModel(searchViewModel: FeedViewModel): ViewModel
+    abstract fun bindFeedViewModel(feedViewModel: FeedViewModel): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(SessionDetailViewModel::class)
+    abstract fun bindSessionDetailViewModel(sessionDetailViewModel: SessionDetailViewModel): ViewModel
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

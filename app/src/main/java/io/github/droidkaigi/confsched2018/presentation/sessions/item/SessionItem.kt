@@ -13,7 +13,7 @@ import io.github.droidkaigi.confsched2018.util.lang
 
 data class SessionItem(
         val session: Session,
-        private val onFavoriteClickListener: (Session) -> Unit = {},
+        private val onFavoriteClickListener: (Session) -> Unit,
         private val fragment: Fragment
 ) : BindableItem<ItemSessionBinding>(
         session.id.toLong()

@@ -19,8 +19,10 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.SessionItem
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -34,6 +36,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
     private val sessionsGroup = DateSessionsGroup(this)
 
+    @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: FavoriteSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(FavoriteSessionsViewModel::class.java)
@@ -64,7 +67,6 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentAllSessionsBinding.inflate(inflater, container, false)
-        lifecycle.addObserver(sessionsViewModel)
         return binding.root
     }
 
@@ -90,8 +92,9 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsGroup)
-            setOnItemClickListener({ _, _ ->
-                //TODO
+            setOnItemClickListener({ item, _ ->
+                val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
+                navigationController.navigateToDetailActivity(sessionItem.session)
             })
         }
         binding.sessionsRecycler.apply {

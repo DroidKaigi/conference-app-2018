@@ -30,7 +30,6 @@ fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList:
             level = Level(sessionEntity.level.id, sessionEntity.level.name),
             language = sessionEntity.language,
             topic = Topic(sessionEntity.topic.id, sessionEntity.topic.name),
-            sessionFormat = sessionEntity.sessionFormat,
             speakers = speakers
     )
 }

@@ -8,7 +8,6 @@ data class Session(
         var endTime: Date,
         var room: Room,
         var format: String,
-        var sessionFormat: String,
         var language: String,
         var topic: Topic,
         var level: Level,
