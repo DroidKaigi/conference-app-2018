@@ -13,7 +13,6 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSearchTopicsBindin
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
-import io.github.droidkaigi.confsched2018.presentation.search.item.HorizontalSessionItem
 import javax.inject.Inject
 
 class SearchTopicsFragment : Fragment(), Injectable {
@@ -53,17 +52,12 @@ class SearchTopicsFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            // TODO: Add group
+            // TODO: Add group and click listener
 //            add(sessionsGroup)
-            setOnItemClickListener({ item, _ ->
-                val sessionItem = (item as? HorizontalSessionItem) ?: return@setOnItemClickListener
-                navigationController.navigateToSessionDetailActivity(sessionItem.session)
-            })
         }
         binding.searchSessionRecycler.apply {
             adapter = groupAdapter
         }
-
     }
 
     companion object {

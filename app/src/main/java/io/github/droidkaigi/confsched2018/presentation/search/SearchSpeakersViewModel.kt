@@ -19,7 +19,7 @@ class SearchSpeakersViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
-    val sessions: LiveData<Result<Map<Topic, List<Session>>>> by lazy {
+    val speakers: LiveData<Result<Map<Topic, List<Session>>>> by lazy {
         TODO()
     }
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
