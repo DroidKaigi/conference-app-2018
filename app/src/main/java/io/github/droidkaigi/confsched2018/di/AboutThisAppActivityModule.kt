@@ -6,8 +6,6 @@ import dagger.Module
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 
-@Module
-interface AboutThisAppActivityModule {
-    @Binds
-    fun providesAppCompatActivity(activity: AboutThisAppActivity): AppCompatActivity
+@Module interface AboutThisAppActivityModule {
+    @Binds fun providesAppCompatActivity(activity: AboutThisAppActivity): AppCompatActivity
 }

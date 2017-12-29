@@ -27,9 +27,9 @@ class SponsorsActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(binding.toolbar)
-        navigationController.navigateToSponsors()
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navigationController.navigateToSponsors()
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector

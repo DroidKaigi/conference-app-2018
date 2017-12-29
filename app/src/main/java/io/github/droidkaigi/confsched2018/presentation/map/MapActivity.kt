@@ -26,9 +26,9 @@ class MapActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(binding.toolbar)
-        navigationController.navigateToMap()
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navigationController.navigateToMap()
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector

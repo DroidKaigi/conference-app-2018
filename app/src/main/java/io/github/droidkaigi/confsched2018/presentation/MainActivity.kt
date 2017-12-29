@@ -78,20 +78,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         actionBarDrawerToggle.syncState()
         binding.drawer.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_item_map -> {
-                    navigationController.navigateToMapActivity()
-                }
-                R.id.nav_item_setting -> {
-                    navigationController.navigateToSettingsActivity()
-                }
-                R.id.nav_item_sponsor -> {
-                    navigationController.navigateToSponsorsActivity()
-                }
-                R.id.nav_item_info -> {
-                    navigationController.navigateToAboutThisAppActivity()
-                }
-                else -> {
-                }
+                R.id.nav_item_map -> navigationController.navigateToMapActivity()
+                R.id.nav_item_setting -> navigationController.navigateToSettingsActivity()
+                R.id.nav_item_sponsor -> navigationController.navigateToSponsorsActivity()
+                R.id.nav_item_info -> navigationController.navigateToAboutThisAppActivity()
             }
             true
         }

@@ -5,7 +5,6 @@ import dagger.Binds
 import dagger.Module
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 
-@Module
-interface MainActivityModule {
+@Module interface MainActivityModule {
     @Binds fun providesAppCompatActivity(mainActivity: MainActivity): AppCompatActivity
 }

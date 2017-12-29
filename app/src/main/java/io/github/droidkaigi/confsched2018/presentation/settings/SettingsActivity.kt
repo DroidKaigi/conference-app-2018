@@ -27,9 +27,9 @@ class SettingsActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
 
         setSupportActionBar(binding.toolbar)
-        navigationController.navigateToSettings()
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navigationController.navigateToSettings()
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
