@@ -29,6 +29,8 @@ class SessionDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         navigationController.navigateToDetail(intent.getStringExtra(EXTRA_SESSION_ID))
     }
 
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
     companion object {
         val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun start(context: Context, session: Session) {
@@ -37,6 +39,4 @@ class SessionDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
             })
         }
     }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 }

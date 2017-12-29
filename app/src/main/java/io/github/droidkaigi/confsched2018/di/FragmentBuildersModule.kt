@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2018.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import io.github.droidkaigi.confsched2018.presentation.detail.DetailFragment
+import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
 import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
@@ -26,5 +26,5 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 
     @ContributesAndroidInjector abstract fun contributeFeedFragment(): FeedFragment
 
-    @ContributesAndroidInjector abstract fun contributeDetailFragment(): DetailFragment
+    @ContributesAndroidInjector abstract fun contributeDetailFragment(): SessionDetailFragment
 }

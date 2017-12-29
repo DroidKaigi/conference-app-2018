@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.presentation.detail.DetailFragment
+import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
@@ -47,7 +47,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     fun navigateToDetail(sessionId: String) {
         fragmentManager
                 .beginTransaction()
-                .replace(containerId, DetailFragment.newInstance(sessionId))
+                .replace(containerId, SessionDetailFragment.newInstance(sessionId))
                 .commitAllowingStateLoss()
     }
 
