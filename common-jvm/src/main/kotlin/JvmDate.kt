@@ -32,6 +32,10 @@ actual class Date {
 
     actual fun getTime(): Number = calendar.timeInMillis
 
+    override fun hashCode(): Int {
+        return date.time.toInt()
+    }
+
     override fun equals(other: Any?): Boolean =
             other is Date && other.calendar.time == calendar.time
 }

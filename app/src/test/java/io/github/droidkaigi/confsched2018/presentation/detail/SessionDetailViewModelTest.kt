@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.detail
 
 import android.arch.lifecycle.Observer
 import com.nhaarman.mockito_kotlin.*
-import io.github.droidkaigi.confsched2018.DUMMY_SESSION_ID_1
+import io.github.droidkaigi.confsched2018.DUMMY_SESSION_ID1
 import io.github.droidkaigi.confsched2018.createDummySession
 import io.github.droidkaigi.confsched2018.createDummySessions
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -43,13 +43,13 @@ class SessionDetailViewModelTest {
         val sessions = createDummySessions()
         whenever(repository.sessions).doReturn(Flowable.just(sessions))
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
-        viewModel.sessionId = DUMMY_SESSION_ID_1
+        viewModel.sessionId = DUMMY_SESSION_ID1
         val result: Observer<Result<Session>> = mock()
 
         viewModel.session.observeForever(result)
 
         verify(repository).sessions
-        verify(result).onChanged(Result.success(createDummySession(DUMMY_SESSION_ID_1)))
+        verify(result).onChanged(Result.success(createDummySession(DUMMY_SESSION_ID1)))
     }
 
     @Test fun sessions_Error() {

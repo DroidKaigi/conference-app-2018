@@ -25,9 +25,4 @@ fun <T> Observable<T>.toResult(schedulerProvider: SchedulerProvider): Observable
         }
 
 fun <T> Single<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> =
-        compose { item ->
-            item
-                    .map { Result.success(it) }
-                    .onErrorReturn { e -> Result.failure(e.message ?: "unknown", e) }
-                    .observeOn(schedulerProvider.ui())
-        }.toObservable().startWith(Result.inProgress())
+        toObservable().toResult(schedulerProvider)

@@ -71,10 +71,10 @@ class SearchFragment : Fragment(), Injectable {
 
     private fun setupSearch() {
         setupRecyclerView()
-        searchViewModel.sessions.observe(this, { result ->
+        searchViewModel.result.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    val sessions = result.data
+                    val sessions = result.data.sessions
                     sessionsGroup.updateSessions(sessions, onFavoriteClickListener)
                     binding.sessionsRecycler.scrollToPosition(0)
                 }

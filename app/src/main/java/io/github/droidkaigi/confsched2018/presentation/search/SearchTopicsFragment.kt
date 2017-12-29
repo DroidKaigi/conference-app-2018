@@ -46,7 +46,7 @@ class SearchTopicsFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        // TODO: searchTopicsViewModel.sessions fetch data here
+        // TODO: searchTopicsViewModel.result fetch data here
         lifecycle.addObserver(searchTopicsViewModel)
     }
 
