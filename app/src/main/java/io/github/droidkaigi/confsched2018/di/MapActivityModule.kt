@@ -4,9 +4,10 @@ import android.support.v7.app.AppCompatActivity
 import dagger.Binds
 import dagger.Module
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
+import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
 
 @Module
-interface SessionDetailActivityModule {
+interface MapActivityModule {
     @Binds
-    fun providesAppCompatActivity(activity: SessionDetailActivity): AppCompatActivity
+    fun providesAppCompatActivity(activity: MapActivity): AppCompatActivity
 }

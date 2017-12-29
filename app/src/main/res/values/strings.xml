@@ -27,4 +27,16 @@
 
     <!-- Feed -->
     <string name="feed_title">お知らせ</string>
+
+    <!-- Map -->
+    <string name="title_activity_map">地図</string>
+
+    <!-- Sponsor -->
+    <string name="title_activity_sponsors">スポンサー</string>
+
+    <!-- About This App -->
+    <string name="title_activity_about_this_app">このアプリについて</string>
+
+    <!-- Settings -->
+    <string name="title_activity_settings">設定</string>
 </resources>
