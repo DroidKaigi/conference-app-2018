@@ -8,7 +8,9 @@ import dagger.multibindings.IntoMap
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailViewModel
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedViewModel
-import io.github.droidkaigi.confsched2018.presentation.search.SearchSessionViewModel
+import io.github.droidkaigi.confsched2018.presentation.search.SearchSessionsViewModel
+import io.github.droidkaigi.confsched2018.presentation.search.SearchSpeakersViewModel
+import io.github.droidkaigi.confsched2018.presentation.search.SearchTopicsViewModel
 import io.github.droidkaigi.confsched2018.presentation.search.SearchViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
@@ -32,8 +34,8 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     abstract fun bindRoomSessionsViewModel(roomSessionsViewModel: RoomSessionsViewModel): ViewModel
 
     @Binds @IntoMap
-    @ViewModelKey(SearchSessionViewModel::class)
-    abstract fun bindSearchSessionViewModel(searchSessionViewModel: SearchSessionViewModel): ViewModel
+    @ViewModelKey(SearchSessionsViewModel::class)
+    abstract fun bindSearchSessionViewModel(searchSessionsViewModel: SearchSessionsViewModel): ViewModel
 
 
     @Binds @IntoMap
@@ -47,6 +49,15 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     @Binds @IntoMap
     @ViewModelKey(SessionDetailViewModel::class)
     abstract fun bindSessionDetailViewModel(sessionDetailViewModel: SessionDetailViewModel): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(SearchTopicsViewModel::class)
+    abstract fun bindSearchTopicsViewModel(sessionDetailViewModel: SearchTopicsViewModel): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(SearchSpeakersViewModel::class)
+    abstract fun bindSearchSpeakersViewModel(sessionDetailViewModel: SearchSpeakersViewModel): ViewModel
+
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

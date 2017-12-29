@@ -8,7 +8,9 @@ import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessions
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
 import io.github.droidkaigi.confsched2018.presentation.map.MapFragment
 import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
-import io.github.droidkaigi.confsched2018.presentation.search.SearchSessionFragment
+import io.github.droidkaigi.confsched2018.presentation.search.SearchSessionsFragment
+import io.github.droidkaigi.confsched2018.presentation.search.SearchSpeakersFragment
+import io.github.droidkaigi.confsched2018.presentation.search.SearchTopicsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
@@ -24,7 +26,11 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 
     @ContributesAndroidInjector abstract fun contributeSearchFragment(): SearchFragment
 
-    @ContributesAndroidInjector abstract fun contributeSearchSessionFragment(): SearchSessionFragment
+    @ContributesAndroidInjector abstract fun contributeSearchSessionsFragment(): SearchSessionsFragment
+
+    @ContributesAndroidInjector abstract fun contributeSearchTopicsFragment(): SearchTopicsFragment
+
+    @ContributesAndroidInjector abstract fun contributeSearchSpeakersFragment(): SearchSpeakersFragment
 
     @ContributesAndroidInjector abstract fun contributeFavoriteSessionsFragment(): FavoriteSessionsFragment
 
