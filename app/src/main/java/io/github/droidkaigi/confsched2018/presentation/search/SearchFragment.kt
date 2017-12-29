@@ -23,7 +23,6 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSearchBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
 import io.github.droidkaigi.confsched2018.util.ext.*
 import timber.log.Timber
@@ -72,10 +71,10 @@ class SearchFragment : Fragment(), Injectable {
 
     private fun setupSearch() {
         setupRecyclerView()
-        searchViewModel.sessions.observe(this, { result ->
+        searchViewModel.result.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    val sessions = result.data
+                    val sessions = result.data.sessions
                     sessionsGroup.updateSessions(sessions, onFavoriteClickListener)
                     binding.sessionsRecycler.scrollToPosition(0)
                 }
@@ -163,7 +162,7 @@ class SearchBeforeViewPagerAdapter(val context: Context, fragmentManager: Fragme
     enum class Tab(@StringRes val title: Int) {
         Session(R.string.search_before_tab_session),
         Topic(R.string.search_before_tab_topic),
-        User(R.string.search_before_tab_user);
+        Speakers(R.string.search_before_tab_speaker);
     }
 
     override fun getPageTitle(position: Int): CharSequence = context.getString(Tab.values()[position].title)
@@ -171,9 +170,9 @@ class SearchBeforeViewPagerAdapter(val context: Context, fragmentManager: Fragme
     override fun getItem(position: Int): Fragment {
         val tab = Tab.values()[position]
         return when (tab) {
-            Tab.Session -> SearchSessionFragment.newInstance()
-            Tab.Topic -> AllSessionsFragment.newInstance()
-            Tab.User -> AllSessionsFragment.newInstance()
+            Tab.Session -> SearchSessionsFragment.newInstance()
+            Tab.Topic -> SearchTopicsFragment.newInstance()
+            Tab.Speakers -> SearchSpeakersFragment.newInstance()
         }
     }
 

@@ -94,7 +94,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
             add(sessionsGroup)
             setOnItemClickListener({ item, _ ->
                 val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
-                navigationController.navigateToDetailActivity(sessionItem.session)
+                navigationController.navigateToSessionDetailActivity(sessionItem.session)
             })
         }
         binding.sessionsRecycler.apply {

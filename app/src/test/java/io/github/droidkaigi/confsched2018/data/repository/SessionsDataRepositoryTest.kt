@@ -4,11 +4,15 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import io.github.droidkaigi.confsched2018.DUMMY_SESSION_TITLE1
+import io.github.droidkaigi.confsched2018.createDummySessionWithSpeakersEntities
+import io.github.droidkaigi.confsched2018.createDummySpeakerEntities
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
-import io.github.droidkaigi.confsched2018.data.db.entity.*
+import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
+import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.util.rx.TestSchedulerProvider
 import io.reactivex.Flowable
 import org.junit.Before
@@ -16,7 +20,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.robolectric.RobolectricTestRunner
-import org.threeten.bp.LocalDateTime
 
 @RunWith(RobolectricTestRunner::class)
 class SessionsDataRepositoryTest {
@@ -47,39 +50,8 @@ class SessionsDataRepositoryTest {
     }
 
     @Test fun sessions() {
-        val sessions = listOf(SessionWithSpeakers(SessionEntity("10"
-                , "DroidKaigi app"
-                , "Endless battle"
-                , LocalDateTime.of(1, 1, 1, 1, 1)
-                , LocalDateTime.of(1, 1, 1, 1, 1)
-                , "30分"
-                , "日本語"
-                , LevelEntity(1, "ニッチ / Niche")
-                , TopicEntity(1, "開発環境 / Development")
-                , RoomEntity(1, "ホール")),
-                listOf(
-                        "aaaa", "bbbb"
-                )))
-        val speakers = listOf(
-                SpeakerEntity(
-                        "aaaa"
-                        , "hogehoge"
-                        , "https://example.com"
-                        , "http://example.com/hoge"
-                        , null
-                        , null
-                        , "http://example.github.com/hoge"
-                ),
-                SpeakerEntity(
-                        "bbbb"
-                        , "hogehuga"
-                        , "https://example.com"
-                        , "http://example.com/hoge"
-                        , null
-                        , null
-                        , "http://example.github.com/hoge"
-                ))
-
+        val sessions = createDummySessionWithSpeakersEntities()
+        val speakers = createDummySpeakerEntities()
 
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessions))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
@@ -92,6 +64,27 @@ class SessionsDataRepositoryTest {
                 .sessions
                 .test()
                 .assertValue(sessions.map { it.toSession(speakers, listOf()) })
+
+        verify(sessionDatabase).getAllSessions()
+    }
+
+    @Test fun search() {
+        val sessions = createDummySessionWithSpeakersEntities()
+        val speakers = createDummySpeakerEntities()
+        whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessions))
+        whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
+        val sessionDataRepository = SessionDataRepository(mock(),
+                sessionDatabase,
+                favoriteDatabase,
+                TestSchedulerProvider())
+
+        sessionDataRepository.search(DUMMY_SESSION_TITLE1)
+                .doOnSuccess {
+                    println(it)
+                }
+                .test()
+                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList())),
+                        listOf()))
 
         verify(sessionDatabase).getAllSessions()
     }

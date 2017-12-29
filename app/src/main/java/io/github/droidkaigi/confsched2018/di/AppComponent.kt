@@ -14,6 +14,10 @@ import javax.inject.Singleton
     NetworkModule::class,
     DatabaseModule::class,
     MainActivityBuilder::class,
+    MapActivityBuilder::class,
+    AboutThisAppActivityBuilder::class,
+    SettingsActivityBuilder::class,
+    SponsorsActivityBuilder::class,
     SessionDetailActivityBuilder::class
 ])
 interface AppComponent {

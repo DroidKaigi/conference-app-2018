@@ -25,6 +25,50 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.detail.SessionDetailActivity" />
+        <activity
+            android:name=".presentation.map.MapActivity"
+            android:label="@string/title_activity_map"
+            android:parentActivityName=".presentation.MainActivity"
+            android:theme="@style/AppTheme"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                />
+        </activity>
+        <activity
+            android:name=".presentation.sponsors.SponsorsActivity"
+            android:label="@string/title_activity_sponsors"
+            android:parentActivityName=".presentation.MainActivity"
+            android:theme="@style/AppTheme"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                />
+        </activity>
+        <activity
+            android:name=".presentation.about.AboutThisAppActivity"
+            android:label="@string/title_activity_about_this_app"
+            android:parentActivityName=".presentation.MainActivity"
+            android:theme="@style/AppTheme"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                />
+        </activity>
+        <activity
+            android:name=".presentation.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".presentation.MainActivity"
+            android:theme="@style/AppTheme"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                />
+        </activity>
     </application>
 
 </manifest>

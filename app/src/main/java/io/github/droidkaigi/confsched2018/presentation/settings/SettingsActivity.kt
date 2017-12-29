@@ -1,4 +1,5 @@
-package io.github.droidkaigi.confsched2018.presentation.detail
+package io.github.droidkaigi.confsched2018.presentation.settings
+
 
 import android.content.Context
 import android.content.Intent
@@ -10,33 +11,32 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.databinding.ActivityDetailBinding
-import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.databinding.ActivitySettingsBinding
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import javax.inject.Inject
 
-class SessionDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class SettingsActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
 
-    private val binding: ActivityDetailBinding by lazy {
-        DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail)
+    private val binding: ActivitySettingsBinding by lazy {
+        DataBindingUtil.setContentView<ActivitySettingsBinding>(this, R.layout.activity_settings)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setSupportActionBar(binding.toolbar)
-        navigationController.navigateToDetail(intent.getStringExtra(EXTRA_SESSION_ID))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navigationController.navigateToSettings()
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     companion object {
-        val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
-        fun start(context: Context, session: Session) {
-            context.startActivity(Intent(context, SessionDetailActivity::class.java).apply {
-                putExtra(EXTRA_SESSION_ID, session.id)
-            })
+        fun start(context: Context) {
+            context.startActivity(Intent(context, SettingsActivity::class.java))
         }
     }
 }

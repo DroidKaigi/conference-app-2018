@@ -14,7 +14,7 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class DetailFragment : Fragment(), Injectable {
+class SessionDetailFragment : Fragment(), Injectable {
     // TODO create layout
     private lateinit var binding: ItemSessionBinding
 
@@ -53,7 +53,7 @@ class DetailFragment : Fragment(), Injectable {
 
     companion object {
         val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
-        fun newInstance(sessionId: String): DetailFragment = DetailFragment().apply {
+        fun newInstance(sessionId: String): SessionDetailFragment = SessionDetailFragment().apply {
             arguments = Bundle().apply {
                 putString(EXTRA_SESSION_ID, sessionId)
             }

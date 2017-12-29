@@ -12,6 +12,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
+import io.reactivex.rxkotlin.Singles
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -47,8 +48,8 @@ class SessionDataRepository @Inject constructor(
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()
                     .map { speakers ->
-                speakers.map { speaker -> speaker.toSpeaker() }
-            }
+                        speakers.map { speaker -> speaker.toSpeaker() }
+                    }
 
     override val roomSessions: Flowable<Map<Room, List<Session>>>
             = sessions.map { sessionList -> sessionList.groupBy { it.room } }
@@ -69,6 +70,15 @@ class SessionDataRepository @Inject constructor(
                 .subscribeOn(schedulerProvider.computation())
                 .toCompletable()
     }
+
+    override fun search(query: String): Single<SearchResult> = Singles.zip(
+            sessions.map {
+                it.filter { it.title.contains(query) || it.desc.contains(query) }
+            }.firstOrError(),
+            speakers.map {
+                it.filter { it.name.contains(query) }
+            }.firstOrError(),
+            { sessions: List<Session>, speakers: List<Speaker> -> SearchResult(sessions, speakers) })
 
     companion object {
         const val DEBUG = false
