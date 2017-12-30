@@ -25,4 +25,3 @@ var View.elevationForPostLolipop: Float
             elevation = value
         }
     }
-

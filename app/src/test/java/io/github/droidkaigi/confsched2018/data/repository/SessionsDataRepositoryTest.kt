@@ -88,5 +88,4 @@ class SessionsDataRepositoryTest {
 
         verify(sessionDatabase).getAllSessions()
     }
-
 }

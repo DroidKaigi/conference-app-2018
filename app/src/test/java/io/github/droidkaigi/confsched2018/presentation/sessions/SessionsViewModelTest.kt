@@ -38,7 +38,6 @@ class SessionsViewModelTest {
 
         verify(repository).rooms
         verify(result).onChanged(Result.inProgress())
-
     }
 
     @Test fun sessions_Basic() {
@@ -76,5 +75,4 @@ class SessionsViewModelTest {
 
         verify(repository).refreshSessions()
     }
-
 }

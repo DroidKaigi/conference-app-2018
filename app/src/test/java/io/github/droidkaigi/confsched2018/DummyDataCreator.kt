@@ -46,7 +46,6 @@ fun createDummySpeaker(): Speaker {
     )
 }
 
-
 fun createDummySpeakerEntities(): List<SpeakerEntity> {
     return listOf(
             SpeakerEntity(

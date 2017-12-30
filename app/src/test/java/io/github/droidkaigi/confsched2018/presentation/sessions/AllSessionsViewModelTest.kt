@@ -34,7 +34,6 @@ class AllSessionsViewModelTest {
 
         verify(repository).sessions
         verify(result).onChanged(Result.inProgress())
-
     }
 
     @Test fun sessions_Basic() {
@@ -61,7 +60,6 @@ class AllSessionsViewModelTest {
         verify(result).onChanged(Result.failure(runtimeException.message!!, runtimeException))
     }
 
-
     @Test fun favorite() {
         whenever(repository.favorite(any())).doReturn(Single.just(true))
         viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
@@ -71,5 +69,4 @@ class AllSessionsViewModelTest {
 
         verify(repository).favorite(session)
     }
-
 }
