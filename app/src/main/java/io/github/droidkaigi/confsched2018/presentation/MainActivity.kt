@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 binding.drawerLayout,
                 binding.toolbar,
                 R.string.content_description_drawer_open, /* "open drawer" description for accessibility */
-                R.string.content_description_drawer_close  /* "close drawer" description for accessibility */
+                R.string.content_description_drawer_close /* "close drawer" description for accessibility */
         )
     }
 
@@ -88,5 +88,4 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
-
 }

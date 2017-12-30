@@ -35,5 +35,4 @@ class SessionsViewModel @Inject constructor(
         super.onCleared()
         compositeDisposable.clear()
     }
-
 }

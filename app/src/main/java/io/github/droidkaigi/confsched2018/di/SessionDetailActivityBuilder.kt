@@ -7,5 +7,4 @@ import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActiv
 @Module abstract class SessionDetailActivityBuilder {
     @ContributesAndroidInjector(modules = [FragmentBuildersModule::class, SessionDetailActivityModule::class])
     abstract fun contributeSessionDetailActivity(): SessionDetailActivity
-
 }

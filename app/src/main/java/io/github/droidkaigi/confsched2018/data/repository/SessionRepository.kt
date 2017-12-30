@@ -17,5 +17,4 @@ interface SessionRepository {
     @CheckResult fun refreshSessions(): Completable
     @CheckResult fun favorite(session: Session): Single<Boolean>
     @CheckResult fun search(query: String): Single<SearchResult>
-
 }

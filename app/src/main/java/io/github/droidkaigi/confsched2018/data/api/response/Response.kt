@@ -6,4 +6,3 @@ data class Response(
         val speakers: List<Speaker>?,
         val categories: List<Category>?
 )
-

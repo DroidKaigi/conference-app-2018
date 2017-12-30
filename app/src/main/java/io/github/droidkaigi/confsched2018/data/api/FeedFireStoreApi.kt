@@ -37,7 +37,6 @@ class FeedFireStoreApi : FeedApi {
                         if (DEBUG) Timber.d("FireStore:getFeeds return empty")
                         e.onNext(listOf())
                     }
-
                 })
 
                 e.setDisposable(object : MainThreadDisposable() {

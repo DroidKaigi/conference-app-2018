@@ -26,4 +26,3 @@ var View.elevationForPostLolipop: Float
         }
     }
 
-

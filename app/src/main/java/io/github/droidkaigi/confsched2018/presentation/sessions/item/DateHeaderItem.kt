@@ -23,6 +23,5 @@ data class ReadableDateTimePair(val date: String, val time: String) : Comparable
         if (time > other.time) return 1
         if (time < other.time) return -1
         return 0
-
     }
 }

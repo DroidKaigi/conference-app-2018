@@ -18,5 +18,4 @@ import io.reactivex.Flowable
         deleteAll()
         insert(newSessions)
     }
-
 }

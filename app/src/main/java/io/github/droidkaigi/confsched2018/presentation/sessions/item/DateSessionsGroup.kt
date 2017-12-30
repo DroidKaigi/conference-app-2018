@@ -20,8 +20,8 @@ class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
             SessionItem(it, onFavoriteClickListener, fragment)
         }
 
-        val dateSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>>
-                = sessionItems.groupBy {
+        val dateSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>> =
+                sessionItems.groupBy {
             ReadableDateTimePair(it.session.startTime.toReadableDateString(),
                     it.session.startTime.toReadableTimeString())
         }.toSortedMap()
@@ -59,5 +59,4 @@ class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
         }
         return getItem(i)
     }
-
 }

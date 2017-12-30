@@ -42,7 +42,6 @@ class SessionDetailFragment : Fragment(), Injectable {
                     binding.favorite.setOnClickListener {
                         sessionsViewModel.onFavoriteClick(session)
                     }
-
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

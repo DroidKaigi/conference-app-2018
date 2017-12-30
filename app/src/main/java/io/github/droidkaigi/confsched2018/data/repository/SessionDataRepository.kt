@@ -51,14 +51,14 @@ class SessionDataRepository @Inject constructor(
                         speakers.map { speaker -> speaker.toSpeaker() }
                     }
 
-    override val roomSessions: Flowable<Map<Room, List<Session>>>
-            = sessions.map { sessionList -> sessionList.groupBy { it.room } }
+    override val roomSessions: Flowable<Map<Room, List<Session>>> =
+            sessions.map { sessionList -> sessionList.groupBy { it.room } }
 
-    override val topicSessions: Flowable<Map<Topic, List<Session>>>
-            = sessions.map { sessionList -> sessionList.groupBy { it.topic } }
+    override val topicSessions: Flowable<Map<Topic, List<Session>>> =
+            sessions.map { sessionList -> sessionList.groupBy { it.topic } }
 
-    override val levelSessions: Flowable<Map<Level, List<Session>>>
-            = sessions.map { sessionList -> sessionList.groupBy { it.level } }
+    override val levelSessions: Flowable<Map<Level, List<Session>>> =
+            sessions.map { sessionList -> sessionList.groupBy { it.level } }
 
     override fun favorite(session: Session): Single<Boolean> = favoriteDatabase.favorite(session)
 
@@ -84,4 +84,3 @@ class SessionDataRepository @Inject constructor(
         const val DEBUG = false
     }
 }
-

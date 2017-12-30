@@ -113,7 +113,6 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                     if (DEBUG) Timber.d("FireStore:document already exists")
                     e.onSuccess(currentUser)
                 }
-
             }
             return@create
         })
@@ -147,7 +146,6 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                     if (DEBUG) Timber.d("FireStore:getFavorites return empty")
                     e.onNext(listOf())
                 }
-
             })
 
             e.setDisposable(object : MainThreadDisposable() {

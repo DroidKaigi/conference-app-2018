@@ -11,5 +11,4 @@ interface SessionDatabase {
     fun getAllSpeaker(): Flowable<List<SpeakerEntity>>
     fun getAllRoom(): Flowable<List<RoomEntity>>
     fun save(response: Response)
-
 }

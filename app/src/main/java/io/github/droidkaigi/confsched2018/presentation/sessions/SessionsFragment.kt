@@ -55,13 +55,11 @@ class SessionsFragment : Fragment(), Injectable {
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
-
     }
 
     companion object {
         fun newInstance(): SessionsFragment = SessionsFragment()
     }
-
 }
 
 class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
@@ -103,5 +101,4 @@ class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentState
         }.toMutableList()
         setupTabs()
     }
-
 }

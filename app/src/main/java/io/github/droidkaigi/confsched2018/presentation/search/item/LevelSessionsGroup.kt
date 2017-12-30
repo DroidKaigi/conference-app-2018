@@ -22,5 +22,4 @@ class LevelSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
         }
         update(list)
     }
-
 }

@@ -177,5 +177,4 @@ class SearchBeforeViewPagerAdapter(val context: Context, fragmentManager: Fragme
     }
 
     override fun getCount(): Int = Tab.values().size
-
 }

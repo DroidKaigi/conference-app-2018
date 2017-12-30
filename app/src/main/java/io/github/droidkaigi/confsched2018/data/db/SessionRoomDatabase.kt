@@ -39,5 +39,4 @@ class SessionRoomDatabase @Inject constructor(
             sessionSpeakerJoinDao.insert(response.sessions.toSessionSpeakerJoinEntities())
         }
     }
-
 }

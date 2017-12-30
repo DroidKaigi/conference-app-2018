@@ -9,4 +9,3 @@ class FeedDataRepository(feedApi: FeedApi) : FeedRepository {
     override val feeds: Flowable<List<Post>> =
             feedApi.feeds.map { it.toFeeds() }
 }
-

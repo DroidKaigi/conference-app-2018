@@ -89,5 +89,4 @@ class HorizontalSessionItem(
     override fun hashCode(): Int {
         return session.hashCode()
     }
-
 }

@@ -37,7 +37,6 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     @ViewModelKey(SearchSessionsViewModel::class)
     abstract fun bindSearchSessionViewModel(searchSessionsViewModel: SearchSessionsViewModel): ViewModel
 
-
     @Binds @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
@@ -57,7 +56,6 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     @Binds @IntoMap
     @ViewModelKey(SearchSpeakersViewModel::class)
     abstract fun bindSearchSpeakersViewModel(sessionDetailViewModel: SearchSpeakersViewModel): ViewModel
-
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

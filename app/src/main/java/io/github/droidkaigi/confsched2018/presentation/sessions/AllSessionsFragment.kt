@@ -30,7 +30,6 @@ import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class AllSessionsFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentAllSessionsBinding

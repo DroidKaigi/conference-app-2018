@@ -21,5 +21,4 @@ sealed class Result<T>(val inProgress: Boolean) {
 
         fun <T> failure(errorMessage: String, e: Throwable): Result<T> = Failure<T>(errorMessage, e)
     }
-
 }

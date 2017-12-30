@@ -96,7 +96,6 @@ class RoomSessionsFragment : Fragment(), Injectable {
                 }
             }
         })
-
     }
 
     private fun setupRecyclerView() {
