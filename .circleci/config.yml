@@ -27,14 +27,11 @@ jobs:
           paths:
             - ~/.gradle
       - run:
-          name: Lint
-          command: ./gradlew --stacktrace lint${BUILD_TYPE^}
-      - run:
           name: Test
-          command: ./gradlew --stacktrace test${BUILD_TYPE^}
+          command: ./gradlew --stacktrace test${APP_BUILD_TYPE^}
       - run:
           name: Build
-          command: ./gradlew --stacktrace assemble${BUILD_TYPE^}
+          command: ./gradlew --stacktrace assemble${APP_BUILD_TYPE^}
       - run:
           name: Deploy
           command: ./deploy.sh
