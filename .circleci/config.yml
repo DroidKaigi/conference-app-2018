@@ -1,0 +1,40 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: punchdrunker/android-27-ruby
+        environment:
+          JAVA_OPTS: -Xmx1536m
+          GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError"'
+    steps:
+      - checkout
+      - restore_cache:
+          key: sdks-licenses-build-tools-extras-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          key: sdks-licenses-build-tools-extras-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          paths:
+            - /opt/android/sdk/licenses
+            - /opt/android/sdk/build-tools
+            - /opt/android/sdk/extras
+      - save_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          paths:
+            - ~/.gradle
+      - run:
+          name: Test
+          command: ./gradlew --stacktrace testDebug
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_artifacts:
+          path: app/build/test-results
+          destination: test-results
+      - store_artifacts:
+          path: app/build/outputs/apk
+          destination: apk
