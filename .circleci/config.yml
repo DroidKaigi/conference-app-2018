@@ -31,7 +31,12 @@ jobs:
           command: ./gradlew --stacktrace test${APP_BUILD_TYPE^}
       - run:
           name: Build
-          command: ./gradlew --stacktrace assemble${APP_BUILD_TYPE^}
+          command: |
+              if [$CIRCLE_BRANCH = 'master']; then
+                  ./gradlew --offline --stacktrace assembleRelease
+              else
+                  ./gradlew --offline --stacktrace assemble${APP_BUILD_TYPE^}
+              fi
       - run:
           name: Deploy
           command: ./deploy.sh
