@@ -27,6 +27,9 @@ jobs:
           paths:
             - ~/.gradle
       - run:
+          name: Lint
+          command: ./gradlew --stacktrace lint${APP_BUILD_TYPE^}
+      - run:
           name: Test
           command: ./gradlew --stacktrace test${APP_BUILD_TYPE^}
       - run:
