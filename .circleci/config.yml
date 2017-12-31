@@ -8,7 +8,7 @@ jobs:
           JAVA_OPTS: -Xmx1536m
           GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError"'
     steps:
-      - test_and_deploy
+      - checkout
       - restore_cache:
           key: sdks-licenses-build-tools-extras-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
       - restore_cache:
