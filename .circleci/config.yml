@@ -29,11 +29,15 @@ jobs:
       - run:
           name: decrypt keystore
           command: |
-              openssl aes-256-cbc -k $KEYSTORE_DECRYPT_PASSWORD -d -in encrypted-droidkaigi-key -out release.keystore
+              if [$CIRCLE_BRANCH = 'master']; then
+                  openssl aes-256-cbc -k $KEYSTORE_DECRYPT_PASSWORD -d -in encrypted-droidkaigi-key -out release.keystore
+              fi
       - run:
           name: decrypt json
           command: |
-              openssl aes-256-cbc -k $JSON_DECRYPT_PASSWORD -d -in encrypted-google-services.json -out app/google-services.json
+              if [$CIRCLE_BRANCH = 'master']; then
+                  openssl aes-256-cbc -k $JSON_DECRYPT_PASSWORD -d -in encrypted-google-services.json -out app/google-services.json
+              fi
       - run:
           name: Test
           command: ./gradlew --stacktrace test${APP_BUILD_TYPE^}
