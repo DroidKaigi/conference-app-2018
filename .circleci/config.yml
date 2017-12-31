@@ -27,8 +27,17 @@ jobs:
           paths:
             - ~/.gradle
       - run:
+          name: Lint
+          command: ./gradlew --stacktrace lint${BUILD_TYPE^}
+      - run:
           name: Test
-          command: ./gradlew --stacktrace testDebug
+          command: ./gradlew --stacktrace test${BUILD_TYPE^}
+      - run:
+          name: Build
+          command: ./gradlew --stacktrace assemble${BUILD_TYPE^}
+      - run:
+          name: Deploy
+          command: ./deploy.sh
       - store_artifacts:
           path: app/build/reports
           destination: reports
