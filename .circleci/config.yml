@@ -40,7 +40,12 @@ jobs:
               fi
       - run:
           name: Test
-          command: ./gradlew --stacktrace test${APP_BUILD_TYPE^}
+          command: |
+              if [ $CIRCLE_BRANCH = 'master' ]; then
+                  ./gradlew --stacktrace testRelease
+              else
+                  ./gradlew --stacktrace test${APP_BUILD_TYPE^}
+              fi
       - run:
           name: Build
           command: |
