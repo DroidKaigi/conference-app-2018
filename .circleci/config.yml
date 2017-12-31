@@ -27,6 +27,14 @@ jobs:
           paths:
             - ~/.gradle
       - run:
+          name: decrypt keystore
+          command: |
+              openssl aes-256-cbc -k "${KEYSTORE_DECRYPT_PASSWORD}" -d -in encrypted-droidkaigi-key -out release.keystore
+      - run:
+          name: decrypt json
+          command: |
+              openssl aes-256-cbc -k "${JSON_DECRYPT_PASSWORD}" -d -in encrypted-google-services.json -out google-services.json
+      - run:
           name: Test
           command: ./gradlew --stacktrace test${APP_BUILD_TYPE^}
       - run:
