@@ -33,7 +33,7 @@ jobs:
       - run:
           name: decrypt json
           command: |
-              openssl aes-256-cbc -k $JSON_DECRYPT_PASSWORD -d -in encrypted-google-services.json -out google-services.json
+              openssl aes-256-cbc -k $JSON_DECRYPT_PASSWORD -d -in encrypted-google-services.json -out app/google-services.json
       - run:
           name: Test
           command: ./gradlew --stacktrace test${APP_BUILD_TYPE^}
