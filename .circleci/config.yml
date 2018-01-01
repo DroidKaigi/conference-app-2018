@@ -61,7 +61,7 @@ jobs:
           name: Check
           command: |
               if [ ! $CIRCLE_BRANCH = 'master' ]; then
-                  ./gradlew --stacktrace ktlintCheck
+                  ./gradlew --stacktrace ktlint${APP_BUILD_TYPE^}Check
                   bundle exec danger
               fi
       - run:
