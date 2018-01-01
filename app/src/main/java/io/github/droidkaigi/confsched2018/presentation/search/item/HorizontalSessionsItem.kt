@@ -19,40 +19,62 @@ class HorizontalSessionsItem(
         val level: Level,
         var sessions: List<Session>,
         private val onFavoriteClickListener: (Session) -> Unit,
-        private val fragment: Fragment, private val scrollPositionMap: HashMap<Int, LevelSessionsGroup.PositionAndOffset>
+        private val fragment: Fragment,
+        private val scrollPositionMap: HashMap<Int, LevelSessionsGroup.PositionAndOffset>
 ) : BindableItem<ItemSearchHorizontalSessionsBinding>(
         level.id.toLong()
 ) {
     private val updatingGroup = UpdatingGroup()
     private lateinit var onItemClickListener: OnItemClickListener
 
-    override fun bind(holder: ViewHolder<ItemSearchHorizontalSessionsBinding>, position: Int, payloads: MutableList<Any>, onItemClickListener: OnItemClickListener?, onItemLongClickListener: OnItemLongClickListener?) {
+    override fun bind(
+            holder: ViewHolder<ItemSearchHorizontalSessionsBinding>,
+            position: Int,
+            payloads: MutableList<Any>,
+            onItemClickListener: OnItemClickListener?,
+            onItemLongClickListener: OnItemLongClickListener?
+    ) {
         this.onItemClickListener = onItemClickListener!!
         super.bind(holder, position, payloads, onItemClickListener, onItemLongClickListener)
     }
 
     override fun bind(viewBinding: ItemSearchHorizontalSessionsBinding, position: Int) {
         val items = mutableListOf<Item<*>>()
-        viewBinding.searchSessionsRecycler.swapAdapter(GroupAdapter<com.xwray.groupie.ViewHolder>().apply {
+        val groupAdapter = GroupAdapter<com.xwray.groupie.ViewHolder>().apply {
             add(updatingGroup)
-        }, false)
+        }
+        viewBinding.searchSessionsRecycler.swapAdapter(groupAdapter, false)
         viewBinding.searchSessionsRecycler.apply {
             // Restore scroll position from HashMap
-            val scroll = scrollPositionMap.getOrElse(position, { LevelSessionsGroup.PositionAndOffset(0, 0) })
-            (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(scroll.position, scroll.offset)
+            val scroll = scrollPositionMap.getOrElse(position, {
+                LevelSessionsGroup.PositionAndOffset(0, 0)
+            })
+            val linearLayoutManager = layoutManager as LinearLayoutManager
+            linearLayoutManager.scrollToPositionWithOffset(scroll.position, scroll.offset)
         }
         sessions.forEach {
-            items.add(HorizontalSessionItem(it, onFavoriteClickListener, onItemClickListener, fragment))
+            items.add(HorizontalSessionItem(
+                    it,
+                    onFavoriteClickListener,
+                    onItemClickListener,
+                    fragment
+            ))
         }
         updatingGroup.update(items)
     }
 
     override fun unbind(holder: ViewHolder<ItemSearchHorizontalSessionsBinding>) {
         // Save scroll position to HashMap
-        val linearLayoutManager = holder.binding.searchSessionsRecycler.layoutManager as LinearLayoutManager
+        val searchSessionsRecycler = holder.binding.searchSessionsRecycler
+        val linearLayoutManager = searchSessionsRecycler.layoutManager as LinearLayoutManager
         val position = linearLayoutManager.findFirstVisibleItemPosition()
-        val x = linearLayoutManager.findViewByPosition(position).x - (linearLayoutManager.findViewByPosition(position).layoutParams as RecyclerView.LayoutParams).marginStart
-        scrollPositionMap.put(linearLayoutManager.getPosition(holder.root), LevelSessionsGroup.PositionAndOffset(position, x.toInt()))
+        val viewByPosition = linearLayoutManager.findViewByPosition(position)
+        val layoutParams = viewByPosition.layoutParams as RecyclerView.LayoutParams
+        val x = viewByPosition.x - layoutParams.marginStart
+        scrollPositionMap.put(
+                linearLayoutManager.getPosition(holder.root),
+                LevelSessionsGroup.PositionAndOffset(position, x.toInt())
+        )
         super.unbind(holder)
     }
 
