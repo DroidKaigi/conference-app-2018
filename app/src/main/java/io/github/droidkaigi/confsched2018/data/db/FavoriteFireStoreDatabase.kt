@@ -1,15 +1,20 @@
 package io.github.droidkaigi.confsched2018.data.db
 
 import android.support.annotation.CheckResult
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import io.github.droidkaigi.confsched2018.model.Session
-import io.reactivex.*
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.Single
+import io.reactivex.SingleEmitter
 import io.reactivex.android.MainThreadDisposable
 import timber.log.Timber
 
@@ -46,11 +51,11 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                 val database = FirebaseFirestore.getInstance()
                 val favorites = database.collection("users/${currentUser.uid}/favorites")
                         .document(session.id)
-                favorites.get().addOnCompleteListener(OnCompleteListener { task: Task<DocumentSnapshot> ->
+                favorites.get().addOnCompleteListener({ task: Task<DocumentSnapshot> ->
                     if (DEBUG) Timber.d("FireStore:favorite get")
                     if (task.isSuccessful) {
                         val result = task.result
-                        val nowFavorite = result.exists() && (result.data[session.id] as? Boolean ?: false)
+                        val nowFavorite = result.exists() && (result.data[session.id] == true)
                         val newFavorite = !nowFavorite
 
                         val completeListener: (Task<Void>) -> Unit = {
@@ -68,7 +73,8 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                         if (result.exists()) {
                             favorites.delete().addOnCompleteListener(completeListener)
                         } else {
-                            favorites.set(sessionToFavoriteMap).addOnCompleteListener(completeListener)
+                            val set = favorites.set(sessionToFavoriteMap)
+                            set.addOnCompleteListener(completeListener)
                         }
                     } else {
                         e.onError(task.exception!!)
@@ -128,7 +134,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
             val database = FirebaseFirestore.getInstance()
             val favorites = database.collection("users/" + currentUser.uid + "/favorites")
                     .whereEqualTo("favorite", true)
-            val removable = favorites.addSnapshotListener(EventListener { documentSnapshot, exception ->
+            val eventListener = EventListener<QuerySnapshot> { documentSnapshot, exception ->
                 if (exception != null) {
                     if (DEBUG) Timber.d("FireStore:getFavorites onChange exception")
                     e.onError(exception)
@@ -140,13 +146,14 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                     val favoriteSessionIds = documents
                             .mapNotNull { document -> document.id.toIntOrNull() }
                             .toList()
-                    if (DEBUG) Timber.d("FireStore:getFavorites onChange %s", favoriteSessionIds.toString())
+                    if (DEBUG) Timber.d("FireStore:getFavorites onChange %s", favoriteSessionIds)
                     e.onNext(favoriteSessionIds)
                 } else {
                     if (DEBUG) Timber.d("FireStore:getFavorites return empty")
                     e.onNext(listOf())
                 }
-            })
+            }
+            val removable = favorites.addSnapshotListener(eventListener)
 
             e.setDisposable(object : MainThreadDisposable() {
                 override fun onDispose() {

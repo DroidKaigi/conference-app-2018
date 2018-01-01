@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 this,
                 binding.drawerLayout,
                 binding.toolbar,
-                R.string.content_description_drawer_open, /* "open drawer" description for accessibility */
-                R.string.content_description_drawer_close /* "close drawer" description for accessibility */
+                R.string.content_description_drawer_open,
+                R.string.content_description_drawer_close
         )
     }
 
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->
+            val appBarElevation = resources.getDimensionPixelSize(R.dimen.elevation_app_bar)
             when (item.itemId) {
                 R.id.navigation_sessions -> {
                     navigationController.navigateToSessions()
@@ -54,11 +55,11 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 }
                 R.id.navigation_my_sessions -> {
                     navigationController.navigateToFavoriteSessions()
-                    binding.toolbar.elevationForPostLolipop = resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
+                    binding.toolbar.elevationForPostLolipop = appBarElevation.toFloat()
                 }
                 R.id.navigation_notification -> {
                     navigationController.navigateToFeed()
-                    binding.toolbar.elevationForPostLolipop = resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
+                    binding.toolbar.elevationForPostLolipop = appBarElevation.toFloat()
                 }
                 else -> throw NotImplementedError()
             }

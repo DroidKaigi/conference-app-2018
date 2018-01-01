@@ -107,7 +107,8 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                         setDayHeaderVisibility(newState != RecyclerView.SCROLL_STATE_IDLE)
                     },
                     onScrolled = { _, _, _ ->
-                        val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        val linearLayoutManager = layoutManager as LinearLayoutManager
+                        val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
                         val dayNumber = sessionsGroup.getDateCountSinceBeginOrNull(firstPosition)
                         dayNumber ?: return@addOnScrollListener
                         val dayTitle = getString(R.string.session_day_title, dayNumber)

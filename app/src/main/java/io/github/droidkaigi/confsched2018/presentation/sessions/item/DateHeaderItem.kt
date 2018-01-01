@@ -16,7 +16,10 @@ data class DateHeaderItem(
     override fun getLayout(): Int = R.layout.item_date_header
 }
 
-data class ReadableDateTimePair(val date: String, val time: String) : Comparable<ReadableDateTimePair> {
+data class ReadableDateTimePair(
+        val date: String,
+        val time: String
+) : Comparable<ReadableDateTimePair> {
     override fun compareTo(other: ReadableDateTimePair): Int {
         if (date > other.date) return 1
         if (date < other.date) return -1

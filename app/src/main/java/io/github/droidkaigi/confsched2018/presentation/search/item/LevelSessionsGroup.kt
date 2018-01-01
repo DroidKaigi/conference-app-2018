@@ -18,7 +18,15 @@ class LevelSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
         val list = mutableListOf<Item<*>>()
         levelSessions.keys.sortedBy { it.id }.map { level ->
             list.add(SessionHeaderItem(level))
-            list.add(HorizontalSessionsItem(level, levelSessions[level]!!, onFavoriteClickListener, fragment, levelScrollPositionMap))
+            list.add(
+                    HorizontalSessionsItem(
+                            level,
+                            levelSessions[level]!!,
+                            onFavoriteClickListener,
+                            fragment,
+                            levelScrollPositionMap
+                    )
+            )
         }
         update(list)
     }

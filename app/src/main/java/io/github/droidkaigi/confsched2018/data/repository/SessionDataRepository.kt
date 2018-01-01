@@ -6,7 +6,12 @@ import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
-import io.github.droidkaigi.confsched2018.model.*
+import io.github.droidkaigi.confsched2018.model.Level
+import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.model.SearchResult
+import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.Speaker
+import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -33,11 +38,12 @@ class SessionDataRepository @Inject constructor(
                     sessionDatabase.getAllSpeaker()
                             .filter { it.isNotEmpty() }
                             .doOnNext { if (DEBUG) Timber.d("getAllSpeaker") },
-                    Flowable.concat(Flowable.just(listOf()), favoriteDatabase.favorites.onErrorReturn { listOf() })
+                    Flowable.concat(
+                            Flowable.just(listOf()),
+                            favoriteDatabase.favorites.onErrorReturn { listOf() }
+                    )
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
-                    { sessionEntities,
-                      speakerEntities,
-                      favList ->
+                    { sessionEntities, speakerEntities, favList ->
                         sessionEntities.map { it.toSession(speakerEntities, favList) }
                     })
                     .subscribeOn(schedulerProvider.computation())
@@ -78,7 +84,10 @@ class SessionDataRepository @Inject constructor(
             speakers.map {
                 it.filter { it.name.contains(query) }
             }.firstOrError(),
-            { sessions: List<Session>, speakers: List<Speaker> -> SearchResult(sessions, speakers) })
+            { sessions: List<Session>,
+              speakers: List<Speaker> ->
+                SearchResult(sessions, speakers)
+            })
 
     companion object {
         const val DEBUG = false

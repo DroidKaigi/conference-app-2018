@@ -9,7 +9,7 @@ import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import io.github.droidkaigi.confsched2018.util.ext.toLocalDate
 import org.threeten.bp.Period
-import java.util.*
+import java.util.SortedMap
 
 class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
     fun updateSessions(
@@ -22,9 +22,9 @@ class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
 
         val dateSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>> =
                 sessionItems.groupBy {
-            ReadableDateTimePair(it.session.startTime.toReadableDateString(),
-                    it.session.startTime.toReadableTimeString())
-        }.toSortedMap()
+                    ReadableDateTimePair(it.session.startTime.toReadableDateString(),
+                            it.session.startTime.toReadableTimeString())
+                }.toSortedMap()
 
         val dateSessions = arrayListOf<Item<*>>()
         dateSessionItemsMap.keys.forEach { key ->

@@ -15,7 +15,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.SimpleItemAnimator
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -24,7 +28,13 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
-import io.github.droidkaigi.confsched2018.util.ext.*
+import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
+import io.github.droidkaigi.confsched2018.util.ext.clone
+import io.github.droidkaigi.confsched2018.util.ext.isGone
+import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
+import io.github.droidkaigi.confsched2018.util.ext.toGone
+import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -65,7 +75,8 @@ class SearchFragment : Fragment(), Injectable {
     }
 
     private fun setupSearchBeforeTabs() {
-        binding.sessionsViewPager.adapter = SearchBeforeViewPagerAdapter(context!!, childFragmentManager)
+        binding.sessionsViewPager.adapter =
+                SearchBeforeViewPagerAdapter(context!!, childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
     }
 
@@ -103,7 +114,8 @@ class SearchFragment : Fragment(), Injectable {
                         setDayHeaderVisibility(newState != RecyclerView.SCROLL_STATE_IDLE)
                     },
                     onScrolled = { _, _, _ ->
-                        val firstPosition = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        val linearLayoutManager = layoutManager as LinearLayoutManager
+                        val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
                         val dayNumber = sessionsGroup.getDateCountSinceBeginOrNull(firstPosition)
                         dayNumber ?: return@addOnScrollListener
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
@@ -157,7 +169,10 @@ class SearchFragment : Fragment(), Injectable {
     }
 }
 
-class SearchBeforeViewPagerAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class SearchBeforeViewPagerAdapter(
+        val context: Context,
+        fragmentManager: FragmentManager
+) : FragmentStatePagerAdapter(fragmentManager) {
 
     enum class Tab(@StringRes val title: Int) {
         Session(R.string.search_before_tab_session),
@@ -165,7 +180,8 @@ class SearchBeforeViewPagerAdapter(val context: Context, fragmentManager: Fragme
         Speakers(R.string.search_before_tab_speaker);
     }
 
-    override fun getPageTitle(position: Int): CharSequence = context.getString(Tab.values()[position].title)
+    override fun getPageTitle(position: Int): CharSequence =
+            context.getString(Tab.values()[position].title)
 
     override fun getItem(position: Int): Fragment {
         val tab = Tab.values()[position]

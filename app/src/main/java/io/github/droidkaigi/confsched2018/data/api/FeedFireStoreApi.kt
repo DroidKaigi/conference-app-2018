@@ -21,23 +21,24 @@ class FeedFireStoreApi : FeedApi {
                 val postCollection = database.collection("posts")
                         .whereEqualTo("published", true)
                         .orderBy("date", Query.Direction.DESCENDING)
-                val removable = postCollection.addSnapshotListener(EventListener { documentSnapshot, exception ->
-                    if (exception != null) {
-                        if (DEBUG) Timber.d("FireStore:getFeeds onChange exception")
-                        e.onError(exception)
-                        return@EventListener
-                    }
-                    if (!documentSnapshot.isEmpty) {
-                        if (DEBUG) Timber.d("FireStore:getFeeds onChange")
-                        val documents = documentSnapshot.documents
-                        val posts = documents.map { it.toObject(Post::class.java) }
-                        if (DEBUG) Timber.d("FireStore:getFeeds onChange %s", posts.toString())
-                        e.onNext(posts)
-                    } else {
-                        if (DEBUG) Timber.d("FireStore:getFeeds return empty")
-                        e.onNext(listOf())
-                    }
-                })
+                val removable =
+                        postCollection.addSnapshotListener(EventListener { snapshot, exception ->
+                            if (exception != null) {
+                                if (DEBUG) Timber.d("FireStore:getFeeds onChange exception")
+                                e.onError(exception)
+                                return@EventListener
+                            }
+                            if (!snapshot.isEmpty) {
+                                if (DEBUG) Timber.d("FireStore:getFeeds onChange")
+                                val documents = snapshot.documents
+                                val posts = documents.map { it.toObject(Post::class.java) }
+                                if (DEBUG) Timber.d("FireStore:getFeeds %s", posts.toString())
+                                e.onNext(posts)
+                            } else {
+                                if (DEBUG) Timber.d("FireStore:getFeeds return empty")
+                                e.onNext(listOf())
+                            }
+                        })
 
                 e.setDisposable(object : MainThreadDisposable() {
                     override fun onDispose() {

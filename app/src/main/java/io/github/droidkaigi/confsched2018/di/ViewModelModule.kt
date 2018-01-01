@@ -23,7 +23,9 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
 
     @Binds @IntoMap
     @ViewModelKey(FavoriteSessionsViewModel::class)
-    abstract fun bindFavoriteSessionsViewModel(favoriteSessionsViewModel: FavoriteSessionsViewModel): ViewModel
+    abstract fun bindFavoriteSessionsViewModel(
+            favoriteSessionsViewModel: FavoriteSessionsViewModel
+    ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SessionsViewModel::class)
@@ -35,7 +37,9 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
 
     @Binds @IntoMap
     @ViewModelKey(SearchSessionsViewModel::class)
-    abstract fun bindSearchSessionViewModel(searchSessionsViewModel: SearchSessionsViewModel): ViewModel
+    abstract fun bindSearchSessionViewModel(
+            searchSessionsViewModel: SearchSessionsViewModel
+    ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchViewModel::class)
@@ -47,15 +51,21 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
 
     @Binds @IntoMap
     @ViewModelKey(SessionDetailViewModel::class)
-    abstract fun bindSessionDetailViewModel(sessionDetailViewModel: SessionDetailViewModel): ViewModel
+    abstract fun bindSessionDetailViewModel(
+            sessionDetailViewModel: SessionDetailViewModel
+    ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchTopicsViewModel::class)
-    abstract fun bindSearchTopicsViewModel(sessionDetailViewModel: SearchTopicsViewModel): ViewModel
+    abstract fun bindSearchTopicsViewModel(
+            sessionDetailViewModel: SearchTopicsViewModel
+    ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchSpeakersViewModel::class)
-    abstract fun bindSearchSpeakersViewModel(sessionDetailViewModel: SearchSpeakersViewModel): ViewModel
+    abstract fun bindSearchSpeakersViewModel(
+            sessionDetailViewModel: SearchSpeakersViewModel
+    ): ViewModel
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }
