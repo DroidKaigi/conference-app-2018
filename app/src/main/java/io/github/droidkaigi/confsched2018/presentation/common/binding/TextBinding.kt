@@ -11,7 +11,11 @@ import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
     startDate ?: return
     endDate ?: return
-    text = context.getString(R.string.time_period, startDate.toReadableTimeString(), endDate.toReadableTimeString())
+    text = context.getString(
+            R.string.time_period,
+            startDate.toReadableTimeString(),
+            endDate.toReadableTimeString()
+    )
 }
 
 @BindingAdapter(value = ["android:text"])

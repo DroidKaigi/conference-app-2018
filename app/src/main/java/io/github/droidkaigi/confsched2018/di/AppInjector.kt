@@ -40,7 +40,8 @@ class AppInjector {
             if (activity is HasSupportFragmentInjector) {
                 AndroidInjection.inject(activity)
             }
-            (activity as? FragmentActivity)?.supportFragmentManager?.registerFragmentLifecycleCallbacks(
+            val fragmentActivity = activity as? FragmentActivity
+            fragmentActivity?.supportFragmentManager?.registerFragmentLifecycleCallbacks(
                     object : FragmentManager.FragmentLifecycleCallbacks() {
                         override fun onFragmentCreated(fm: FragmentManager?, f: Fragment?,
                                                        savedInstanceState: Bundle?) {

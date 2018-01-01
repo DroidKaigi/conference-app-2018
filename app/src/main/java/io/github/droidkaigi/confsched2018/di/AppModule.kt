@@ -34,5 +34,4 @@ internal class AppModule {
 
     @Singleton @Provides
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
-
 }

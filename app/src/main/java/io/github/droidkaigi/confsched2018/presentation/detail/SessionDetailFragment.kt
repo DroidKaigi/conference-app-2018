@@ -24,7 +24,11 @@ class SessionDetailFragment : Fragment(), Injectable {
         ViewModelProviders.of(this, viewModelFactory).get(SessionDetailViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         binding = ItemSessionBinding.inflate(inflater, container!!, false)
         return binding.root
     }
@@ -42,7 +46,6 @@ class SessionDetailFragment : Fragment(), Injectable {
                     binding.favorite.setOnClickListener {
                         sessionsViewModel.onFavoriteClick(session)
                     }
-
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

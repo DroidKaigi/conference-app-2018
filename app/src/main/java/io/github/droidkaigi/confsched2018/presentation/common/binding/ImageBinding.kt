@@ -12,7 +12,7 @@ import android.widget.ImageView
         BindingMethod(type = ImageView::class,
                 attribute = "app:srcCompat",
                 method = "setImageDrawable"))
-class ImageBinding {}
+class ImageBinding
 
 @BindingAdapter("bind:colorTint", "app:srcCompat")
 fun ImageView.setColorTint(@ColorInt color: Int, drawable: Drawable) {

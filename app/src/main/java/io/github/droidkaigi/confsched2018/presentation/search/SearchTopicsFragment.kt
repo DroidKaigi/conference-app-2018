@@ -64,4 +64,3 @@ class SearchTopicsFragment : Fragment(), Injectable {
         fun newInstance(): SearchTopicsFragment = SearchTopicsFragment()
     }
 }
-

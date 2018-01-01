@@ -23,7 +23,8 @@ data class FeedItem(
         viewBinding.root.setOnClickListener {
             expanded = !expanded
             // FIXME: Animation!!
-            TransitionManager.beginDelayedTransition(viewBinding.feedItemConstraintLayout, expandTransition)
+            TransitionManager
+                    .beginDelayedTransition(viewBinding.feedItemConstraintLayout, expandTransition)
             if (!expanded) {
                 feedItemCollapsed.applyTo(viewBinding.feedItemConstraintLayout)
             } else {

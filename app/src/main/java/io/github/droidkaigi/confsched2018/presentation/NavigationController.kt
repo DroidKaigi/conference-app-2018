@@ -68,7 +68,6 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 .commitAllowingStateLoss()
     }
 
-
     fun navigateToSessionDetailActivity(session: Session) {
         SessionDetailActivity.start(activity, session)
     }
@@ -88,5 +87,4 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     fun navigateToAboutThisAppActivity() {
         AboutThisAppActivity.start(activity)
     }
-
 }
