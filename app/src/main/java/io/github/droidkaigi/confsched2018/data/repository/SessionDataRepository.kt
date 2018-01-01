@@ -84,8 +84,7 @@ class SessionDataRepository @Inject constructor(
             speakers.map {
                 it.filter { it.name.contains(query) }
             }.firstOrError(),
-            { sessions: List<Session>,
-              speakers: List<Speaker> ->
+            { sessions: List<Session>, speakers: List<Speaker> ->
                 SearchResult(sessions, speakers)
             })
 

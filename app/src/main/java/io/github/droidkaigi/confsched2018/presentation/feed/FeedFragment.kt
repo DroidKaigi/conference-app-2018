@@ -67,7 +67,14 @@ class FeedFragment : Fragment(), Injectable {
                     val inflater = TransitionInflater.from(context)
                     val expandTransition = inflater.inflateTransition(R.transition.expand_toggle)
                     postsGroup.update(posts
-                            .map { FeedItem(it, feedItemCollapsed, feedItemExpanded, expandTransition) })
+                            .map {
+                                FeedItem(
+                                        it,
+                                        feedItemCollapsed,
+                                        feedItemExpanded,
+                                        expandTransition
+                                )
+                            })
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
