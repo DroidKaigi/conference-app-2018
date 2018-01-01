@@ -64,5 +64,6 @@ open class App : MultiDexApplication(), HasActivityInjector {
         AppInjector.init(this)
     }
 
-    override fun activityInjector(): DispatchingAndroidInjector<Activity> = dispatchingAndroidInjector
+    override fun activityInjector(): DispatchingAndroidInjector<Activity> =
+            dispatchingAndroidInjector
 }

@@ -8,4 +8,3 @@ fun TextView.setTextIfChanged(newText: String) {
         text = newText
     }
 }
-

@@ -35,7 +35,9 @@ class SessionsFragment : Fragment(), Injectable {
         sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager)
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
-        sessionsViewModel = ViewModelProviders.of(this, viewModelFactory).get(SessionsViewModel::class.java)
+        sessionsViewModel = ViewModelProviders
+                .of(this, viewModelFactory)
+                .get(SessionsViewModel::class.java)
 
         sessionsViewModel.rooms.observe(this, { result ->
             when (result) {
@@ -55,16 +57,16 @@ class SessionsFragment : Fragment(), Injectable {
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
-
     }
 
     companion object {
         fun newInstance(): SessionsFragment = SessionsFragment()
     }
-
 }
 
-class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class SessionsViewPagerAdapter(
+        fragmentManager: FragmentManager
+) : FragmentStatePagerAdapter(fragmentManager) {
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
@@ -103,5 +105,4 @@ class SessionsViewPagerAdapter(fragmentManager: FragmentManager) : FragmentState
         }.toMutableList()
         setupTabs()
     }
-
 }

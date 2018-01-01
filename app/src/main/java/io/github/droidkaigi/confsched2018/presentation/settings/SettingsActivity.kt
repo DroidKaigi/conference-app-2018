@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.settings
 
-
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil

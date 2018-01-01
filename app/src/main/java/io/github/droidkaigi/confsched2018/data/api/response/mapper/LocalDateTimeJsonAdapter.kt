@@ -20,5 +20,4 @@ class LocalDateTimeJsonAdapter : JsonAdapter<LocalDateTime>() {
         JsonReader.Token.NULL -> reader.nextNull()
         else -> LocalDateTime.parse(reader.nextString(), formatter)
     }
-
 }

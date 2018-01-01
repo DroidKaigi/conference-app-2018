@@ -72,4 +72,3 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         fun newInstance(): SearchSpeakersFragment = SearchSpeakersFragment()
     }
 }
-

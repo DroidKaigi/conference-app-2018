@@ -19,7 +19,8 @@ class AboutThisAppActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var navigationController: NavigationController
 
     private val binding: ActivityAboutThisAppBinding by lazy {
-        DataBindingUtil.setContentView<ActivityAboutThisAppBinding>(this, R.layout.activity_about_this_app)
+        DataBindingUtil
+                .setContentView<ActivityAboutThisAppBinding>(this, R.layout.activity_about_this_app)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -11,7 +11,14 @@ import io.github.droidkaigi.confsched2018.data.db.entity.SessionSpeakerJoinEntit
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
 
-@Database(entities = [(SessionEntity::class), (SpeakerEntity::class), (SessionSpeakerJoinEntity::class)], version = 1)
+@Database(
+        entities = [
+            (SessionEntity::class),
+            (SpeakerEntity::class),
+            (SessionSpeakerJoinEntity::class)
+        ],
+        version = 1
+)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao

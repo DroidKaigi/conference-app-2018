@@ -35,11 +35,9 @@ class SearchViewModelTest {
 
         viewModel.onQuery("query")
 
-
         verify(repository).search("query")
         verify(result).onChanged(Result.inProgress())
         verify(result).onChanged(Result.success(SearchResult(listOf(), listOf())))
-
     }
 
     @Test fun search_Basic() {
@@ -68,7 +66,6 @@ class SearchViewModelTest {
         verify(result).onChanged(Result.failure(runtimeException.message!!, runtimeException))
     }
 
-
     @Test fun favorite() {
         whenever(repository.favorite(any())).doReturn(Single.just(true))
         viewModel = SearchViewModel(repository, TestSchedulerProvider())
@@ -78,5 +75,4 @@ class SearchViewModelTest {
 
         verify(repository).favorite(session)
     }
-
 }

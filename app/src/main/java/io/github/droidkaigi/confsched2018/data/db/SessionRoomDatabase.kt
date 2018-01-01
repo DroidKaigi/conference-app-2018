@@ -35,9 +35,10 @@ class SessionRoomDatabase @Inject constructor(
     override fun save(response: Response) {
         database.runInTransaction {
             speakerDao.clearAndInsert(response.speakers.toSpeakerEntities())
-            sessionDao.clearAndInsert(response.sessions.toSessionEntities(response.categories, response.rooms))
-            sessionSpeakerJoinDao.insert(response.sessions.toSessionSpeakerJoinEntities())
+            val sessions = response.sessions
+            val sessionEntities = sessions.toSessionEntities(response.categories, response.rooms)
+            sessionDao.clearAndInsert(sessionEntities)
+            sessionSpeakerJoinDao.insert(sessions.toSessionSpeakerJoinEntities())
         }
     }
-
 }

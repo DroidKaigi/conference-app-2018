@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.api.response
 
-import java.util.*
+import java.util.Date
 
 data class Post(
         var title: String?,
@@ -8,6 +8,6 @@ data class Post(
         var date: Date?,
         var published: Boolean?,
         var type: String?
-){
-    constructor():this(null, null,null,null,null)
+) {
+    constructor() : this(null, null, null, null, null)
 }

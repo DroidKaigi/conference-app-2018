@@ -27,13 +27,16 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 
     @ContributesAndroidInjector abstract fun contributeSearchFragment(): SearchFragment
 
-    @ContributesAndroidInjector abstract fun contributeSearchSessionsFragment(): SearchSessionsFragment
+    @ContributesAndroidInjector abstract fun contributeSearchSessionsFragment(
+    ): SearchSessionsFragment
 
     @ContributesAndroidInjector abstract fun contributeSearchTopicsFragment(): SearchTopicsFragment
 
-    @ContributesAndroidInjector abstract fun contributeSearchSpeakersFragment(): SearchSpeakersFragment
+    @ContributesAndroidInjector abstract fun contributeSearchSpeakersFragment(
+    ): SearchSpeakersFragment
 
-    @ContributesAndroidInjector abstract fun contributeFavoriteSessionsFragment(): FavoriteSessionsFragment
+    @ContributesAndroidInjector abstract fun contributeFavoriteSessionsFragment(
+    ): FavoriteSessionsFragment
 
     @ContributesAndroidInjector abstract fun contributeFeedFragment(): FeedFragment
 

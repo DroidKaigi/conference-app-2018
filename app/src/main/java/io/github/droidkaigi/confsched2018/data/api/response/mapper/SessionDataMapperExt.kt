@@ -1,19 +1,32 @@
 package io.github.droidkaigi.confsched2018.data.api.response.mapper
 
-import io.github.droidkaigi.confsched2018.data.api.response.*
-import io.github.droidkaigi.confsched2018.data.db.entity.*
+import io.github.droidkaigi.confsched2018.data.api.response.Category
+import io.github.droidkaigi.confsched2018.data.api.response.CategoryItem
+import io.github.droidkaigi.confsched2018.data.api.response.Room
+import io.github.droidkaigi.confsched2018.data.api.response.Session
+import io.github.droidkaigi.confsched2018.data.api.response.Speaker
+import io.github.droidkaigi.confsched2018.data.db.entity.LevelEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SessionSpeakerJoinEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 
 fun List<Session>?.toSessionSpeakerJoinEntities(): List<SessionSpeakerJoinEntity> {
     val sessionSpeakerJoinEntity: MutableList<SessionSpeakerJoinEntity> = arrayListOf()
     this!!.forEach { responseSession ->
         responseSession.speakers!!.forEach { speakerId ->
-            sessionSpeakerJoinEntity += SessionSpeakerJoinEntity(responseSession.id!!, speakerId!!)
+            sessionSpeakerJoinEntity +=
+                    SessionSpeakerJoinEntity(responseSession.id!!, speakerId!!)
         }
     }
     return sessionSpeakerJoinEntity
 }
 
-fun List<Session>?.toSessionEntities(categories: List<Category>?, rooms: List<io.github.droidkaigi.confsched2018.data.api.response.Room>?): List<SessionEntity> =
+fun List<Session>?.toSessionEntities(
+        categories: List<Category>?,
+        rooms: List<Room>?
+): List<SessionEntity> =
         this!!.map { responseSession ->
             responseSession.toSessionEntity(categories, rooms)
         }

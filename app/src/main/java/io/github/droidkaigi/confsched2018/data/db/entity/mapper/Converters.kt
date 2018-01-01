@@ -10,13 +10,16 @@ class Converters {
     companion object {
         @JvmStatic
         @TypeConverter
-        fun fromTimestamp(value: Long?): LocalDateTime?
-                = if (value == null) null else LocalDateTime.ofInstant(Instant.ofEpochSecond(value), ZoneId.systemDefault())
+        fun fromTimestamp(value: Long?): LocalDateTime? {
+            if (value == null) {
+                return null
+            }
+            return LocalDateTime.ofInstant(Instant.ofEpochSecond(value), ZoneId.systemDefault())
+        }
 
         @JvmStatic
         @TypeConverter
-        fun dateToTimestamp(date: LocalDateTime?): Long?
-                = date?.toEpochSecond(ZoneOffset.ofHours(9))
-
+        fun dateToTimestamp(date: LocalDateTime?): Long? =
+                date?.toEpochSecond(ZoneOffset.ofHours(9))
     }
 }
