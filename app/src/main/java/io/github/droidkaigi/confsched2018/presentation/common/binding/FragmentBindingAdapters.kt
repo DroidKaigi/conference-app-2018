@@ -8,10 +8,16 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import javax.inject.Inject
 
-
 class FragmentBindingAdapters @Inject
 constructor(internal val fragment: Fragment) {
-    @BindingAdapter(value = ["bind:loadImage", "bind:placeHolder", "android:layout_width", "android:layout_height"])
+    @BindingAdapter(
+            value = [
+                "bind:loadImage",
+                "bind:placeHolder",
+                "android:layout_width",
+                "android:layout_height"
+            ]
+    )
     fun ImageView.loadImage(url: String, placeHolder: Drawable, width: Float, height: Float) {
         CustomGlideApp
                 .with(fragment)

@@ -19,7 +19,11 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var navigationController: NavigationController
 
     private val binding: ActivitySpeakerDetailBinding by lazy {
-        DataBindingUtil.setContentView<ActivitySpeakerDetailBinding>(this, R.layout.activity_speaker_detail)
+        DataBindingUtil
+                .setContentView<ActivitySpeakerDetailBinding>(
+                        this,
+                        R.layout.activity_speaker_detail
+                )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

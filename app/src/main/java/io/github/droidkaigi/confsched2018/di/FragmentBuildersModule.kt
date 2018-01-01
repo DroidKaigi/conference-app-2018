@@ -50,5 +50,6 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 
     @ContributesAndroidInjector abstract fun contributeSettingsFragment(): SettingsFragment
 
-    @ContributesAndroidInjector abstract fun contributeSpeakerDetailFragment(): SpeakerDetailFragment
+    @ContributesAndroidInjector abstract fun contributeSpeakerDetailFragment(
+    ): SpeakerDetailFragment
 }

@@ -9,9 +9,13 @@ import io.github.droidkaigi.confsched2018.databinding.ItemSpeakerBinding
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
-class SpeakerItem(val speaker: Speaker, private val dataBindingComponent: FragmentDataBindingComponent) : BindableItem<ItemSpeakerBinding>() {
+class SpeakerItem(
+        val speaker: Speaker,
+        private val dataBindingComponent: FragmentDataBindingComponent
+) : BindableItem<ItemSpeakerBinding>() {
     override fun createViewHolder(itemView: View): ViewHolder<ItemSpeakerBinding> {
-        val viewDataBinding = DataBindingUtil.bind<ItemSpeakerBinding>(itemView, dataBindingComponent)
+        val viewDataBinding =
+                DataBindingUtil.bind<ItemSpeakerBinding>(itemView, dataBindingComponent)
         return ViewHolder(viewDataBinding)
     }
 
@@ -19,8 +23,5 @@ class SpeakerItem(val speaker: Speaker, private val dataBindingComponent: Fragme
         viewBinding.speaker = speaker
     }
 
-    override fun getLayout(): Int {
-        return R.layout.item_speaker
-    }
-
+    override fun getLayout(): Int = R.layout.item_speaker
 }

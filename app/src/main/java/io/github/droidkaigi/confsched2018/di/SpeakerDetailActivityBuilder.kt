@@ -5,6 +5,11 @@ import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity
 
 @Module abstract class SpeakerDetailActivityBuilder {
-    @ContributesAndroidInjector(modules = [FragmentBuildersModule::class, SpeakerDetailActivityModule::class])
+    @ContributesAndroidInjector(
+            modules = [
+                FragmentBuildersModule::class,
+                SpeakerDetailActivityModule::class
+            ]
+    )
     abstract fun contributeSpeakerDetailActivity(): SpeakerDetailActivity
 }

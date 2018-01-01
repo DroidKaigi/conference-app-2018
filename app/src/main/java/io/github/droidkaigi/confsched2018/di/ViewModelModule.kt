@@ -64,7 +64,9 @@ import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailView
 
     @Binds @IntoMap
     @ViewModelKey(SpeakerDetailViewModel::class)
-    abstract fun bindSpeakerDetailViewModel(sessionDetailViewModel: SpeakerDetailViewModel): ViewModel
+    abstract fun bindSpeakerDetailViewModel(
+            sessionDetailViewModel: SpeakerDetailViewModel
+    ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchSpeakersViewModel::class)
