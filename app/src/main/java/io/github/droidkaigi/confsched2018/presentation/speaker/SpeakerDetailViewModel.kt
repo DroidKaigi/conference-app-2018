@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.search
+package io.github.droidkaigi.confsched2018.presentation.speaker
 
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
@@ -17,13 +17,13 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class SearchSpeakersViewModel @Inject constructor(
+class SpeakerDetailViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
-    val speakers: LiveData<Result<List<Speaker>>> by lazy {
+    val speakerSessions: LiveData<Result<Map<Speaker, List<Session>>>> by lazy {
         repository
-                .speakers
+                .speakerSessions
                 .toResult(schedulerProvider)
                 .toLiveData()
     }

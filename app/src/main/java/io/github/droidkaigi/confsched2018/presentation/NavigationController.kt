@@ -17,6 +17,8 @@ import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsFragment
+import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity
+import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 import javax.inject.Inject
@@ -61,6 +63,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(AboutThisAppFragment.newInstance())
     }
 
+    fun navigateToSpeakerDetail(speakerId: String) {
+        replaceFragment(SpeakerDetailFragment.newInstance(speakerId))
+    }
+
     private fun replaceFragment(fragment: Fragment) {
         fragmentManager
                 .beginTransaction()
@@ -87,6 +93,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateToAboutThisAppActivity() {
         AboutThisAppActivity.start(activity)
+    }
+
+    fun navigateToSpeakerDetailActivity(speakerId: String) {
+        SpeakerDetailActivity.start(activity, speakerId)
     }
 
 }

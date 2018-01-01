@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.model
 
 data class Speaker(
+        val id: String,
         var name: String,
         var imageUrl: String,
         var twitterUrl: String?,

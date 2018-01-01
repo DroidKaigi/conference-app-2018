@@ -37,6 +37,7 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DU
 
 fun createDummySpeaker(): Speaker {
     return Speaker(
+            id = "tmtm",
             name = "tm",
             imageUrl = "http://example.com",
             twitterUrl = "http://twitter.com/",

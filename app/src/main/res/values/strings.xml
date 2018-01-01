@@ -39,4 +39,7 @@
 
     <!-- Settings -->
     <string name="title_activity_settings">設定</string>
+
+    <!-- Speaker -->
+    <string name="title_activity_speaker_detail">Speaker</string>
 </resources>

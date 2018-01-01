@@ -12,6 +12,11 @@ import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchSpeakersBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
+import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
+import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersGroup
+import io.github.droidkaigi.confsched2018.util.ext.observe
 import javax.inject.Inject
 
 class SearchSpeakersFragment : Fragment(), Injectable {
@@ -19,9 +24,12 @@ class SearchSpeakersFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject lateinit var navigationController: NavigationController
-    private val searchTopicsViewModel: SearchTopicsViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(SearchTopicsViewModel::class.java)
+    private val searchSpeakersViewModel: SearchSpeakersViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(SearchSpeakersViewModel::class.java)
     }
+
+    private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
+    private val speakersGroup = SpeakersGroup(fragmentDataBindingComponent)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +45,23 @@ class SearchSpeakersFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        // TODO: searchTopicsViewModel.speakers fetch data here
-        lifecycle.addObserver(searchTopicsViewModel)
+        searchSpeakersViewModel.speakers.observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
+                    speakersGroup.updateSpeakers(result.data)
+                }
+            }
+        })
+        lifecycle.addObserver(searchSpeakersViewModel)
     }
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            // TODO: Add group and click listener
-//            add(speakersGroup)
+            setOnItemClickListener { item, view ->
+                val speakerItem = item as SpeakerItem
+                navigationController.navigateToSpeakerDetailActivity(speakerItem.speaker.id)
+            }
+            add(speakersGroup)
         }
         binding.searchSessionRecycler.apply {
             adapter = groupAdapter

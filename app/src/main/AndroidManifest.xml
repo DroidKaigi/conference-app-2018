@@ -69,6 +69,10 @@
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
                 />
         </activity>
+        <activity
+            android:name=".presentation.speaker.SpeakerDetailActivity"
+            android:label="@string/title_activity_speaker_detail"
+            />
     </application>
 
 </manifest>

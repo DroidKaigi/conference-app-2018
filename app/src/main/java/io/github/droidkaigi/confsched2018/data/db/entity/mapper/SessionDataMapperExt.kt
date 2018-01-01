@@ -35,6 +35,7 @@ fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList:
 }
 
 fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
+        id = id,
         name = name,
         imageUrl = imageUrl,
         twitterUrl = twitterUrl,
