@@ -14,6 +14,9 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
       - run:
+          name: Bundle install
+          command: bundle instal
+      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - save_cache:
@@ -53,6 +56,13 @@ jobs:
                   ./gradlew --offline --stacktrace assembleRelease
               else
                   ./gradlew --offline --stacktrace assemble${APP_BUILD_TYPE^}
+              fi
+      - run:
+          name: Check
+          command: |
+              if [ ! $CIRCLE_BRANCH = 'master' ]; then
+                  ./gradlew --offline --stacktrace ktlintCheck
+                  bundle exec danger
               fi
       - run:
           name: Deploy
