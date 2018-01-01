@@ -61,7 +61,7 @@ jobs:
           name: Check
           command: |
               if [ ! $CIRCLE_BRANCH = 'master' ]; then
-                  ./gradlew --offline --stacktrace ktlintCheck
+                  ./gradlew --stacktrace ktlintCheck
                   bundle exec danger
               fi
       - run:
