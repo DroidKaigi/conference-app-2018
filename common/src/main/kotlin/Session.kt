@@ -12,5 +12,6 @@ data class Session(
         var language: String,
         var topic: Topic,
         var level: Level,
-        var isFavorited: Boolean, var speakers: List<Speaker>
+        var isFavorited: Boolean,
+        var speakers: List<Speaker>
 )
