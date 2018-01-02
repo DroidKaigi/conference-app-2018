@@ -20,6 +20,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.robolectric.RobolectricTestRunner
+import org.threeten.bp.LocalDate
 
 @RunWith(RobolectricTestRunner::class)
 class SessionsDataRepositoryTest {
@@ -63,7 +64,7 @@ class SessionsDataRepositoryTest {
         sessionDataRepository
                 .sessions
                 .test()
-                .assertValue(sessions.map { it.toSession(speakers, listOf(), firstDay) })
+                .assertValue(sessions.map { it.toSession(speakers, listOf(), LocalDate.now()) })
 
         verify(sessionDatabase).getAllSessions()
     }
@@ -83,7 +84,7 @@ class SessionsDataRepositoryTest {
                     println(it)
                 }
                 .test()
-                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList(), firstDay)),
+                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList(), LocalDate.now())),
                         listOf()))
 
         verify(sessionDatabase).getAllSessions()
