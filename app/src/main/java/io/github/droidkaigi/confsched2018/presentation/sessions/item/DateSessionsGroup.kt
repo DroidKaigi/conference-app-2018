@@ -34,11 +34,7 @@ class DateSessionsGroup(private val fragment: Fragment) : Section() {
         update(dateSessions)
     }
 
-    fun getDateCountSinceBeginOrNull(firstPosition: Int): Int? {
-        return getDateOrNull(firstPosition) ?: return null
-    }
-
-    private fun getDateOrNull(position: Int): Int? {
+    fun getDateNumberOrNull(position: Int): Int? {
         if (position < 0) return null
 
         var item = getItemOrNull(position) ?: return null

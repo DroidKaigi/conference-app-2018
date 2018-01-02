@@ -24,7 +24,7 @@ class HorizontalSessionsItem(
 ) : BindableItem<ItemSearchHorizontalSessionsBinding>(
         level.id.toLong()
 ) {
-    private val Section = Section()
+    private val section = Section()
     private lateinit var onItemClickListener: OnItemClickListener
 
     override fun bind(
@@ -41,7 +41,7 @@ class HorizontalSessionsItem(
     override fun bind(viewBinding: ItemSearchHorizontalSessionsBinding, position: Int) {
         val items = mutableListOf<Item<*>>()
         val groupAdapter = GroupAdapter<com.xwray.groupie.ViewHolder>().apply {
-            add(Section)
+            add(section)
         }
         viewBinding.searchSessionsRecycler.swapAdapter(groupAdapter, false)
         viewBinding.searchSessionsRecycler.apply {
@@ -60,7 +60,7 @@ class HorizontalSessionsItem(
                     fragment
             ))
         }
-        Section.update(items)
+        section.update(items)
     }
 
     override fun unbind(holder: ViewHolder<ItemSearchHorizontalSessionsBinding>) {

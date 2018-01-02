@@ -15,7 +15,11 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
 import org.threeten.bp.ZoneId
 
-fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList: List<Int>?, firstDay: LocalDate): Session {
+fun SessionWithSpeakers.toSession(
+        speakerEntities: List<SpeakerEntity>,
+        favList: List<Int>?,
+        firstDay: LocalDate
+): Session {
     val sessionEntity = session!!
     require(!speakerIdList.isEmpty())
     val speakers = speakerIdList.map { speakerId ->

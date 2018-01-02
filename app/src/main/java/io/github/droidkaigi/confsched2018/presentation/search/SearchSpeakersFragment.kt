@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDa
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersGroup
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import timber.log.Timber
 import javax.inject.Inject
 
 class SearchSpeakersFragment : Fragment(), Injectable {
@@ -49,6 +50,9 @@ class SearchSpeakersFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     speakersGroup.updateSpeakers(result.data)
+                }
+                is Result.Failure -> {
+                    Timber.e(result.e)
                 }
             }
         })

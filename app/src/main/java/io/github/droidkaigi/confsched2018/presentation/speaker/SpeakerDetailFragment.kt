@@ -19,6 +19,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDa
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SessionItem
 import io.github.droidkaigi.confsched2018.presentation.speaker.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import timber.log.Timber
 import javax.inject.Inject
 
 class SpeakerDetailFragment : Fragment(), Injectable {
@@ -62,6 +63,9 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                     val speaker = result.data.first
                     binding.speaker = speaker
                     sessionsGroup.updateSessions(result.data.second, onFavoriteClickListener)
+                }
+                is Result.Failure -> {
+                    Timber.e(result.e)
                 }
             }
         })

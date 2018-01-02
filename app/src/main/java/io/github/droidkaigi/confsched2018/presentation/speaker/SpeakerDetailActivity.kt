@@ -31,6 +31,7 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         setContentView(R.layout.activity_speaker_detail)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         navigationController.navigateToSpeakerDetail(intent.getStringExtra(EXTRA_SPEAKER_ID))
     }
