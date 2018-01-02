@@ -1,7 +1,17 @@
 package io.github.droidkaigi.confsched2018
 
-import io.github.droidkaigi.confsched2018.data.db.entity.*
-import io.github.droidkaigi.confsched2018.model.*
+import io.github.droidkaigi.confsched2018.data.db.entity.LevelEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
+import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
+import io.github.droidkaigi.confsched2018.model.Level
+import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.Speaker
+import io.github.droidkaigi.confsched2018.model.Topic
+import io.github.droidkaigi.confsched2018.model.parseDate
 import org.threeten.bp.LocalDateTime
 
 const val DUMMY_SESSION_ID1 = "test1"
@@ -20,18 +30,18 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DU
             id = sessionId,
             title = title,
             desc = "How to create DroidKaigi app",
+            dayNumber = 1,
             startTime = parseDate(10000),
             endTime = parseDate(10000),
-            format = "30分",
             room = Room(1, "Hall"),
-            topic = Topic(2, "Development tool"),
+            format = "30分",
             language = "JA",
+            topic = Topic(2, "Development tool"),
             level = Level(1, "Beginner"),
-            speakers = listOf(
+            isFavorited = true, speakers = listOf(
                     createDummySpeaker(),
                     createDummySpeaker()
-            ),
-            isFavorited = true
+    )
     )
 }
 
@@ -39,11 +49,11 @@ fun createDummySpeaker(): Speaker {
     return Speaker(
             id = "tmtm",
             name = "tm",
+            tagLine = "this is sample",
             imageUrl = "http://example.com",
             twitterUrl = "http://twitter.com/",
             githubUrl = null,
-            blogUrl = null,
-            companyUrl = null
+            blogUrl = null, companyUrl = null
     )
 }
 
@@ -52,20 +62,20 @@ fun createDummySpeakerEntities(): List<SpeakerEntity> {
             SpeakerEntity(
                     "aaaa"
                     , "hogehoge"
+                    , "this is sample"
                     , "https://example.com"
                     , "http://example.com/hoge"
                     , null
-                    , null
-                    , "http://example.github.com/hoge"
+                    , null, "http://example.github.com/hoge"
             ),
             SpeakerEntity(
                     "bbbb"
                     , "hogehuga"
+                    , "this is dummy"
                     , "https://example.com"
                     , "http://example.com/hoge"
                     , null
-                    , null
-                    , "http://example.github.com/hoge"
+                    , null, "http://example.github.com/hoge"
             ))
 }
 

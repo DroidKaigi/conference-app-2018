@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.UpdatingGroup
+import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentFeedBinding
@@ -25,7 +25,7 @@ class FeedFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentFeedBinding
 
-    private val postsGroup = UpdatingGroup()
+    private val postsGroup = Section()
 
     private val feedItemCollapsed by lazy {
         ConstraintSet().apply {

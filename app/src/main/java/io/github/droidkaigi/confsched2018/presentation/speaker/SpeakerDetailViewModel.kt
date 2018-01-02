@@ -22,9 +22,15 @@ class SpeakerDetailViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
     lateinit var speakerId: String
-    val speakerSessions: LiveData<Result<Map<Speaker, List<Session>>>> by lazy {
+    val speakerSessions: LiveData<Result<Pair<Speaker, List<Session>>>> by lazy {
         repository
                 .speakerSessions
+                .map {
+                    it
+                            .filter { it.key.id == speakerId }
+                            .map { it.key to it.value }
+                            .first()
+                }
                 .toResult(schedulerProvider)
                 .toLiveData()
     }

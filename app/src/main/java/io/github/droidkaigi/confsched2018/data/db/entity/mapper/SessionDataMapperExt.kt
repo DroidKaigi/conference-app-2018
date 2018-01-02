@@ -4,11 +4,18 @@ import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
-import io.github.droidkaigi.confsched2018.model.*
+import io.github.droidkaigi.confsched2018.model.Level
+import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.Speaker
+import io.github.droidkaigi.confsched2018.model.Topic
+import io.github.droidkaigi.confsched2018.model.parseDate
 import io.reactivex.Flowable
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Period
 import org.threeten.bp.ZoneId
 
-fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList: List<Int>?): Session {
+fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList: List<Int>?, firstDay: LocalDate): Session {
     val sessionEntity = session!!
     require(!speakerIdList.isEmpty())
     val speakers = speakerIdList.map { speakerId ->
@@ -20,6 +27,7 @@ fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList:
             id = sessionEntity.id,
             title = sessionEntity.title,
             desc = sessionEntity.desc,
+            dayNumber = Period.between(firstDay, sessionEntity.stime.toLocalDate()).days + 1,
             startTime = parseDate(sessionEntity.stime.atZone(ZoneId.systemDefault())
                     .toInstant().toEpochMilli()),
             endTime = parseDate(sessionEntity.etime.atZone(ZoneId.systemDefault())
@@ -37,6 +45,7 @@ fun SessionWithSpeakers.toSession(speakerEntities: List<SpeakerEntity>, favList:
 fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
         id = id,
         name = name,
+        tagLine = tagLine,
         imageUrl = imageUrl,
         twitterUrl = twitterUrl,
         companyUrl = companyUrl,

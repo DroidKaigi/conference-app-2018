@@ -14,7 +14,8 @@ import io.github.droidkaigi.confsched2018.util.lang
 data class SessionItem(
         val session: Session,
         private val onFavoriteClickListener: (Session) -> Unit,
-        private val fragment: Fragment
+        private val fragment: Fragment,
+        private val isShowDayNumber: Boolean = false
 ) : BindableItem<ItemSessionBinding>(
         session.id.toLong()
 ) {
@@ -51,6 +52,7 @@ data class SessionItem(
         viewBinding.favorite.setOnClickListener {
             onFavoriteClickListener(session)
         }
+        viewBinding.isShowDayNumber = isShowDayNumber
     }
 
     override fun getLayout(): Int = R.layout.item_session

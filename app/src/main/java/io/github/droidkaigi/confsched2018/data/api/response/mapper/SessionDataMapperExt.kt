@@ -54,6 +54,7 @@ fun List<Speaker>?.toSpeakerEntities(): List<SpeakerEntity> =
         this!!.map { responseSpeaker ->
             SpeakerEntity(id = responseSpeaker.id!!,
                     name = responseSpeaker.fullName!!,
+                    tagLine = responseSpeaker.tagLine!!,
                     imageUrl = responseSpeaker.profilePicture.orEmpty(),
                     twitterUrl = responseSpeaker.links
                             ?.firstOrNull { "Twitter" == it?.linkType }

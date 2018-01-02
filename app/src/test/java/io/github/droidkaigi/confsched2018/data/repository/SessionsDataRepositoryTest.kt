@@ -63,7 +63,7 @@ class SessionsDataRepositoryTest {
         sessionDataRepository
                 .sessions
                 .test()
-                .assertValue(sessions.map { it.toSession(speakers, listOf()) })
+                .assertValue(sessions.map { it.toSession(speakers, listOf(), firstDay) })
 
         verify(sessionDatabase).getAllSessions()
     }
@@ -83,7 +83,7 @@ class SessionsDataRepositoryTest {
                     println(it)
                 }
                 .test()
-                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList())),
+                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList(), firstDay)),
                         listOf()))
 
         verify(sessionDatabase).getAllSessions()

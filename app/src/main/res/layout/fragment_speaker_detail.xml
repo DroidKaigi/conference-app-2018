@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
-    <data></data>
+    <data>
+        <variable
+            name="speaker"
+            type="io.github.droidkaigi.confsched2018.model.Speaker"
+            />
+    </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailFragment"
         tools:showIn="@layout/activity_speaker_detail"
         >
+        <View
+            android:id="@+id/app_bar_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@id/speaker_tag_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <ImageView
+            android:id="@+id/speaker_image"
+            android:layout_width="@{@dimen/search_speaker_image_size, default=@dimen/search_speaker_image_size}"
+            android:layout_height="@{@dimen/search_speaker_image_size, default=@dimen/search_speaker_image_size}"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImage="@{speaker.imageUrl}"
+            app:placeHolder="@{@drawable/ic_person_black_24dp}"
+            tools:src="@drawable/ic_person_black_24dp"
+            />
 
+        <TextView
+            android:id="@+id/speaker_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{speaker.name}"
+            android:textAppearance="@style/TextAppearance.App.Title"
+            android:textColor="@color/app_bar_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/speaker_image"
+            tools:text="takahirom"
+            />
+        <TextView
+            android:id="@+id/speaker_tag_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="32dp"
+            android:text="@{speaker.tagLine}"
+            android:textAppearance="@style/TextAppearance.App.Subhead"
+            android:textColor="@color/app_bar_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/speaker_name"
+            tools:text="example"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sessions_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_background"
+            />
     </android.support.constraint.ConstraintLayout>
 </layout>

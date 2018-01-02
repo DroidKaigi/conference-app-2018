@@ -9,7 +9,7 @@ import io.github.droidkaigi.confsched2018.databinding.ItemSpeakerBinding
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
-class SpeakerItem(
+data class SpeakerItem(
         val speaker: Speaker,
         private val dataBindingComponent: FragmentDataBindingComponent
 ) : BindableItem<ItemSpeakerBinding>() {

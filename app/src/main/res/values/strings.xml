@@ -1,6 +1,6 @@
 <resources>
     <!-- Common -->
-    <string name="time_period">%1$s - %2$s</string>
+    <string name="time_period">%1$s - %2$s%3$s</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_map">地図</string>

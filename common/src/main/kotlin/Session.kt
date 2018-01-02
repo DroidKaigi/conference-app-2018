@@ -4,6 +4,7 @@ data class Session(
         var id: String,
         var title: String,
         var desc: String,
+        val dayNumber: Int,
         var startTime: Date,
         var endTime: Date,
         var room: Room,
@@ -11,6 +12,5 @@ data class Session(
         var language: String,
         var topic: Topic,
         var level: Level,
-        var isFavorited: Boolean,
-        var speakers: List<Speaker>
+        var isFavorited: Boolean, var speakers: List<Speaker>
 )

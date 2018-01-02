@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3a1c9ae4c1982578f5d4e354ca0e3d5e",
+    "identityHash": "6917d7d226eba6c0224817be4718db9a",
     "entities": [
       {
         "tableName": "session",
@@ -98,7 +98,7 @@
       },
       {
         "tableName": "speaker",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `speaker_name` TEXT NOT NULL, `speaker_image_url` TEXT NOT NULL, `speaker_twitter_url` TEXT, `speaker_company_url` TEXT, `speaker_blog_url` TEXT, `speaker_github_url` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `speaker_name` TEXT NOT NULL, `speaker_tag_line` TEXT NOT NULL, `speaker_image_url` TEXT NOT NULL, `speaker_twitter_url` TEXT, `speaker_company_url` TEXT, `speaker_blog_url` TEXT, `speaker_github_url` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -109,6 +109,12 @@
           {
             "fieldPath": "name",
             "columnName": "speaker_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tagLine",
+            "columnName": "speaker_tag_line",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -214,7 +220,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3a1c9ae4c1982578f5d4e354ca0e3d5e\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6917d7d226eba6c0224817be4718db9a\")"
     ]
   }
 }

@@ -1,11 +1,11 @@
 package io.github.droidkaigi.confsched2018.presentation.search.item
 
 import com.xwray.groupie.Item
-import com.xwray.groupie.UpdatingGroup
+import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
-class SpeakersGroup(val dataBindingComponent: FragmentDataBindingComponent) : UpdatingGroup() {
+class SpeakersGroup(val dataBindingComponent: FragmentDataBindingComponent) : Section() {
 
     fun updateSpeakers(
             speakers: List<Speaker>

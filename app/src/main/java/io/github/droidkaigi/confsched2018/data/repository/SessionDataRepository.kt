@@ -44,7 +44,8 @@ class SessionDataRepository @Inject constructor(
                     )
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
                     { sessionEntities, speakerEntities, favList ->
-                        sessionEntities.map { it.toSession(speakerEntities, favList) }
+                        val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
+                        sessionEntities.map { it.toSession(speakerEntities, favList, firstDay) }
                     })
                     .subscribeOn(schedulerProvider.computation())
                     .doOnNext {

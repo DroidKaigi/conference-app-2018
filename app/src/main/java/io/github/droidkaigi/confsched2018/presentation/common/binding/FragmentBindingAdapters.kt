@@ -18,7 +18,8 @@ constructor(internal val fragment: Fragment) {
                 "android:layout_height"
             ]
     )
-    fun ImageView.loadImage(url: String, placeHolder: Drawable, width: Float, height: Float) {
+    fun ImageView.loadImage(url: String?, placeHolder: Drawable, width: Float, height: Float) {
+        url ?: return
         CustomGlideApp
                 .with(fragment)
                 .load(url)

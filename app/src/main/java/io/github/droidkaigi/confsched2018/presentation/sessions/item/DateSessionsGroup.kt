@@ -2,16 +2,13 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
 import android.support.v4.app.Fragment
 import com.xwray.groupie.Item
-import com.xwray.groupie.UpdatingGroup
-import io.github.droidkaigi.confsched2018.model.Date
+import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
-import io.github.droidkaigi.confsched2018.util.ext.toLocalDate
-import org.threeten.bp.Period
 import java.util.SortedMap
 
-class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
+class DateSessionsGroup(private val fragment: Fragment) : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session) -> Unit
@@ -38,19 +35,17 @@ class DateSessionsGroup(private val fragment: Fragment) : UpdatingGroup() {
     }
 
     fun getDateCountSinceBeginOrNull(firstPosition: Int): Int? {
-        val firstDay = getDateOrNull(0) ?: return null
-        val date = getDateOrNull(firstPosition) ?: return null
-        return Period.between(firstDay.toLocalDate(), date.toLocalDate()).days + 1
+        return getDateOrNull(firstPosition) ?: return null
     }
 
-    fun getDateOrNull(position: Int): Date? {
+    private fun getDateOrNull(position: Int): Int? {
         if (position < 0) return null
 
         var item = getItemOrNull(position) ?: return null
         item = item as? SessionItem ?: getItemOrNull(position + 1) ?: return null
         item as? SessionItem ?: return null
 
-        return item.session.startTime
+        return item.session.dayNumber
     }
 
     private fun getItemOrNull(i: Int): Item<*>? {
