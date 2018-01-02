@@ -46,7 +46,7 @@
             android:id="@+id/speaker_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{speaker.twitterUrl}"
+            android:text="@{speaker.tagLine}"
             android:textAppearance="@style/TextAppearance.App.Body2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/speaker_name"
