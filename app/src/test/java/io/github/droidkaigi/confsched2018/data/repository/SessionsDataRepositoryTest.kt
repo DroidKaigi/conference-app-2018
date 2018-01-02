@@ -64,7 +64,7 @@ class SessionsDataRepositoryTest {
         sessionDataRepository
                 .sessions
                 .test()
-                .assertValue(sessions.map { it.toSession(speakers, listOf(), LocalDate.now()) })
+                .assertValue(sessions.map { it.toSession(speakers, listOf(), LocalDate.of(1, 1, 1)) })
 
         verify(sessionDatabase).getAllSessions()
     }
@@ -84,7 +84,7 @@ class SessionsDataRepositoryTest {
                     println(it)
                 }
                 .test()
-                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList(), LocalDate.now())),
+                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1))),
                         listOf()))
 
         verify(sessionDatabase).getAllSessions()
