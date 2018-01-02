@@ -10,7 +10,7 @@
     <dimen name="feed_expand_content_size">256dp</dimen>
 
     <!-- Search -->
-    <dimen name="search_speaker_image_size">48dp</dimen>
+    <dimen name="search_speaker_image_size">40dp</dimen>
 
     <!-- Elevation -->
     <dimen name="elevation_app_bar">4dp</dimen>
