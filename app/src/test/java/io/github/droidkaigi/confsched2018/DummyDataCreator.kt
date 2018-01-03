@@ -39,8 +39,8 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DU
             topic = Topic(2, "Development tool"),
             level = Level(1, "Beginner"),
             isFavorited = true, speakers = listOf(
-                    createDummySpeaker(),
-                    createDummySpeaker()
+            createDummySpeaker(),
+            createDummySpeaker()
     )
     )
 }
@@ -59,38 +59,48 @@ fun createDummySpeaker(): Speaker {
 
 fun createDummySpeakerEntities(): List<SpeakerEntity> {
     return listOf(
-            SpeakerEntity(
-                    "aaaa"
-                    , "hogehoge"
-                    , "this is sample"
-                    , "https://example.com"
-                    , "http://example.com/hoge"
-                    , null
-                    , null, "http://example.github.com/hoge"
-            ),
-            SpeakerEntity(
-                    "bbbb"
-                    , "hogehuga"
-                    , "this is dummy"
-                    , "https://example.com"
-                    , "http://example.com/hoge"
-                    , null
-                    , null, "http://example.github.com/hoge"
-            ))
+            createDummySpeakerEntry1(),
+            createDummySpeakerEntry2()
+    )
+}
+
+fun createDummySpeakerEntry2(): SpeakerEntity {
+    return SpeakerEntity(
+            "bbbb"
+            , "hogehuga"
+            , "this is dummy"
+            , "https://example.com"
+            , "http://example.com/hoge"
+            , null
+            , null, "http://example.github.com/hoge"
+    )
+}
+
+fun createDummySpeakerEntry1(): SpeakerEntity {
+    return SpeakerEntity(
+            "aaaa"
+            , "hogehoge"
+            , "this is sample"
+            , "https://example.com"
+            , "http://example.com/hoge"
+            , null
+            , null, "http://example.github.com/hoge"
+    )
 }
 
 fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
-    return listOf(SessionWithSpeakers(SessionEntity(DUMMY_SESSION_ID1,
-            DUMMY_SESSION_TITLE1,
-            "Endless battle",
-            LocalDateTime.of(1, 1, 1, 1, 1),
-            LocalDateTime.of(1, 1, 1, 1, 1),
-            "30分",
-            "日本語",
-            LevelEntity(1, "ニッチ / Niche"),
-            TopicEntity(1, "開発環境 / Development"),
-            RoomEntity(1, "ホール")),
-            listOf("aaaa", "bbbb")),
+    return listOf(
+            SessionWithSpeakers(SessionEntity(DUMMY_SESSION_ID1,
+                    DUMMY_SESSION_TITLE1,
+                    "Endless battle",
+                    LocalDateTime.of(1, 1, 1, 1, 1),
+                    LocalDateTime.of(1, 1, 1, 1, 1),
+                    "30分",
+                    "日本語",
+                    LevelEntity(1, "ニッチ / Niche"),
+                    TopicEntity(1, "開発環境 / Development"),
+                    RoomEntity(1, "ホール")),
+                    listOf("aaaa", "bbbb")),
             SessionWithSpeakers(SessionEntity(DUMMY_SESSION_ID2,
                     DUMMY_SESSION_TITLE2,
                     "Endless battle",
@@ -101,6 +111,6 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     LevelEntity(1, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
                     RoomEntity(1, "ホール")),
-                    listOf("aaaa", "bbbb"))
+                    listOf("aaaa"))
     )
 }
