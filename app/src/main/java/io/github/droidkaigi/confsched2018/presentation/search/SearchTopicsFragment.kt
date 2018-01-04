@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.search.item.TopicItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicsGroup
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
@@ -61,6 +62,10 @@ class SearchTopicsFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
+            setOnItemClickListener {item, _ ->
+                val topicItem = item as TopicItem
+                navigationController.navigateToTopicDetailActivity(topicItem.topic.id)
+            }
             add(topicsGroup)
         }
         val linearLayoutManager = LinearLayoutManager(context)

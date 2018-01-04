@@ -19,7 +19,8 @@ import javax.inject.Singleton
     SettingsActivityBuilder::class,
     SponsorsActivityBuilder::class,
     SessionDetailActivityBuilder::class,
-    SpeakerDetailActivityBuilder::class
+    SpeakerDetailActivityBuilder::class,
+    TopicDetailActivityBuilder::class
 ])
 interface AppComponent {
     @Component.Builder

@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewM
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailViewModel
+import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailViewModel
 
 @Module abstract class ViewModelModule {
     @Binds @IntoMap
@@ -73,6 +74,10 @@ import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailView
     abstract fun bindSearchSpeakersViewModel(
             sessionDetailViewModel: SearchSpeakersViewModel
     ): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(TopicDetailViewModel::class)
+    abstract fun bindTopicDetailViewModel(topicDetailViewModel: TopicDetailViewModel): ViewModel
 
     @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }
