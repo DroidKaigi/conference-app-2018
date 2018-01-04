@@ -4,6 +4,7 @@ import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
@@ -62,6 +63,14 @@ fun Flowable<List<RoomEntity>>.toRooms(): Flowable<List<Room>> = map { roomEntit
     roomEntities.toRooms()
 }
 
+fun Flowable<List<TopicEntity>>.toTopics(): Flowable<List<Topic>> = map { topicEntities ->
+    topicEntities.toTopics()
+}
+
 @VisibleForTesting
 fun List<RoomEntity>.toRooms() =
         map { Room(it.id, it.name) }
+
+@VisibleForTesting
+fun List<TopicEntity>.toTopics() =
+        map { Topic(it.id, it.name) }

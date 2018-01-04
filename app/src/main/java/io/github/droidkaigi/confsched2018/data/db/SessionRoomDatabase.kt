@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -26,6 +27,10 @@ class SessionRoomDatabase @Inject constructor(
     override fun getAllSpeaker(): Flowable<List<SpeakerEntity>> = speakerDao.getAllSpeaker()
 
     override fun getAllRoom(): Flowable<List<RoomEntity>> = sessionDao.getAllRoom()
+
+    override fun getAllTopic(): Flowable<List<TopicEntity>> {
+        return sessionDao.getAllTopic()
+    }
 
     override fun save(response: Response) {
         database.runInTransaction {
