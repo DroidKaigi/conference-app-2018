@@ -2,8 +2,10 @@
 .gradle
 /local.properties
 .idea/*
-!.idea/codeStyleSettings.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+
+# not ignore
+!.idea/codeStyleSettings.xml
