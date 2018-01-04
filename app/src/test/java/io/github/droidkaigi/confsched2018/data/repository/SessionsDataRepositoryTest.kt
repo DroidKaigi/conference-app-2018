@@ -33,6 +33,7 @@ class SessionsDataRepositoryTest {
 
     @Before fun init() {
         whenever(sessionDatabase.getAllRoom()).doReturn(Flowable.just(mock()))
+        whenever(sessionDatabase.getAllTopic()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(mock()))
         whenever(favoriteDatabase.favorites).doReturn(Flowable.just(emptyList()))

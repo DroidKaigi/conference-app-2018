@@ -47,7 +47,7 @@ class SearchTopicsViewModelTest {
 
         viewModel.topics.observeForever(result)
 
-        verify(repository).speakers
+        verify(repository).topics
         verify(result).onChanged(Result.success(topics))
     }
 
