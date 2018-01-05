@@ -31,6 +31,7 @@ fun SessionWithSpeakers.toSession(
             id = sessionEntity.id,
             title = sessionEntity.title,
             desc = sessionEntity.desc,
+            // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
             dayNumber = Period.between(firstDay, sessionEntity.stime.toLocalDate()).days + 1,
             startTime = parseDate(sessionEntity.stime.atZone(ZoneId.systemDefault())
                     .toInstant().toEpochMilli()),
