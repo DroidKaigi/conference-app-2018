@@ -130,6 +130,9 @@ dependencies {
     // Timber
     implementation 'com.jakewharton.timber:timber:4.6.0'
 
+    // Downloadable Calligraphy
+    implementation 'com.github.takahirom.downloadable.calligraphy:downloadable-calligraphy:0.1.2'
+
     // LeakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 
