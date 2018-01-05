@@ -17,7 +17,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
             (SpeakerEntity::class),
             (SessionSpeakerJoinEntity::class)
         ],
-        version = 1
+        version = 2
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
