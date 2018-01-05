@@ -11,8 +11,10 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.di.AppInjector
 import timber.log.Timber
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
 
 @SuppressLint("Registered")
@@ -28,6 +30,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
         setupLeakCanary()
         setupDagger()
         setupStetho()
+        setupCalligraphy()
     }
 
     private fun setupTimber() {
@@ -62,6 +65,12 @@ open class App : MultiDexApplication(), HasActivityInjector {
 
     open fun setupDagger() {
         AppInjector.init(this)
+    }
+
+    private fun setupCalligraphy() {
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+                .setDefaultFont(R.font.notosans_medium)
+                .build())
     }
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> =
