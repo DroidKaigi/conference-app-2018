@@ -19,7 +19,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
     val result: MutableLiveData<Result<SearchResult>> = MutableLiveData()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 

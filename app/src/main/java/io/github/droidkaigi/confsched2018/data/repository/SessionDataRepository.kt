@@ -44,7 +44,8 @@ class SessionDataRepository @Inject constructor(
                     )
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
                     { sessionEntities, speakerEntities, favList ->
-                        sessionEntities.map { it.toSession(speakerEntities, favList) }
+                        val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
+                        sessionEntities.map { it.toSession(speakerEntities, favList, firstDay) }
                     })
                     .subscribeOn(schedulerProvider.computation())
                     .doOnNext {
@@ -62,6 +63,17 @@ class SessionDataRepository @Inject constructor(
 
     override val topicSessions: Flowable<Map<Topic, List<Session>>> =
             sessions.map { sessionList -> sessionList.groupBy { it.topic } }
+
+    override val speakerSessions: Flowable<Map<Speaker, List<Session>>> =
+            sessions.map { sessionList ->
+                sessionList
+                        .flatMap { session ->
+                            session.speakers.map {
+                                it to session
+                            }
+                        }
+                        .groupBy({ it.first }, { it.second })
+            }
 
     override val levelSessions: Flowable<Map<Level, List<Session>>> =
             sessions.map { sessionList -> sessionList.groupBy { it.level } }

@@ -9,6 +9,8 @@ class SpeakerEntity(
         @PrimaryKey var id: String,
         @ColumnInfo(name = "speaker_name")
         var name: String,
+        @ColumnInfo(name = "speaker_tag_line")
+        var tagLine: String,
         @ColumnInfo(name = "speaker_image_url")
         var imageUrl: String,
         @ColumnInfo(name = "speaker_twitter_url")

@@ -15,6 +15,7 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragm
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsFragment
+import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 
 @Module abstract class FragmentBuildersModule {
@@ -48,4 +49,7 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
     @ContributesAndroidInjector abstract fun contributeSponsorsFragment(): SponsorsFragment
 
     @ContributesAndroidInjector abstract fun contributeSettingsFragment(): SettingsFragment
+
+    @ContributesAndroidInjector abstract fun contributeSpeakerDetailFragment(
+    ): SpeakerDetailFragment
 }

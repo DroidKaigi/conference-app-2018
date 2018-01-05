@@ -69,6 +69,13 @@
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
                 />
         </activity>
+        <activity
+            android:name=".presentation.speaker.SpeakerDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                />
+        </activity>
     </application>
 
 </manifest>

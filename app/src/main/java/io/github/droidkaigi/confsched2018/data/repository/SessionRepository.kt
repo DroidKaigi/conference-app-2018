@@ -16,6 +16,7 @@ interface SessionRepository {
     val speakers: Flowable<List<Speaker>>
     val roomSessions: Flowable<Map<Room, List<Session>>>
     val rooms: Flowable<List<Room>>
+    val speakerSessions: Flowable<Map<Speaker, List<Session>>>
     val topicSessions: Flowable<Map<Topic, List<Session>>>
     val levelSessions: Flowable<Map<Level, List<Session>>>
 

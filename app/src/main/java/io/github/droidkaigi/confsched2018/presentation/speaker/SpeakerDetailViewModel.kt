@@ -1,10 +1,11 @@
-package io.github.droidkaigi.confsched2018.presentation.detail
+package io.github.droidkaigi.confsched2018.presentation.speaker
 
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
@@ -16,19 +17,24 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class SessionDetailViewModel @Inject constructor(
+class SpeakerDetailViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    lateinit var sessionId: String
-
-    val session: LiveData<Result<Session>> by lazy {
-        repository.sessions
-                .map { it.first { it.id == sessionId } }
+    lateinit var speakerId: String
+    val speakerSessions: LiveData<Result<Pair<Speaker, List<Session>>>> by lazy {
+        repository
+                .speakerSessions
+                .map {
+                    it
+                            .filter { it.key.id == speakerId }
+                            .map { it.key to it.value }
+                            .first()
+                }
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun onFavoriteClick(session: Session) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)

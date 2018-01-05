@@ -2,39 +2,34 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity"
     >
-
     <data></data>
-
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/sessions_constraint_layout"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <TextView
-            android:id="@+id/day_header"
-            style="@style/DayHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="lollipop"
-            tools:text="DAY1"
+            app:titleTextColor="@color/app_bar_text_color"
             />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/sessions_recycler"
+        <FrameLayout
+            android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

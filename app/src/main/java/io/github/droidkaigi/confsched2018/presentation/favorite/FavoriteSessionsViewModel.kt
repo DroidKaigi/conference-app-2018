@@ -19,7 +19,7 @@ import javax.inject.Inject
 class FavoriteSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     val sessions: LiveData<Result<List<Session>>> by lazy {

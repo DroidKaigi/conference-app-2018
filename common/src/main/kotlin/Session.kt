@@ -4,6 +4,7 @@ data class Session(
         var id: String,
         var title: String,
         var desc: String,
+        val dayNumber: Int,
         var startTime: Date,
         var endTime: Date,
         var room: Room,

@@ -31,7 +31,9 @@ import javax.inject.Singleton
 
     @Singleton @Provides
     fun provideDb(app: Application): AppDatabase =
-            Room.databaseBuilder(app, AppDatabase::class.java, "droidkaigi.db").build()
+            Room.databaseBuilder(app, AppDatabase::class.java, "droidkaigi.db")
+                    .fallbackToDestructiveMigration()
+                    .build()
 
     @Singleton @Provides
     fun provideSessionsDao(db: AppDatabase): SessionDao = db.sessionDao()

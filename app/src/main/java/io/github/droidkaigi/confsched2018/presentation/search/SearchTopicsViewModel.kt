@@ -18,7 +18,7 @@ import javax.inject.Inject
 class SearchTopicsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
     val sessions: LiveData<Result<Map<Topic, List<Session>>>> by lazy {
         TODO()
     }

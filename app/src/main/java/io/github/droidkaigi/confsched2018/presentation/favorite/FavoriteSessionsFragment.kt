@@ -72,7 +72,6 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        lifecycle.addObserver(sessionsViewModel)
 
         setupRecyclerView()
 
@@ -109,7 +108,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                     onScrolled = { _, _, _ ->
                         val linearLayoutManager = layoutManager as LinearLayoutManager
                         val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                        val dayNumber = sessionsGroup.getDateCountSinceBeginOrNull(firstPosition)
+                        val dayNumber = sessionsGroup.getDateNumberOrNull(firstPosition)
                         dayNumber ?: return@addOnScrollListener
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)
