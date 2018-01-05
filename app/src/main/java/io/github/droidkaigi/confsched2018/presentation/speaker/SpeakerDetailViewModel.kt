@@ -20,7 +20,7 @@ import javax.inject.Inject
 class SpeakerDetailViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
     lateinit var speakerId: String
     val speakerSessions: LiveData<Result<Pair<Speaker, List<Session>>>> by lazy {
         repository

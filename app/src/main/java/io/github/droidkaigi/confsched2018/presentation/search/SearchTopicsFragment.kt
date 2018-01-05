@@ -47,7 +47,6 @@ class SearchTopicsFragment : Fragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         // TODO: searchTopicsViewModel.result fetch data here
-        lifecycle.addObserver(searchTopicsViewModel)
     }
 
     private fun setupRecyclerView() {

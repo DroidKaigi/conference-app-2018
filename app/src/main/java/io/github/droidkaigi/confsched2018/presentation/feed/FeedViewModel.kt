@@ -15,7 +15,7 @@ import javax.inject.Inject
 class FeedViewModel @Inject constructor(
         private val repository: FeedRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     val feeds: LiveData<Result<List<Post>>> by lazy {

@@ -56,7 +56,6 @@ class SearchSpeakersFragment : Fragment(), Injectable {
                 }
             }
         })
-        lifecycle.addObserver(searchSpeakersViewModel)
     }
 
     private fun setupRecyclerView() {

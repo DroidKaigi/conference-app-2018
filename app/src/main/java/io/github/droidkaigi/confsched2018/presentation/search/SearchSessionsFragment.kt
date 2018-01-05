@@ -64,7 +64,6 @@ class SearchSessionsFragment : Fragment(), Injectable {
                 }
             }
         })
-        lifecycle.addObserver(searchSessionsViewModel)
     }
 
     private fun setupRecyclerView() {

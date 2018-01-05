@@ -80,7 +80,6 @@ class RoomSessionsFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycle.addObserver(sessionsViewModel)
 
         setupRecyclerView()
 

@@ -72,7 +72,6 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        lifecycle.addObserver(sessionsViewModel)
 
         setupRecyclerView()
 

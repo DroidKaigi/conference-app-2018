@@ -68,7 +68,6 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 }
             }
         })
-        lifecycle.addObserver(speakerDetailViewModel)
     }
 
     private fun setupRecyclerView() {

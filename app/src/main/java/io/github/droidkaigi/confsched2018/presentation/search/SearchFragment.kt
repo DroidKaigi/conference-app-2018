@@ -94,7 +94,6 @@ class SearchFragment : Fragment(), Injectable {
                 }
             }
         })
-        lifecycle.addObserver(searchViewModel)
     }
 
     private fun setupRecyclerView() {

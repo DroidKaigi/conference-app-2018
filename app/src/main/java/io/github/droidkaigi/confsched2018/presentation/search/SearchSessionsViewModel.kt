@@ -20,7 +20,7 @@ import javax.inject.Inject
 class SearchSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
     val levelSessions: LiveData<Result<Map<Level, List<Session>>>> by lazy {
         repository.levelSessions
                 .toResult(schedulerProvider)

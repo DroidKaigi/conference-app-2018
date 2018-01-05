@@ -36,7 +36,6 @@ class SessionDetailFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sessionsViewModel.sessionId = arguments!!.getString(EXTRA_SESSION_ID)
-        lifecycle.addObserver(sessionsViewModel)
 
         sessionsViewModel.session.observe(this) { result ->
             when (result) {

@@ -20,7 +20,7 @@ import javax.inject.Inject
 class RoomSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     lateinit var roomName: String
 
