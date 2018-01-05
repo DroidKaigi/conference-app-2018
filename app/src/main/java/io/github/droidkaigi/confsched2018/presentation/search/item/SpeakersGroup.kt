@@ -7,9 +7,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDa
 
 class SpeakersGroup(val dataBindingComponent: FragmentDataBindingComponent) : Section() {
 
-    fun updateSpeakers(
-            speakers: List<Speaker>
-    ) {
+    fun updateSpeakers(speakers: List<Speaker>) {
         val list = mutableListOf<Item<*>>()
         speakers.sortedBy { it.name }.mapTo(list) { speaker ->
             SpeakerItem(speaker, dataBindingComponent)
