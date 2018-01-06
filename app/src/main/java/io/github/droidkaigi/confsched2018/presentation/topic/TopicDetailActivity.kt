@@ -41,7 +41,7 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {
@@ -60,14 +60,12 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     private fun updateAppBarLayout(topic: Topic, total: Int) {
-        val total = getString(R.string.total_session, total)
-        binding.total = total
-
+        binding.total = getString(R.string.total_session, total)
         if (lang() == Lang.JA) {
-            binding.collapsingToolbar.title = topic.getNameByLang(Lang.JA)
+            binding.topicName.text = topic.getNameByLang(Lang.JA)
             binding.topicTranslation.text = topic.getNameByLang(Lang.EN)
         } else {
-            binding.collapsingToolbar.title = topic.getNameByLang(Lang.EN)
+            binding.topicName.text = topic.getNameByLang(Lang.EN)
             binding.topicTranslation.text = topic.getNameByLang(Lang.JA)
         }
     }
