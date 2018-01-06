@@ -8,7 +8,7 @@ import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.SortedMap
 
-class DateSessionsGroup(private val fragment: Fragment) : Section() {
+class DateSessionsSection(private val fragment: Fragment) : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session) -> Unit

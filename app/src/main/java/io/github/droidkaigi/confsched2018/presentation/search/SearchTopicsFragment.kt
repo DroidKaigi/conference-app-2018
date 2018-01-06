@@ -52,7 +52,7 @@ class SearchTopicsFragment : Fragment(), Injectable {
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             // TODO: Add group and click listener
-//            add(sessionsGroup)
+//            add(sessionsSection)
         }
         binding.searchSessionRecycler.apply {
             adapter = groupAdapter

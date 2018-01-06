@@ -22,7 +22,7 @@ import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsGroup
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SessionItem
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
@@ -36,7 +36,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentRoomSessionsBinding
     private lateinit var roomName: String
 
-    private val sessionsGroup = DateSessionsGroup(this)
+    private val sessionsSection = DateSessionsSection(this)
 
     @Inject lateinit var navigationController: NavigationController
 
@@ -88,7 +88,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsGroup.updateSessions(sessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -99,7 +99,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            add(sessionsGroup)
+            add(sessionsSection)
             setOnItemClickListener({ item, _ ->
                 val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
@@ -117,7 +117,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
                     onScrolled = { _, _, _ ->
                         val linearLayoutManager = layoutManager as LinearLayoutManager
                         val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                        val dayNumber = sessionsGroup.getDateNumberOrNull(firstPosition)
+                        val dayNumber = sessionsSection.getDateNumberOrNull(firstPosition)
                         dayNumber ?: return@addOnScrollListener
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)

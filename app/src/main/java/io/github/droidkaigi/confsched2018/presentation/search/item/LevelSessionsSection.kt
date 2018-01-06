@@ -6,7 +6,7 @@ import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
 
-class LevelSessionsGroup(private val fragment: Fragment) : Section() {
+class LevelSessionsSection(private val fragment: Fragment) : Section() {
     data class PositionAndOffset(val position: Int, val offset: Int)
 
     val levelScrollPositionMap = hashMapOf<Int, PositionAndOffset>()

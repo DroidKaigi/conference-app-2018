@@ -1,0 +1,45 @@
+<resources>
+    <!-- Common -->
+    <string name="time_period">%1$s - %2$s</string>
+
+    <!-- NavigationDrawer -->
+    <string name="nav_item_map">地図</string>
+    <string name="nav_item_sponsor">スポンサー</string>
+    <string name="nav_item_info">このアプリについて</string>
+    <string name="nav_item_setting">設定</string>
+    <string name="content_description_drawer_open">ナビゲーションドロワーを開く</string>
+    <string name="content_description_drawer_close">ナビゲーションドロワーを閉じる</string>
+
+    <!-- Session -->
+    <string name="session_title">セッション</string>
+    <string name="session_day_title">DAY%d</string>
+    <string name="content_description_favorite_button">マイセッション追加ボタン</string>
+
+    <!-- Search-->
+    <string name="search_title">検索</string>
+    <string name="search_before_tab_session">セッション</string>
+    <string name="search_before_tab_topic">トピック</string>
+    <string name="search_before_tab_speaker">スピーカー</string>
+    <string name="content_description_expand_button">展開ボタン</string>
+
+    <!-- Favorite -->
+    <string name="favorite_title">マイセッション</string>
+
+    <!-- Feed -->
+    <string name="feed_title">お知らせ</string>
+
+    <!-- Map -->
+    <string name="title_activity_map">地図</string>
+
+    <!-- Sponsor -->
+    <string name="title_activity_sponsors">スポンサー</string>
+
+    <!-- About This App -->
+    <string name="title_activity_about_this_app">このアプリについて</string>
+
+    <!-- Settings -->
+    <string name="title_activity_settings">設定</string>
+
+    <!-- Speaker -->
+    <string name="title_activity_speaker_detail">スピーカー</string>
+</resources>

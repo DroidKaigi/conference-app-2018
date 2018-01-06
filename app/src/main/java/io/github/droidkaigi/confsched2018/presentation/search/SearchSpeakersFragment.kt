@@ -15,7 +15,7 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
-import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersGroup
+import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class SearchSpeakersFragment : Fragment(), Injectable {
     }
 
     private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
-    private val speakersGroup = SpeakersGroup(fragmentDataBindingComponent)
+    private val speakersSection = SpeakersSection(fragmentDataBindingComponent)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,7 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         searchSpeakersViewModel.speakers.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    speakersGroup.updateSpeakers(result.data)
+                    speakersSection.updateSpeakers(result.data)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -60,11 +60,11 @@ class SearchSpeakersFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            setOnItemClickListener { item, view ->
-                val speakerItem = item as SpeakerItem
+            setOnItemClickListener { item, _ ->
+                val speakerItem = item as? SpeakerItem ?: return@setOnItemClickListener
                 navigationController.navigateToSpeakerDetailActivity(speakerItem.speaker.id)
             }
-            add(speakersGroup)
+            add(speakersSection)
         }
         binding.searchSessionRecycler.apply {
             adapter = groupAdapter

@@ -25,7 +25,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSpeakerDetailBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val sessionsGroup = SimpleSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection(this)
     @Inject lateinit var navigationController: NavigationController
 
     private val speakerDetailViewModel: SpeakerDetailViewModel by lazy {
@@ -61,7 +61,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val speaker = result.data.first
                     binding.speaker = speaker
-                    sessionsGroup.updateSessions(result.data.second, onFavoriteClickListener)
+                    sessionsSection.updateSessions(result.data.second, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -72,7 +72,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            add(sessionsGroup)
+            add(sessionsSection)
             setOnItemClickListener({ item, _ ->
                 val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)

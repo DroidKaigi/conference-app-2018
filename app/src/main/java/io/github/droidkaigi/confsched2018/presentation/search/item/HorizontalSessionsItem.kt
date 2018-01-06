@@ -20,7 +20,7 @@ class HorizontalSessionsItem(
         var sessions: List<Session>,
         private val onFavoriteClickListener: (Session) -> Unit,
         private val fragment: Fragment,
-        private val scrollPositionMap: HashMap<Int, LevelSessionsGroup.PositionAndOffset>
+        private val scrollPositionMap: HashMap<Int, LevelSessionsSection.PositionAndOffset>
 ) : BindableItem<ItemSearchHorizontalSessionsBinding>(
         level.id.toLong()
 ) {
@@ -47,7 +47,7 @@ class HorizontalSessionsItem(
         viewBinding.searchSessionsRecycler.apply {
             // Restore scroll position from HashMap
             val scroll = scrollPositionMap.getOrElse(position, {
-                LevelSessionsGroup.PositionAndOffset(0, 0)
+                LevelSessionsSection.PositionAndOffset(0, 0)
             })
             val linearLayoutManager = layoutManager as LinearLayoutManager
             linearLayoutManager.scrollToPositionWithOffset(scroll.position, scroll.offset)
@@ -73,7 +73,7 @@ class HorizontalSessionsItem(
         val x = viewByPosition.x - layoutParams.marginStart
         scrollPositionMap.put(
                 linearLayoutManager.getPosition(holder.root),
-                LevelSessionsGroup.PositionAndOffset(position, x.toInt())
+                LevelSessionsSection.PositionAndOffset(position, x.toInt())
         )
         super.unbind(holder)
     }
