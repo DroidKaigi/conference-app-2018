@@ -73,7 +73,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsSection)
             setOnItemClickListener { item, _ ->
-                val sessionItem = item as SessionItem
+                val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
             }
         }
