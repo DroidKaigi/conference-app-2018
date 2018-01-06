@@ -20,17 +20,12 @@ class SessionRoomDatabase @Inject constructor(
         private val speakerDao: SpeakerDao,
         private val sessionSpeakerJoinDao: SessionSpeakerJoinDao
 ) : SessionDatabase {
-    override fun getAllSessions(): Flowable<List<SessionWithSpeakers>> {
-        return sessionSpeakerJoinDao.getAllSessions()
-    }
+    override fun getAllSessions(): Flowable<List<SessionWithSpeakers>> =
+            sessionSpeakerJoinDao.getAllSessions()
 
-    override fun getAllSpeaker(): Flowable<List<SpeakerEntity>> {
-        return speakerDao.getAllSpeaker()
-    }
+    override fun getAllSpeaker(): Flowable<List<SpeakerEntity>> = speakerDao.getAllSpeaker()
 
-    override fun getAllRoom(): Flowable<List<RoomEntity>> {
-        return sessionDao.getAllRoom()
-    }
+    override fun getAllRoom(): Flowable<List<RoomEntity>> = sessionDao.getAllRoom()
 
     override fun save(response: Response) {
         database.runInTransaction {
