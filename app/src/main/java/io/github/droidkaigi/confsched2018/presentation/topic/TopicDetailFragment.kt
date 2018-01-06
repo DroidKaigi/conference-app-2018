@@ -28,7 +28,7 @@ class TopicDetailFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: FragmentTopicDetailBinding
-    private val sessionsGroup = SimpleSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection(this)
 
     private val topicDetailViewModel: TopicDetailViewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(TopicDetailViewModel::class.java)
@@ -59,7 +59,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsGroup.updateSessions(result.data.second, onFavoriteClickListener)
+                    sessionsSection.updateSessions(result.data.second, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -71,7 +71,7 @@ class TopicDetailFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            add(sessionsGroup)
+            add(sessionsSection)
             setOnItemClickListener { item, _ ->
                 val sessionItem = item as SessionItem
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
