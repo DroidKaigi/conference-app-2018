@@ -87,6 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="18dp"
                 android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:background="#64ffda"
                 android:gravity="center"
@@ -95,8 +96,10 @@
                 android:paddingStart="8dp"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Room A"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/period"
+                tools:text="for intermediate and/or expert"
                 />
 
             <TextView
@@ -110,7 +113,7 @@
                 android:textAppearance="@style/TextAppearance.App.Title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/period"
+                app:layout_constraintTop_toBottomOf="@id/level"
                 tools:text="テストセッション"
                 />
 
