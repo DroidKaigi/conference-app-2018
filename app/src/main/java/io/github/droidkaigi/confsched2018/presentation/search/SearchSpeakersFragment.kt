@@ -60,8 +60,8 @@ class SearchSpeakersFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            setOnItemClickListener { item, view ->
-                val speakerItem = item as SpeakerItem
+            setOnItemClickListener { item, _ ->
+                val speakerItem = item as? SpeakerItem ?: return@setOnItemClickListener
                 navigationController.navigateToSpeakerDetailActivity(speakerItem.speaker.id)
             }
             add(speakersSection)
