@@ -15,7 +15,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.search.item.HorizontalSessionItem
-import io.github.droidkaigi.confsched2018.presentation.search.item.LevelSessionsGroup
+import io.github.droidkaigi.confsched2018.presentation.search.item.LevelSessionsSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class SearchSessionsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSearchSessionsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val sessionsGroup = LevelSessionsGroup(this)
+    private val sessionsSection = LevelSessionsSection(this)
 
     @Inject lateinit var navigationController: NavigationController
     private val searchSessionsViewModel: SearchSessionsViewModel by lazy {
@@ -57,7 +57,7 @@ class SearchSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val levelSessions = result.data
-                    sessionsGroup.updateSessions(levelSessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(levelSessions, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -68,7 +68,7 @@ class SearchSessionsFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            add(sessionsGroup)
+            add(sessionsSection)
             setOnItemClickListener({ item, _ ->
                 val sessionItem = (item as? HorizontalSessionItem) ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)

@@ -25,7 +25,7 @@ class FeedFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentFeedBinding
 
-    private val postsGroup = Section()
+    private val postsSection = Section()
 
     private val feedItemCollapsed by lazy {
         ConstraintSet().apply {
@@ -65,7 +65,7 @@ class FeedFragment : Fragment(), Injectable {
                     val posts = result.data
                     val inflater = TransitionInflater.from(context)
                     val expandTransition = inflater.inflateTransition(R.transition.expand_toggle)
-                    postsGroup.update(posts
+                    postsSection.update(posts
                             .map {
                                 FeedItem(
                                         it,
@@ -84,7 +84,7 @@ class FeedFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            add(postsGroup)
+            add(postsSection)
             setOnItemClickListener({ _, _ ->
                 //TODO
             })

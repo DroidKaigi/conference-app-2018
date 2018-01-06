@@ -5,7 +5,7 @@ import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
-class SpeakersGroup(val dataBindingComponent: FragmentDataBindingComponent) : Section() {
+class SpeakersSection(val dataBindingComponent: FragmentDataBindingComponent) : Section() {
 
     fun updateSpeakers(speakers: List<Speaker>) {
         val list = mutableListOf<Item<*>>()
