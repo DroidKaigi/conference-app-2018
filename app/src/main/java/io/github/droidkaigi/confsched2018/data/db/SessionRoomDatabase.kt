@@ -28,9 +28,7 @@ class SessionRoomDatabase @Inject constructor(
 
     override fun getAllRoom(): Flowable<List<RoomEntity>> = sessionDao.getAllRoom()
 
-    override fun getAllTopic(): Flowable<List<TopicEntity>> {
-        return sessionDao.getAllTopic()
-    }
+    override fun getAllTopic(): Flowable<List<TopicEntity>> = sessionDao.getAllTopic()
 
     override fun save(response: Response) {
         database.runInTransaction {
