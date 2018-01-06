@@ -3,42 +3,42 @@
     <string name="time_period">%1$s - %2$s%3$s</string>
 
     <!-- NavigationDrawer -->
-    <string name="nav_item_map">地図</string>
-    <string name="nav_item_sponsor">スポンサー</string>
-    <string name="nav_item_info">このアプリについて</string>
-    <string name="nav_item_setting">設定</string>
-    <string name="content_description_drawer_open">ナビゲーションドロワーを開く</string>
-    <string name="content_description_drawer_close">ナビゲーションドロワーを閉じる</string>
+    <string name="nav_item_map">Map</string>
+    <string name="nav_item_sponsor">Sponsor</string>
+    <string name="nav_item_info">About this app</string>
+    <string name="nav_item_setting">Settings</string>
+    <string name="content_description_drawer_open">Open navigation drawer</string>
+    <string name="content_description_drawer_close">Close navigation drawer</string>
 
     <!-- Session -->
-    <string name="session_title">セッション</string>
+    <string name="session_title">Session</string>
     <string name="session_day_title">DAY%d</string>
     <string name="content_description_favorite_button">Favorite button</string>
 
     <!-- Search-->
-    <string name="search_title">検索</string>
-    <string name="search_before_tab_session">セッション</string>
-    <string name="search_before_tab_topic">トピック</string>
-    <string name="search_before_tab_speaker">スピーカー</string>
+    <string name="search_title">Search</string>
+    <string name="search_before_tab_session">Session</string>
+    <string name="search_before_tab_topic">Topic</string>
+    <string name="search_before_tab_speaker">Speaker</string>
     <string name="content_description_expand_button">Expand button</string>
 
     <!-- Favorite -->
-    <string name="favorite_title">マイセッション</string>
+    <string name="favorite_title">My Session</string>
 
     <!-- Feed -->
-    <string name="feed_title">お知らせ</string>
+    <string name="feed_title">Information</string>
 
     <!-- Map -->
-    <string name="title_activity_map">地図</string>
+    <string name="title_activity_map">Map</string>
 
     <!-- Sponsor -->
-    <string name="title_activity_sponsors">スポンサー</string>
+    <string name="title_activity_sponsors">Sponsor</string>
 
     <!-- About This App -->
-    <string name="title_activity_about_this_app">このアプリについて</string>
+    <string name="title_activity_about_this_app">About this app</string>
 
     <!-- Settings -->
-    <string name="title_activity_settings">設定</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- Speaker -->
     <string name="title_activity_speaker_detail">Speaker</string>
