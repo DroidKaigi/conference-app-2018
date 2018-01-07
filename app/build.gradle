@@ -56,6 +56,9 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    lintOptions {
+        lintConfig file('lint.xml')
+    }
 }
 
 dependencies {
