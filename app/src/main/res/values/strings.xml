@@ -44,5 +44,5 @@
     <string name="title_activity_speaker_detail">Speaker</string>
 
     <!-- Topic -->
-    <string name="total_session">%dセッション</string>
+    <string name="total_session">%dsessions</string>
 </resources>
