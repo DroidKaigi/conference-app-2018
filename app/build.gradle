@@ -56,6 +56,11 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    lintOptions {
+        lintConfig file('lint.xml')
+        textReport true
+        textOutput 'stdout'
+    }
 }
 
 dependencies {

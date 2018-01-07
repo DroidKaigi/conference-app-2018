@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="TabLayout">
         <item name="tabTextColor">?colorControlNormal</item>
@@ -7,7 +7,7 @@
 
     <style name="DayHeader">
         <item name="android:background">@drawable/shape_round_corner</item>
-        <item name="android:elevation">4dp</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
         <item name="android:textColor">@color/day_header_text_color</item>
         <item name="android:fontFamily">@font/notosans_medium</item>
         <item name="android:paddingBottom">6dp</item>
