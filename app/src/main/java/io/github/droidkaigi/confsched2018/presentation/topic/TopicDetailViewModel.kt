@@ -1,5 +1,6 @@
-package io.github.droidkaigi.confsched2018.presentation.search
+package io.github.droidkaigi.confsched2018.presentation.topic
 
+import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -16,15 +17,25 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class SearchTopicsViewModel @Inject constructor(
+class TopicDetailViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel() {
-    val topics: LiveData<Result<List<Topic>>> by lazy {
-        repository.topics
+) : ViewModel(), LifecycleObserver {
+
+    var topicId: Int = 0
+
+    val topicSessions: LiveData<Result<Pair<Topic, List<Session>>>> by lazy {
+        repository.topicSessions
+                .map {
+                    it
+                            .filter { it.key.id == topicId }
+                            .map { it.key to it.value }
+                            .first()
+                }
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun onFavoriteClick(session: Session) {

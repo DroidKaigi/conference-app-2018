@@ -12,9 +12,11 @@ import io.github.droidkaigi.confsched2018.createDummySpeakerEntry2
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
 import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.util.rx.TestSchedulerProvider
 import io.reactivex.Flowable
@@ -31,6 +33,7 @@ class SessionsDataRepositoryTest {
 
     @Before fun init() {
         whenever(sessionDatabase.getAllRoom()).doReturn(Flowable.just(mock()))
+        whenever(sessionDatabase.getAllTopic()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(mock()))
         whenever(favoriteDatabase.favorites).doReturn(Flowable.just(emptyList()))
@@ -50,6 +53,22 @@ class SessionsDataRepositoryTest {
                 .assertValue(rooms.toRooms())
 
         verify(sessionDatabase).getAllRoom()
+    }
+
+    @Test fun topics() {
+        val topics = listOf(TopicEntity(1, "topic_a"), TopicEntity(2, "topic_b"))
+        whenever(sessionDatabase.getAllTopic()).doReturn(Flowable.just(topics))
+        val sessionDataRepository = SessionDataRepository(mock(),
+                sessionDatabase,
+                favoriteDatabase,
+                TestSchedulerProvider())
+
+        sessionDataRepository
+                .topics
+                .test()
+                .assertValue(topics.toTopics())
+
+        verify(sessionDatabase).getAllTopic()
     }
 
     @Test fun sessions() {

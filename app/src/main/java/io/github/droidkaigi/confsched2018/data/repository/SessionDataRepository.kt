@@ -6,6 +6,7 @@ import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SearchResult
@@ -30,6 +31,8 @@ class SessionDataRepository @Inject constructor(
 
     override val rooms: Flowable<List<Room>> =
             sessionDatabase.getAllRoom().toRooms()
+    override val topics: Flowable<List<Topic>> =
+            sessionDatabase.getAllTopic().toTopics()
     override val sessions: Flowable<List<Session>> =
             Flowables.combineLatest(
                     sessionDatabase.getAllSessions()

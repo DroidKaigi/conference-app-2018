@@ -1,0 +1,81 @@
+package io.github.droidkaigi.confsched2018.presentation.topic
+
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
+import android.databinding.DataBindingUtil
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
+import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.databinding.ActivityTopicDetailBinding
+import io.github.droidkaigi.confsched2018.model.Lang
+import io.github.droidkaigi.confsched2018.model.Topic
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
+import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.lang
+import timber.log.Timber
+import javax.inject.Inject
+
+class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
+
+    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val binding: ActivityTopicDetailBinding by lazy {
+        DataBindingUtil.setContentView<ActivityTopicDetailBinding>(this, R.layout.activity_topic_detail)
+    }
+
+    private val topicDetailViewModel: TopicDetailViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(TopicDetailViewModel::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        topicDetailViewModel.topicSessions.observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
+                    updateAppBarLayout(result.data.first, result.data.second.size)
+                }
+                is Result.Failure -> {
+                    Timber.e(result.e)
+                }
+            }
+        })
+
+        navigationController.navigateToTopicDetail(intent.getIntExtra(EXTRA_TOPIC_ID, 0))
+    }
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
+    private fun updateAppBarLayout(topic: Topic, total: Int) {
+        binding.total = getString(R.string.total_session, total)
+        if (lang() == Lang.JA) {
+            binding.topicName.text = topic.getNameByLang(Lang.JA)
+            binding.topicTranslation.text = topic.getNameByLang(Lang.EN)
+        } else {
+            binding.topicName.text = topic.getNameByLang(Lang.EN)
+            binding.topicTranslation.text = topic.getNameByLang(Lang.JA)
+        }
+    }
+
+    companion object {
+        const val EXTRA_TOPIC_ID = "EXTRA_TOPIC_ID"
+        fun start(context: Context, topicId: Int) {
+            context.startActivity(Intent(context, TopicDetailActivity::class.java).apply {
+                putExtra(EXTRA_TOPIC_ID, topicId)
+            })
+        }
+    }
+}

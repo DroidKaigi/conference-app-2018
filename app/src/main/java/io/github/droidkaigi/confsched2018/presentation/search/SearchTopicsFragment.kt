@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,13 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchTopicsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
-import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
+import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.search.item.TopicItem
+import io.github.droidkaigi.confsched2018.presentation.search.item.TopicsGroup
+import io.github.droidkaigi.confsched2018.util.ext.observe
+import timber.log.Timber
 import javax.inject.Inject
 
 class SearchTopicsFragment : Fragment(), Injectable {
@@ -24,13 +31,8 @@ class SearchTopicsFragment : Fragment(), Injectable {
         ViewModelProviders.of(this, viewModelFactory).get(SearchTopicsViewModel::class.java)
     }
 
-    private val onFavoriteClickListener = { session: Session ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.searchSessionRecycler.adapter.notifyDataSetChanged()
-
-        searchTopicsViewModel.onFavoriteClick(session)
-    }
+    private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
+    private val topicsGroup = TopicsGroup(fragmentDataBindingComponent)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,16 +48,31 @@ class SearchTopicsFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        // TODO: searchTopicsViewModel.result fetch data here
+        searchTopicsViewModel.topics.observe(this, { result ->
+            when (result) {
+                is Result.Success -> {
+                    topicsGroup.updateTopics(result.data)
+                }
+                is Result.Failure -> {
+                    Timber.e(result.e)
+                }
+            }
+        })
     }
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            // TODO: Add group and click listener
-//            add(sessionsSection)
+            setOnItemClickListener {item, _ ->
+                val topicItem = item as? TopicItem ?: return@setOnItemClickListener
+                navigationController.navigateToTopicDetailActivity(topicItem.topic.id)
+            }
+            add(topicsGroup)
         }
+        val linearLayoutManager = LinearLayoutManager(context)
         binding.searchSessionRecycler.apply {
+            layoutManager = linearLayoutManager
             adapter = groupAdapter
+            addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
         }
     }
 

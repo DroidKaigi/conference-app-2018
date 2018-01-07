@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.speaker
+package io.github.droidkaigi.confsched2018.presentation.topic
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import io.github.droidkaigi.confsched2018.databinding.FragmentSpeakerDetailBinding
+import io.github.droidkaigi.confsched2018.databinding.FragmentTopicDetailBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -21,46 +21,44 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class SpeakerDetailFragment : Fragment(), Injectable {
-    private lateinit var binding: FragmentSpeakerDetailBinding
+
+class TopicDetailFragment : Fragment(), Injectable {
+
+    @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var binding: FragmentTopicDetailBinding
     private val sessionsSection = SimpleSessionsSection(this)
-    @Inject lateinit var navigationController: NavigationController
 
-    private val speakerDetailViewModel: SpeakerDetailViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(SpeakerDetailViewModel::class.java)
+    private val topicDetailViewModel: TopicDetailViewModel by lazy {
+        ViewModelProviders.of(activity!!, viewModelFactory).get(TopicDetailViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session ->
-        // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
-        speakerDetailViewModel.onFavoriteClick(session)
+        topicDetailViewModel.onFavoriteClick(session)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding =
-                FragmentSpeakerDetailBinding.inflate(
-                        inflater,
-                        container!!,
-                        false,
-                        FragmentDataBindingComponent(this)
-                )
+        binding = FragmentTopicDetailBinding.inflate(
+                inflater,
+                container!!,
+                false,
+                FragmentDataBindingComponent(this)
+        )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        speakerDetailViewModel.speakerId = arguments!!.getString(EXTRA_SPEAKER_ID)
-        speakerDetailViewModel.speakerSessions.observe(this, { result ->
+        topicDetailViewModel.topicId = arguments!!.getInt(EXTRA_TOPIC_ID)
+        topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    val speaker = result.data.first
-                    binding.speaker = speaker
                     sessionsSection.updateSessions(result.data.second, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
@@ -68,15 +66,16 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 }
             }
         })
+        lifecycle.addObserver(topicDetailViewModel)
     }
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsSection)
-            setOnItemClickListener({ item, _ ->
+            setOnItemClickListener { item, _ ->
                 val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
-            })
+            }
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
@@ -84,10 +83,10 @@ class SpeakerDetailFragment : Fragment(), Injectable {
     }
 
     companion object {
-        const val EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID"
-        fun newInstance(speakerId: String): SpeakerDetailFragment = SpeakerDetailFragment().apply {
+        const val EXTRA_TOPIC_ID = "EXTRA_TOPIC_ID"
+        fun newInstance(topicId: Int): TopicDetailFragment = TopicDetailFragment().apply {
             arguments = Bundle().apply {
-                putString(EXTRA_SPEAKER_ID, speakerId)
+                putInt(EXTRA_TOPIC_ID, topicId)
             }
         }
     }
