@@ -1,5 +1,5 @@
 # ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2018 official Android app 
-[![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2018.svg?style=svg)](https://circleci.com/gh/DroidKaigi/conference-app-2018)[![Waffle.io - Columns and their card count](https://badge.waffle.io/4004fb95e3835aef9cfea229c8443b4b62eacf957879565e813f405126decfae.svg?columns=all)](https://waffle.io/DroidKaigi/conference-app-2018)
+[![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2018.svg?style=svg&circle-token=b8e6a12e76295c24c7be8f57807cf6ab4139288e)](https://circleci.com/gh/DroidKaigi/conference-app-2018)[![Waffle.io - Columns and their card count](https://badge.waffle.io/4004fb95e3835aef9cfea229c8443b4b62eacf957879565e813f405126decfae.svg?columns=all)](https://waffle.io/DroidKaigi/conference-app-2018)
 
 [<img src="https://dply.me/xt08ja/button/large" alt="Try it on your device via DeployGate">](https://dply.me/xt08ja#install)
 # Development Environment
