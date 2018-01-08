@@ -108,7 +108,8 @@ class SessionDataRepository @Inject constructor(
                         .groupBy { it.level }
             }
 
-    override fun favorite(session: Session.SpeechSession): Single<Boolean> = favoriteDatabase.favorite(session)
+    override fun favorite(session: Session.SpeechSession): Single<Boolean> =
+            favoriteDatabase.favorite(session)
 
     override fun refreshSessions(): Completable {
         return api.getSessions()

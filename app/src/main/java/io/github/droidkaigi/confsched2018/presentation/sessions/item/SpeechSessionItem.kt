@@ -18,7 +18,7 @@ data class SpeechSessionItem(
         private val isShowDayNumber: Boolean = false
 ) : BindableItem<ItemSpeechSessionBinding>(
         session.id.toLong()
-),SessionItem {
+), SessionItem {
 
     override fun bind(viewBinding: ItemSpeechSessionBinding, position: Int) {
         viewBinding.session = session
