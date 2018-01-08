@@ -15,6 +15,7 @@ import io.github.droidkaigi.confsched2018.util.ext.context
 import io.github.droidkaigi.confsched2018.util.ext.displaySize
 import io.github.droidkaigi.confsched2018.util.ext.getFloat
 import io.github.droidkaigi.confsched2018.util.ext.toGone
+import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import io.github.droidkaigi.confsched2018.util.lang
 
 class HorizontalSessionItem(
@@ -49,7 +50,7 @@ class HorizontalSessionItem(
         )
         speakerImages.forEachIndexed { index, imageView ->
             if (index < session.speakers.size) {
-                imageView.visibility = View.VISIBLE
+                imageView.toVisible()
                 val size = viewBinding.root.resources.getDimensionPixelSize(R.dimen.speaker_image)
                 CustomGlideApp
                         .with(fragment)

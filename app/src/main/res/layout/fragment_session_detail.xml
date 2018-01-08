@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="session"
+            type="io.github.droidkaigi.confsched2018.model.Session.SpeechSession"
+            />
+    </data>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/session_day_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="24dp"
+                android:text='@{"DAY"+session.dayNumber+" / "}'
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="DAY1 / "
+                />
+
+            <TextView
+                android:id="@+id/session_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:endDate="@{session.endTime}"
+                app:layout_constraintStart_toEndOf="@id/session_day_number"
+                app:layout_constraintTop_toTopOf="@id/session_day_number"
+                app:layout_goneMarginStart="12dp"
+                app:layout_goneMarginTop="16dp"
+                app:postFix='@{" / "}'
+                app:startDate="@{session.startTime}"
+                tools:text="10:30 - 11:00 / "
+                />
+
+            <TextView
+                android:id="@+id/session_room"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxLines="3"
+                android:text="@{session.room.name}"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:layout_constraintStart_toStartOf="@id/session_day_number"
+                app:layout_constraintTop_toBottomOf="@id/session_day_number"
+                tools:text="Room A"
+                />
+
+            <TextView
+                android:id="@+id/session_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:gravity="top"
+                android:text="@{session.desc}"
+                android:textAppearance="@style/TextAppearance.App.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/session_room"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>
