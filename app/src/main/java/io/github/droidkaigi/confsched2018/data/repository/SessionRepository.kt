@@ -14,7 +14,7 @@ import io.reactivex.Single
 interface SessionRepository {
     val sessions: Flowable<List<Session>>
     val speakers: Flowable<List<Speaker>>
-    val roomSessions: Flowable<Map<Room, List<Session.SpeechSession>>>
+    val roomSessions: Flowable<Map<Room, List<Session>>>
     val rooms: Flowable<List<Room>>
     val topics: Flowable<List<Topic>>
     val speakerSessions: Flowable<Map<Speaker, List<Session.SpeechSession>>>

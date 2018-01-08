@@ -21,7 +21,7 @@ fun SessionWithSpeakers.toSession(
         speakerEntities: List<SpeakerEntity>,
         favList: List<Int>?,
         firstDay: LocalDate
-): Session {
+): Session.SpeechSession {
     val sessionEntity = session!!
     require(!speakerIdList.isEmpty())
     val speakers = speakerIdList.map { speakerId ->

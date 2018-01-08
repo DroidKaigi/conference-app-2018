@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
+import io.github.droidkaigi.confsched2018.data.db.fixeddata.SpecialSessions
 import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.util.rx.TestSchedulerProvider
 import io.reactivex.Flowable
@@ -85,7 +86,10 @@ class SessionsDataRepositoryTest {
         sessionDataRepository
                 .sessions
                 .test()
-                .assertValueAt(0, sessions.map { it.toSession(speakers, listOf(), LocalDate.of(1, 1, 1)) })
+                .assertValueAt(0,
+                        sessions.map { it.toSession(speakers, listOf(), LocalDate.of(1, 1, 1)) }
+                                + SpecialSessions.getSessions()
+                )
 
         verify(sessionDatabase).getAllSessions()
     }

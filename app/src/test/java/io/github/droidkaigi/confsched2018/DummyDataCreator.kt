@@ -25,8 +25,8 @@ fun createDummySessions(): List<Session> =
                 createDummySession(DUMMY_SESSION_ID2, DUMMY_SESSION_TITLE2)
         )
 
-fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DUMMY_SESSION_TITLE1): Session {
-    return Session(
+fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DUMMY_SESSION_TITLE1): Session.SpeechSession {
+    return Session.SpeechSession(
             id = sessionId,
             title = title,
             desc = "How to create DroidKaigi app",
