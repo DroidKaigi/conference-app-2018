@@ -148,11 +148,11 @@ class SessionDataRepository @Inject constructor(
                         "lunch",
                         1,
                         parseDate(
-                                LocalDateTimeAdapter.parseDateString("2018-02-08T17:40:00")
+                                LocalDateTimeAdapter.parseDateString("2018-02-08T11:50:00")
                                         .toUnixMills()
                         ),
                         parseDate(
-                                LocalDateTimeAdapter.parseDateString("2018-02-08T19:40:00")
+                                LocalDateTimeAdapter.parseDateString("2018-02-08T10:20:00")
                                         .toUnixMills()
                         ),
                         Room(513, "Hall")
@@ -162,11 +162,11 @@ class SessionDataRepository @Inject constructor(
                         "party",
                         1,
                         parseDate(
-                                LocalDateTimeAdapter.parseDateString("2018-02-08T11:50:00")
+                                LocalDateTimeAdapter.parseDateString("2018-02-08T17:40:00")
                                         .toUnixMills()
                         ),
                         parseDate(
-                                LocalDateTimeAdapter.parseDateString("2018-02-08T10:20:00")
+                                LocalDateTimeAdapter.parseDateString("2018-02-08T19:40:00")
                                         .toUnixMills()
                         ),
                         Room(513, "Hall")
