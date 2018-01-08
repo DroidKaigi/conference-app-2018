@@ -28,11 +28,11 @@ fun createDummySessions(): List<Session> =
 fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DUMMY_SESSION_TITLE1): Session.SpeechSession {
     return Session.SpeechSession(
             id = sessionId,
-            title = title,
-            desc = "How to create DroidKaigi app",
             dayNumber = 1,
             startTime = parseDate(10000),
             endTime = parseDate(10000),
+            title = title,
+            desc = "How to create DroidKaigi app",
             room = Room(1, "Hall"),
             format = "30分",
             language = "JA",

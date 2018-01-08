@@ -8,11 +8,11 @@ sealed class Session(
 ) {
     data class SpeechSession(
             override var id: String,
-            var title: String,
-            var desc: String,
             override var dayNumber: Int,
             override var startTime: Date,
             override var endTime: Date,
+            var title: String,
+            var desc: String,
             var room: Room,
             var format: String,
             var language: String,
@@ -20,15 +20,15 @@ sealed class Session(
             var level: Level,
             var isFavorited: Boolean,
             var speakers: List<Speaker>
-    ):Session(id, dayNumber, startTime, endTime)
+    ) : Session(id, dayNumber, startTime, endTime)
 
     data class SpecialSession(
             override var id: String,
-            var title: Int,
             override var dayNumber: Int,
             override var startTime: Date,
             override var endTime: Date,
+            var title: Int,
             var room: Room?
-    ):Session(id, dayNumber, startTime, endTime)
+    ) : Session(id, dayNumber, startTime, endTime)
 
 }
