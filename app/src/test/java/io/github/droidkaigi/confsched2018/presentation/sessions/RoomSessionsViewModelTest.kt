@@ -70,7 +70,7 @@ class RoomSessionsViewModelTest {
     @Test fun favorite() {
         whenever(repository.favorite(any())).doReturn(Single.just(true))
         viewModel = RoomSessionsViewModel(repository, TestSchedulerProvider())
-        val session = mock<Session>()
+        val session = mock<Session.SpeechSession>()
 
         viewModel.onFavoriteClick(session)
 

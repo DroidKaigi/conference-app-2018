@@ -8,7 +8,7 @@
 
         <variable
             name="session"
-            type="io.github.droidkaigi.confsched2018.model.Session"
+            type="io.github.droidkaigi.confsched2018.model.Session.SpeechSession"
             />
     </data>
 

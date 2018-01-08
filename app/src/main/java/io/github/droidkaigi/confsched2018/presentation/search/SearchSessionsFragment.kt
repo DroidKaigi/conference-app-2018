@@ -31,7 +31,7 @@ class SearchSessionsFragment : Fragment(), Injectable {
         ViewModelProviders.of(this, viewModelFactory).get(SearchSessionsViewModel::class.java)
     }
 
-    private val onFavoriteClickListener = { session: Session ->
+    private val onFavoriteClickListener = { session: Session.SpeechSession ->
         // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
         binding.searchSessionRecycler.adapter.notifyDataSetChanged()

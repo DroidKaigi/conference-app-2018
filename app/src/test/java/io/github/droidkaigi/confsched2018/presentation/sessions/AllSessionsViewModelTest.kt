@@ -63,7 +63,7 @@ class AllSessionsViewModelTest {
     @Test fun favorite() {
         whenever(repository.favorite(any())).doReturn(Single.just(true))
         viewModel = AllSessionsViewModel(repository, TestSchedulerProvider())
-        val session = mock<Session>()
+        val session = mock<Session.SpeechSession>()
 
         viewModel.onFavoriteClick(session)
 

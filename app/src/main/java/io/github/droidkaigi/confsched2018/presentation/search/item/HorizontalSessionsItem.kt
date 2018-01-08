@@ -17,8 +17,8 @@ import io.github.droidkaigi.confsched2018.model.Session
 
 class HorizontalSessionsItem(
         val level: Level,
-        var sessions: List<Session>,
-        private val onFavoriteClickListener: (Session) -> Unit,
+        var sessions: List<Session.SpeechSession>,
+        private val onFavoriteClickListener: (Session.SpeechSession) -> Unit,
         private val fragment: Fragment,
         private val scrollPositionMap: HashMap<Int, LevelSessionsSection.PositionAndOffset>
 ) : BindableItem<ItemSearchHorizontalSessionsBinding>(

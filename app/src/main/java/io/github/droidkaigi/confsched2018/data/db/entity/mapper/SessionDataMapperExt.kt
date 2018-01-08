@@ -11,16 +11,16 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.model.parseDate
+import io.github.droidkaigi.confsched2018.util.ext.toUnixMills
 import io.reactivex.Flowable
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
-import org.threeten.bp.ZoneId
 
 fun SessionWithSpeakers.toSession(
         speakerEntities: List<SpeakerEntity>,
         favList: List<Int>?,
         firstDay: LocalDate
-): Session {
+): Session.SpeechSession {
     val sessionEntity = session!!
     require(!speakerIdList.isEmpty())
     val speakers = speakerIdList.map { speakerId ->
@@ -28,22 +28,20 @@ fun SessionWithSpeakers.toSession(
         speakerEntity.toSpeaker()
     }
     require(!speakers.isEmpty())
-    return Session(
+    return Session.SpeechSession(
             id = sessionEntity.id,
-            title = sessionEntity.title,
-            desc = sessionEntity.desc,
             // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
             dayNumber = Period.between(firstDay, sessionEntity.stime.toLocalDate()).days + 1,
-            startTime = parseDate(sessionEntity.stime.atZone(ZoneId.systemDefault())
-                    .toInstant().toEpochMilli()),
-            endTime = parseDate(sessionEntity.etime.atZone(ZoneId.systemDefault())
-                    .toInstant().toEpochMilli()),
-            isFavorited = favList!!.map { it.toString() }.contains(sessionEntity.id),
-            format = sessionEntity.sessionFormat,
+            startTime = parseDate(sessionEntity.stime.toUnixMills()),
+            endTime = parseDate(sessionEntity.etime.toUnixMills()),
+            title = sessionEntity.title,
+            desc = sessionEntity.desc,
             room = Room(sessionEntity.room.id, sessionEntity.room.name),
-            level = Level(sessionEntity.level.id, sessionEntity.level.name),
+            format = sessionEntity.sessionFormat,
             language = sessionEntity.language,
             topic = Topic(sessionEntity.topic.id, sessionEntity.topic.name),
+            level = Level(sessionEntity.level.id, sessionEntity.level.name),
+            isFavorited = favList!!.map { it.toString() }.contains(sessionEntity.id),
             speakers = speakers
     )
 }

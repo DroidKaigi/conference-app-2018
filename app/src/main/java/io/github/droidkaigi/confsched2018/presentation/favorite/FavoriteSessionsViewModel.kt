@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.favorite
 
-import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -22,16 +21,18 @@ class FavoriteSessionsViewModel @Inject constructor(
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    val sessions: LiveData<Result<List<Session>>> by lazy {
+    val sessions: LiveData<Result<List<Session.SpeechSession>>> by lazy {
         repository.sessions
                 .map {
-                    it.filter { it.isFavorited }
+                    it
+                            .filterIsInstance<Session.SpeechSession>()
+                            .filter { it.isFavorited }
                 }
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
 
-    fun onFavoriteClick(session: Session) {
+    fun onFavoriteClick(session: Session.SpeechSession) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())

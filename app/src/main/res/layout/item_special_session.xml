@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="session"
+            type="io.github.droidkaigi.confsched2018.model.Session.SpecialSession"
+            />
+        <variable
+            name="isShowDayNumber"
+            type="boolean"
+            />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:stateListAnimator="@animator/card_state_list_anim"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/day_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:text='@{"DAY"+session.dayNumber+" / "}'
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                android:visibility="@{isShowDayNumber ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="DAY1 / "
+                />
+
+            <TextView
+                android:id="@+id/period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:endDate="@{session.endTime}"
+                app:layout_constraintStart_toEndOf="@id/day_number"
+                app:layout_constraintTop_toTopOf="@id/day_number"
+                app:layout_goneMarginStart="12dp"
+                app:layout_goneMarginTop="16dp"
+                app:postFix='@{" / "}'
+                app:startDate="@{session.startTime}"
+                tools:text="10:30 - 11:00 / "
+                />
+
+            <TextView
+                android:id="@+id/room"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:text="@{session.room.name}"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:layout_constraintStart_toEndOf="@id/period"
+                app:layout_constraintTop_toTopOf="@+id/period"
+                tools:text="Room A"
+                />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:text="@{session.title}"
+                android:textAppearance="@style/TextAppearance.App.Title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/room"
+                tools:text="テストセッション"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>

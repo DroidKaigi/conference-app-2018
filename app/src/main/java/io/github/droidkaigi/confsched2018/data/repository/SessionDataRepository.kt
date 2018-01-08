@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
+import io.github.droidkaigi.confsched2018.data.db.fixeddata.SpecialSessions
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SearchResult
@@ -48,12 +49,18 @@ class SessionDataRepository @Inject constructor(
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
                     { sessionEntities, speakerEntities, favList ->
                         val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
-                        sessionEntities.map { it.toSession(speakerEntities, favList, firstDay) }
+                        val speakerSessions = sessionEntities
+                                .map { it.toSession(speakerEntities, favList, firstDay) }
+                        speakerSessions + specialSessions
                     })
                     .subscribeOn(schedulerProvider.computation())
                     .doOnNext {
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
+
+    private val specialSessions: List<Session.SpecialSession> by lazy {
+        SpecialSessions.getSessions()
+    }
 
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()
@@ -62,14 +69,34 @@ class SessionDataRepository @Inject constructor(
                     }
 
     override val roomSessions: Flowable<Map<Room, List<Session>>> =
-            sessions.map { sessionList -> sessionList.groupBy { it.room } }
-
-    override val topicSessions: Flowable<Map<Topic, List<Session>>> =
-            sessions.map { sessionList -> sessionList.groupBy { it.topic } }
-
-    override val speakerSessions: Flowable<Map<Speaker, List<Session>>> =
             sessions.map { sessionList ->
                 sessionList
+                        .filter {
+                            if (it is Session.SpecialSession) {
+                                it.room != null
+                            } else {
+                                true
+                            }
+                        }
+                        .groupBy {
+                            when (it) {
+                                is Session.SpeechSession -> it.room
+                                is Session.SpecialSession -> it.room!!
+                            }
+                        }
+            }
+
+    override val topicSessions: Flowable<Map<Topic, List<Session.SpeechSession>>> =
+            sessions.map { sessionList ->
+                sessionList
+                        .filterIsInstance<Session.SpeechSession>()
+                        .groupBy { it.topic }
+            }
+
+    override val speakerSessions: Flowable<Map<Speaker, List<Session.SpeechSession>>> =
+            sessions.map { sessionList ->
+                sessionList
+                        .filterIsInstance<Session.SpeechSession>()
                         .flatMap { session ->
                             session.speakers.map {
                                 it to session
@@ -78,10 +105,15 @@ class SessionDataRepository @Inject constructor(
                         .groupBy({ it.first }, { it.second })
             }
 
-    override val levelSessions: Flowable<Map<Level, List<Session>>> =
-            sessions.map { sessionList -> sessionList.groupBy { it.level } }
+    override val levelSessions: Flowable<Map<Level, List<Session.SpeechSession>>> =
+            sessions.map { sessionList ->
+                sessionList
+                        .filterIsInstance<Session.SpeechSession>()
+                        .groupBy { it.level }
+            }
 
-    override fun favorite(session: Session): Single<Boolean> = favoriteDatabase.favorite(session)
+    override fun favorite(session: Session.SpeechSession): Single<Boolean> =
+            favoriteDatabase.favorite(session)
 
     override fun refreshSessions(): Completable {
         return api.getSessions()
@@ -94,7 +126,9 @@ class SessionDataRepository @Inject constructor(
 
     override fun search(query: String): Single<SearchResult> = Singles.zip(
             sessions.map {
-                it.filter { it.title.contains(query) || it.desc.contains(query) }
+                it
+                        .filterIsInstance<Session.SpeechSession>()
+                        .filter { it.title.contains(query) || it.desc.contains(query) }
             }.firstOrError(),
             speakers.map {
                 it.filter { it.name.contains(query) }

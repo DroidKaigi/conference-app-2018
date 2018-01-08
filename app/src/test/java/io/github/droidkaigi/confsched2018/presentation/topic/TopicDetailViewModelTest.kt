@@ -34,7 +34,7 @@ class TopicDetailViewModelTest {
     @Test fun sessions_Empty() {
         whenever(repository.topicSessions).doReturn(Flowable.empty())
         viewModel = TopicDetailViewModel(repository, TestSchedulerProvider())
-        val result: Observer<Result<Pair<Topic, List<Session>>>> = mock()
+        val result: Observer<Result<Pair<Topic, List<Session.SpeechSession>>>> = mock()
 
         viewModel.topicSessions.observeForever(result)
 
@@ -44,14 +44,14 @@ class TopicDetailViewModelTest {
 
     @Test fun sessions_Basic() {
         val topic = mock<Topic>()
-        val sessions = listOf(mock<Session>())
+        val sessions = listOf(mock<Session.SpeechSession>())
         val topicToSessions = topic to sessions
         whenever(topic.id).doReturn(1234)
         val topicSessions = mapOf(topic to sessions)
         whenever(repository.topicSessions).doReturn(Flowable.just(topicSessions))
         viewModel = TopicDetailViewModel(repository, TestSchedulerProvider())
         viewModel.topicId = 1234
-        val result: Observer<Result<Pair<Topic, List<Session>>>> = mock()
+        val result: Observer<Result<Pair<Topic, List<Session.SpeechSession>>>> = mock()
 
         viewModel.topicSessions.observeForever(result)
 
@@ -64,7 +64,7 @@ class TopicDetailViewModelTest {
         val runtimeException = RuntimeException("test")
         whenever(repository.topicSessions).doReturn(Flowable.error(runtimeException))
         viewModel = TopicDetailViewModel(repository, TestSchedulerProvider())
-        val result: Observer<Result<Pair<Topic, List<Session>>>> = mock()
+        val result: Observer<Result<Pair<Topic, List<Session.SpeechSession>>>> = mock()
 
         viewModel.topicSessions.observeForever(result)
 
@@ -75,7 +75,7 @@ class TopicDetailViewModelTest {
     @Test fun favorite() {
         whenever(repository.favorite(any())).doReturn(Single.just(true))
         viewModel = TopicDetailViewModel(repository, TestSchedulerProvider())
-        val session = mock<Session>()
+        val session = mock<Session.SpeechSession>()
 
         viewModel.onFavoriteClick(session)
 

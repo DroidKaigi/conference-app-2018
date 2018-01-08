@@ -31,7 +31,7 @@ class SessionDetailViewModelTest {
     @Test fun sessions_Empty() {
         whenever(repository.sessions).doReturn(Flowable.empty())
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
-        val result: Observer<Result<Session>> = mock()
+        val result: Observer<Result<Session.SpeechSession>> = mock()
 
         viewModel.session.observeForever(result)
 
@@ -44,7 +44,7 @@ class SessionDetailViewModelTest {
         whenever(repository.sessions).doReturn(Flowable.just(sessions))
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
         viewModel.sessionId = DUMMY_SESSION_ID1
-        val result: Observer<Result<Session>> = mock()
+        val result: Observer<Result<Session.SpeechSession>> = mock()
 
         viewModel.session.observeForever(result)
 
@@ -56,7 +56,7 @@ class SessionDetailViewModelTest {
         val runtimeException = RuntimeException("test")
         whenever(repository.sessions).doReturn(Flowable.error(runtimeException))
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
-        val result: Observer<Result<Session>> = mock()
+        val result: Observer<Result<Session.SpeechSession>> = mock()
 
         viewModel.session.observeForever(result)
 
@@ -67,7 +67,7 @@ class SessionDetailViewModelTest {
     @Test fun favorite() {
         whenever(repository.favorite(any())).doReturn(Single.just(true))
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
-        val session = mock<Session>()
+        val session = mock<Session.SpeechSession>()
 
         viewModel.onFavoriteClick(session)
 

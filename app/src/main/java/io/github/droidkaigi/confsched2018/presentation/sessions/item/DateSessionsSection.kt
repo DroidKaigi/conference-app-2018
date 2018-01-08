@@ -11,25 +11,38 @@ import java.util.SortedMap
 class DateSessionsSection(private val fragment: Fragment) : Section() {
     fun updateSessions(
             sessions: List<Session>,
-            onFavoriteClickListener: (Session) -> Unit
+            onFavoriteClickListener: (Session.SpeechSession) -> Unit
     ) {
         val sessionItems = sessions.map {
-            SessionItem(it, onFavoriteClickListener, fragment)
+            when (it) {
+                is Session.SpeechSession -> {
+                    @Suppress("USELESS_CAST")
+                    SpeechSessionItem(it, onFavoriteClickListener, fragment) as SessionItem
+                }
+                is Session.SpecialSession -> {
+                    @Suppress("USELESS_CAST")
+                    SpecialSessionItem(it) as SessionItem
+                }
+            }
         }
 
-        val dateSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>> =
+        val dateSpeechSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>> =
                 sessionItems.groupBy {
                     ReadableDateTimePair(it.session.startTime.toReadableDateString(),
                             it.session.startTime.toReadableTimeString())
                 }.toSortedMap()
 
         val dateSessions = arrayListOf<Item<*>>()
-        dateSessionItemsMap.keys.forEach { key ->
+        dateSpeechSessionItemsMap.keys.forEach { key ->
             key ?: return@forEach
-            val list = dateSessionItemsMap[key]
+            val list = dateSpeechSessionItemsMap[key]
 
-            dateSessions.add(DateHeaderItem(key))
-            dateSessions.addAll(list?.toMutableList().orEmpty())
+            val endTime = list!![0].session.endTime
+            val endDateTimePair = ReadableDateTimePair(endTime.toReadableDateString(),
+                    endTime.toReadableTimeString())
+            dateSessions.add(DateHeaderItem(key, endDateTimePair))
+            @Suppress("UNCHECKED_CAST")
+            dateSessions.addAll(list.toMutableList() as List<Item<*>>)
         }
         update(dateSessions)
     }
@@ -38,8 +51,8 @@ class DateSessionsSection(private val fragment: Fragment) : Section() {
         if (position < 0) return null
 
         var item = getItemOrNull(position) ?: return null
-        item = item as? SessionItem ?: getItemOrNull(position + 1) ?: return null
-        item as? SessionItem ?: return null
+        item = item as? SpeechSessionItem ?: getItemOrNull(position + 1) ?: return null
+        item as? SpeechSessionItem ?: return null
 
         return item.session.dayNumber
     }

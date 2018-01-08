@@ -21,14 +21,14 @@ class SearchSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
-    val levelSessions: LiveData<Result<Map<Level, List<Session>>>> by lazy {
+    val levelSessions: LiveData<Result<Map<Level, List<Session.SpeechSession>>>> by lazy {
         repository.levelSessions
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    fun onFavoriteClick(session: Session) {
+    fun onFavoriteClick(session: Session.SpeechSession) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())

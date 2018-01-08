@@ -22,7 +22,7 @@ class SpeakerDetailViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     lateinit var speakerId: String
-    val speakerSessions: LiveData<Result<Pair<Speaker, List<Session>>>> by lazy {
+    val speakerSessions: LiveData<Result<Pair<Speaker, List<Session.SpeechSession>>>> by lazy {
         repository
                 .speakerSessions
                 .map {
@@ -36,7 +36,7 @@ class SpeakerDetailViewModel @Inject constructor(
     }
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    fun onFavoriteClick(session: Session) {
+    fun onFavoriteClick(session: Session.SpeechSession) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())
