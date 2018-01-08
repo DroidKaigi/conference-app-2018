@@ -131,8 +131,8 @@ class SessionsDataRepositoryTest {
                 .assertValueAt(
                         0,
                         mapOf(
-                                session1.room to listOf(session1,session2),
-                                spesialSessions[0].room!! to spesialSessions
+                                session1.room to listOf(session1, session2),
+                                spesialSessions[0].room!! to spesialSessions.filter { it.room != null }
                         )
                 )
 
