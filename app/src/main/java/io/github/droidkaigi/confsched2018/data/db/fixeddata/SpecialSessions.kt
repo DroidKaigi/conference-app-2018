@@ -42,7 +42,7 @@ class SpecialSessions {
                                             .toUnixMills()
                             ),
                             R.string.session_special_lunch,
-                            specialSessionRoom
+                            null
                     ),
                     Session.SpecialSession(
                             "100000" + index++,
@@ -71,7 +71,7 @@ class SpecialSessions {
                                             .toUnixMills()
                             ),
                             R.string.session_special_lunch,
-                            specialSessionRoom
+                            null
                     ))
         }
     }

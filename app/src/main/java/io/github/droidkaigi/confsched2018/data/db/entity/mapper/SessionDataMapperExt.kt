@@ -30,9 +30,9 @@ fun SessionWithSpeakers.toSession(
     require(!speakers.isEmpty())
     return Session.SpeechSession(
             id = sessionEntity.id,
+            // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
             dayNumber = Period.between(firstDay, sessionEntity.stime.toLocalDate()).days + 1,
             startTime = parseDate(sessionEntity.stime.toUnixMills()),
-            // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
             endTime = parseDate(sessionEntity.etime.toUnixMills()),
             title = sessionEntity.title,
             desc = sessionEntity.desc,
