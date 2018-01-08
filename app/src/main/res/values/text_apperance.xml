@@ -23,7 +23,7 @@
 
     <style name="TextAppearance.App.Body1" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/notosans_medium</item>
+        <item name="android:fontFamily">@font/notosans_regular</item>
     </style>
 
     <style name="TextAppearance.App.Caption" parent="TextAppearance.AppCompat.Caption">

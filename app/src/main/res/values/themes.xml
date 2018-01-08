@@ -10,4 +10,8 @@
         <item name="android:windowBackground">@color/window_background</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/app_bar_text_color</item>
+    </style>
+
 </resources>

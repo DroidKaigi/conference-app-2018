@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
 import android.support.v4.app.Fragment
-import android.view.View
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
@@ -9,6 +8,7 @@ import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import io.github.droidkaigi.confsched2018.util.ext.toGone
+import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import io.github.droidkaigi.confsched2018.util.lang
 
 data class SpeechSessionItem(
@@ -33,7 +33,7 @@ data class SpeechSessionItem(
         )
         speakerImages.forEachIndexed { index, imageView ->
             if (index < session.speakers.size) {
-                imageView.visibility = View.VISIBLE
+                imageView.toVisible()
                 val size = viewBinding.root.resources.getDimensionPixelSize(R.dimen.speaker_image)
                 CustomGlideApp
                         .with(fragment)

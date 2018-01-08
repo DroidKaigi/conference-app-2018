@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
+import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -16,12 +16,12 @@ import javax.inject.Inject
 
 class SessionDetailFragment : Fragment(), Injectable {
     // TODO create layout
-    private lateinit var binding: ItemSpeechSessionBinding
+    private lateinit var binding: FragmentSessionDetailBinding
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val sessionsViewModel: SessionDetailViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(SessionDetailViewModel::class.java)
+    private val sessionDetailViewModel: SessionDetailViewModel by lazy {
+        ViewModelProviders.of(activity!!, viewModelFactory).get(SessionDetailViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -29,22 +29,19 @@ class SessionDetailFragment : Fragment(), Injectable {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        binding = ItemSpeechSessionBinding.inflate(inflater, container!!, false)
+        binding = FragmentSessionDetailBinding.inflate(inflater, container!!, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sessionsViewModel.sessionId = arguments!!.getString(EXTRA_SESSION_ID)
+        sessionDetailViewModel.sessionId = arguments!!.getString(EXTRA_SESSION_ID)
 
-        sessionsViewModel.session.observe(this) { result ->
+        sessionDetailViewModel.session.observe(this) { result ->
             when (result) {
                 is Result.Success -> {
                     val session = result.data
                     binding.session = session
-                    binding.favorite.setOnClickListener {
-                        sessionsViewModel.onFavoriteClick(session)
-                    }
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

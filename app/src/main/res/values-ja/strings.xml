@@ -16,6 +16,7 @@
     <string name="session_special_welcome_talk">ウェルカムトーク</string>
     <string name="session_special_lunch">ランチ</string>
     <string name="session_special_party">パーティ</string>
+    <string name="content_description_speaker">スピーカーの画像</string>
     <string name="content_description_favorite_button">マイセッション追加ボタン</string>
 
     <!-- Search-->
