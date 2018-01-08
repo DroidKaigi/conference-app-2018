@@ -49,14 +49,18 @@ class SessionDataRepository @Inject constructor(
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
                     { sessionEntities, speakerEntities, favList ->
                         val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
-                        sessionEntities
-                                .map { it.toSession(speakerEntities, favList, firstDay) } +
-                                SpecialSessions.getSessions()
+                        val speakerSessions = sessionEntities
+                                .map { it.toSession(speakerEntities, favList, firstDay) }
+                        speakerSessions + specialSessions
                     })
                     .subscribeOn(schedulerProvider.computation())
                     .doOnNext {
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
+
+    private val specialSessions: List<Session.SpecialSession> by lazy {
+        SpecialSessions.getSessions()
+    }
 
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()
