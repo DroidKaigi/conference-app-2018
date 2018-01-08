@@ -11,7 +11,7 @@ fun FloatingActionButton.setTintCompat(colorStateList: ColorStateList) {
     var icon: Drawable? = drawable
     if (icon != null) {
         icon = DrawableCompat.wrap(icon)
-        DrawableCompat.setTintList(icon!!, colorStateList)
+        DrawableCompat.setTintList(icon, colorStateList)
         setImageDrawable(icon)
     }
 }

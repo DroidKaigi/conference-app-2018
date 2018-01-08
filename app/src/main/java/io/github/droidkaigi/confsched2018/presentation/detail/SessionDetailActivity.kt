@@ -54,7 +54,7 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
             when (result) {
                 is Result.Success -> {
                     val session = result.data
-                    bind(session)
+                    bindSessionData(session)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -65,7 +65,7 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
         navigationController.navigateToDetail(intent.getStringExtra(EXTRA_SESSION_ID))
     }
 
-    fun bind(session: Session.SpeechSession) {
+    fun bindSessionData(session: Session.SpeechSession) {
         binding.session = session
 
         binding.fab.setOnClickListener {
