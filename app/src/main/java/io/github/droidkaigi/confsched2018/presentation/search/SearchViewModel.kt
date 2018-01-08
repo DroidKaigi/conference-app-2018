@@ -32,7 +32,7 @@ class SearchViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
-    fun onFavoriteClick(session: Session) {
+    fun onFavoriteClick(session: Session.SpeechSession) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())

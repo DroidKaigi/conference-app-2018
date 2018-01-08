@@ -18,8 +18,8 @@ import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.lang
 
 class HorizontalSessionItem(
-        val session: Session,
-        private val onFavoriteClickListener: (Session) -> Unit,
+        val session: Session.SpeechSession,
+        private val onFavoriteClickListener: (Session.SpeechSession) -> Unit,
         private val onItemClickListener: OnItemClickListener,
         private val fragment: Fragment
 ) : BindableItem<ItemHorizontalSessionBinding>(

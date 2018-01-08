@@ -12,8 +12,8 @@ class LevelSessionsSection(private val fragment: Fragment) : Section() {
     val levelScrollPositionMap = hashMapOf<Int, PositionAndOffset>()
 
     fun updateSessions(
-            levelSessions: Map<Level, List<Session>>,
-            onFavoriteClickListener: (Session) -> Unit
+            levelSessions: Map<Level, List<Session.SpeechSession>>,
+            onFavoriteClickListener: (Session.SpeechSession) -> Unit
     ) {
         val list = mutableListOf<Item<*>>()
         levelSessions.keys.sortedBy { it.id }.map { level ->

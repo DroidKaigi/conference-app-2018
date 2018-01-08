@@ -24,7 +24,7 @@ class TopicDetailViewModel @Inject constructor(
 
     var topicId: Int = 0
 
-    val topicSessions: LiveData<Result<Pair<Topic, List<Session>>>> by lazy {
+    val topicSessions: LiveData<Result<Pair<Topic, List<Session.SpeechSession>>>> by lazy {
         repository.topicSessions
                 .map {
                     it
@@ -38,7 +38,7 @@ class TopicDetailViewModel @Inject constructor(
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    fun onFavoriteClick(session: Session) {
+    fun onFavoriteClick(session: Session.SpeechSession) {
         val favoriteSingle: Single<Boolean> = repository.favorite(session)
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())

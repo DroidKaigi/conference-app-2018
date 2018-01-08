@@ -6,18 +6,26 @@ import com.squareup.moshi.JsonWriter
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
-class LocalDateTimeJsonAdapter : JsonAdapter<LocalDateTime>() {
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+class LocalDateTimeAdapter : JsonAdapter<LocalDateTime>() {
     override fun toJson(writer: JsonWriter, value: LocalDateTime?) {
         if (value == null) {
             writer.nullValue()
         } else {
-            writer.value(value.format(formatter))
+            writer.value(value.format(FORMATTER))
         }
     }
 
     override fun fromJson(reader: JsonReader): LocalDateTime? = when (reader.peek()) {
         JsonReader.Token.NULL -> reader.nextNull()
-        else -> LocalDateTime.parse(reader.nextString(), formatter)
+        else -> {
+            val dateString = reader.nextString()
+            Companion.parseDateString(dateString)
+        }
+    }
+
+    companion object {
+        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        fun parseDateString(dateString: String?) =
+                LocalDateTime.parse(dateString, FORMATTER)
     }
 }

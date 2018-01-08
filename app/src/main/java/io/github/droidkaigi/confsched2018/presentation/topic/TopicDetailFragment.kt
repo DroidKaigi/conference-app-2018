@@ -15,7 +15,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.SessionItem
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
@@ -34,7 +34,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         ViewModelProviders.of(activity!!, viewModelFactory).get(TopicDetailViewModel::class.java)
     }
 
-    private val onFavoriteClickListener = { session: Session ->
+    private val onFavoriteClickListener = { session: Session.SpeechSession ->
         session.isFavorited = !session.isFavorited
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
@@ -73,7 +73,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsSection)
             setOnItemClickListener { item, _ ->
-                val sessionItem = item as? SessionItem ?: return@setOnItemClickListener
+                val sessionItem = item as? SpeechSessionItem ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
             }
         }

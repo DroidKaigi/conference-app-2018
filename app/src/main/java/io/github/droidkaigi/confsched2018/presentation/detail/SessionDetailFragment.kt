@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.github.droidkaigi.confsched2018.databinding.ItemSessionBinding
+import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class SessionDetailFragment : Fragment(), Injectable {
     // TODO create layout
-    private lateinit var binding: ItemSessionBinding
+    private lateinit var binding: ItemSpeechSessionBinding
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -29,7 +29,7 @@ class SessionDetailFragment : Fragment(), Injectable {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        binding = ItemSessionBinding.inflate(inflater, container!!, false)
+        binding = ItemSpeechSessionBinding.inflate(inflater, container!!, false)
         return binding.root
     }
 
