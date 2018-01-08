@@ -35,8 +35,12 @@ class DateSessionsSection(private val fragment: Fragment) : Section() {
             key ?: return@forEach
             val list = dateSpeechSessionItemsMap[key]
 
-            dateSessions.add(DateHeaderItem(key))
-            dateSessions.addAll(list?.toMutableList().orEmpty() as List<Item<*>>)
+            val endTime = list!![0].session.endTime
+            val endDateTimePair = ReadableDateTimePair(endTime.toReadableDateString(),
+                    endTime.toReadableTimeString())
+            dateSessions.add(DateHeaderItem(key, endDateTimePair))
+            @Suppress("UNCHECKED_CAST")
+            dateSessions.addAll(list.toMutableList() as List<Item<*>>)
         }
         update(dateSessions)
     }

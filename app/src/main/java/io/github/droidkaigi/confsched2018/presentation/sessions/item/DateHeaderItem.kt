@@ -5,12 +5,18 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemDateHeaderBinding
 
 data class DateHeaderItem(
-        private val readableDateString: ReadableDateTimePair
+        private val startDateTimePair: ReadableDateTimePair,
+        private val endDateTimePair: ReadableDateTimePair
 ) : BindableItem<ItemDateHeaderBinding>(
-        readableDateString.hashCode().toLong()
+        startDateTimePair.hashCode().toLong()
 ) {
     override fun bind(viewBinding: ItemDateHeaderBinding, position: Int) {
-        viewBinding.timeText.text = readableDateString.time
+        viewBinding.periodText.text = viewBinding.root.context.getString(
+                R.string.time_period,
+                startDateTimePair.time,
+                endDateTimePair.time,
+                ""
+        )
     }
 
     override fun getLayout(): Int = R.layout.item_date_header

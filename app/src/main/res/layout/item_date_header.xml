@@ -14,15 +14,17 @@
         >
 
         <TextView
-            android:id="@+id/time_text"
+            android:id="@+id/period_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:textColor="?android:textColorSecondary"
-            android:textSize="14sp"
+            android:textAppearance="@style/TextAppearance.App.Title"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="14:00 - 15:00"
             />
 

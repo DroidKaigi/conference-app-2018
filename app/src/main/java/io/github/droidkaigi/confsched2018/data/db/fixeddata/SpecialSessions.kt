@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.db.fixeddata
 
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
@@ -11,10 +12,11 @@ class SpecialSessions {
 
         fun getSessions(): List<Session.SpecialSession> {
             var index = 0
+            val specialSessionRoom = Room(513, "Hall")
             return listOf(
                     Session.SpecialSession(
                             "100000" + index++,
-                            "welcomeTalk",
+                            R.string.session_special_welcome_talk,
                             1,
                             parseDate(
                                     LocalDateTimeAdapter
@@ -26,11 +28,11 @@ class SpecialSessions {
                                             .parseDateString("2018-02-08T10:20:00")
                                             .toUnixMills()
                             ),
-                            Room(513, "Hall")
+                            specialSessionRoom
                     ),
                     Session.SpecialSession(
                             "100000" + index++,
-                            "lunch",
+                            R.string.session_special_lunch,
                             1,
                             parseDate(
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T11:50:00")
@@ -40,11 +42,11 @@ class SpecialSessions {
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T10:20:00")
                                             .toUnixMills()
                             ),
-                            Room(513, "Hall")
+                            specialSessionRoom
                     ),
                     Session.SpecialSession(
                             "100000" + index++,
-                            "party",
+                            R.string.session_special_party,
                             1,
                             parseDate(
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T17:40:00")
@@ -54,12 +56,12 @@ class SpecialSessions {
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T19:40:00")
                                             .toUnixMills()
                             ),
-                            Room(513, "Hall")
+                            specialSessionRoom
                     ),
 
                     Session.SpecialSession(
                             "100000" + index++,
-                            "lunch",
+                            R.string.session_special_lunch,
                             2,
                             parseDate(
                                     LocalDateTimeAdapter.parseDateString("2018-02-09T11:50:00")
@@ -69,7 +71,7 @@ class SpecialSessions {
                                     LocalDateTimeAdapter.parseDateString("2018-02-09T12:50:00")
                                             .toUnixMills()
                             ),
-                            Room(513, "Hall")
+                            specialSessionRoom
                     ))
         }
     }

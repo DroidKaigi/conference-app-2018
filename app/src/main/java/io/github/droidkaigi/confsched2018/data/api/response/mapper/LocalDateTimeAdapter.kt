@@ -24,8 +24,8 @@ class LocalDateTimeAdapter : JsonAdapter<LocalDateTime>() {
     }
 
     companion object {
-        val FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-        fun parseDateString(dateString: String?) =
+        private val FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        fun parseDateString(dateString: String?): LocalDateTime =
                 LocalDateTime.parse(dateString, FORMATTER)
     }
 }
