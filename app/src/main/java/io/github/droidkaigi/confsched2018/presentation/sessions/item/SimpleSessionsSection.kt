@@ -13,9 +13,11 @@ class SimpleSessionsSection(val fragment: Fragment) : Section() {
         val sessionItems = sessions.map {
             when (it) {
                 is Session.SpeechSession -> {
+                    @Suppress("USELESS_CAST")
                     SpeechSessionItem(it, onFavoriteClickListener, fragment, true) as Item<*>
                 }
                 is Session.SpecialSession -> {
+                    @Suppress("USELESS_CAST")
                     SpecialSessionItem(it) as Item<*>
                 }
             }

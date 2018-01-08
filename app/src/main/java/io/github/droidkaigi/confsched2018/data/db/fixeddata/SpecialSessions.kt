@@ -60,7 +60,7 @@ class SpecialSessions {
                     ),
 
                     Session.SpecialSession(
-                            "100000" + index++,
+                            "100000" + index,
                             2,
                             parseDate(
                                     LocalDateTimeAdapter.parseDateString("2018-02-09T11:50:00")

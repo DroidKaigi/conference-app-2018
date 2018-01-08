@@ -16,9 +16,11 @@ class DateSessionsSection(private val fragment: Fragment) : Section() {
         val sessionItems = sessions.map {
             when (it) {
                 is Session.SpeechSession -> {
+                    @Suppress("USELESS_CAST")
                     SpeechSessionItem(it, onFavoriteClickListener, fragment) as SessionItem
                 }
                 is Session.SpecialSession -> {
+                    @Suppress("USELESS_CAST")
                     SpecialSessionItem(it) as SessionItem
                 }
             }
