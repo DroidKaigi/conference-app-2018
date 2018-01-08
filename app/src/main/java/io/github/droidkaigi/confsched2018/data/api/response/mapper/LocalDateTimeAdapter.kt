@@ -19,7 +19,7 @@ class LocalDateTimeAdapter : JsonAdapter<LocalDateTime>() {
         JsonReader.Token.NULL -> reader.nextNull()
         else -> {
             val dateString = reader.nextString()
-            Companion.parseDateString(dateString)
+            parseDateString(dateString)
         }
     }
 
