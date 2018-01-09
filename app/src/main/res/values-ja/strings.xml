@@ -3,9 +3,11 @@
     <string name="time_period">%1$s - %2$s%3$s</string>
 
     <!-- NavigationDrawer -->
-    <string name="nav_item_map">地図</string>
-    <string name="nav_item_sponsor">スポンサー</string>
-    <string name="nav_item_info">このアプリについて</string>
+    <string name="nav_item_map">アクセス</string>
+    <string name="nav_item_sponsor">スポンサー一覧</string>
+    <string name="nav_item_contributor">コントリビュータ一覧</string>
+    <string name="nav_item_all_survey">全体アンケートを記入</string>
+    <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
     <string name="content_description_drawer_open">ナビゲーションドロワーを開く</string>
     <string name="content_description_drawer_close">ナビゲーションドロワーを閉じる</string>

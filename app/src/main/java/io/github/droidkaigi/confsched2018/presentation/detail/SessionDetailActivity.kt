@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
+import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.toGone
@@ -29,6 +30,7 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding: ActivitySessionDetailBinding by lazy {
         DataBindingUtil
@@ -63,6 +65,7 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
         }
 
         navigationController.navigateToDetail(intent.getStringExtra(EXTRA_SESSION_ID))
+        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
     fun bindSessionData(session: Session.SpeechSession) {

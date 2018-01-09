@@ -27,5 +27,12 @@
         <item name="android:scaleType">center</item>
     </style>
 
+    <style name="DrawerNavigation">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
 
 </resources>

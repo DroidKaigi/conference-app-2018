@@ -12,11 +12,13 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivitySettingsBinding
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
+import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
 import javax.inject.Inject
 
 class SettingsActivity : BaseActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding: ActivitySettingsBinding by lazy {
         DataBindingUtil.setContentView<ActivitySettingsBinding>(this, R.layout.activity_settings)
@@ -29,6 +31,7 @@ class SettingsActivity : BaseActivity(), HasSupportFragmentInjector {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         navigationController.navigateToSettings()
+        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector

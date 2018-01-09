@@ -12,11 +12,13 @@ import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivitySpeakerDetailBinding
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
+import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
 import javax.inject.Inject
 
 class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding: ActivitySpeakerDetailBinding by lazy {
         DataBindingUtil
@@ -33,6 +35,7 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         navigationController.navigateToSpeakerDetail(intent.getStringExtra(EXTRA_SPEAKER_ID))
+        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
