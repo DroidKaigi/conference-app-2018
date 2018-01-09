@@ -143,6 +143,7 @@ dependencies {
 
     // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
     // Test
     testImplementation 'junit:junit:4.12'
