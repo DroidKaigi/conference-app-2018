@@ -21,7 +21,7 @@ import javax.inject.Singleton
     @Singleton @Provides
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
             .addNetworkInterceptor(HttpLoggingInterceptor()
-                    .setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .setLevel(HttpLoggingInterceptor.Level.BASIC))
             .build()
 
     @Singleton @Provides
