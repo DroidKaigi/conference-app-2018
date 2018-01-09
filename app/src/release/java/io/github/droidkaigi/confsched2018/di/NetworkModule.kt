@@ -25,7 +25,7 @@ import javax.inject.Singleton
             .build()
 
     @Singleton @Provides
-    fun provideDroidKaigiService(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl("https://sessionize.com/api/v2/xtj7shk8/view/")
@@ -38,7 +38,9 @@ import javax.inject.Singleton
     }
 
     @Singleton @Provides
-    fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi = retrofit.create(DroidKaigiApi::class.java)
+    fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi {
+        return retrofit.create(DroidKaigiApi::class.java)
+    }
 
     @Singleton @Provides
     fun provideFeedApi(): FeedApi = FeedFireStoreApi()

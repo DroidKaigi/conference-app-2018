@@ -40,7 +40,9 @@ import javax.inject.Singleton
     }
 
     @Singleton @Provides
-    fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi = retrofit.create(DroidKaigiApi::class.java)
+    fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi {
+        return retrofit.create(DroidKaigiApi::class.java)
+    }
 
     @Singleton @Provides
     fun provideFeedApi(): FeedApi = FeedFireStoreApi()
