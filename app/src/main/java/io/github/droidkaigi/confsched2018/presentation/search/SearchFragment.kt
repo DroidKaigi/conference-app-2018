@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
 import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
@@ -29,10 +28,10 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
-import io.github.droidkaigi.confsched2018.util.ext.clone
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
@@ -128,16 +127,7 @@ class SearchFragment : Fragment(), Injectable {
                 .from(context)
                 .inflateTransition(R.transition.date_header_visibility)
         TransitionManager.beginDelayedTransition(binding.sessionsConstraintLayout, transition)
-        val constraintSet = if (visibleDayHeader) {
-            binding.sessionsConstraintLayout
-                    .clone()
-                    .apply { setVisibility(R.id.day_header, ConstraintSet.VISIBLE) }
-        } else {
-            binding.sessionsConstraintLayout
-                    .clone()
-                    .apply { setVisibility(R.id.day_header, ConstraintSet.GONE) }
-        }
-        constraintSet.applyTo(binding.sessionsConstraintLayout)
+        binding.dayHeader.setVisible(visibleDayHeader)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

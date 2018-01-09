@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2018.presentation.favorite
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
 import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
@@ -41,20 +40,6 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: FavoriteSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(FavoriteSessionsViewModel::class.java)
-    }
-
-    private val dayVisibleConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day_header, ConstraintSet.VISIBLE)
-        }
-    }
-
-    private val dayGoneConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day_header, ConstraintSet.GONE)
-        }
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
@@ -123,8 +108,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                 .from(context)
                 .inflateTransition(R.transition.date_header_visibility)
         TransitionManager.beginDelayedTransition(binding.sessionsConstraintLayout, transition)
-        val constraintSet = if (visibleDayHeader) dayVisibleConstraintSet else dayGoneConstraintSet
-        constraintSet.applyTo(binding.sessionsConstraintLayout)
+        binding.dayHeader.setVisible(visibleDayHeader)
     }
 
     companion object {

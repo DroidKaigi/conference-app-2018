@@ -52,9 +52,15 @@ class DateSessionsSection(private val fragment: Fragment) : Section() {
 
         var item = getItemOrNull(position) ?: return null
         item = item as? SpeechSessionItem ?: getItemOrNull(position + 1) ?: return null
-        item as? SpeechSessionItem ?: return null
-
-        return item.session.dayNumber
+        return when (item) {
+            is SpeechSessionItem -> {
+                item.session.dayNumber
+            }
+            is SpecialSessionItem -> {
+                item.session.dayNumber
+            }
+            else -> null
+        }
     }
 
     private fun getItemOrNull(i: Int): Item<*>? {

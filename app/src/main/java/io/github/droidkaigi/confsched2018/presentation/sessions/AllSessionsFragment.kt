@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2018.presentation.sessions
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
 import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
@@ -27,6 +26,7 @@ import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -41,20 +41,6 @@ class AllSessionsFragment : Fragment(), Injectable {
 
     private val sessionsViewModel: AllSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
-    }
-
-    private val dayVisibleConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day_header, ConstraintSet.VISIBLE)
-        }
-    }
-
-    private val dayGoneConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day_header, ConstraintSet.GONE)
-        }
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
@@ -122,8 +108,7 @@ class AllSessionsFragment : Fragment(), Injectable {
                 .from(context)
                 .inflateTransition(R.transition.date_header_visibility)
         TransitionManager.beginDelayedTransition(binding.sessionsConstraintLayout, transition)
-        val constraintSet = if (visibleDayHeader) dayVisibleConstraintSet else dayGoneConstraintSet
-        constraintSet.applyTo(binding.sessionsConstraintLayout)
+        binding.dayHeader.setVisible(visibleDayHeader)
     }
 
     companion object {
