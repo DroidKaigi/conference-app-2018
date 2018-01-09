@@ -30,6 +30,9 @@
 
     <!-- Favorite -->
     <string name="favorite_title">マイセッション</string>
+    <string name="favorite_not_found">マイセッションがありません</string>
+    <string name="favorite_not_found_detail">気になるセッションを追加して\n当日の予定を立てましょう</string>
+    <string name="content_description_favorite_not_found">マイセッションがない画像</string>
 
     <!-- Feed -->
     <string name="feed_title">お知らせ</string>

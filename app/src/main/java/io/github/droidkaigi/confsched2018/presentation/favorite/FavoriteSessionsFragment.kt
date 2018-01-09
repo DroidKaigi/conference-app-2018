@@ -16,7 +16,7 @@ import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
+import io.github.droidkaigi.confsched2018.databinding.FragmentFavoriteSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -27,12 +27,13 @@ import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
 class FavoriteSessionsFragment : Fragment(), Injectable {
 
-    private lateinit var binding: FragmentAllSessionsBinding
+    private lateinit var binding: FragmentFavoriteSessionsBinding
 
     private val sessionsSection = DateSessionsSection(this)
 
@@ -66,7 +67,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentAllSessionsBinding.inflate(inflater, container, false)
+        binding = FragmentFavoriteSessionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -80,6 +81,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

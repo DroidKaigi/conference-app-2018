@@ -30,6 +30,9 @@
 
     <!-- Favorite -->
     <string name="favorite_title">My Session</string>
+    <string name="favorite_not_found">My session does not exist</string>
+    <string name="favorite_not_found_detail">Add a fun session\nLet\'s make a schedule for the day</string>
+    <string name="content_description_favorite_not_found">My session does not exist image</string>
 
     <!-- Feed -->
     <string name="feed_title">Information</string>
