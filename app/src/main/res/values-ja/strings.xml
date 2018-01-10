@@ -3,12 +3,14 @@
     <string name="time_period">%1$s - %2$s%3$s</string>
 
     <!-- NavigationDrawer -->
-    <string name="nav_item_map">地図</string>
-    <string name="nav_item_sponsor">スポンサー</string>
-    <string name="nav_item_info">このアプリについて</string>
+    <string name="nav_item_map">アクセス</string>
+    <string name="nav_item_sponsor">スポンサー一覧</string>
+    <string name="nav_item_contributor">コントリビュータ一覧</string>
+    <string name="nav_item_all_survey">全体アンケートを記入</string>
+    <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
-    <string name="content_description_drawer_open">ナビゲーションドロワーを開く</string>
-    <string name="content_description_drawer_close">ナビゲーションドロワーを閉じる</string>
+    <string name="nav_content_description_drawer_open">ナビゲーションドロワーを開く</string>
+    <string name="nav_content_description_drawer_close">ナビゲーションドロワーを閉じる</string>
 
     <!-- Session -->
     <string name="session_title">セッション</string>
@@ -16,37 +18,40 @@
     <string name="session_special_welcome_talk">ウェルカムトーク</string>
     <string name="session_special_lunch">ランチ</string>
     <string name="session_special_party">パーティ</string>
-    <string name="content_description_speaker">スピーカーの画像</string>
-    <string name="content_description_favorite_button">マイセッション追加ボタン</string>
+    <string name="session_content_description_speaker">スピーカーの画像</string>
+    <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
 
     <!-- Search-->
     <string name="search_title">検索</string>
     <string name="search_before_tab_session">セッション</string>
     <string name="search_before_tab_topic">トピック</string>
     <string name="search_before_tab_speaker">スピーカー</string>
-    <string name="content_description_expand_button">展開ボタン</string>
+    <string name="feed_content_description_expand_button">展開ボタン</string>
 
     <!-- Favorite -->
     <string name="favorite_title">マイセッション</string>
+    <string name="favorite_not_found">マイセッションがありません</string>
+    <string name="favorite_not_found_detail">気になるセッションを追加して\n当日の予定を立てましょう</string>
+    <string name="favorite_content_description_not_found">マイセッションがない画像</string>
 
     <!-- Feed -->
     <string name="feed_title">お知らせ</string>
 
     <!-- Map -->
-    <string name="title_activity_map">地図</string>
+    <string name="map_title_activity">地図</string>
 
     <!-- Sponsor -->
-    <string name="title_activity_sponsors">スポンサー</string>
+    <string name="sponsors_title_activity">スポンサー</string>
 
     <!-- About This App -->
-    <string name="title_activity_about_this_app">このアプリについて</string>
+    <string name="about_title_activity">このアプリについて</string>
 
     <!-- Settings -->
-    <string name="title_activity_settings">設定</string>
+    <string name="settings_title_activity">設定</string>
 
     <!-- Speaker -->
-    <string name="title_activity_speaker_detail">スピーカー</string>
+    <string name="speaker_title_activity_detail">スピーカー</string>
 
     <!-- Topic -->
-    <string name="total_session">%dセッション</string>
+    <string name="topic_total_session">%dセッション</string>
 </resources>

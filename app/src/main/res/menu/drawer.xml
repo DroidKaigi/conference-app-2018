@@ -1,26 +1,45 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_item_map"
-            android:icon="@drawable/ic_map_black_24dp"
-            android:title="@string/nav_item_map"
-            />
-        <item
-            android:id="@+id/nav_item_sponsor"
-            android:icon="@drawable/ic_domain_black_24dp"
-            android:title="@string/nav_item_sponsor"
-            />
+    <!-- Group Id needs for showing divider -->
+    <group android:id="@+id/menu_group_1">
         <item
             android:id="@+id/nav_item_info"
-            android:icon="@drawable/ic_info_black_24dp"
+            android:icon="@drawable/ic_infomation_black_24dp"
             android:title="@string/nav_item_info"
             />
         <item
+            android:id="@+id/nav_item_map"
+            android:icon="@drawable/ic_access_black_24dp"
+            android:title="@string/nav_item_map"
+            />
+
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/nav_item_sponsor"
+            android:icon="@drawable/ic_sponsor_black_24dp"
+            android:title="@string/nav_item_sponsor"
+            />
+        <item
+            android:id="@+id/nav_item_contributor"
+            android:icon="@drawable/ic_contributor_black_24dp"
+            android:title="@string/nav_item_contributor"
+            />
+    </group>
+    <group android:id="@+id/menu_group_3">
+        <item
             android:id="@+id/nav_item_setting"
-            android:icon="@drawable/ic_settings_black_24dp"
+            android:icon="@drawable/ic_setting_black_24dp"
             android:title="@string/nav_item_setting"
             />
     </group>
+    <group android:id="@+id/menu_group_4">
+        <item
+            android:id="@+id/nav_item_all_survey"
+            android:icon="@drawable/ic_survey_black_24dp"
+            android:title="@string/nav_item_all_survey"
+            />
+    </group>
+
 
 </menu>

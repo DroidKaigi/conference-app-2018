@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2018.presentation.favorite
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
 import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
@@ -16,7 +15,7 @@ import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
+import io.github.droidkaigi.confsched2018.databinding.FragmentFavoriteSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -27,12 +26,13 @@ import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
 class FavoriteSessionsFragment : Fragment(), Injectable {
 
-    private lateinit var binding: FragmentAllSessionsBinding
+    private lateinit var binding: FragmentFavoriteSessionsBinding
 
     private val sessionsSection = DateSessionsSection(this)
 
@@ -40,20 +40,6 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: FavoriteSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(FavoriteSessionsViewModel::class.java)
-    }
-
-    private val dayVisibleConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day_header, ConstraintSet.VISIBLE)
-        }
-    }
-
-    private val dayGoneConstraintSet by lazy {
-        ConstraintSet().apply {
-            clone(context, R.layout.fragment_all_sessions)
-            setVisibility(R.id.day_header, ConstraintSet.GONE)
-        }
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
@@ -66,7 +52,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentAllSessionsBinding.inflate(inflater, container, false)
+        binding = FragmentFavoriteSessionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -80,6 +66,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -121,8 +108,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                 .from(context)
                 .inflateTransition(R.transition.date_header_visibility)
         TransitionManager.beginDelayedTransition(binding.sessionsConstraintLayout, transition)
-        val constraintSet = if (visibleDayHeader) dayVisibleConstraintSet else dayGoneConstraintSet
-        constraintSet.applyTo(binding.sessionsConstraintLayout)
+        binding.dayHeader.setVisible(visibleDayHeader)
     }
 
     companion object {

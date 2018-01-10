@@ -3,6 +3,14 @@ package io.github.droidkaigi.confsched2018.util.ext
 import android.os.Build
 import android.view.View
 
+fun View.setVisible(visible: Boolean) {
+    if (visible) {
+        toVisible()
+    } else {
+        toGone()
+    }
+}
+
 fun View.toVisible() {
     visibility = View.VISIBLE
 }

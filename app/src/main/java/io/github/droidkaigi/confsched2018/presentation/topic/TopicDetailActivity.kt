@@ -8,7 +8,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -18,6 +17,7 @@ import io.github.droidkaigi.confsched2018.model.Lang
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
@@ -28,6 +28,7 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding: ActivityTopicDetailBinding by lazy {
         DataBindingUtil.setContentView<ActivityTopicDetailBinding>(this, R.layout.activity_topic_detail)
@@ -55,12 +56,13 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         })
 
         navigationController.navigateToTopicDetail(intent.getIntExtra(EXTRA_TOPIC_ID, 0))
+        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     private fun updateAppBarLayout(topic: Topic, total: Int) {
-        binding.total = getString(R.string.total_session, total)
+        binding.total = getString(R.string.topic_total_session, total)
         if (lang() == Lang.JA) {
             binding.topicName.text = topic.getNameByLang(Lang.JA)
             binding.topicTranslation.text = topic.getNameByLang(Lang.EN)
