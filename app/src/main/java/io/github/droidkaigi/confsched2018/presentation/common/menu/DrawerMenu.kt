@@ -24,8 +24,8 @@ class DrawerMenu @Inject constructor(
                     activity,
                     drawerLayout,
                     toolbar,
-                    R.string.content_description_drawer_open,
-                    R.string.content_description_drawer_close
+                    R.string.nav_content_description_drawer_open,
+                    R.string.nav_content_description_drawer_close
             )
             actionBarDrawerToggle.isDrawerIndicatorEnabled = true
             drawerLayout.addDrawerListener(

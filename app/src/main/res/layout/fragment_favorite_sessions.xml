@@ -42,7 +42,7 @@
             android:id="@+id/mysession_inactive_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/content_description_favorite_not_found"
+            android:contentDescription="@string/favorite_content_description_not_found"
             app:layout_constraintBottom_toTopOf="@+id/mysession_inactive_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

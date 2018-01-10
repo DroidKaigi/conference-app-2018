@@ -9,8 +9,8 @@
     <string name="nav_item_setting">Settings</string>
     <string name="nav_item_contributor">Contributors</string>
     <string name="nav_item_all_survey">Conference survey</string>
-    <string name="content_description_drawer_open">Open navigation drawer</string>
-    <string name="content_description_drawer_close">Close navigation drawer</string>
+    <string name="nav_content_description_drawer_open">Open navigation drawer</string>
+    <string name="nav_content_description_drawer_close">Close navigation drawer</string>
 
     <!-- Session -->
     <string name="session_title">Session</string>
@@ -18,40 +18,40 @@
     <string name="session_special_welcome_talk">Welcome talk</string>
     <string name="session_special_lunch">Lunch</string>
     <string name="session_special_party">Party</string>
-    <string name="content_description_speaker">Speaker image</string>
-    <string name="content_description_favorite_button">Favorite button</string>
+    <string name="session_content_description_speaker">Speaker image</string>
+    <string name="session_content_description_favorite_button">Favorite button</string>
 
     <!-- Search-->
     <string name="search_title">Search</string>
     <string name="search_before_tab_session">Session</string>
     <string name="search_before_tab_topic">Topic</string>
     <string name="search_before_tab_speaker">Speaker</string>
-    <string name="content_description_expand_button">Expand button</string>
 
     <!-- Favorite -->
     <string name="favorite_title">My Session</string>
     <string name="favorite_not_found">My session does not exist</string>
     <string name="favorite_not_found_detail">Add a fun session\nLet\'s make a schedule for the day</string>
-    <string name="content_description_favorite_not_found">My session does not exist image</string>
+    <string name="favorite_content_description_not_found">My session does not exist image</string>
 
     <!-- Feed -->
     <string name="feed_title">Information</string>
+    <string name="feed_content_description_expand_button">Expand button</string>
 
     <!-- Map -->
-    <string name="title_activity_map">Map</string>
+    <string name="map_title_activity">Map</string>
 
     <!-- Sponsor -->
-    <string name="title_activity_sponsors">Sponsor</string>
+    <string name="sponsors_title_activity">Sponsor</string>
 
     <!-- About This App -->
-    <string name="title_activity_about_this_app">About this app</string>
+    <string name="about_title_activity">About this app</string>
 
     <!-- Settings -->
-    <string name="title_activity_settings">Settings</string>
+    <string name="settings_title_activity">Settings</string>
 
     <!-- Speaker -->
-    <string name="title_activity_speaker_detail">Speaker</string>
+    <string name="speaker_title_activity_detail">Speaker</string>
 
     <!-- Topic -->
-    <string name="total_session">%dsessions</string>
+    <string name="topic_total_session">%dsessions</string>
 </resources>

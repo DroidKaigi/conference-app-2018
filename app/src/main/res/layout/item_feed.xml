@@ -63,7 +63,7 @@
             android:layout_width="@dimen/feed_expand_button_size"
             android:layout_height="@dimen/feed_expand_button_size"
             android:layout_marginEnd="8dp"
-            android:contentDescription="@string/content_description_expand_button"
+            android:contentDescription="@string/feed_content_description_expand_button"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="@+id/content"
             app:layout_constraintEnd_toEndOf="parent"

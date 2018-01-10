@@ -32,7 +32,7 @@
         </activity>
         <activity
             android:name=".presentation.map.MapActivity"
-            android:label="@string/title_activity_map"
+            android:label="@string/map_title_activity"
             android:parentActivityName=".presentation.MainActivity"
             >
             <meta-data
@@ -42,7 +42,7 @@
         </activity>
         <activity
             android:name=".presentation.sponsors.SponsorsActivity"
-            android:label="@string/title_activity_sponsors"
+            android:label="@string/sponsors_title_activity"
             android:parentActivityName=".presentation.MainActivity"
             >
             <meta-data
@@ -52,7 +52,7 @@
         </activity>
         <activity
             android:name=".presentation.about.AboutThisAppActivity"
-            android:label="@string/title_activity_about_this_app"
+            android:label="@string/about_title_activity"
             android:parentActivityName=".presentation.MainActivity"
             >
             <meta-data
@@ -62,7 +62,7 @@
         </activity>
         <activity
             android:name=".presentation.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/settings_title_activity"
             android:parentActivityName=".presentation.MainActivity"
             >
             <meta-data
