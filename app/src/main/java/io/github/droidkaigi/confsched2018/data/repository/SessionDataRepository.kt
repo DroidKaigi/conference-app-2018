@@ -128,10 +128,10 @@ class SessionDataRepository @Inject constructor(
             sessions.map {
                 it
                         .filterIsInstance<Session.SpeechSession>()
-                        .filter { it.title.contains(query) || it.desc.contains(query) }
+                        .filter { it.title.contains(query, true) || it.desc.contains(query, true) }
             }.firstOrError(),
             speakers.map {
-                it.filter { it.name.contains(query) }
+                it.filter { it.name.contains(query, true) || it.tagLine.contains(query, true) }
             }.firstOrError(),
             { sessions: List<Session>, speakers: List<Speaker> ->
                 SearchResult(sessions, speakers)
