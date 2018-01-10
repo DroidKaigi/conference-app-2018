@@ -244,10 +244,52 @@ Thank you for contributing!
   * [okapi / Yuki Okamoto](https://www.instagram.com/okamoto.yuki/) 
   * [DroidKaigi 2018 Zeplin Scene](https://scene.zeplin.io/project/5a327a64f0b20176887c556c)
 
-## CREDIT
-This project uses these codes.
+## Credit
+This project uses some modern Android libraries and source codes.
 
-Android Open Source Project  
-EllipsizingTextView  
-https://gist.github.com/stepango/1dcf6055a80f840f9185  
-google/iosched  
+* Android Architecture Components
+  * [Lifecycles](https://developer.android.com/topic/libraries/architecture/lifecycle.html)
+  * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html)
+  * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html)
+  * [Room](https://developer.android.com/topic/libraries/architecture/room.html)
+  * [ReactiveStreams](https://developer.android.com/reference/android/arch/lifecycle/LiveDataReactiveStreams.html)
+* Android Support Libraries
+  * Support v4
+  * AppCompat v7
+  * Design
+  * VectorDrawable
+  * CardView
+  * ConstraintLayout
+  * RecyclerView
+  * AOSP Codes
+* Firebase
+  * [FireStore](https://firebase.google.com/docs/firestore/)
+  * [Auth](https://firebase.google.com/docs/auth/)
+* [Dagger2](https://google.github.io/dagger/), Dagger Android Support, [Glide4](https://bumptech.github.io/glide/) - Google
+* [Kotlin](http://kotlinlang.org/) - JetBrains
+* [Retrofit2](http://square.github.io/retrofit/), [Moshi](https://github.com/square/moshi/) - Square
+* [RxJava2](https://github.com/ReactiveX/RxJava), [RxKotlin](https://github.com/ReactiveX/RxKotlin), RxAndroid  - ReactiveX
+* [OkHttp3](http://square.github.io/okhttp/)
+* [ThreeTenABP](https://github.com/JakeWharton/ThreeTenABP), [Timber](https://github.com/JakeWharton/timber) - JakeWharton
+* [Groupie](https://github.com/lisawray/groupie) - lisawray
+* [Stetho](http://facebook.github.io/stetho/) - Facebook
+* [Kotshi](https://github.com/ansman/kotshi) - ansman
+* [DownloadableCalligraphy](https://github.com/takahirom/DownloadableCalligraphy) - takahirom
+* [EllipsizingTextView](https://gist.github.com/stepango/1dcf6055a80f840f9185)
+* [Google I/O 2017](https://github.com/google/iosched)
+
+## License
+
+    Copyright 2018 DroidKaigi
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
