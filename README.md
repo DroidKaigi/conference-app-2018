@@ -235,6 +235,14 @@ SessionsFragment.kt
         })
 ```
 
+## Thanks
+Thank you for contributing!
+
+* Contributors
+  * [GitHub : Contributors](https://github.com/DroidKaigi/conference-app-2018/graphs/contributors)
+* Designer  
+  * [okapi / Yuki Okamoto](https://www.instagram.com/okamoto.yuki/) 
+  * [DroidKaigi 2018 Zeplin Scene](https://scene.zeplin.io/project/5a327a64f0b20176887c556c)
 
 ## CREDIT
 This project uses these codes.
