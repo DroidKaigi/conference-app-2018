@@ -21,6 +21,9 @@
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
 
+    <!-- Session detail -->
+    <string name="detail_sessions_next">Next</string>
+
     <!-- Search-->
     <string name="search_title">Search</string>
     <string name="search_before_tab_session">Session</string>

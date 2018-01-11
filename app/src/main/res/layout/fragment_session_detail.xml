@@ -4,81 +4,254 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
+        <import type="android.view.View" />
         <variable
             name="session"
             type="io.github.droidkaigi.confsched2018.model.Session.SpeechSession"
             />
     </data>
-    <android.support.v4.widget.NestedScrollView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         >
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="28dp"
+            android:background="?colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
             <TextView
-                android:id="@+id/session_day_number"
-                android:layout_width="wrap_content"
+                android:id="@+id/session_title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="24dp"
-                android:text='@{"DAY"+session.dayNumber+" / "}'
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                android:layout_marginStart="16dp"
+                android:text="@{session.title}"
+                android:textAppearance="@style/TextAppearance.App.Title"
+                android:textColor="@color/app_bar_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="DAY1 / "
+                tools:text="How to create DroidKaigi"
                 />
-
             <TextView
-                android:id="@+id/session_period"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:textAppearance="@style/TextAppearance.App.Caption"
-                app:endDate="@{session.endTime}"
-                app:layout_constraintStart_toEndOf="@id/session_day_number"
-                app:layout_constraintTop_toTopOf="@id/session_day_number"
-                app:layout_goneMarginStart="12dp"
-                app:layout_goneMarginTop="16dp"
-                app:startDate="@{session.startTime}"
-                tools:text="10:30 - 11:00 / "
-                />
-
-            <TextView
-                android:id="@+id/session_room"
+                android:id="@+id/session_topic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:maxLines="3"
-                android:text="@{session.room.name}"
+                android:textAppearance="@style/TextAppearance.App.Subhead"
+                android:textColor="@color/app_bar_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/session_title"
+                app:layout_constraintTop_toBottomOf="@id/session_title"
+                tools:text="開発環境/Productivity and Tools"
+                />
+            <View
+                android:id="@+id/level_background"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/shape_round_corner_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/level"
+                app:layout_constraintEnd_toEndOf="@+id/level"
+                app:layout_constraintStart_toStartOf="@id/session_topic"
+                app:layout_constraintTop_toBottomOf="@id/session_topic"
+                />
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
+                android:paddingBottom="6dp"
+                android:paddingEnd="12dp"
+                android:text="@{session.level.name}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
-                app:layout_constraintStart_toStartOf="@id/session_day_number"
-                app:layout_constraintTop_toBottomOf="@id/session_day_number"
-                tools:text="Room A"
+                android:textColor="?colorAccent"
+                app:layout_constraintStart_toStartOf="@id/level_background"
+                app:layout_constraintTop_toTopOf="@id/level_background"
+                tools:text="初心者向け"
+                />
+
+            <ImageView
+                android:id="@+id/speaker_image_5"
+                android:layout_width="@dimen/speaker_image"
+                android:layout_height="@dimen/speaker_image"
+                android:layout_marginStart="22dp"
+                android:contentDescription="@string/session_content_description_speaker"
+                android:padding="16dp"
+                android:scaleType="center"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/speaker_image_4"
+                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
+                tools:src="@drawable/ic_person_black_24dp"
+                />
+
+            <ImageView
+                android:id="@+id/speaker_image_4"
+                android:layout_width="@dimen/speaker_image"
+                android:layout_height="@dimen/speaker_image"
+                android:layout_marginStart="22dp"
+                android:contentDescription="@string/session_content_description_speaker"
+                android:padding="16dp"
+                android:scaleType="center"
+                app:layout_constraintStart_toStartOf="@id/speaker_image_3"
+                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
+                tools:src="@drawable/ic_person_black_24dp"
+                />
+
+            <ImageView
+                android:id="@+id/speaker_image_3"
+                android:layout_width="@dimen/speaker_image"
+                android:layout_height="@dimen/speaker_image"
+                android:layout_marginStart="22dp"
+                android:contentDescription="@string/session_content_description_speaker"
+                android:padding="16dp"
+                android:scaleType="center"
+                app:layout_constraintStart_toStartOf="@id/speaker_image_2"
+                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
+                tools:src="@drawable/ic_person_black_24dp"
+                />
+
+            <ImageView
+                android:id="@+id/speaker_image_2"
+                android:layout_width="@dimen/speaker_image"
+                android:layout_height="@dimen/speaker_image"
+                android:layout_marginStart="22dp"
+                android:contentDescription="@string/session_content_description_speaker"
+                android:padding="16dp"
+                android:scaleType="center"
+                app:layout_constraintStart_toStartOf="@id/speaker_image_1"
+                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
+                tools:src="@drawable/ic_person_black_24dp"
+                />
+
+            <ImageView
+                android:id="@+id/speaker_image_1"
+                android:layout_width="@dimen/speaker_image"
+                android:layout_height="@dimen/speaker_image"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/session_content_description_speaker"
+                android:padding="16dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/level_background"
+                tools:src="@drawable/ic_person_black_24dp"
                 />
 
             <TextView
-                android:id="@+id/session_text"
+                android:id="@+id/speakers"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:gravity="top"
-                android:text="@{session.desc}"
-                android:textAppearance="@style/TextAppearance.App.Body1"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.App.Body2"
+                android:textColor="@color/app_bar_text_color"
+                app:layout_constraintBottom_toBottomOf="@id/speaker_image_1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/session_room"
-                app:layout_constraintVertical_bias="0.0"
-                tools:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic"
+                app:layout_constraintStart_toEndOf="@id/speaker_image_5"
+                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
+                app:layout_goneMarginStart="36dp"
                 />
-
         </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            >
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/session_day_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="24dp"
+                    android:text='@{"DAY"+session.dayNumber+" / "}'
+                    android:textAppearance="@style/TextAppearance.App.Caption"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="DAY1 / "
+                    />
+
+                <TextView
+                    android:id="@+id/session_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:textAppearance="@style/TextAppearance.App.Caption"
+                    app:endDate="@{session.endTime}"
+                    app:layout_constraintStart_toEndOf="@id/session_day_number"
+                    app:layout_constraintTop_toTopOf="@id/session_day_number"
+                    app:layout_goneMarginStart="12dp"
+                    app:layout_goneMarginTop="16dp"
+                    app:startDate="@{session.startTime}"
+                    tools:text="10:30 - 11:00 / "
+                    />
+
+                <TextView
+                    android:id="@+id/session_room"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:maxLines="3"
+                    android:text="@{session.room.name}"
+                    android:textAppearance="@style/TextAppearance.App.Caption"
+                    app:layout_constraintStart_toStartOf="@id/session_day_number"
+                    app:layout_constraintTop_toBottomOf="@id/session_day_number"
+                    tools:text="Room A"
+                    />
+
+                <TextView
+                    android:id="@+id/session_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:gravity="top"
+                    android:text="@{session.desc}"
+                    android:textAppearance="@style/TextAppearance.App.Body1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/session_room"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="184dp"
+            app:activated="@{session.isFavorited}"
+            app:backgroundTint="#FFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/state_favorite_icon"
+            app:tintCompat="@{@colorStateList/state_favorite_color}"
+            />
+    </android.support.constraint.ConstraintLayout>
 </layout>

@@ -7,12 +7,12 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="session"
+            name="nextSession"
             type="io.github.droidkaigi.confsched2018.model.Session.SpeechSession"
             />
         <variable
-            name="isShowDayNumber"
-            type="boolean"
+            name="prevSession"
+            type="io.github.droidkaigi.confsched2018.model.Session.SpeechSession"
             />
     </data>
     <android.support.v4.widget.DrawerLayout
@@ -28,206 +28,106 @@
             android:layout_height="match_parent"
             tools:context="io.github.droidkaigi.confsched2018.presentation.MainActivity"
             >
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/app_bar"
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="?attr/actionBarSize"
                 android:layout_marginBottom="28dp"
+                android:background="?attr/colorPrimary"
                 android:fitsSystemWindows="true"
                 android:theme="@style/AppTheme.AppBarOverlay"
-                app:layout_constraintBottom_toBottomOf="@+id/fab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp"
-                >
-                <android.support.design.widget.CollapsingToolbarLayout
-                    android:id="@+id/toolbar_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:fitsSystemWindows="true"
-                    app:contentScrim="?attr/colorPrimary"
-                    >
-
-                    <android.support.v7.widget.Toolbar
-                        android:id="@+id/toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="?attr/colorPrimary"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:titleTextColor="@color/app_bar_text_color"
-                        />
-                </android.support.design.widget.CollapsingToolbarLayout>
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <TextView
-                        android:id="@+id/session_title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@{session.title}"
-                        android:textAppearance="@style/TextAppearance.App.Title"
-                        android:textColor="@color/app_bar_text_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="How to create DroidKaigi"
-                        />
-                    <TextView
-                        android:id="@+id/session_topic"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textAppearance="@style/TextAppearance.App.Subhead"
-                        android:textColor="@color/app_bar_text_color"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/session_title"
-                        app:layout_constraintTop_toBottomOf="@id/session_title"
-                        tools:text="開発環境/Productivity and Tools"
-                        />
-                    <View
-                        android:id="@+id/level_background"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/shape_round_corner_24dp"
-                        app:layout_constraintBottom_toBottomOf="@id/level"
-                        app:layout_constraintEnd_toEndOf="@+id/level"
-                        app:layout_constraintStart_toStartOf="@id/session_topic"
-                        app:layout_constraintTop_toBottomOf="@id/session_topic"
-                        />
-                    <TextView
-                        android:id="@+id/level"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="6dp"
-                        android:paddingBottom="6dp"
-                        android:paddingEnd="12dp"
-                        android:text="@{session.level.name}"
-                        android:textAppearance="@style/TextAppearance.App.Caption"
-                        android:textColor="?colorAccent"
-                        app:layout_constraintStart_toStartOf="@id/level_background"
-                        app:layout_constraintTop_toTopOf="@id/level_background"
-                        tools:text="初心者向け"
-                        />
-
-                    <ImageView
-                        android:id="@+id/speaker_image_5"
-                        android:layout_width="@dimen/speaker_image"
-                        android:layout_height="@dimen/speaker_image"
-                        android:layout_marginStart="22dp"
-                        android:contentDescription="@string/session_content_description_speaker"
-                        android:padding="16dp"
-                        android:scaleType="center"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toStartOf="@id/speaker_image_4"
-                        app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                        tools:src="@drawable/ic_person_black_24dp"
-                        />
-
-                    <ImageView
-                        android:id="@+id/speaker_image_4"
-                        android:layout_width="@dimen/speaker_image"
-                        android:layout_height="@dimen/speaker_image"
-                        android:layout_marginStart="22dp"
-                        android:contentDescription="@string/session_content_description_speaker"
-                        android:padding="16dp"
-                        android:scaleType="center"
-                        app:layout_constraintStart_toStartOf="@id/speaker_image_3"
-                        app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                        tools:src="@drawable/ic_person_black_24dp"
-                        />
-
-                    <ImageView
-                        android:id="@+id/speaker_image_3"
-                        android:layout_width="@dimen/speaker_image"
-                        android:layout_height="@dimen/speaker_image"
-                        android:layout_marginStart="22dp"
-                        android:contentDescription="@string/session_content_description_speaker"
-                        android:padding="16dp"
-                        android:scaleType="center"
-                        app:layout_constraintStart_toStartOf="@id/speaker_image_2"
-                        app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                        tools:src="@drawable/ic_person_black_24dp"
-                        />
-
-                    <ImageView
-                        android:id="@+id/speaker_image_2"
-                        android:layout_width="@dimen/speaker_image"
-                        android:layout_height="@dimen/speaker_image"
-                        android:layout_marginStart="22dp"
-                        android:contentDescription="@string/session_content_description_speaker"
-                        android:padding="16dp"
-                        android:scaleType="center"
-                        app:layout_constraintStart_toStartOf="@id/speaker_image_1"
-                        app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                        tools:src="@drawable/ic_person_black_24dp"
-                        />
-
-                    <ImageView
-                        android:id="@+id/speaker_image_1"
-                        android:layout_width="@dimen/speaker_image"
-                        android:layout_height="@dimen/speaker_image"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="32dp"
-                        android:contentDescription="@string/session_content_description_speaker"
-                        android:padding="16dp"
-                        android:scaleType="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/level_background"
-                        tools:src="@drawable/ic_person_black_24dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/speakers"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.App.Body2"
-                        android:textColor="@color/app_bar_text_color"
-                        app:layout_constraintBottom_toBottomOf="@id/speaker_image_1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/speaker_image_5"
-                        app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                        app:layout_goneMarginStart="36dp"
-                        />
-                </android.support.constraint.ConstraintLayout>
-            </android.support.design.widget.AppBarLayout>
-
-            <FrameLayout
-                android:id="@+id/content"
+                app:titleTextColor="@color/app_bar_text_color"
+                />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/detail_sessions_pager"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/detail_sessions_indicator_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                />
+
+            <View
+                android:id="@+id/detail_sessions_indicator_background"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="?colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/app_bar"
-                >
-
-            </FrameLayout>
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
+                />
+            <ImageView
+                android:id="@+id/detail_sessions_prev_session"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?actionBarItemBackground"
+                android:scaleType="center"
+                android:tint="@color/app_bar_text_color"
+                android:visibility="@{prevSession == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/detail_sessions_indicator_background"
+                app:layout_constraintStart_toStartOf="@id/detail_sessions_indicator_background"
+                app:layout_constraintTop_toTopOf="@id/detail_sessions_indicator_background"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+                />
+            <ImageView
+                android:id="@+id/detail_sessions_next_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="center"
+                android:tint="@color/app_bar_text_color"
+                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/detail_sessions_indicator_background"
+                app:layout_constraintEnd_toEndOf="@id/detail_sessions_indicator_background"
+                app:layout_constraintTop_toTopOf="@id/detail_sessions_indicator_background"
+                app:srcCompat="@drawable/ic_arrow_forward_black_24dp"
+                />
+            <TextView
+                android:id="@+id/detail_sessions_next_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="224dp"
-                app:activated="@{session.isFavorited}"
-                app:backgroundTint="#FFF"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/state_favorite_icon"
-                app:tintCompat="@{@colorStateList/state_favorite_color}"
+                android:text="@string/detail_sessions_next"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                android:textColor="@color/app_bar_text_color"
+                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toTopOf="@+id/detail_sessions_next_title"
+                app:layout_constraintEnd_toStartOf="@id/detail_sessions_next_icon"
+                app:layout_constraintTop_toTopOf="@+id/detail_sessions_indicator_background"
+                app:layout_constraintVertical_chainStyle="packed"
                 />
+            <TextView
+                android:id="@+id/detail_sessions_next_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="1"
+                android:text="@{nextSession.title}"
+                android:textAppearance="@style/TextAppearance.App.Subhead"
+                android:textColor="@color/app_bar_text_color"
+                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/detail_sessions_indicator_background"
+                app:layout_constraintEnd_toStartOf="@id/detail_sessions_next_icon"
+                app:layout_constraintStart_toEndOf="@id/detail_sessions_prev_session"
+                app:layout_constraintTop_toBottomOf="@+id/detail_sessions_next_label"
+                tools:text="How to create DroidKaigi"
+                />
+            <View
+                android:id="@+id/detail_sessions_next_session"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?selectableItemBackground"
+                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/detail_sessions_indicator_background"
+                app:layout_constraintEnd_toEndOf="@id/detail_sessions_indicator_background"
+                app:layout_constraintStart_toStartOf="@id/detail_sessions_next_title"
+                app:layout_constraintTop_toTopOf="@id/detail_sessions_indicator_background"
+                />
+
         </android.support.constraint.ConstraintLayout>
 
         <android.support.design.widget.NavigationView

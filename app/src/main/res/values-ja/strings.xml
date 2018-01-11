@@ -21,6 +21,9 @@
     <string name="session_content_description_speaker">スピーカーの画像</string>
     <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
 
+    <!-- Session detail -->
+    <string name="detail_sessions_next">Next</string>
+
     <!-- Search-->
     <string name="search_title">検索</string>
     <string name="search_before_tab_session">セッション</string>

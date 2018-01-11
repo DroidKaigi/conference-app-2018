@@ -51,6 +51,11 @@ class SessionDataRepository @Inject constructor(
                         val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
                         val speakerSessions = sessionEntities
                                 .map { it.toSession(speakerEntities, favList, firstDay) }
+                                .sortedWith(compareBy(
+                                        { it.startTime.getTime().toInt() },
+                                        { it.room.id }
+                                ))
+
                         speakerSessions + specialSessions
                     })
                     .subscribeOn(schedulerProvider.computation())
