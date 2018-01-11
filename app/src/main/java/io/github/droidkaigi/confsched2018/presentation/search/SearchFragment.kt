@@ -5,13 +5,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.transition.TransitionInflater
-import android.support.transition.TransitionManager
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
@@ -19,19 +15,23 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
-import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
-import io.github.droidkaigi.confsched2018.util.ext.isGone
+import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultSpeakerItem
+import io.github.droidkaigi.confsched2018.presentation.search.item.SearchSpeakersSection
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.ext.color
+import io.github.droidkaigi.confsched2018.util.ext.eachChildView
 import io.github.droidkaigi.confsched2018.util.ext.observe
-import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
-import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
@@ -40,8 +40,10 @@ import javax.inject.Inject
 class SearchFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSearchBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var navigationController: NavigationController
 
-    private val sessionsSection = DateSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection(this)
+    private val speakersSection = SearchSpeakersSection(FragmentDataBindingComponent(this))
 
     private val searchViewModel: SearchViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
@@ -84,8 +86,9 @@ class SearchFragment : Fragment(), Injectable {
         searchViewModel.result.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    val sessions = result.data.sessions
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    val searchResult = result.data
+                    sessionsSection.updateSessions(searchResult.sessions, onFavoriteClickListener)
+                    speakersSection.updateSpeakers(searchResult.speakers)
                     binding.sessionsRecycler.scrollToPosition(0)
                 }
                 is Result.Failure -> {
@@ -98,43 +101,32 @@ class SearchFragment : Fragment(), Injectable {
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsSection)
-            setOnItemClickListener({ _, _ ->
-                //TODO
+            add(speakersSection)
+            setOnItemClickListener({ item, _ ->
+                when (item) {
+                    is SpeechSessionItem -> {
+                        navigationController.navigateToSessionDetailActivity(item.session)
+                    }
+                    is SearchResultSpeakerItem -> {
+                        navigationController.navigateToSpeakerDetailActivity(item.speaker.id)
+                    }
+                }
             })
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-
-            addOnScrollListener(
-                    onScrollStateChanged = { _: RecyclerView?, newState: Int ->
-                        if (binding.sessionsRecycler.isGone()) return@addOnScrollListener
-                        setDayHeaderVisibility(newState != RecyclerView.SCROLL_STATE_IDLE)
-                    },
-                    onScrolled = { _, _, _ ->
-                        val linearLayoutManager = layoutManager as LinearLayoutManager
-                        val firstPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                        val dayNumber = sessionsSection.getDateNumberOrNull(firstPosition)
-                        dayNumber ?: return@addOnScrollListener
-                        val dayTitle = getString(R.string.session_day_title, dayNumber)
-                        binding.dayHeader.setTextIfChanged(dayTitle)
-                    })
         }
-    }
-
-    private fun setDayHeaderVisibility(visibleDayHeader: Boolean) {
-        val transition = TransitionInflater
-                .from(context)
-                .inflateTransition(R.transition.date_header_visibility)
-        TransitionManager.beginDelayedTransition(binding.sessionsConstraintLayout, transition)
-        binding.dayHeader.setVisible(visibleDayHeader)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
+
         inflater!!.inflate(R.menu.search, menu)
         val menuSearchItem = menu!!.findItem(R.id.action_search)
+
         val searchView = menuSearchItem.actionView as SearchView
+        searchView.maxWidth = Int.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false
 
@@ -151,6 +143,19 @@ class SearchFragment : Fragment(), Injectable {
                 return false
             }
         })
+        changeSearchViewTextColor(searchView)
+    }
+
+    private fun changeSearchViewTextColor(view: View) {
+        if (view is TextView) {
+            view.setTextColor(context!!.color(R.color.app_bar_text_color))
+        }
+
+        if (view is ViewGroup) {
+            view.eachChildView {
+                changeSearchViewTextColor(it)
+            }
+        }
     }
 
     companion object {

@@ -20,6 +20,7 @@ fun View.toGone() {
 }
 
 fun View.isGone() = visibility == View.GONE
+
 fun View.isVisible() = visibility == View.VISIBLE
 
 var View.elevationForPostLolipop: Float
