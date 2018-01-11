@@ -43,12 +43,12 @@ class SessionDetailFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val sessionId = arguments!!.getString(EXTRA_SESSION_ID)
         sessionDetailViewModel.sessions.observe(this) { result ->
             when (result) {
                 is Result.Success -> {
-                    bindSession(result
-                            .data
-                            .first { it.id == arguments!!.getString(EXTRA_SESSION_ID) })
+                    val sessions = result.data
+                    bindSession(sessions.first { it.id == sessionId })
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -59,11 +59,9 @@ class SessionDetailFragment : Fragment(), Injectable {
 
     private fun bindSession(session: Session.SpeechSession) {
         binding.session = session
-
         binding.fab.setOnClickListener {
             sessionDetailViewModel.onFavoriteClick(session)
         }
-
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
         val speakerImages = arrayOf(
                 binding.speakerImage1,
@@ -88,7 +86,6 @@ class SessionDetailFragment : Fragment(), Injectable {
                 imageView.toGone()
             }
         }
-
         binding.speakers.text = session.speakers.joinToString { it.name }
     }
 

@@ -118,7 +118,6 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
         }
 
         override fun getCount(): Int = sessions.size
-
     }
 
     companion object {
