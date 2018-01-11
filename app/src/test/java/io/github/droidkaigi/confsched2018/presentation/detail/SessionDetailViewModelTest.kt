@@ -31,9 +31,9 @@ class SessionDetailViewModelTest {
     @Test fun sessions_Empty() {
         whenever(repository.sessions).doReturn(Flowable.empty())
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
-        val result: Observer<Result<Session.SpeechSession>> = mock()
+        val result: Observer<Result<List<Session.SpeechSession>>> = mock()
 
-        viewModel.session.observeForever(result)
+        viewModel.sessions.observeForever(result)
 
         verify(repository).sessions
         verify(result).onChanged(Result.inProgress())
@@ -43,22 +43,21 @@ class SessionDetailViewModelTest {
         val sessions = createDummySessions()
         whenever(repository.sessions).doReturn(Flowable.just(sessions))
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
-        viewModel.sessionId = DUMMY_SESSION_ID1
-        val result: Observer<Result<Session.SpeechSession>> = mock()
+        val result: Observer<Result<List<Session.SpeechSession>>> = mock()
 
-        viewModel.session.observeForever(result)
+        viewModel.sessions.observeForever(result)
 
         verify(repository).sessions
-        verify(result).onChanged(Result.success(createDummySession(DUMMY_SESSION_ID1)))
+        verify(result).onChanged(Result.success(sessions.map { it as Session.SpeechSession }))
     }
 
     @Test fun sessions_Error() {
         val runtimeException = RuntimeException("test")
         whenever(repository.sessions).doReturn(Flowable.error(runtimeException))
         viewModel = SessionDetailViewModel(repository, TestSchedulerProvider())
-        val result: Observer<Result<Session.SpeechSession>> = mock()
+        val result: Observer<Result<List<Session.SpeechSession>>> = mock()
 
-        viewModel.session.observeForever(result)
+        viewModel.sessions.observeForever(result)
 
         verify(repository).sessions
         verify(result).onChanged(Result.failure(runtimeException.message!!, runtimeException))
