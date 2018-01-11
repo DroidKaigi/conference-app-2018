@@ -20,14 +20,12 @@ class SessionDetailViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    lateinit var sessionId: String
 
-    val session: LiveData<Result<Session.SpeechSession>> by lazy {
+    val sessions: LiveData<Result<List<Session.SpeechSession>>> by lazy {
         repository.sessions
                 .map { sessions ->
                     sessions
                             .filterIsInstance<Session.SpeechSession>()
-                            .first { it.id == sessionId }
                 }
                 .toResult(schedulerProvider)
                 .toLiveData()

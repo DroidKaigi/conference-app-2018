@@ -7,10 +7,17 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
+import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.toGone
+import io.github.droidkaigi.confsched2018.util.ext.toVisible
+import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -35,19 +42,54 @@ class SessionDetailFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sessionDetailViewModel.sessionId = arguments!!.getString(EXTRA_SESSION_ID)
 
-        sessionDetailViewModel.session.observe(this) { result ->
+        sessionDetailViewModel.sessions.observe(this) { result ->
             when (result) {
                 is Result.Success -> {
-                    val session = result.data
-                    binding.session = session
+                    bindSession(result
+                            .data
+                            .first { it.id == arguments!!.getString(EXTRA_SESSION_ID) })
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
                 }
             }
         }
+    }
+
+    private fun bindSession(session: Session.SpeechSession) {
+        binding.session = session
+
+        binding.fab.setOnClickListener {
+            sessionDetailViewModel.onFavoriteClick(session)
+        }
+
+        binding.sessionTopic.text = session.topic.getNameByLang(lang())
+        val speakerImages = arrayOf(
+                binding.speakerImage1,
+                binding.speakerImage2,
+                binding.speakerImage3,
+                binding.speakerImage4,
+                binding.speakerImage5
+        )
+        speakerImages.forEachIndexed { index, imageView ->
+            if (index < session.speakers.size) {
+                imageView.toVisible()
+                val size = resources.getDimensionPixelSize(R.dimen.speaker_image)
+                CustomGlideApp
+                        .with(this)
+                        .load(session.speakers[index].imageUrl)
+                        .placeholder(R.drawable.ic_person_black_24dp)
+                        .override(size, size)
+                        .dontAnimate()
+                        .transform(CircleCrop())
+                        .into(imageView)
+            } else {
+                imageView.toGone()
+            }
+        }
+
+        binding.speakers.text = session.speakers.joinToString { it.name }
     }
 
     companion object {
