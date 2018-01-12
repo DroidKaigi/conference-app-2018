@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -115,6 +116,10 @@ dependencies {
     // Adjust version for emulator
     implementation 'com.google.firebase:firebase-firestore:11.4.2'
     implementation 'com.google.firebase:firebase-auth:11.4.2'
+    implementation 'com.google.firebase:firebase-core:11.4.2'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+        transitive = true
+    }
 
     // ThreeTenABP for JSR-310 backport
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
