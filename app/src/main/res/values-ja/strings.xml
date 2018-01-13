@@ -1,6 +1,6 @@
 <resources>
     <!-- Common -->
-    <string name="time_period">%1$s - %2$s</string>
+    <string name="time_period">%1$s - %2$s%3$s</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_map">アクセス</string>
@@ -18,7 +18,6 @@
     <string name="session_special_welcome_talk">ウェルカムトーク</string>
     <string name="session_special_lunch">ランチ</string>
     <string name="session_special_party">パーティ</string>
-    <string name="session_fetch_failed">セッションの取得に失敗しました</string>
     <string name="session_content_description_speaker">スピーカーの画像</string>
     <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
 
@@ -57,5 +56,7 @@
     <string name="speaker_title_activity_detail">スピーカー</string>
 
     <!-- Topic -->
-    <string name="topic_total_session">%dセッション</string>
+    <plurals name="topic_total_session">
+        <item quantity="other">%dセッション</item>
+    </plurals>
 </resources>
