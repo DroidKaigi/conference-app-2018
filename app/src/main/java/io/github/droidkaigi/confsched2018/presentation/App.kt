@@ -21,18 +21,11 @@ open class App : MultiDexApplication(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        setupTimber()
         setupFirebase()
         setupVectorDrawable()
         setupThreeTenABP()
-        setupLeakCanary()
         setupDagger()
-        setupStetho()
         setupCalligraphy()
-    }
-
-    open fun setupTimber() {
-        // override
     }
 
     private fun setupFirebase() {
@@ -51,14 +44,6 @@ open class App : MultiDexApplication(), HasActivityInjector {
 
     private fun setupThreeTenABP() {
         AndroidThreeTen.init(this)
-    }
-
-    open fun setupStetho() {
-        // override
-    }
-
-    open fun setupLeakCanary() {
-        // override
     }
 
     open fun setupDagger() {

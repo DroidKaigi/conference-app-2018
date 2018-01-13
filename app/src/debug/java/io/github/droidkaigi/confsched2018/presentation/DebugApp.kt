@@ -6,15 +6,22 @@ import timber.log.Timber
 
 class DebugApp : App() {
 
-    override fun setupLeakCanary() {
-        LeakCanary.install(this)
+    override fun onCreate() {
+        super.onCreate()
+        setupTimber()
+        setupLeakCanary()
+        setupStetho()
     }
 
-    override fun setupTimber() {
+    private fun setupTimber() {
         Timber.plant(Timber.DebugTree())
     }
 
-    override fun setupStetho() {
+    private fun setupLeakCanary() {
+        LeakCanary.install(this)
+    }
+
+    private fun setupStetho() {
         Stetho.initializeWithDefaults(this)
     }
 }
