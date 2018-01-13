@@ -9,11 +9,21 @@
 TBD
 
 # Contributing
-We use [waffle.io](https://waffle.io/DroidKaigi/conference-app-2018) to manage tasks. If you'd like to contribute to the project but are not sure where to start off, please look for issues labelled [welcome contribute](https://github.com/DroidKaigi/conference-app-2018/labels/welcome%20contribute).
+We are always welcome your contribution!
+
+## How to find the tasks
+We use [waffle.io](https://waffle.io/DroidKaigi/conference-app-2018) to manage the tasks.
+Please find the issues you'd like to contribute in it.
+[welcome contribute](https://github.com/DroidKaigi/conference-app-2018/labels/welcome%20contribute) and [easy](https://github.com/DroidKaigi/conference-app-2018/labels/easy) are good for first contribution.
+
+Of course, it would be great to send PullRequest which has no issue!
+
+## How to contribute
+If you find the tasks you want to contribute, please comment in the issue like [this](https://github.com/DroidKaigi/conference-app-2018/issues/73#issuecomment-357410022) to prevent to conflict contribution.
+We'll reply as soon as possible, but it's unnecessary to wait our reaction. It's okay to start contribution and send PullRequest!
 
 We've designated these issues as good candidates for easy contribution. You can always fork the repository and send a pull request (on a branch other than `master`).
 
-We do accept suggestions for translations at [res/values-**/strings.xml](https://github.com/DroidKaigi/conference-app-2018/tree/master/app/src/main/res).
 
 # Development Environment
 
