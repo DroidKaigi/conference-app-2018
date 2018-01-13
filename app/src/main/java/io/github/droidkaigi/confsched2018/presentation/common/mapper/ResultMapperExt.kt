@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.common.mapper
 
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -26,3 +27,7 @@ fun <T> Observable<T>.toResult(schedulerProvider: SchedulerProvider): Observable
 
 fun <T> Single<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> =
         toObservable().toResult(schedulerProvider)
+
+
+fun <T> Completable.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> =
+        toObservable<T>().toResult(schedulerProvider)
