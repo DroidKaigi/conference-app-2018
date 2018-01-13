@@ -125,6 +125,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:ellipsize="end"
+                android:includeFontPadding="false"
                 android:maxLines="3"
                 android:text="@{session.desc}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
