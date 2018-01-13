@@ -14,6 +14,8 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
+import io.github.droidkaigi.confsched2018.util.ext.toGone
+import io.github.droidkaigi.confsched2018.util.ext.toVisible
 
 /**
  * A custom view for showing the avatar icons and names of speakers.
@@ -94,7 +96,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
 
     private fun updateIcons() {
         if (speakerList.isEmpty()) {
-            imageContainer.visibility = View.GONE
+            imageContainer.toGone()
         } else {
             imageContainer.removeAllViews()
             speakerList.take(customAttributes.maxIcons).let { speakers ->
@@ -103,7 +105,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
                     imageContainer.addView(createIconImageView(speaker, size - 1 - index))
                 }
             }
-            imageContainer.visibility = View.VISIBLE
+            imageContainer.toVisible()
         }
     }
 
@@ -125,13 +127,13 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
 
     private fun updateText() {
         if (speakerList.isEmpty()) {
-            textView.visibility = View.GONE
+            textView.toGone()
         } else {
             textView.text = speakerList.joinToString { it.name }
             if (customAttributes.textColor != 0) {
                 textView.setTextColor(customAttributes.textColor)
             }
-            textView.visibility = View.VISIBLE
+            textView.toVisible()
         }
 
     }
