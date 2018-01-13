@@ -16,4 +16,14 @@
         <item name="colorControlNormal">@color/app_bar_text_color</item>
     </style>
 
+    <style name="AppTheme.ActionBar" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:titleTextStyle">@style/AppTheme.TitleBarTextColor</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+    </style>
+
+    <style name="AppTheme.TitleBarTextColor" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>
