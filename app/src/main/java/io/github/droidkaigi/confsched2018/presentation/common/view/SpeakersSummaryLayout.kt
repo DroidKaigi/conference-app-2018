@@ -38,7 +38,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
         val res = context.resources
         val defaultAttributes = CustomAttributes(
                 maxIcons = res.getInteger(R.integer.default_speakers_summary_layout_max_icon_count),
-                imageSize = res.getDimensionPixelSize(R.dimen.default_speakers_summary_layout_image_size),
+                imageSize = res.getDimensionPixelSize(R.dimen.speaker_image),
                 textColor = 0
         )
 
@@ -112,6 +112,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     private fun createIconImageView(speaker: Speaker, index: Int): View {
         return ImageView(context).also { imageView ->
             val imageSize = customAttributes.imageSize
+            imageView.contentDescription = context.getString(R.string.session_content_description_speaker)
             imageView.layoutParams = FrameLayout.LayoutParams(imageSize, imageSize).also { lp ->
                 lp.marginStart = index * imageSize * 3 / 4
             }
@@ -136,6 +137,5 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
             }
             textView.toVisible()
         }
-
     }
 }

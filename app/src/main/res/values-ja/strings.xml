@@ -19,6 +19,7 @@
     <string name="session_special_lunch">ランチ</string>
     <string name="session_special_party">パーティ</string>
     <string name="session_fetch_failed">セッションの取得に失敗しました</string>
+    <string name="session_content_description_speaker">スピーカーの画像</string>
     <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
 
     <!-- Session detail -->

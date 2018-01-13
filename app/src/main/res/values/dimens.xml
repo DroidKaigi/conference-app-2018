@@ -1,5 +1,6 @@
 <resources>
     <!-- Session -->
+    <dimen name="speaker_image">28dp</dimen>
     <dimen name="session_title_line_spacing">4sp</dimen>
 
     <!-- Feed -->
