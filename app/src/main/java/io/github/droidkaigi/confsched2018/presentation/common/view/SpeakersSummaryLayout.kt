@@ -20,25 +20,17 @@ import io.github.droidkaigi.confsched2018.util.CustomGlideApp
  *
  * ref: https://github.com/DroidKaigi/conference-app-2018/issues/61
  */
-class SpeakersSummaryLayout : LinearLayout {
+class SpeakersSummaryLayout @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
+
     data class CustomAttributes(val maxIcons: Int, val imageSize: Int, val textColor: Int)
 
     private val speakerList: ArrayList<Speaker> = ArrayList()
     private val customAttributes: CustomAttributes
     private val imageContainer: FrameLayout
     private val textView: TextView
-
-    constructor(context: Context) : super(context) {
-        customAttributes = customAttributesFrom(context, null)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        customAttributes = customAttributesFrom(context, attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        customAttributes = customAttributesFrom(context, attrs)
-    }
 
     private fun customAttributesFrom(context: Context, attrs: AttributeSet?): CustomAttributes {
         val res = context.resources
@@ -68,6 +60,7 @@ class SpeakersSummaryLayout : LinearLayout {
     }
 
     init {
+        customAttributes = customAttributesFrom(context, attrs)
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
         
