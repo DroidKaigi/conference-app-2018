@@ -5,7 +5,7 @@
     <!-- NavigationDrawer -->
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
-    <string name="nav_item_contributor">コントリビュータ一覧</string>
+    <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_all_survey">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
@@ -57,4 +57,7 @@
 
     <!-- Topic -->
     <string name="topic_total_session">%dセッション</string>
+
+    <!-- Contributors -->
+    <string name="contributors">コントリビュータ一覧</string>
 </resources>

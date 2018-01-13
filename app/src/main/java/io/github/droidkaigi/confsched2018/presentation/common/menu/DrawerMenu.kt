@@ -38,6 +38,7 @@ class DrawerMenu @Inject constructor(
                 R.id.nav_item_setting -> navigationController.navigateToSettingsActivity()
                 R.id.nav_item_sponsor -> navigationController.navigateToSponsorsActivity()
                 R.id.nav_item_info -> navigationController.navigateToAboutThisAppActivity()
+                R.id.nav_item_contributor -> navigationController.navigateToContributorActivity()
             }
             drawerLayout.closeDrawers()
             true
