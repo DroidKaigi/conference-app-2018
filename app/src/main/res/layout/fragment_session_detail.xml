@@ -78,89 +78,15 @@
                 tools:text="初心者向け"
                 />
 
-            <ImageView
-                android:id="@+id/speaker_image_5"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_4"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_4"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_3"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_3"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_2"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_2"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_1"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_1"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/level_background"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <TextView
-                android:id="@+id/speakers"
+            <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.App.Body2"
-                android:textColor="@color/app_bar_text_color"
-                app:layout_constraintBottom_toBottomOf="@id/speaker_image_1"
+                app:speakers="@{session.speakers}"
+                app:textColor="@color/app_bar_text_color"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/speaker_image_5"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                app:layout_goneMarginStart="36dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/level_background"
                 />
         </android.support.constraint.ConstraintLayout>
         <android.support.v4.widget.NestedScrollView
