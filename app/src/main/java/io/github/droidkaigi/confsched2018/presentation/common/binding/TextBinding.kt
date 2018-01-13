@@ -7,21 +7,28 @@ import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 
-@BindingAdapter(value = ["bind:startDate", "bind:endDate", "bind:postFix"])
-fun TextView.setPeriodText(startDate: Date?, endDate: Date?, postFix: String) {
+@BindingAdapter(value = ["bind:startDate", "bind:endDate"])
+fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
     startDate ?: return
     endDate ?: return
     text = context.getString(
             R.string.time_period,
             startDate.toReadableTimeString(),
-            endDate.toReadableTimeString(),
-            postFix
+            endDate.toReadableTimeString()
     )
 }
 
-@BindingAdapter(value = ["bind:startDate", "bind:endDate"])
-fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
-    setPeriodText(startDate, endDate, "")
+@BindingAdapter(value = ["bind:prefix", "bind:roomName"])
+fun TextView.setRoomText(prefix: String?, roomName: String?) {
+    prefix ?: return
+    text = when(roomName) {
+        null -> ""
+        else -> context.getString(
+                R.string.room_format,
+                prefix,
+                roomName
+        )
+    }
 }
 
 @BindingAdapter(value = ["android:text"])
