@@ -63,7 +63,7 @@ class SessionsFragment : Fragment(), Injectable {
                     Timber.d(result.e)
                     Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_LONG).apply {
                         setAction(R.string.session_load_retry) {
-                            sessionsViewModel.refreshSessions()
+                            sessionsViewModel.onRetrySessions()
                         }
                     }.show()
                 }

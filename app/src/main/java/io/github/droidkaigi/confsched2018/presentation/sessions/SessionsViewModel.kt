@@ -37,7 +37,11 @@ class SessionsViewModel @Inject constructor(
         refreshSessions()
     }
 
-    fun refreshSessions() {
+    fun onRetrySessions() {
+        refreshSessions()
+    }
+
+    private fun refreshSessions() {
         repository
                 .refreshSessions()
                 .toResult<Unit>(schedulerProvider)
