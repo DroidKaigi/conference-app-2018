@@ -58,5 +58,9 @@
     <string name="speaker_title_activity_detail">Speaker</string>
 
     <!-- Topic -->
-    <string name="topic_total_session">%dsessions</string>
+    <plurals name="topic_total_session">
+        <item quantity="zero">%dsession</item>
+        <item quantity="one">%dsession</item>
+        <item quantity="other">%dsessions</item>
+    </plurals>
 </resources>
