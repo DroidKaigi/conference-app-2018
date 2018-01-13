@@ -64,12 +64,17 @@ class AllSessionsFragment : Fragment(), Injectable {
 
         sessionsViewModel.sessions.observe(this, { result ->
             when (result) {
+                is Result.InProgress -> {
+                    binding.progress.show()
+                }
                 is Result.Success -> {
+                    binding.progress.hide()
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
+                    binding.progress.hide()
                 }
             }
         })
