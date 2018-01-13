@@ -30,7 +30,7 @@ import javax.inject.Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://sessionize.com/api/v2/xtj7shk8/view/")
+                .baseUrl("https://droidkaigi.jp/2018/sessionize/")
                 .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
                         .add(ApplicationJsonAdapterFactory.INSTANCE)
                         .add(LocalDateTime::class.java, LocalDateTimeAdapter())
