@@ -27,7 +27,8 @@ class SessionsViewModel @Inject constructor(
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
-    val refreshResult: MutableLiveData<Result<Unit>> = MutableLiveData()
+    private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
+    val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -37,7 +38,7 @@ class SessionsViewModel @Inject constructor(
                 .refreshSessions()
                 .toResult<Unit>(schedulerProvider)
                 .subscribeBy(
-                        onNext = { refreshResult.value = it },
+                        onNext = { mutableRefreshState.value = it },
                         onError = defaultErrorHandler()
                 )
                 .addTo(compositeDisposable)
