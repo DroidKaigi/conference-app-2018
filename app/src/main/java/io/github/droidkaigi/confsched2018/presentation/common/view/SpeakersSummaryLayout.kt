@@ -111,14 +111,15 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
 
     private fun createIconImageView(speaker: Speaker, index: Int): View {
         return ImageView(context).also { imageView ->
-            imageView.layoutParams = FrameLayout.LayoutParams(customAttributes.imageSize, customAttributes.imageSize).also { lp ->
-                lp.marginStart = index * customAttributes.imageSize * 3 / 4
+            val imageSize = customAttributes.imageSize
+            imageView.layoutParams = FrameLayout.LayoutParams(imageSize, imageSize).also { lp ->
+                lp.marginStart = index * imageSize * 3 / 4
             }
             CustomGlideApp
                     .with(this)
                     .load(speaker.imageUrl)
                     .placeholder(R.drawable.ic_person_black_24dp)
-                    .override(customAttributes.imageSize, customAttributes.imageSize)
+                    .override(imageSize, imageSize)
                     .dontAnimate()
                     .transform(CircleCrop())
                     .into(imageView)
