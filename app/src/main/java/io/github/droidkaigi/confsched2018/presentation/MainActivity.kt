@@ -47,14 +47,15 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
                 0F
             }
             supportActionBar?.apply {
+                title = null
                 if (navigationItem.imageRes != null) {
                     setDisplayShowHomeEnabled(true)
                     setIcon(navigationItem.imageRes)
-                    title = null
+                    binding.toolbarTitle.text = null
                 } else {
                     setDisplayShowHomeEnabled(false)
                     setIcon(null)
-                    title = item.title
+                    binding.toolbarTitle.text = item.title
                 }
             }
 
