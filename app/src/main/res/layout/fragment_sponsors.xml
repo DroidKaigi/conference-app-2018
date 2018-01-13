@@ -11,25 +11,23 @@
         tools:showIn="@layout/activity_sponsors"
         >
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            ></android.support.v7.widget.Toolbar>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sponsor_recycler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingEnd="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
             />
 
         <TextView
+            android:id="@+id/emptyView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

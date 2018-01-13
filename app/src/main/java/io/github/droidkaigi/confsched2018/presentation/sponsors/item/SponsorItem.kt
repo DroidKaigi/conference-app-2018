@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.presentation.sponsors.item
 
 import android.webkit.URLUtil
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSponsorBinding
@@ -15,6 +16,10 @@ data class SponsorItem(
 ) {
 
     override fun bind(viewBinding: ItemSponsorBinding, position: Int) {
+        val lp = viewBinding.root.layoutParams as? FlexboxLayoutManager.LayoutParams ?: throw AssertionError("LayoutManager was changed")
+
+        lp.flexBasisPercent = 0.5f
+
         // FIXME into Databinding adapters
         if (URLUtil.isNetworkUrl(sponsor.imageUri.uri)) {
             CustomGlideApp
