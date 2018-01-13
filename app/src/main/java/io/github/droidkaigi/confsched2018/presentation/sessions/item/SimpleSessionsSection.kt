@@ -15,7 +15,13 @@ class SimpleSessionsSection(val fragment: Fragment) : Section() {
             when (it) {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
-                    SpeechSessionItem(it, onFavoriteClickListener, fragment, true, searchQuery) as Item<*>
+                    SpeechSessionItem(
+                            it,
+                            onFavoriteClickListener,
+                            fragment,
+                            true,
+                            searchQuery
+                    ) as Item<*>
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")
