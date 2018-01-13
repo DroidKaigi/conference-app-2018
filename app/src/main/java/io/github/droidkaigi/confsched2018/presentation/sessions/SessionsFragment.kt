@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
@@ -62,7 +61,7 @@ class SessionsFragment : Fragment(), Injectable {
                 is Result.Failure -> {
                     // If user is offline, not error. So we write log to debug
                     Timber.d(result.e)
-                    Snackbar.make(view, R.string.session_fetch_failed, Toast.LENGTH_SHORT).show()
+                    Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_SHORT).show()
                 }
             }
         })
