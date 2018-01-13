@@ -6,11 +6,7 @@ import android.arch.lifecycle.LifecycleRegistry
 
 class TestLifecycleOwner : LifecycleOwner {
 
-    private val lifecycle: LifecycleRegistry
-
-    init {
-        lifecycle = LifecycleRegistry(this)
-    }
+    private val lifecycle: LifecycleRegistry = LifecycleRegistry(this)
 
     override fun getLifecycle(): Lifecycle = lifecycle
 
