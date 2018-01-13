@@ -39,7 +39,7 @@ class FavoriteSessionsViewModelTest {
     @Test fun sessions_Basic() {
         val favoritedSession = mock<Session.SpeechSession>()
         whenever(favoritedSession.isFavorited).doReturn(true)
-        val sessions = listOf(mock<Session>(), favoritedSession, mock<Session>())
+        val sessions = listOf(mock<Session>(), favoritedSession, mock())
         whenever(repository.sessions).doReturn(Flowable.just(sessions))
         viewModel = FavoriteSessionsViewModel(repository, TestSchedulerProvider())
         val result: Observer<Result<List<Session.SpeechSession>>> = mock()
