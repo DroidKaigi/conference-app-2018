@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2018.presentation.sessions
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -26,13 +27,20 @@ class SessionsViewModel @Inject constructor(
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
+    private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
+    val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         repository
                 .refreshSessions()
-                .subscribeBy(onError = defaultErrorHandler())
+                .toResult<Unit>(schedulerProvider)
+                .subscribeBy(
+                        onNext = { mutableRefreshState.value = it },
+                        onError = defaultErrorHandler()
+                )
                 .addTo(compositeDisposable)
     }
 
