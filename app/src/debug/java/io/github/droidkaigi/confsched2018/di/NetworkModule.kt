@@ -17,20 +17,20 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-@Module internal class NetworkModule {
+@Module internal object NetworkModule {
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
             .addNetworkInterceptor(HttpLoggingInterceptor()
                     .setLevel(HttpLoggingInterceptor.Level.BODY))
             .addNetworkInterceptor(StethoInterceptor())
             .build()
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://sessionize.com/api/v2/xtj7shk8/view/")
+                .baseUrl("https://droidkaigi.jp/2018/sessionize/")
                 .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
                         .add(ApplicationJsonAdapterFactory.INSTANCE)
                         .add(LocalDateTime::class.java, LocalDateTimeAdapter())
@@ -39,11 +39,11 @@ import javax.inject.Singleton
                 .build()
     }
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi {
         return retrofit.create(DroidKaigiApi::class.java)
     }
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideFeedApi(): FeedApi = FeedFireStoreApi()
 }

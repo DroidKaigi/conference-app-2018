@@ -63,9 +63,8 @@
                 app:layout_constraintTop_toTopOf="@id/day_number"
                 app:layout_goneMarginStart="12dp"
                 app:layout_goneMarginTop="16dp"
-                app:postFix='@{" / "}'
                 app:startDate="@{session.startTime}"
-                tools:text="10:30 - 11:00 / "
+                tools:text="10:30 - 11:00"
                 />
 
             <TextView
@@ -73,25 +72,28 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                android:text="@{session.room.name}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
-                tools:text="Room A"
+                app:prefix='@{" / "}'
+                app:roomName="@{session.room.name}"
+                tools:text=" / Room A"
                 />
 
             <TextView
                 android:id="@+id/level"
                 android:layout_width="wrap_content"
-                android:layout_height="18dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
-                android:background="#64ffda"
+                android:background="@drawable/shape_round_corner_2dp"
                 android:gravity="center"
                 android:maxLines="3"
+                android:paddingBottom="4dp"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:textAppearance="@style/TextAppearance.App.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -123,6 +125,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:ellipsize="end"
+                android:includeFontPadding="false"
                 android:maxLines="3"
                 android:text="@{session.desc}"
                 android:textAppearance="@style/TextAppearance.App.Caption"

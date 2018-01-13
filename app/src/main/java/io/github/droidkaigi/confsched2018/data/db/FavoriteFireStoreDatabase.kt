@@ -27,7 +27,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            if (DEBUG) Timber.d("FireStore:Get chached user")
+            if (DEBUG) Timber.d("FireStore:Get cached user")
             e.onSuccess(currentUser)
             return@create
         }
@@ -44,7 +44,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
     })
 
     override fun favorite(session: Session): Single<Boolean> = if (!isInitialized) {
-        Single.error(NotPrepairedException())
+        Single.error(NotPreparedException())
     } else {
         getCurrentUser().flatMap { currentUser ->
             return@flatMap Single.create<Boolean>({ e ->
@@ -61,10 +61,10 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                         val completeListener: (Task<Void>) -> Unit = {
                             val exception = it.exception
                             if (exception != null) {
-                                if (DEBUG) Timber.d(exception, "FireStore:favorite wirte fail")
+                                if (DEBUG) Timber.d(exception, "FireStore:favorite write fail")
                                 e.onError(exception)
                             } else {
-                                if (DEBUG) Timber.d("FireStore:favorite wirte success")
+                                if (DEBUG) Timber.d("FireStore:favorite write success")
                                 e.onSuccess(newFavorite)
                             }
                         }
@@ -112,7 +112,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                 if (!task.result.isEmpty) {
                     // FIXME: I want to create document without setting value
                     favorites.add(mapOf("initialized" to true)).addOnCompleteListener {
-                        if (DEBUG) Timber.d("FireStore:create document for listeing")
+                        if (DEBUG) Timber.d("FireStore:create document for listing")
                         e.onSuccess(currentUser)
                     }
                 } else {
@@ -164,7 +164,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
         })
     }
 
-    class NotPrepairedException : RuntimeException()
+    class NotPreparedException : RuntimeException()
 
     companion object {
         private const val DEBUG: Boolean = false

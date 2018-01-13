@@ -32,7 +32,7 @@ fun List<Session>?.toSessionEntities(
         }
 
 fun Session.toSessionEntity(categories: List<Category>?, rooms: List<Room>?): SessionEntity {
-    val sessionFormt = categories.category(0, categoryItems!![0])
+    val sessionFormat = categories.category(0, categoryItems!![0])
     val language = categories.category(1, categoryItems[1])
     val topic = categories.category(2, categoryItems[2])
     val level = categories.category(3, categoryItems[3])
@@ -42,7 +42,7 @@ fun Session.toSessionEntity(categories: List<Category>?, rooms: List<Room>?): Se
             desc = description!!,
             stime = startsAt!!,
             etime = endsAt!!,
-            sessionFormat = sessionFormt.name!!,
+            sessionFormat = sessionFormat.name!!,
             language = language.name!!,
             topic = TopicEntity(topic.id!!, topic.name!!),
             level = LevelEntity(level.id!!, level.name!!),

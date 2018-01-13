@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.support.multidex.MultiDexApplication
 import android.support.v7.app.AppCompatDelegate
-import com.facebook.stetho.Stetho
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
@@ -13,7 +12,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.di.AppInjector
-import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
 
@@ -23,18 +21,11 @@ open class App : MultiDexApplication(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        setupTimber()
         setupFirebase()
         setupVectorDrawable()
         setupThreeTenABP()
-        setupLeakCanary()
         setupDagger()
-        setupStetho()
         setupCalligraphy()
-    }
-
-    private fun setupTimber() {
-        Timber.plant(Timber.DebugTree())
     }
 
     private fun setupFirebase() {
@@ -53,14 +44,6 @@ open class App : MultiDexApplication(), HasActivityInjector {
 
     private fun setupThreeTenABP() {
         AndroidThreeTen.init(this)
-    }
-
-    private fun setupStetho() {
-        Stetho.initializeWithDefaults(this)
-    }
-
-    open fun setupLeakCanary() {
-        // override
     }
 
     open fun setupDagger() {

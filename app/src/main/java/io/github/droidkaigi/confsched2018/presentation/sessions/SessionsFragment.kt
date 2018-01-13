@@ -3,12 +3,14 @@ package io.github.droidkaigi.confsched2018.presentation.sessions
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
@@ -54,6 +56,16 @@ class SessionsFragment : Fragment(), Injectable {
                 }
             }
         })
+        sessionsViewModel.refreshResult.observe(this, { result ->
+            when (result) {
+                is Result.Failure -> {
+                    // If user is offline, not error. So we write log to debug
+                    Timber.d(result.e)
+                    Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_SHORT).show()
+                }
+            }
+        })
+
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
