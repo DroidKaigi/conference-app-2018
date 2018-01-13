@@ -1,8 +1,10 @@
 package io.github.droidkaigi.confsched2018.presentation
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
@@ -106,5 +108,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateToTopicDetailActivity(topicId: Int) {
         TopicDetailActivity.start(activity, topicId)
+    }
+
+    // TODO add this in about fragment
+    fun navigateToOssLicensesMenuActivity() {
+        activity.startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
     }
 }
