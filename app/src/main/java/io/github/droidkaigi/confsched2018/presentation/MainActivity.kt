@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
+import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
 import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLolipop
 import javax.inject.Inject
 
@@ -34,7 +35,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
-
+        binding.bottomNavigation.disableShiftMode()
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->
             val navigationItem = BottomNavigationItem
