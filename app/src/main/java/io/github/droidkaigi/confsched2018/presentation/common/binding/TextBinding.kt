@@ -21,13 +21,8 @@ fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
 @BindingAdapter(value = ["bind:prefix", "bind:roomName"])
 fun TextView.setRoomText(prefix: String?, roomName: String?) {
     prefix ?: return
-    text = when (roomName) {
-        null -> ""
-        else -> context.getString(
-                R.string.room_format,
-                prefix,
-                roomName
-        )
+    text = when (roomName) { null -> ""
+        else -> context.getString(R.string.room_format, prefix, roomName)
     }
 }
 
