@@ -62,7 +62,7 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     private fun updateAppBarLayout(topic: Topic, total: Int) {
-        binding.total = getString(R.string.topic_total_session, total)
+        binding.total = resources.getQuantityString(R.plurals.topic_total_session, total, total)
         if (lang() == Lang.JA) {
             binding.topicName.text = topic.getNameByLang(Lang.JA)
             binding.topicTranslation.text = topic.getNameByLang(Lang.EN)
