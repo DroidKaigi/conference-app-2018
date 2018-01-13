@@ -40,6 +40,12 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
+
     companion object {
         const val EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID"
         fun start(context: Context, speakerId: String) {
