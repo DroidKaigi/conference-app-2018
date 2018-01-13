@@ -7,7 +7,7 @@
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
-    <string name="nav_item_contributor">Contributors</string>
+    <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_all_survey">Conference survey</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
@@ -57,4 +57,7 @@
 
     <!-- Topic -->
     <string name="topic_total_session">%dsessions</string>
+
+    <!-- Contributors -->
+    <string name="contributors">Contributors</string>
 </resources>
