@@ -36,16 +36,28 @@
             >
 
             <TextView
-                android:id="@+id/period"
+                android:id="@+id/day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.App.Caption"
-                app:endDate="@{session.endTime}"
+                app:dayNumber="@{session.dayNumber}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:suffix='@{" / "}'
+                tools:text="DAY1 / "
+                />
+
+            <TextView
+                android:id="@+id/period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:endDate="@{session.endTime}"
+                app:layout_constraintStart_toEndOf="@id/day"
+                app:layout_constraintTop_toTopOf="@id/day"
                 app:startDate="@{session.startTime}"
                 tools:text="10:30 - 11:00"
                 />
