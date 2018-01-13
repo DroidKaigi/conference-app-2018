@@ -44,7 +44,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
     })
 
     override fun favorite(session: Session): Single<Boolean> = if (!isInitialized) {
-        Single.error(NotPrepairedException())
+        Single.error(NotPreparedException())
     } else {
         getCurrentUser().flatMap { currentUser ->
             return@flatMap Single.create<Boolean>({ e ->
@@ -164,7 +164,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
         })
     }
 
-    class NotPrepairedException : RuntimeException()
+    class NotPreparedException : RuntimeException()
 
     companion object {
         private const val DEBUG: Boolean = false
