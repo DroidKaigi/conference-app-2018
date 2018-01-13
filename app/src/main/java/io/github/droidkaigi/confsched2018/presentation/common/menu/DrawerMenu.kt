@@ -20,18 +20,19 @@ class DrawerMenu @Inject constructor(
             actionBarDrawerSync: Boolean = false
     ) {
         if (actionBarDrawerSync) {
-            val actionBarDrawerToggle = ActionBarDrawerToggle(
+            ActionBarDrawerToggle(
                     activity,
                     drawerLayout,
                     toolbar,
                     R.string.nav_content_description_drawer_open,
                     R.string.nav_content_description_drawer_close
-            )
-            actionBarDrawerToggle.isDrawerIndicatorEnabled = true
-            actionBarDrawerToggle.isDrawerSlideAnimationEnabled = true
-            drawerLayout.addDrawerListener(
-                    actionBarDrawerToggle)
-            actionBarDrawerToggle.syncState()
+            ).also {
+                drawerLayout.addDrawerListener(it)
+            }.apply {
+                isDrawerIndicatorEnabled = true
+                isDrawerSlideAnimationEnabled = true
+                syncState()
+            }
         }
         navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
