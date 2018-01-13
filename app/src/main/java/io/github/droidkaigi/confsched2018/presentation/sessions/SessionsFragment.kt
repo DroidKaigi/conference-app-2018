@@ -43,7 +43,7 @@ class SessionsFragment : Fragment(), Injectable {
                 .get(SessionsViewModel::class.java)
 
         val progressTimeLatch = ProgressTimeLatch {
-            binding.progress.visibility = if(it) View.VISIBLE else View.GONE
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
         progressTimeLatch.loading = true
         sessionsViewModel.rooms.observe(this, { result ->

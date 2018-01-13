@@ -64,7 +64,7 @@ class AllSessionsFragment : Fragment(), Injectable {
         setupRecyclerView()
 
         val progressTimeLatch = ProgressTimeLatch {
-            binding.progress.visibility = if(it) View.VISIBLE else View.GONE
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
         progressTimeLatch.loading = true
         sessionsViewModel.sessions.observe(this, { result ->
