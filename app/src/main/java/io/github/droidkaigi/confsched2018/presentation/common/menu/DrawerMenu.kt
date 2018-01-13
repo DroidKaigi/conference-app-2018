@@ -28,6 +28,7 @@ class DrawerMenu @Inject constructor(
                     R.string.nav_content_description_drawer_close
             )
             actionBarDrawerToggle.isDrawerIndicatorEnabled = true
+            actionBarDrawerToggle.isDrawerSlideAnimationEnabled = true
             drawerLayout.addDrawerListener(
                     actionBarDrawerToggle)
             actionBarDrawerToggle.syncState()
