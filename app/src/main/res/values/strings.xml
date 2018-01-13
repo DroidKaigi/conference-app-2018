@@ -18,7 +18,6 @@
     <string name="session_special_welcome_talk">Welcome talk</string>
     <string name="session_special_lunch">Lunch</string>
     <string name="session_special_party">Party</string>
-    <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
 
     <!-- Session detail -->

@@ -41,31 +41,6 @@ class HorizontalSessionItem(
     override fun bind(viewBinding: ItemHorizontalSessionBinding, position: Int) {
         viewBinding.session = session
         viewBinding.level.text = session.level.getNameByLang(lang())
-        val speakerImages = arrayOf(
-                viewBinding.speakerImage1,
-                viewBinding.speakerImage2,
-                viewBinding.speakerImage3,
-                viewBinding.speakerImage4,
-                viewBinding.speakerImage5
-        )
-        speakerImages.forEachIndexed { index, imageView ->
-            if (index < session.speakers.size) {
-                imageView.toVisible()
-                val size = viewBinding.root.resources.getDimensionPixelSize(R.dimen.speaker_image)
-                CustomGlideApp
-                        .with(fragment)
-                        .load(session.speakers[index].imageUrl)
-                        .placeholder(R.drawable.ic_person_black_24dp)
-                        .override(size, size)
-                        .dontAnimate()
-                        .transform(CircleCrop())
-                        .into(imageView)
-            } else {
-                imageView.toGone()
-            }
-        }
-
-        viewBinding.speakers.text = session.speakers.joinToString { it.name }
         viewBinding.root.setOnClickListener { view ->
             onItemClickListener.onItemClick(this, view)
         }
