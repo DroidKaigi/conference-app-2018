@@ -15,13 +15,15 @@ data class SpeechSessionItem(
         override val session: Session.SpeechSession,
         private val onFavoriteClickListener: (Session.SpeechSession) -> Unit,
         private val fragment: Fragment,
-        private val isShowDayNumber: Boolean = false
+        private val isShowDayNumber: Boolean = false,
+        private val searchQuery: String = ""
 ) : BindableItem<ItemSpeechSessionBinding>(
         session.id.toLong()
 ), SessionItem {
 
     override fun bind(viewBinding: ItemSpeechSessionBinding, position: Int) {
         viewBinding.session = session
+        viewBinding.searchQuery = searchQuery
         viewBinding.topic.text = session.topic.name
         viewBinding.level.text = session.level.getNameByLang(lang())
         viewBinding.favorite.setOnClickListener {

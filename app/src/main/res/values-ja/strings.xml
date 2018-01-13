@@ -21,6 +21,7 @@
     <string name="session_fetch_failed">セッションの取得に失敗しました</string>
     <string name="session_content_description_speaker">スピーカーの画像</string>
     <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
+    <string name="session_load_retry">リトライ</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
