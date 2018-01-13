@@ -40,9 +40,7 @@
 
         <android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/progress"
-            style="?android:attr/android:progressBarStyleLarge"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            style="@style/ProgressBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
