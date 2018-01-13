@@ -40,8 +40,9 @@
             tools:listitem="@layout/item_speech_session"
             />
 
-        <android.support.v4.widget.ContentLoadingProgressBar
+        <ProgressBar
             android:id="@+id/progress"
+            android:visibility="gone"
             style="@style/ProgressBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
