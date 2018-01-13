@@ -54,13 +54,13 @@
                 android:id="@+id/room"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:maxLines="3"
-                android:text="@{session.room.name}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
-                tools:text="Room A"
+                app:prefix='@{" / "}'
+                app:roomName="@{session.room.name}"
+                tools:text=" / Room A"
                 />
 
             <TextView
