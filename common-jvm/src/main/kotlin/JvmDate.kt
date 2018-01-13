@@ -42,8 +42,8 @@ actual class Date {
 
 actual operator fun Date.compareTo(otherDate: Date): Int = date.compareTo(otherDate.date)
 
-val readableDateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
-val readableTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-actual fun Date.toReadableDateString() = readableDateFormat.format(date)
-actual fun Date.toReadableTimeString() = readableTimeFormat.format(date)
+fun readableDateFormat() = SimpleDateFormat("MM/dd", Locale.getDefault())
+fun readableTimeFormat() = SimpleDateFormat("HH:mm", Locale.getDefault())
+actual fun Date.toReadableDateString() = readableDateFormat().format(date)
+actual fun Date.toReadableTimeString() = readableTimeFormat().format(date)
 actual fun parseDate(timeInMills: Long): Date = Date(timeInMills)
