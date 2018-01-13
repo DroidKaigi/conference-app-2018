@@ -31,7 +31,6 @@ fun <T> Single<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Res
     return toObservable().toResult(schedulerProvider)
 }
 
-
 fun <T> Completable.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> {
     return toObservable<T>().toResult(schedulerProvider)
 }
