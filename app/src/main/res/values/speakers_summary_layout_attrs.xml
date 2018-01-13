@@ -3,7 +3,7 @@
     <declare-styleable name="SpeakersSummaryLayout">
         <attr name="max_icon_count" format="integer" />
         <attr name="image_size" format="dimension" />
-        <attr name="textColor" format="reference" />
+        <attr name="textColor" format="color" />
     </declare-styleable>
     <integer name="default_speakers_summary_layout_max_icon_count">5</integer>
     <dimen name="default_speakers_summary_layout_image_size">28dp</dimen>

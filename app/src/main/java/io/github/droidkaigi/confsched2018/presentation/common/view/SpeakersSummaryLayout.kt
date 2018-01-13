@@ -21,7 +21,7 @@ import io.github.droidkaigi.confsched2018.util.CustomGlideApp
  * ref: https://github.com/DroidKaigi/conference-app-2018/issues/61
  */
 class SpeakersSummaryLayout : LinearLayout {
-    data class CustomAttributes(val maxIcons: Int, val imageSize: Int)
+    data class CustomAttributes(val maxIcons: Int, val imageSize: Int, val textColor: Int)
 
     private val speakerList: ArrayList<Speaker> = ArrayList()
     private val customAttributes: CustomAttributes
@@ -44,7 +44,8 @@ class SpeakersSummaryLayout : LinearLayout {
         val res = context.resources
         val defaultAttributes = CustomAttributes(
                 maxIcons = res.getInteger(R.integer.default_speakers_summary_layout_max_icon_count),
-                imageSize = res.getDimensionPixelSize(R.dimen.default_speakers_summary_layout_image_size)
+                imageSize = res.getDimensionPixelSize(R.dimen.default_speakers_summary_layout_image_size),
+                textColor = 0
         )
 
         return attrs?.let {
@@ -54,11 +55,14 @@ class SpeakersSummaryLayout : LinearLayout {
                     defaultAttributes.maxIcons)
             val imageSize = a.getDimensionPixelSize(R.styleable.SpeakersSummaryLayout_image_size,
                     defaultAttributes.imageSize)
+            val textColor = a.getColor(R.styleable.SpeakersSummaryLayout_textColor,
+                    defaultAttributes.textColor)
             a.recycle()
 
             return CustomAttributes(
                     maxIcons = maxIcons,
-                    imageSize = imageSize
+                    imageSize = imageSize,
+                    textColor = textColor
             )
         } ?: defaultAttributes
     }
@@ -131,6 +135,9 @@ class SpeakersSummaryLayout : LinearLayout {
             textView.visibility = View.GONE
         } else {
             textView.text = speakerList.joinToString { it.name }
+            if (customAttributes.textColor != 0) {
+                textView.setTextColor(customAttributes.textColor)
+            }
             textView.visibility = View.VISIBLE
         }
 

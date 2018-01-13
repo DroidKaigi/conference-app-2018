@@ -82,6 +82,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:speakers="@{session.speakers}"
+                app:textColor="@color/app_bar_text_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
