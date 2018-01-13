@@ -15,9 +15,9 @@ import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import javax.inject.Singleton
 
 @Module(includes = [(ViewModelModule::class)])
-internal class AppModule {
+internal object AppModule {
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideSessionRepository(
             api: DroidKaigiApi,
             sessionDatabase: SessionDatabase,
@@ -26,12 +26,12 @@ internal class AppModule {
     ): SessionRepository =
             SessionDataRepository(api, sessionDatabase, favoriteDatabase, schedulerProvider)
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideFeedRepository(
             feedApi: FeedApi
     ): FeedRepository =
             FeedDataRepository(feedApi)
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
 }
