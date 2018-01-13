@@ -87,8 +87,15 @@ class SearchFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val searchResult = result.data
-                    sessionsSection.updateSessions(searchResult.sessions, onFavoriteClickListener)
-                    speakersSection.updateSpeakers(searchResult.speakers)
+                    sessionsSection.updateSessions(
+                            searchResult.sessions,
+                            onFavoriteClickListener,
+                            searchViewModel.searchQuery
+                    )
+                    speakersSection.updateSpeakers(
+                            searchResult.speakers,
+                            searchViewModel.searchQuery
+                    )
                     binding.sessionsRecycler.scrollToPosition(0)
                 }
                 is Result.Failure -> {

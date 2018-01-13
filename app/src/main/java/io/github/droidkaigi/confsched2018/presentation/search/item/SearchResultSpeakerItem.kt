@@ -11,7 +11,8 @@ import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDa
 
 data class SearchResultSpeakerItem(
         val speaker: Speaker,
-        private val dataBindingComponent: FragmentDataBindingComponent
+        private val dataBindingComponent: FragmentDataBindingComponent,
+        private val searchQuery: String = ""
 ) : BindableItem<ItemSearchSpeakerBinding>(speaker.id.hashCode().toLong()) {
     override fun createViewHolder(itemView: View): ViewHolder<ItemSearchSpeakerBinding> {
         val viewDataBinding =
@@ -20,7 +21,8 @@ data class SearchResultSpeakerItem(
     }
 
     override fun bind(viewBinding: ItemSearchSpeakerBinding, position: Int) {
-        viewBinding.searchContent!!.speaker = speaker
+        viewBinding.searchContent?.speaker = speaker
+        viewBinding.searchQuery = searchQuery
     }
 
     override fun getLayout(): Int = R.layout.item_search_speaker
