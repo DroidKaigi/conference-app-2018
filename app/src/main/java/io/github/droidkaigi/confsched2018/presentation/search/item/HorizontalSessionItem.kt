@@ -16,7 +16,6 @@ import io.github.droidkaigi.confsched2018.util.ext.displaySize
 import io.github.droidkaigi.confsched2018.util.ext.getFloat
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
-import io.github.droidkaigi.confsched2018.util.lang
 
 class HorizontalSessionItem(
         val session: Session.SpeechSession,
@@ -40,7 +39,6 @@ class HorizontalSessionItem(
 
     override fun bind(viewBinding: ItemHorizontalSessionBinding, position: Int) {
         viewBinding.session = session
-        viewBinding.level.text = session.level.getNameByLang(lang())
         val speakerImages = arrayOf(
                 viewBinding.speakerImage1,
                 viewBinding.speakerImage2,
