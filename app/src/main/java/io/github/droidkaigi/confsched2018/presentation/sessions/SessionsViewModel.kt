@@ -34,6 +34,10 @@ class SessionsViewModel @Inject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
+        refreshSessions()
+    }
+
+    fun refreshSessions() {
         repository
                 .refreshSessions()
                 .toResult<Unit>(schedulerProvider)
