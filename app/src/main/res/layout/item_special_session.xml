@@ -63,7 +63,6 @@
                 app:layout_constraintTop_toTopOf="@id/day_number"
                 app:layout_goneMarginStart="12dp"
                 app:layout_goneMarginTop="16dp"
-                app:postFix='@{" / "}'
                 app:startDate="@{session.startTime}"
                 tools:text="10:30 - 11:00 / "
                 />
@@ -73,10 +72,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                android:text="@{session.room.name}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
+                app:prefix='@{" / "}'
+                app:roomName="@{session.room.name}"
                 tools:text="Room A"
                 />
 

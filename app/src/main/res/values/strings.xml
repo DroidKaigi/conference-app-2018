@@ -1,6 +1,7 @@
 <resources>
     <!-- Common -->
-    <string name="time_period">%1$s - %2$s%3$s</string>
+    <string name="time_period">%1$s - %2$s</string>
+    <string name="room_format" translatable="false">%1$s%2$s</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_map">Map</string>
