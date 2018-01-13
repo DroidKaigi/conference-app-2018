@@ -65,7 +65,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
         customAttributes = customAttributesFrom(context, attrs)
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
-        
+
         LayoutInflater.from(context).inflate(R.layout.view_spearkers_summary_layout, this)
         imageContainer = findViewById(R.id.speaker_image_container)
         textView = findViewById(R.id.speakers)
@@ -112,7 +112,8 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     private fun createIconImageView(speaker: Speaker, index: Int): View {
         return ImageView(context).also { imageView ->
             val imageSize = customAttributes.imageSize
-            imageView.contentDescription = context.getString(R.string.session_content_description_speaker)
+            imageView.contentDescription =
+                    context.getString(R.string.session_content_description_speaker)
             imageView.layoutParams = FrameLayout.LayoutParams(imageSize, imageSize).also { lp ->
                 lp.marginStart = index * imageSize * 3 / 4
             }
