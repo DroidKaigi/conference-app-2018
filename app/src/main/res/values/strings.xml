@@ -22,6 +22,7 @@
     <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
+    <string name="session_load_retry">Retry</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
