@@ -90,6 +90,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:lines="2"
+                android:lineSpacingExtra="@dimen/session_title_line_spacing"
                 android:text="@{session.title}"
                 android:textAppearance="@style/TextAppearance.App.Title"
                 app:layout_constraintEnd_toEndOf="parent"
