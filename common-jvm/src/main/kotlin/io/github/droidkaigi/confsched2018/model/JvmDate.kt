@@ -1,8 +1,13 @@
 package io.github.droidkaigi.confsched2018.model
 
 import java.text.SimpleDateFormat
-import java.util.*
-import java.util.Calendar.*
+import java.util.Calendar
+import java.util.Calendar.DAY_OF_MONTH
+import java.util.Calendar.HOUR_OF_DAY
+import java.util.Calendar.MINUTE
+import java.util.Calendar.MONTH
+import java.util.Calendar.YEAR
+import java.util.Locale
 
 actual class Date {
     private val calendar: Calendar
