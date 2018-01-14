@@ -49,7 +49,7 @@ class SessionDetailFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val sessions = result.data
                     val position = sessions.indexOfFirst { it.id == sessionId }
-                    bindSession(sessions.first { it.id == sessionId })
+                    bindSession(sessions[position])
                     setSessionIndicator(sessions.getOrNull(position - 1),
                             sessions.getOrNull(position + 1))
                 }
