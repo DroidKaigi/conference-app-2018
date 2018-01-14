@@ -57,6 +57,11 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
             }
         })
 
+        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val factor = (-verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
+            binding.toolbarTextColorFactor = factor
+        }
+
         navigationController.navigateToTopicDetail(intent.getIntExtra(EXTRA_TOPIC_ID, 0))
         drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
@@ -72,11 +77,11 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     private fun updateAppBarLayout(topic: Topic, total: Int) {
         binding.total = resources.getQuantityString(R.plurals.topic_total_session, total, total)
         if (lang() == Lang.JA) {
-            binding.topicName.text = topic.getNameByLang(Lang.JA)
-            binding.topicTranslation.text = topic.getNameByLang(Lang.EN)
+            binding.name = topic.getNameByLang(Lang.JA)
+            binding.translation = topic.getNameByLang(Lang.EN)
         } else {
-            binding.topicName.text = topic.getNameByLang(Lang.EN)
-            binding.topicTranslation.text = topic.getNameByLang(Lang.JA)
+            binding.name = topic.getNameByLang(Lang.EN)
+            binding.translation = topic.getNameByLang(Lang.JA)
         }
     }
 
