@@ -45,18 +45,18 @@ class SessionsFragment : Fragment(), Injectable {
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        progressTimeLatch.loading = true
         sessionsViewModel.rooms.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    progressTimeLatch.loading = false
                     sessionsViewPagerAdapter.setRooms(result.data)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
-                    progressTimeLatch.loading = false
                 }
             }
+        })
+        sessionsViewModel.isLoading.observe(this, { isLoading ->
+            progressTimeLatch.loading = isLoading ?: false
         })
         sessionsViewModel.refreshResult.observe(this, { result ->
             when (result) {
