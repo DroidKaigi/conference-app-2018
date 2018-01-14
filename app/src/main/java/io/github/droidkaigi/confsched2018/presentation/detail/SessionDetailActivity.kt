@@ -25,7 +25,9 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SessionDetailActivity :
-        BaseActivity(), HasSupportFragmentInjector, SessionDetailFragment.OnClickBottomAreaListener {
+        BaseActivity(),
+        HasSupportFragmentInjector,
+        SessionDetailFragment.OnClickBottomAreaListener {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
