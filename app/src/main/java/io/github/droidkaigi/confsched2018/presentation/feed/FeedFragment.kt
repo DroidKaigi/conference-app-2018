@@ -92,7 +92,6 @@ class FeedFragment : Fragment(), Injectable {
         }
             binding.feedRecycler.apply {
                 adapter = groupAdapter
-
                 addDivider()
             }
     }
