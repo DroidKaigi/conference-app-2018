@@ -25,7 +25,6 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
-import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultItemDecoration
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultSpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchSpeakersSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
@@ -123,7 +122,6 @@ class SearchFragment : Fragment(), Injectable {
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
-            addItemDecoration(SearchResultItemDecoration())
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
     }
