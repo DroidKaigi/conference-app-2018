@@ -9,7 +9,6 @@ import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposables
 import javax.inject.Inject
 
 class SponsorsViewModel @Inject constructor(
@@ -20,9 +19,6 @@ class SponsorsViewModel @Inject constructor(
 
     val sponsors: LiveData<Result<List<SponsorPlan>>> by lazy {
         sponsorPlanRepository.sponsorPlans()
-                .doOnSubscribe {
-                    compositeDisposable.add(Disposables.fromSubscription(it))
-                }
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
