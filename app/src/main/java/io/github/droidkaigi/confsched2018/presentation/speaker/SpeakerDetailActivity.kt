@@ -35,6 +35,9 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
         }
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
         navigationController.navigateToSpeakerDetail(intent.getStringExtra(EXTRA_SPEAKER_ID))
         drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
