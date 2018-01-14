@@ -92,7 +92,7 @@ dependencies {
     kapt 'android.arch.persistence.room:compiler:1.0.0'
 
     // RxJava
-    implementation "io.reactivex.rxjava2:rxjava:2.1.6"
+    implementation "io.reactivex.rxjava2:rxjava:2.1.8"
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
@@ -121,7 +121,7 @@ dependencies {
 
     // Firebase
     // Adjust version for emulator
-    def firebaseVersion = '11.4.2'
+    def firebaseVersion = '11.6.2'
     implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
     implementation "com.google.firebase:firebase-auth:$firebaseVersion"
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
