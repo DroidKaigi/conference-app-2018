@@ -14,6 +14,14 @@ import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.regex.Pattern
 
+@BindingAdapter(value = ["bind:dayNumber"])
+fun TextView.setDayText(dayNumber: Int) {
+    text = context.getString(
+            R.string.session_day_title,
+            dayNumber
+    )
+}
+
 @BindingAdapter(value = ["bind:startDate", "bind:endDate"])
 fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
     startDate ?: return
