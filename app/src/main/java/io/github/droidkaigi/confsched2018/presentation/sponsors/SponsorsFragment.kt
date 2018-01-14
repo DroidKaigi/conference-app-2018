@@ -86,9 +86,9 @@ class SponsorsFragment : Fragment(), Injectable {
             }
         }
 
-        // A workaround for Groupie 2.0.0.
+        // A workaround for Groupie 2.0.0. ref: https://github.com/lisawray/groupie/issues/149
         // Update threw an IndexOutOfBoundsException when a nested section has been passed to update.
-        if (sponsorPlansSection.itemCount != 0) {
+        if (sponsorPlansSection.itemCount == 0) {
             sponsorPlansSection.addAll(items)
         }
     }
