@@ -20,7 +20,7 @@ class SponsorsViewModel @Inject constructor(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     val sponsors: LiveData<Result<List<SponsorPlan>>> by lazy {
-        sponsorPlanRepository.sponsorPlans
+        sponsorPlanRepository.sponsorPlans()
                 .doOnSubscribe {
                     compositeDisposable.add(Disposables.fromSubscription(it))
                 }
