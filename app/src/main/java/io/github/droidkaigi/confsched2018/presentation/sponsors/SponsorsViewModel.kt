@@ -11,7 +11,6 @@ import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposables
 import javax.inject.Inject
-import io.github.droidkaigi.confsched2018.data.api.response.SponsorPlan as ResponsePlan
 
 class SponsorsViewModel @Inject constructor(
         private val sponsorPlanRepository: SponsorPlanRepository,

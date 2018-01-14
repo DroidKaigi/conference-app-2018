@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.sponsors.item
 
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.util.Base64
 import com.xwray.groupie.databinding.BindableItem
@@ -19,7 +18,7 @@ data class SponsorItem(
 ), SponsorItemExt {
     override fun bind(viewBinding: ItemSponsorBinding, position: Int) {
         viewBinding.planType = planType
-        viewBinding.root.findViewById<ConstraintLayout>(R.id.constraint).adjustAspectRatioConstraint(planType, viewBinding.card)
+        viewBinding.constraint.adjustAspectRatioConstraint(planType, viewBinding.card)
 
         val (uri) = sponsor.imageUri
 
@@ -44,5 +43,6 @@ data class SponsorItem(
 
     override fun getLayout(): Int = R.layout.item_sponsor
 
-    override fun getSpanSize(spanCount: Int, position: Int): Int = getSponsorItemSpanSize(planType, spanCount)
+    override fun getSpanSize(spanCount: Int, position: Int): Int =
+            getSponsorItemSpanSize(planType, spanCount)
 }

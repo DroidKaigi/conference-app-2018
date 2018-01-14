@@ -30,7 +30,6 @@ import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
 import javax.inject.Inject
 
-
 class NavigationController @Inject constructor(private val activity: AppCompatActivity) {
     private val containerId: Int = R.id.content
     private val fragmentManager: FragmentManager = activity.supportFragmentManager
@@ -126,7 +125,11 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         val intent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
-                .setExitAnimations(activity, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .setExitAnimations(
+                        activity,
+                        android.R.anim.slide_in_left,
+                        android.R.anim.slide_out_right
+                )
                 .build()
 
         // welcome contributions :)

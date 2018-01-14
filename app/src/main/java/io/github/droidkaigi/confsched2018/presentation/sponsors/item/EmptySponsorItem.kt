@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.sponsors.item
 
-import android.support.constraint.ConstraintLayout
 import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemDummySponsorBinding
@@ -13,10 +12,11 @@ data class EmptySponsorItem(
 ), SponsorItemExt {
     override fun bind(viewBinding: ItemDummySponsorBinding, position: Int) {
         viewBinding.planType = planType
-        viewBinding.root.findViewById<ConstraintLayout>(R.id.constraint).adjustAspectRatioConstraint(planType, viewBinding.cover)
+        viewBinding.constraint.adjustAspectRatioConstraint(planType, viewBinding.cover)
     }
 
     override fun getLayout(): Int = R.layout.item_dummy_sponsor
 
-    override fun getSpanSize(spanCount: Int, position: Int): Int = getSponsorItemSpanSize(planType, spanCount)
+    override fun getSpanSize(spanCount: Int, position: Int): Int =
+            getSponsorItemSpanSize(planType, spanCount)
 }
