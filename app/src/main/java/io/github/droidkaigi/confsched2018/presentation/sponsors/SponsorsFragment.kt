@@ -15,6 +15,7 @@ import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.EmptySponsorItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItem
@@ -29,6 +30,7 @@ private const val MAX_SPAN_SIZE = 6
 class SponsorsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSponsorsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var navigationController: NavigationController
 
     private val sponsorPlansSection = Section()
 
@@ -64,8 +66,9 @@ class SponsorsFragment : Fragment(), Injectable {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             spanCount = MAX_SPAN_SIZE
             add(sponsorPlansSection)
-            setOnItemClickListener({ _, _ ->
-                //TODO
+            setOnItemClickListener({ item, _ ->
+                val url = (item as? SponsorItem)?.sponsor?.link ?: return@setOnItemClickListener
+                navigationController.navigateToExternalBrowser(url)
             })
         }
         val layoutManager = GridLayoutManager(context, MAX_SPAN_SIZE).apply {
