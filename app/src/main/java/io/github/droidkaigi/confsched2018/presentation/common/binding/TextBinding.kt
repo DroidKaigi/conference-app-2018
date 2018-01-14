@@ -15,14 +15,11 @@ import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.regex.Pattern
 
-@BindingAdapter(value = ["bind:dayNumber", "bind:suffix"])
-fun TextView.setDayText(dayNumber: Int?, suffix: String?) {
-    dayNumber ?: return
-    suffix ?: return
+@BindingAdapter(value = ["bind:dayNumber"])
+fun TextView.setDayText(dayNumber: Int) {
     text = context.getString(
-            R.string.day_number_format,
-            dayNumber,
-            suffix
+            R.string.session_day_title,
+            dayNumber
     )
 }
 

@@ -1,7 +1,6 @@
 <resources>
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
-    <string name="day_number_format" translatable="false">DAY%1$d%2$s</string>
     <string name="room_format" translatable="false">%1$s%2$s</string>
 
     <!-- NavigationDrawer -->
@@ -23,6 +22,7 @@
     <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
+    <string name="session_header_divider">" / "</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
