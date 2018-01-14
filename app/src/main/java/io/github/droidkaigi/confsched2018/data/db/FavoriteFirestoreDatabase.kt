@@ -18,7 +18,7 @@ import io.reactivex.SingleEmitter
 import io.reactivex.android.MainThreadDisposable
 import timber.log.Timber
 
-class FavoriteFireStoreDatabase : FavoriteDatabase {
+class FavoriteFirestoreDatabase : FavoriteDatabase {
 
     private var isInitialized = false
 
@@ -27,17 +27,17 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            if (DEBUG) Timber.d("FireStore:Get cached user")
+            if (DEBUG) Timber.d("Firestore:Get cached user")
             e.onSuccess(currentUser)
             return@create
         }
         auth.signInAnonymously()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        if (DEBUG) Timber.d("FireStore:Sign in Anonymously")
+                        if (DEBUG) Timber.d("Firestore:Sign in Anonymously")
                         e.onSuccess(auth.currentUser!!)
                     } else {
-                        if (DEBUG) Timber.d("FireStore:Sign in error")
+                        if (DEBUG) Timber.d("Firestore:Sign in error")
                         e.onError(task.exception!!)
                     }
                 }
@@ -52,7 +52,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                 val favorites = database.collection("users/${currentUser.uid}/favorites")
                         .document(session.id)
                 favorites.get().addOnCompleteListener({ task: Task<DocumentSnapshot> ->
-                    if (DEBUG) Timber.d("FireStore:favorite get")
+                    if (DEBUG) Timber.d("Firestore:favorite get")
                     if (task.isSuccessful) {
                         val result = task.result
                         val nowFavorite = result.exists() && (result.data[session.id] == true)
@@ -61,10 +61,10 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
                         val completeListener: (Task<Void>) -> Unit = {
                             val exception = it.exception
                             if (exception != null) {
-                                if (DEBUG) Timber.d(exception, "FireStore:favorite write fail")
+                                if (DEBUG) Timber.d(exception, "Firestore:favorite write fail")
                                 e.onError(exception)
                             } else {
-                                if (DEBUG) Timber.d("FireStore:favorite write success")
+                                if (DEBUG) Timber.d("Firestore:favorite write success")
                                 e.onSuccess(newFavorite)
                             }
                         }
@@ -99,24 +99,24 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
     @CheckResult
     private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
         return Single.create({ e: SingleEmitter<FirebaseUser> ->
-            if (DEBUG) Timber.d("FireStore:setupFavoritesDocument")
+            if (DEBUG) Timber.d("Firestore:setupFavoritesDocument")
             val database = FirebaseFirestore.getInstance()
             val favorites = database.collection("users/" + currentUser.uid + "/favorites")
             favorites.get().addOnCompleteListener { task ->
-                if (DEBUG) Timber.d("FireStore:setupFavoritesDocument onComplete")
+                if (DEBUG) Timber.d("Firestore:setupFavoritesDocument onComplete")
                 if (!task.isSuccessful) {
-                    Timber.e(task.exception!!, "FireStore:setupFavoritesDocument onComplete fail ")
+                    Timber.e(task.exception!!, "Firestore:setupFavoritesDocument onComplete fail ")
                     e.onError(task.exception!!)
                     return@addOnCompleteListener
                 }
                 if (!task.result.isEmpty) {
                     // FIXME: I want to create document without setting value
                     favorites.add(mapOf("initialized" to true)).addOnCompleteListener {
-                        if (DEBUG) Timber.d("FireStore:create document for listing")
+                        if (DEBUG) Timber.d("Firestore:create document for listing")
                         e.onSuccess(currentUser)
                     }
                 } else {
-                    if (DEBUG) Timber.d("FireStore:document already exists")
+                    if (DEBUG) Timber.d("Firestore:document already exists")
                     e.onSuccess(currentUser)
                 }
             }
@@ -130,26 +130,26 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
             if (e.isDisposed) {
                 e.onComplete()
             }
-            if (DEBUG) Timber.d("FireStore:getFavorites")
+            if (DEBUG) Timber.d("Firestore:getFavorites")
             val database = FirebaseFirestore.getInstance()
             val favorites = database.collection("users/" + currentUser.uid + "/favorites")
                     .whereEqualTo("favorite", true)
             val eventListener = EventListener<QuerySnapshot> { documentSnapshot, exception ->
                 if (exception != null) {
-                    if (DEBUG) Timber.d("FireStore:getFavorites onChange exception")
+                    if (DEBUG) Timber.d("Firestore:getFavorites onChange exception")
                     e.onError(exception)
                     return@EventListener
                 }
                 if (!documentSnapshot.isEmpty) {
-                    if (DEBUG) Timber.d("FireStore:getFavorites onChange")
+                    if (DEBUG) Timber.d("Firestore:getFavorites onChange")
                     val documents = documentSnapshot.documents
                     val favoriteSessionIds = documents
                             .mapNotNull { document -> document.id.toIntOrNull() }
                             .toList()
-                    if (DEBUG) Timber.d("FireStore:getFavorites onChange %s", favoriteSessionIds)
+                    if (DEBUG) Timber.d("Firestore:getFavorites onChange %s", favoriteSessionIds)
                     e.onNext(favoriteSessionIds)
                 } else {
-                    if (DEBUG) Timber.d("FireStore:getFavorites return empty")
+                    if (DEBUG) Timber.d("Firestore:getFavorites return empty")
                     e.onNext(listOf())
                 }
             }
@@ -157,7 +157,7 @@ class FavoriteFireStoreDatabase : FavoriteDatabase {
 
             e.setDisposable(object : MainThreadDisposable() {
                 override fun onDispose() {
-                    if (DEBUG) Timber.d("FireStore:getFavorites dispose")
+                    if (DEBUG) Timber.d("Firestore:getFavorites dispose")
                     removable.remove()
                 }
             })
