@@ -77,8 +77,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    implementation 'se.ansman.kotshi:api:0.3.0-beta1'
-    kapt 'se.ansman.kotshi:compiler:0.3.0-beta1'
+    
+    // Kotshi
+    def kotshiVersion = '0.3.0-beta1'
+    implementation "se.ansman.kotshi:api:$kotshiVersion"
+    kapt "se.ansman.kotshi:compiler:$kotshiVersion"
 
     // Android Architecture Components
     implementation 'android.arch.lifecycle:runtime:1.0.3'
@@ -131,8 +134,9 @@ dependencies {
     testImplementation 'org.threeten:threetenbp:1.3.3'
 
     // groupie for RecyclerView Adapter
-    implementation 'com.xwray:groupie-databinding:2.0.0'
-    implementation 'com.xwray:groupie:2.0.0'
+    def groupieVersion = '2.0.0'
+    implementation "com.xwray:groupie-databinding:$groupieVersion"
+    implementation "com.xwray:groupie:$groupieVersion"
 
     // MultiDex
     implementation 'com.android.support:multidex:1.0.2'
@@ -153,8 +157,9 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
 
     // Stetho
-    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
-    debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    def stethoVersion = '1.5.0'
+    debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
+    debugImplementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     // Test
     testImplementation 'junit:junit:4.12'
