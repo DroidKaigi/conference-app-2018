@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import io.github.droidkaigi.confsched2018.R
 
 fun RecyclerView.addOnScrollListener(
         onScrollStateChanged: (recyclerView: RecyclerView?, newState: Int) -> Unit,
@@ -24,9 +23,9 @@ fun RecyclerView.addOnScrollListener(
     })
 }
 
-fun RecyclerView.setDivider(@DrawableRes drawableResId: Int) {
+fun RecyclerView.setLinearDivider(@DrawableRes drawableResId: Int, linearLayoutManager: LinearLayoutManager) {
     val context = this.context
-    this.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager(context).orientation).apply {
+    this.addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation).apply {
         setDrawable(ContextCompat.getDrawable(context, drawableResId)!!)
     })
 }

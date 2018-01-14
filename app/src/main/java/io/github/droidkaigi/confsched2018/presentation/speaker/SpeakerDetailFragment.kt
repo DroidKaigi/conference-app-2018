@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDa
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
-import io.github.droidkaigi.confsched2018.util.ext.setDivider
+import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -82,7 +83,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
-            setDivider(R.drawable.shape_divider_vertical_6dp)
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp, layoutManager as LinearLayoutManager)
         }
     }
 
