@@ -5,9 +5,26 @@
     >
 
     <data>
+        <import type="io.github.droidkaigi.confsched2018.util.ColorCalculator" />
+
+        <variable
+            name="name"
+            type="String"
+            />
+
+        <variable
+            name="translation"
+            type="String"
+            />
+
         <variable
             name="total"
             type="String"
+            />
+
+        <variable
+            name="toolbarTextColorFactor"
+            type="float"
             />
     </data>
 
@@ -18,82 +35,92 @@
         android:fitsSystemWindows="true"
         tools:openDrawer="start"
         >
-        <android.support.constraint.ConstraintLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-            <View
-                android:id="@+id/app_bar_background"
-                android:layout_width="0dp"
-                android:layout_height="105dp"
-                android:background="?colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                />
-
-            <TextView
-                android:id="@+id/topic_name"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.App.Headline"
-                android:textColor="@color/app_bar_text_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                tools:text="開発環境"
-                />
+                >
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:statusBarScrim="?attr/colorPrimary"
+                    app:titleEnabled="false"
+                    >
 
-            <TextView
-                android:id="@+id/topic_translation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:textAppearance="@style/TextAppearance.App.Subhead"
-                android:textColor="@color/app_bar_text_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topic_name"
-                tools:text="Productivity and Tools"
-                />
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="?android:attr/actionBarSize"
+                        android:layout_height="105dp"
+                        android:alpha="@{1.0f - toolbarTextColorFactor}"
+                        app:layout_collapseMode="parallax"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                        >
 
-            <TextView
-                android:id="@+id/total_session"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@{total}"
-                android:textAppearance="@style/TextAppearance.App.Caption"
-                android:textColor="@color/app_bar_text_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topic_translation"
-                tools:text="24セッション"
-                />
+                        <TextView
+                            android:id="@+id/topic_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.App.Headline"
+                            android:textColor="@color/app_bar_text_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="@{name}"
+                            tools:text="開発環境"
+                            />
 
+                        <TextView
+                            android:id="@+id/topic_translation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:textAppearance="@style/TextAppearance.App.Subhead"
+                            android:textColor="@color/app_bar_text_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/topic_name"
+                            android:text="@{translation}"
+                            tools:text="Productivity and Tools"
+                            />
+
+                        <TextView
+                            android:id="@+id/total_session"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="@{total}"
+                            android:textAppearance="@style/TextAppearance.App.Caption"
+                            android:textColor="@color/app_bar_text_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/topic_translation"
+                            tools:text="24セッション"
+                            />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:title="@{name}"
+                        app:titleTextColor="@{ColorCalculator.calculateColor(toolbarTextColorFactor, @color/app_bar_text_color)}"
+                        app:layout_collapseMode="pin"
+                        />
+                </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
             <FrameLayout
                 android:id="@+id/content"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/app_bar_background"
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 />
-        </android.support.constraint.ConstraintLayout>
+        </android.support.design.widget.CoordinatorLayout>
 
         <android.support.design.widget.NavigationView
             android:id="@+id/drawer"
