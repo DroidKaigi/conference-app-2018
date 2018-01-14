@@ -45,6 +45,7 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
         }
+        binding.toolbar.setNavigationOnClickListener { finish() }
 
         topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {

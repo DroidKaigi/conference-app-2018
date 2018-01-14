@@ -51,6 +51,7 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
         }
+        binding.toolbar.setNavigationOnClickListener { finish() }
         sessionDetailViewModel.sessions.observe(this) { result ->
             when (result) {
                 is Result.Success -> {
