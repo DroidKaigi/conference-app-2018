@@ -7,6 +7,7 @@ import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.FeedApi
 import io.github.droidkaigi.confsched2018.data.api.FeedFirestoreApi
+import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
 import okhttp3.OkHttpClient
@@ -26,7 +27,7 @@ import javax.inject.Singleton
             .addNetworkInterceptor(StethoInterceptor())
             .build()
 
-    @Singleton @Provides @JvmStatic
+    @RetrofitDroidKaigi @Singleton @Provides @JvmStatic
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
@@ -39,11 +40,29 @@ import javax.inject.Singleton
                 .build()
     }
 
+    @RetrofitGoogleForm @Singleton @Provides @JvmStatic
+    fun provideRetrofitForGoogleForm(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl("https://docs.google.com/forms/d/")
+                .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
+                        .add(ApplicationJsonAdapterFactory.INSTANCE)
+                        .add(LocalDateTime::class.java, LocalDateTimeAdapter())
+                        .build()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+                .build()
+    }
+
     @Singleton @Provides @JvmStatic
-    fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi {
+    fun provideDroidKaigiApi(@RetrofitDroidKaigi retrofit: Retrofit): DroidKaigiApi {
         return retrofit.create(DroidKaigiApi::class.java)
     }
 
     @Singleton @Provides @JvmStatic
     fun provideFeedApi(): FeedApi = FeedFirestoreApi()
+
+    @Singleton @Provides @JvmStatic
+    fun provideSessionFeedbackApi(@RetrofitGoogleForm retrofit: Retrofit): SessionFeedbackApi {
+        return retrofit.create(SessionFeedbackApi::class.java)
+    }
 }

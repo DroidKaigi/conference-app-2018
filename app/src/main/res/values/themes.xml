@@ -14,7 +14,7 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">@color/app_bar_text_color</item>
-        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">@dimen/session_title_line_spacing</item>
     </style>
 
 </resources>

@@ -73,20 +73,20 @@ class RoomSessionsFragment : Fragment(), Injectable {
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        progressTimeLatch.loading = true
         sessionsViewModel.roomName = roomName
         sessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    progressTimeLatch.loading = false
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
-                    progressTimeLatch.loading = false
                 }
             }
+        })
+        sessionsViewModel.isLoading.observe(this, { isLoading ->
+            progressTimeLatch.loading = isLoading ?: false
         })
     }
 

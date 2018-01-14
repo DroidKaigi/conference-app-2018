@@ -27,8 +27,8 @@ fun List<Session>?.toSessionEntities(
         categories: List<Category>?,
         rooms: List<Room>?
 ): List<SessionEntity> =
-        this!!.map { responseSession ->
-            responseSession.toSessionEntity(categories, rooms)
+        this!!.map {
+            it.toSessionEntity(categories, rooms)
         }
 
 fun Session.toSessionEntity(categories: List<Category>?, rooms: List<Room>?): SessionEntity {

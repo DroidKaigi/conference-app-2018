@@ -10,6 +10,7 @@
 
     <!-- Search -->
     <dimen name="search_speaker_image_size">40dp</dimen>
+    <dimen name="search_result_top_margin">18dp</dimen>
 
     <!-- Elevation -->
     <dimen name="elevation_app_bar">4dp</dimen>
