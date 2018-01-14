@@ -23,6 +23,7 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -69,15 +70,21 @@ class RoomSessionsFragment : Fragment(), Injectable {
 
         setupRecyclerView()
 
+        val progressTimeLatch = ProgressTimeLatch {
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
+        }
+        progressTimeLatch.loading = true
         sessionsViewModel.roomName = roomName
         sessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
+                    progressTimeLatch.loading = false
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
+                    progressTimeLatch.loading = false
                 }
             }
         })

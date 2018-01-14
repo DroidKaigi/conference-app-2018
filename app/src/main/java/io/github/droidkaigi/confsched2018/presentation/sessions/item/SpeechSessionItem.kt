@@ -16,7 +16,8 @@ data class SpeechSessionItem(
         private val onFavoriteClickListener: (Session.SpeechSession) -> Unit,
         private val fragment: Fragment,
         private val isShowDayNumber: Boolean = false,
-        private val searchQuery: String = ""
+        private val searchQuery: String = "",
+        private val simplify: Boolean = false
 ) : BindableItem<ItemSpeechSessionBinding>(
         session.id.toLong()
 ), SessionItem {
@@ -30,6 +31,7 @@ data class SpeechSessionItem(
             onFavoriteClickListener(session)
         }
         viewBinding.isShowDayNumber = isShowDayNumber
+        viewBinding.simplify = simplify
     }
 
     override fun getLayout(): Int = R.layout.item_speech_session

@@ -37,5 +37,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_speech_session"
             />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:visibility="gone"
+            style="@style/ProgressBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -23,12 +23,12 @@ fun SessionWithSpeakers.toSession(
         firstDay: LocalDate
 ): Session.SpeechSession {
     val sessionEntity = session!!
-    require(!speakerIdList.isEmpty())
+    require(speakerIdList.isNotEmpty())
     val speakers = speakerIdList.map { speakerId ->
         val speakerEntity = speakerEntities.first { it.id == speakerId }
         speakerEntity.toSpeaker()
     }
-    require(!speakers.isEmpty())
+    require(speakers.isNotEmpty())
     return Session.SpeechSession(
             id = sessionEntity.id,
             // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
