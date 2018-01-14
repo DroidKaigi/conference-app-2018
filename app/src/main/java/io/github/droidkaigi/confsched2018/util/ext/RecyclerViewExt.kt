@@ -23,7 +23,10 @@ fun RecyclerView.addOnScrollListener(
     })
 }
 
-fun RecyclerView.setLinearDivider(@DrawableRes drawableResId: Int, linearLayoutManager: LinearLayoutManager) {
+fun RecyclerView.setLinearDivider(
+        @DrawableRes drawableResId: Int,
+        linearLayoutManager: LinearLayoutManager
+) {
     val context = this.context
     this.addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation).apply {
         setDrawable(ContextCompat.getDrawable(context, drawableResId)!!)

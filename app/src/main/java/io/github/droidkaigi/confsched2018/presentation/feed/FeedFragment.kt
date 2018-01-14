@@ -91,9 +91,10 @@ class FeedFragment : Fragment(), Injectable {
                 //TODO
             })
         }
+        val linearLayoutManager = LinearLayoutManager(context)
         binding.feedRecycler.apply {
             adapter = groupAdapter
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp, layoutManager as LinearLayoutManager)
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
         }
     }
 

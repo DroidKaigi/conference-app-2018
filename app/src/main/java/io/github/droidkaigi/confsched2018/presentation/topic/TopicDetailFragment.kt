@@ -80,9 +80,10 @@ class TopicDetailFragment : Fragment(), Injectable {
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
             }
         }
+        val linearLayoutManager = LinearLayoutManager(context)
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp, layoutManager as LinearLayoutManager)
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
         }
     }
 
