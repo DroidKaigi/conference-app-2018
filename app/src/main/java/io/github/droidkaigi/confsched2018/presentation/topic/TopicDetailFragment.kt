@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentTopicDetailBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
@@ -17,8 +18,8 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
-import io.github.droidkaigi.confsched2018.util.ext.addDivider
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setDivider
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -80,7 +81,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
-            addDivider()
+            setDivider(R.drawable.shape_divider_vertical_6dp)
         }
     }
 
