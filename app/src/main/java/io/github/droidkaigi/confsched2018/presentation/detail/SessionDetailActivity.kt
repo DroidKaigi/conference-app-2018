@@ -24,7 +24,8 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
+class SessionDetailActivity :
+        BaseActivity(), HasSupportFragmentInjector, SessionDetailFragment.OnClickBottomAreaListener {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -65,20 +66,6 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
         }
 
         binding.detailSessionsPager.adapter = pagerAdapter
-        binding.detailSessionsPager.addOnPageChangeListener(
-                object : ViewPager.SimpleOnPageChangeListener() {
-
-                    override fun onPageSelected(position: Int) {
-                        updateSessionIndicator(position)
-                    }
-                }
-        )
-        binding.detailSessionsPrevSession.setOnClickListener {
-            binding.detailSessionsPager.currentItem = binding.detailSessionsPager.currentItem - 1
-        }
-        binding.detailSessionsNextSession.setOnClickListener {
-            binding.detailSessionsPager.currentItem = binding.detailSessionsPager.currentItem + 1
-        }
         drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
@@ -94,14 +81,9 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
                             position,
                             false
                     )
-            updateSessionIndicator(position)
         }
     }
 
-    private fun updateSessionIndicator(position: Int) {
-        binding.prevSession = pagerAdapter.sessions.getOrNull(position - 1)
-        binding.nextSession = pagerAdapter.sessions.getOrNull(position + 1)
-    }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
@@ -109,6 +91,14 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
         if (drawerMenu.closeDrawerIfNeeded()) {
             super.onBackPressed()
         }
+    }
+
+    override fun onClickPrevSession() {
+        binding.detailSessionsPager.currentItem = binding.detailSessionsPager.currentItem - 1
+    }
+
+    override fun onClickNextSession() {
+        binding.detailSessionsPager.currentItem = binding.detailSessionsPager.currentItem + 1
     }
 
     class SessionDetailFragmentPagerAdapter(

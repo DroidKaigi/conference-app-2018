@@ -48,12 +48,22 @@ class SessionDetailFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
+                    val position = sessions.indexOfFirst { it.id == sessionId }
                     bindSession(sessions.first { it.id == sessionId })
+                    setSessionIndicator(sessions.getOrNull(position - 1),
+                            sessions.getOrNull(position + 1))
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
                 }
             }
+        }
+
+        binding.detailSessionsPrevSession.setOnClickListener {
+            (activity as? OnClickBottomAreaListener)?.onClickPrevSession()
+        }
+        binding.detailSessionsNextSession.setOnClickListener {
+            (activity as? OnClickBottomAreaListener)?.onClickNextSession()
         }
     }
 
@@ -63,6 +73,17 @@ class SessionDetailFragment : Fragment(), Injectable {
             sessionDetailViewModel.onFavoriteClick(session)
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
+    }
+
+    private fun setSessionIndicator(prevSession: Session.SpeechSession?,
+                                    nextSession: Session.SpeechSession?) {
+        binding.prevSession = prevSession
+        binding.nextSession = nextSession
+    }
+
+    interface OnClickBottomAreaListener {
+        fun onClickPrevSession()
+        fun onClickNextSession()
     }
 
     companion object {
