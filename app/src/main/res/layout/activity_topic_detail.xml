@@ -133,7 +133,6 @@
             style="@style/DrawerNavigation"
             app:headerLayout="@layout/drawer_header"
             app:menu="@menu/drawer"
-            tools:visibility="gone"
             />
     </android.support.v4.widget.DrawerLayout>
 </layout>
