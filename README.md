@@ -273,7 +273,7 @@ This project uses some modern Android libraries and source codes.
   * RecyclerView
   * AOSP Codes
 * Firebase
-  * [FireStore](https://firebase.google.com/docs/firestore/)
+  * [Cloud Firestore](https://firebase.google.com/docs/firestore/)
   * [Auth](https://firebase.google.com/docs/auth/)
 * [Dagger2](https://google.github.io/dagger/), Dagger Android Support, [Glide4](https://bumptech.github.io/glide/) - Google
 * [Kotlin](http://kotlinlang.org/) - JetBrains

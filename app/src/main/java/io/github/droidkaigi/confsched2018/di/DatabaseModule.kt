@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.db.AppDatabase
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
-import io.github.droidkaigi.confsched2018.data.db.FavoriteFireStoreDatabase
+import io.github.droidkaigi.confsched2018.data.db.FavoriteFirestoreDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionRoomDatabase
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
@@ -27,7 +27,7 @@ import javax.inject.Singleton
 
     @Singleton @Provides @JvmStatic
     fun provideFavoriteDatabase(): FavoriteDatabase =
-            FavoriteFireStoreDatabase()
+            FavoriteFirestoreDatabase()
 
     @Singleton @Provides @JvmStatic
     fun provideDb(app: Application): AppDatabase =
