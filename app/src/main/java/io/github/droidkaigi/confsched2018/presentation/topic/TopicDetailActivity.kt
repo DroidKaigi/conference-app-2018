@@ -41,8 +41,10 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+        }
 
         topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {
