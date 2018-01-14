@@ -23,7 +23,7 @@ fun View.isGone() = visibility == View.GONE
 
 fun View.isVisible() = visibility == View.VISIBLE
 
-var View.elevationForPostLolipop: Float
+var View.elevationForPostLollipop: Float
     get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         elevation
     } else {

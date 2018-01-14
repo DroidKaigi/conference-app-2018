@@ -63,30 +63,6 @@ class SessionDetailFragment : Fragment(), Injectable {
             sessionDetailViewModel.onFavoriteClick(session)
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
-        val speakerImages = arrayOf(
-                binding.speakerImage1,
-                binding.speakerImage2,
-                binding.speakerImage3,
-                binding.speakerImage4,
-                binding.speakerImage5
-        )
-        speakerImages.forEachIndexed { index, imageView ->
-            if (index < session.speakers.size) {
-                imageView.toVisible()
-                val size = resources.getDimensionPixelSize(R.dimen.speaker_image)
-                CustomGlideApp
-                        .with(this)
-                        .load(session.speakers[index].imageUrl)
-                        .placeholder(R.drawable.ic_person_black_24dp)
-                        .override(size, size)
-                        .dontAnimate()
-                        .transform(CircleCrop())
-                        .into(imageView)
-            } else {
-                imageView.toGone()
-            }
-        }
-        binding.speakers.text = session.speakers.joinToString { it.name }
     }
 
     companion object {

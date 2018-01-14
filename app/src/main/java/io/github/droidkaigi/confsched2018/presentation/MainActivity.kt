@@ -12,7 +12,8 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
-import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLolipop
+import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
+import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLollipop
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), HasSupportFragmentInjector {
@@ -34,14 +35,14 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
-
+        binding.bottomNavigation.disableShiftMode()
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->
             val navigationItem = BottomNavigationItem
                     .values()
                     .first { it.menuId == item.itemId }
 
-            binding.toolbar.elevationForPostLolipop = if (navigationItem.isUseToolbarElevation) {
+            binding.toolbar.elevationForPostLollipop = if (navigationItem.isUseToolbarElevation) {
                 resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
             } else {
                 0F
@@ -67,6 +68,12 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
 
     enum class BottomNavigationItem(
             @MenuRes val menuId: Int,

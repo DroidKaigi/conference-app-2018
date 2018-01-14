@@ -14,8 +14,7 @@ data class DateHeaderItem(
         viewBinding.periodText.text = viewBinding.root.context.getString(
                 R.string.time_period,
                 startDateTimePair.time,
-                endDateTimePair.time,
-                ""
+                endDateTimePair.time
         )
     }
 

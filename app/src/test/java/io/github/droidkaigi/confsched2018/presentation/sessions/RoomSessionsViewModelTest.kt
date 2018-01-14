@@ -41,9 +41,9 @@ class RoomSessionsViewModelTest {
         val sessions = listOf(mock<Session>())
         val room = mock<Room>()
         whenever(room.name).doReturn("hoge")
-        val roomSessions = mapOf(mock<Room>() to listOf(mock<Session>())
+        val roomSessions = mapOf(mock<Room>() to listOf(mock())
                 , room to sessions
-                , mock<Room>() to listOf(mock<Session>()))
+                , mock<Room>() to listOf(mock()))
         whenever(repository.roomSessions).doReturn(Flowable.just(roomSessions))
         viewModel = RoomSessionsViewModel(repository, TestSchedulerProvider())
         viewModel.roomName = "hoge"

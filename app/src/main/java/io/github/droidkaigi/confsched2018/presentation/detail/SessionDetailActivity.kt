@@ -104,6 +104,12 @@ class SessionDetailActivity : BaseActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
+
     class SessionDetailFragmentPagerAdapter(
             fragmentManager: FragmentManager
     ) : FragmentStatePagerAdapter(fragmentManager) {
