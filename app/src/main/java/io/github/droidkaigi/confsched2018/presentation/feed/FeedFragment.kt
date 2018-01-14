@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentFeedBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.feed.item.FeedItem
+import io.github.droidkaigi.confsched2018.util.ext.addDivider
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -89,7 +90,11 @@ class FeedFragment : Fragment(), Injectable {
                 //TODO
             })
         }
-        binding.feedRecycler.adapter = groupAdapter
+            binding.feedRecycler.apply {
+                adapter = groupAdapter
+
+                addDivider()
+            }
     }
 
     companion object {

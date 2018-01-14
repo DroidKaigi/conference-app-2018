@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
+import io.github.droidkaigi.confsched2018.util.ext.addDivider
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -80,6 +81,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
         }
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
+            addDivider()
         }
     }
 
