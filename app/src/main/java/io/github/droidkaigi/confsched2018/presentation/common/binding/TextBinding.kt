@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.support.v4.content.ContextCompat
 import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
 import android.text.style.StyleSpan
 import android.widget.TextView
@@ -44,7 +43,7 @@ fun TextView.setDateText(date: Date?) {
 fun TextView.setHighlightText(highlightText: String?) {
     // By toString, clear highlight text.
     val stringBuilder = SpannableStringBuilder(text.toString())
-    if (TextUtils.isEmpty(highlightText)) {
+    if (highlightText.isNullOrEmpty()) {
         text = stringBuilder
         return
     }
