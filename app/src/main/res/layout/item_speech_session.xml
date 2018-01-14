@@ -18,13 +18,15 @@
             name="searchQuery"
             type="String"
             />
+        <variable
+            name="simplify"
+            type="boolean"
+            />
     </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -46,12 +48,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
                 android:text='@{"DAY"+session.dayNumber+" / "}'
                 android:textAppearance="@style/TextAppearance.App.Caption"
-                android:visibility="@{isShowDayNumber ? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="DAY1 / "
                 />
@@ -65,7 +66,6 @@
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/day_number"
                 app:layout_constraintTop_toTopOf="@id/day_number"
-                app:layout_goneMarginStart="12dp"
                 app:layout_goneMarginTop="16dp"
                 app:startDate="@{session.startTime}"
                 tools:text="10:30 - 11:00"
@@ -88,8 +88,7 @@
                 android:id="@+id/level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/shape_round_corner_2dp"
                 android:gravity="center"
@@ -99,9 +98,10 @@
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"
                 android:textAppearance="@style/TextAppearance.App.Body2"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/period"
                 tools:text="for intermediate and/or expert"
                 />
@@ -111,7 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="@{session.title}"
                 android:textAppearance="@style/TextAppearance.App.Title"
@@ -119,6 +119,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/level"
+                app:layout_goneMarginTop="12dp"
                 tools:text="テストセッション"
                 />
 
@@ -127,16 +128,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="3"
                 android:text="@{session.desc}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Material is the metaphor A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic."
                 />
@@ -146,36 +147,37 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
                 android:maxLines="2"
                 android:textAppearance="@style/TextAppearance.App.Caption"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 />
 
             <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
+                android:id="@+id/speaker_summary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:speakers="@{session.speakers}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topic"
+                app:layout_goneMarginTop="16dp"
+                app:speakers="@{session.speakers}"
                 />
 
             <ImageView
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:padding="16dp"
                 android:scaleType="center"
                 app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/speaker_summary"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topic"
+                app:layout_constraintTop_toTopOf="@id/speaker_summary"
                 app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
                 tools:src="@drawable/ic_favorite_black_24dp"
                 />

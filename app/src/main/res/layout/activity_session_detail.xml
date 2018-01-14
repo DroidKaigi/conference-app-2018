@@ -46,87 +46,10 @@
                 android:id="@+id/detail_sessions_pager"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/detail_sessions_indicator_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
-                />
-
-            <View
-                android:id="@+id/detail_sessions_indicator_background"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="?colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                />
-            <ImageView
-                android:id="@+id/detail_sessions_prev_session"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="?actionBarItemBackground"
-                android:scaleType="center"
-                android:tint="@color/app_bar_text_color"
-                android:visibility="@{prevSession == null ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@id/detail_sessions_indicator_background"
-                app:layout_constraintStart_toStartOf="@id/detail_sessions_indicator_background"
-                app:layout_constraintTop_toTopOf="@id/detail_sessions_indicator_background"
-                app:srcCompat="@drawable/ic_arrow_back_black_24dp"
-                />
-            <ImageView
-                android:id="@+id/detail_sessions_next_icon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="center"
-                android:tint="@color/app_bar_text_color"
-                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@id/detail_sessions_indicator_background"
-                app:layout_constraintEnd_toEndOf="@id/detail_sessions_indicator_background"
-                app:layout_constraintTop_toTopOf="@id/detail_sessions_indicator_background"
-                app:srcCompat="@drawable/ic_arrow_forward_black_24dp"
-                />
-            <TextView
-                android:id="@+id/detail_sessions_next_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="4dp"
-                android:text="@string/detail_sessions_next"
-                android:textAppearance="@style/TextAppearance.App.Caption"
-                android:textColor="@color/app_bar_text_color"
-                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toTopOf="@+id/detail_sessions_next_title"
-                app:layout_constraintEnd_toStartOf="@id/detail_sessions_next_icon"
-                app:layout_constraintTop_toTopOf="@+id/detail_sessions_indicator_background"
-                app:layout_constraintVertical_chainStyle="packed"
-                />
-            <TextView
-                android:id="@+id/detail_sessions_next_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="end"
-                android:maxLines="1"
-                android:text="@{nextSession.title}"
-                android:textAppearance="@style/TextAppearance.App.Subhead"
-                android:textColor="@color/app_bar_text_color"
-                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@+id/detail_sessions_indicator_background"
-                app:layout_constraintEnd_toStartOf="@id/detail_sessions_next_icon"
-                app:layout_constraintStart_toEndOf="@id/detail_sessions_prev_session"
-                app:layout_constraintTop_toBottomOf="@+id/detail_sessions_next_label"
-                tools:text="How to create DroidKaigi"
-                />
-            <View
-                android:id="@+id/detail_sessions_next_session"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="?selectableItemBackground"
-                android:visibility="@{nextSession == null ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="@id/detail_sessions_indicator_background"
-                app:layout_constraintEnd_toEndOf="@id/detail_sessions_indicator_background"
-                app:layout_constraintStart_toStartOf="@id/detail_sessions_next_title"
-                app:layout_constraintTop_toTopOf="@id/detail_sessions_indicator_background"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
                 />
 
         </android.support.constraint.ConstraintLayout>

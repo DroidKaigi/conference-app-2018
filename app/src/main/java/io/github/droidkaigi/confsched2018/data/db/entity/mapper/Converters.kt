@@ -6,20 +6,18 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
 
-class Converters {
-    companion object {
-        @JvmStatic
-        @TypeConverter
-        fun fromTimestamp(value: Long?): LocalDateTime? {
-            if (value == null) {
-                return null
-            }
-            return LocalDateTime.ofInstant(Instant.ofEpochSecond(value), ZoneId.systemDefault())
+object Converters {
+    @JvmStatic
+    @TypeConverter
+    fun fromTimestamp(value: Long?): LocalDateTime? {
+        if (value == null) {
+            return null
         }
-
-        @JvmStatic
-        @TypeConverter
-        fun dateToTimestamp(date: LocalDateTime?): Long? =
-                date?.toEpochSecond(ZoneOffset.ofHours(9))
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(value), ZoneId.systemDefault())
     }
+
+    @JvmStatic
+    @TypeConverter
+    fun dateToTimestamp(date: LocalDateTime?): Long? =
+            date?.toEpochSecond(ZoneOffset.ofHours(9))
 }

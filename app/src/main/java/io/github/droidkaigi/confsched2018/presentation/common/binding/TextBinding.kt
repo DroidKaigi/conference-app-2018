@@ -5,7 +5,6 @@ import android.graphics.Typeface
 import android.support.v4.content.ContextCompat
 import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
 import android.text.style.StyleSpan
 import android.widget.TextView
@@ -14,6 +13,14 @@ import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.regex.Pattern
+
+@BindingAdapter(value = ["bind:dayNumber"])
+fun TextView.setDayText(dayNumber: Int) {
+    text = context.getString(
+            R.string.session_day_title,
+            dayNumber
+    )
+}
 
 @BindingAdapter(value = ["bind:startDate", "bind:endDate"])
 fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
@@ -44,7 +51,7 @@ fun TextView.setDateText(date: Date?) {
 fun TextView.setHighlightText(highlightText: String?) {
     // By toString, clear highlight text.
     val stringBuilder = SpannableStringBuilder(text.toString())
-    if (TextUtils.isEmpty(highlightText)) {
+    if (highlightText.isNullOrEmpty()) {
         text = stringBuilder
         return
     }

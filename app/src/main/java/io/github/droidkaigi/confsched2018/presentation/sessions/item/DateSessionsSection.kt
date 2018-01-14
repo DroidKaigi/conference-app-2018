@@ -11,13 +11,15 @@ import java.util.SortedMap
 class DateSessionsSection(private val fragment: Fragment) : Section() {
     fun updateSessions(
             sessions: List<Session>,
-            onFavoriteClickListener: (Session.SpeechSession) -> Unit
+            onFavoriteClickListener: (Session.SpeechSession) -> Unit,
+            simplify: Boolean = false
     ) {
         val sessionItems = sessions.map {
             when (it) {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
-                    SpeechSessionItem(it, onFavoriteClickListener, fragment) as SessionItem
+                    SpeechSessionItem(
+                            it, onFavoriteClickListener, fragment, simplify) as SessionItem
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")

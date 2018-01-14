@@ -31,6 +31,7 @@
           </value>
         </option>
         <option name="RIGHT_MARGIN" value="100" />
+        <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
         <AndroidXmlCodeStyleSettings>
           <option name="USE_CUSTOM_SETTINGS" value="true" />
           <option name="LAYOUT_SETTINGS">

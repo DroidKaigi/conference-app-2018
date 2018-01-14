@@ -25,6 +25,7 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessi
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
@@ -65,8 +66,10 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(
+                            sessions, onFavoriteClickListener, simplify = true)
                     binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
+                    binding.sessionsRecycler.setVisible(sessions.isNotEmpty())
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -100,6 +103,8 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)
                     })
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp,
+                    layoutManager as LinearLayoutManager)
         }
     }
 

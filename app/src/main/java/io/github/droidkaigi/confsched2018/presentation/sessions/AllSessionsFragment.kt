@@ -22,9 +22,11 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
@@ -62,6 +64,9 @@ class AllSessionsFragment : Fragment(), Injectable {
 
         setupRecyclerView()
 
+        val progressTimeLatch = ProgressTimeLatch {
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
+        }
         sessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
@@ -72,6 +77,9 @@ class AllSessionsFragment : Fragment(), Injectable {
                     Timber.e(result.e)
                 }
             }
+        })
+        sessionsViewModel.isLoading.observe(this, { isLoading ->
+            progressTimeLatch.loading = isLoading ?: false
         })
     }
 
@@ -100,6 +108,8 @@ class AllSessionsFragment : Fragment(), Injectable {
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)
                     })
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp,
+                    layoutManager as LinearLayoutManager)
         }
     }
 
