@@ -61,6 +61,12 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
+
     private fun updateAppBarLayout(topic: Topic, total: Int) {
         binding.total = resources.getQuantityString(R.plurals.topic_total_session, total, total)
         if (lang() == Lang.JA) {

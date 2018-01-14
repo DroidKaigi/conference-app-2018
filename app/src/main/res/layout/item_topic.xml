@@ -7,7 +7,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="91dp"
-        android:foreground="?selectableItemBackground"
+        android:background="?selectableItemBackground"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         >

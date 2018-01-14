@@ -14,4 +14,6 @@
     <color name="sub_icon_color">#8a000000</color>
     <color name="circle_button_background">#f6f6f6</color>
 
+    <color name="highlight_text">#FFEB3B</color>
+
 </resources>

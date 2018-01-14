@@ -61,7 +61,11 @@ class SessionsFragment : Fragment(), Injectable {
                 is Result.Failure -> {
                     // If user is offline, not error. So we write log to debug
                     Timber.d(result.e)
-                    Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_LONG).apply {
+                        setAction(R.string.session_load_retry) {
+                            sessionsViewModel.onRetrySessions()
+                        }
+                    }.show()
                 }
             }
         })

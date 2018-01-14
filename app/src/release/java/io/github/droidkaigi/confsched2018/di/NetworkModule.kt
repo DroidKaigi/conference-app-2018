@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.FeedApi
-import io.github.droidkaigi.confsched2018.data.api.FeedFireStoreApi
+import io.github.droidkaigi.confsched2018.data.api.FeedFirestoreApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
 import okhttp3.OkHttpClient
@@ -16,15 +16,15 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-@Module internal class NetworkModule {
+@Module internal object NetworkModule {
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
             .addNetworkInterceptor(HttpLoggingInterceptor()
                     .setLevel(HttpLoggingInterceptor.Level.BASIC))
             .build()
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
@@ -37,11 +37,11 @@ import javax.inject.Singleton
                 .build()
     }
 
-    @Singleton @Provides
+    @Singleton @Provides @JvmStatic
     fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi {
         return retrofit.create(DroidKaigiApi::class.java)
     }
 
-    @Singleton @Provides
-    fun provideFeedApi(): FeedApi = FeedFireStoreApi()
+    @Singleton @Provides @JvmStatic
+    fun provideFeedApi(): FeedApi = FeedFirestoreApi()
 }

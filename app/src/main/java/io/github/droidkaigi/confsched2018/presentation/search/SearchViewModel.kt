@@ -21,6 +21,7 @@ class SearchViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     val result: MutableLiveData<Result<SearchResult>> = MutableLiveData()
+    var searchQuery: String = ""
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun onQuery(query: String) {
@@ -28,6 +29,7 @@ class SearchViewModel @Inject constructor(
                 .toResult(schedulerProvider)
                 .subscribe {
                     result.value = it
+                    searchQuery = query
                 }
                 .addTo(compositeDisposable)
     }

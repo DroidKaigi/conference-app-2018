@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpeakersSummaryLayout">
+        <attr name="max_icon_count" format="integer" />
+        <attr name="image_size" format="dimension" />
+        <attr name="textColor" format="color" />
+    </declare-styleable>
+</resources>
