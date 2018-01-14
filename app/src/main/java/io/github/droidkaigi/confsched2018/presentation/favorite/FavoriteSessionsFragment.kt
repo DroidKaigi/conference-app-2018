@@ -65,7 +65,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, simplify = true)
                     binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
                 }
                 is Result.Failure -> {
