@@ -33,7 +33,7 @@ class SponsorsViewModel @Inject constructor(
         Single.create<List<SponsorPlan>> {
             // FIXME inline to repo.
             val request = Request.Builder().apply {
-                url("https://gist.githubusercontent.com/jmatsu/0025d16eb276bcafaf1a75760b38e265/raw/5767beefd358ee64820635c701f2c2a644fed01a/sponsors.json")
+                url("https://gist.githubusercontent.com/jmatsu/0025d16eb276bcafaf1a75760b38e265/raw/f7f0e7d9cd0669349d1a4698ae875a683bdbac70/sponsors.json")
             }.build()
 
             val body = OkHttpClient().newCall(request).execute().body()!!
@@ -43,7 +43,14 @@ class SponsorsViewModel @Inject constructor(
                     .build()
             val plans = moshi.adapter<List<ResponsePlan>>(Types.newParameterizedType(List::class.java, ResponsePlan::class.java)).fromJson(body.source())!!
             it.onSuccess(plans.map {
-                SponsorPlan(it.planName, it.groups.map {
+                SponsorPlan(it.planName, when (it.planType) {
+                    ResponsePlan.Type.PLATINUM -> SponsorPlan.Type.Plutinum
+                    ResponsePlan.Type.GOLD -> SponsorPlan.Type.Gold
+                    ResponsePlan.Type.SILVER -> SponsorPlan.Type.Silver
+                    ResponsePlan.Type.SUPPORTER -> SponsorPlan.Type.Supporter
+                    ResponsePlan.Type.TECHNICAL_FOR_NETWORK -> SponsorPlan.Type.TechnicalForNetwork
+                    else -> throw IllegalStateException("Unknown plan type")
+                }, it.groups.map {
                     SponsorGroup(it.sponsors.map {
                         if (it.base64Img == it.imgUrl) {
                             Timber.d(it.link)

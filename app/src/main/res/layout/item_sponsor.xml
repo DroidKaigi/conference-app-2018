@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <data>
-
-    </data>
+    <data></data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -18,9 +17,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintDimensionRatio="H,16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            tools:layout_constraintDimensionRatio="H,16:9"
             tools:layout_width="160dp"
             >
 

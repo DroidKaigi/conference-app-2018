@@ -5,25 +5,25 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.Item
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SpanSizeProvidable
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorPlanItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
+
+const val SPONSOR_MAX_SPAN_SIZE = 6
 
 class SponsorsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSponsorsBinding
@@ -60,9 +60,18 @@ class SponsorsFragment : Fragment(), Injectable {
     }
 
     fun initRecyclerView(context: Context) {
-        val layoutManager = FlexboxLayoutManager(context)
-        layoutManager.flexDirection = FlexDirection.ROW
-        layoutManager.flexWrap = FlexWrap.WRAP
+        val layoutManager = GridLayoutManager(context, SPONSOR_MAX_SPAN_SIZE)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            init {
+                isSpanIndexCacheEnabled = true
+            }
+
+            override fun getSpanSize(position: Int): Int {
+                return (sponsorPlansSection.getItem(position) as? SpanSizeProvidable)?.getSpanSize() ?: let {
+                    throw IllegalStateException("unknown Item is found. ${sponsorPlansSection.getItem(position)::class.java.simpleName}")
+                }
+            }
+        }
         binding.sponsorRecycler.layoutManager = layoutManager
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sponsorPlansSection)
@@ -74,19 +83,25 @@ class SponsorsFragment : Fragment(), Injectable {
     }
 
     fun bindSponsorsToRecycler(sponsorPlans: List<SponsorPlan>) {
-        sponsorPlansSection.update(
-                sponsorPlans.flatMap {
-                    arrayListOf<Item<*>>(SponsorPlanItem(it)).apply {
-                        addAll(
-                                it.groups.flatMap {
-                                    it.sponsors.map {
-                                        SponsorItem(it)
-                                    }
-                                }
-                        )
-                    }
-                }
-        )
+        val items = sponsorPlans.map { plan ->
+            Section(SponsorPlanItem(plan)).apply {
+                addAll(
+                        plan.groups.flatMap {
+                            it.sponsors.map {
+                                SponsorItem(plan.type, it)
+                            }
+                        }
+                )
+            }
+        }
+
+        // A workaround for Groupie 2.0.0.
+        // Update threw an IndexOutOfBoundsException when an empty section had called update with the items.
+        if (sponsorPlansSection.itemCount == 0) {
+            sponsorPlansSection.addAll(items)
+        } else {
+            sponsorPlansSection.update(items)
+        }
     }
 
     companion object {
