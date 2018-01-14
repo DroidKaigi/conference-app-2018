@@ -37,7 +37,7 @@ fun Session.toSessionEntity(categories: List<Category>?, rooms: List<Room>?): Se
     val topic = categories.category(2, categoryItems[2])
     val level = categories.category(3, categoryItems[3])
     return SessionEntity(
-            id = id!!,
+            id = id,
             title = title!!,
             desc = description!!,
             stime = startsAt!!,
