@@ -68,6 +68,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                     sessionsSection.updateSessions(
                             sessions, onFavoriteClickListener, simplify = true)
                     binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
+                    binding.sessionsRecycler.setVisible(sessions.isNotEmpty())
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
