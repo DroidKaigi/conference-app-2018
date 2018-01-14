@@ -8,24 +8,16 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class SponsorsViewModel @Inject constructor(
         private val sponsorPlanRepository: SponsorPlanRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
     val sponsors: LiveData<Result<List<SponsorPlan>>> by lazy {
         sponsorPlanRepository.sponsorPlans()
                 .toResult(schedulerProvider)
                 .toLiveData()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
     }
 }
 
