@@ -124,7 +124,7 @@ class SessionsDataRepositoryTest {
         val session1 = sessionEntities[0].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1))
         val session2 = sessionEntities[1].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1))
 
-        val spesialSessions = SpecialSessions.getSessions()
+        val specialSessions = SpecialSessions.getSessions()
         sessionDataRepository.roomSessions
                 .test()
                 .assertNoErrors()
@@ -132,7 +132,7 @@ class SessionsDataRepositoryTest {
                         0,
                         mapOf(
                                 session1.room to listOf(session1, session2),
-                                spesialSessions[0].room!! to spesialSessions.filter { it.room != null }
+                                specialSessions[0].room!! to specialSessions.filter { it.room != null }
                         )
                 )
 

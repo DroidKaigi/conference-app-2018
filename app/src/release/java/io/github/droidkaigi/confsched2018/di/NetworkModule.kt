@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.FeedApi
-import io.github.droidkaigi.confsched2018.data.api.FeedFireStoreApi
+import io.github.droidkaigi.confsched2018.data.api.FeedFirestoreApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
 import okhttp3.OkHttpClient
@@ -43,5 +43,5 @@ import javax.inject.Singleton
     }
 
     @Singleton @Provides @JvmStatic
-    fun provideFeedApi(): FeedApi = FeedFireStoreApi()
+    fun provideFeedApi(): FeedApi = FeedFirestoreApi()
 }

@@ -69,6 +69,12 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
+
     enum class BottomNavigationItem(
             @MenuRes val menuId: Int,
             @DrawableRes val imageRes: Int?,
