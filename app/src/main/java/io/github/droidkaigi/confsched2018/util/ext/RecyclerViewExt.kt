@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.util.ext
 
+import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -23,8 +24,9 @@ fun RecyclerView.addOnScrollListener(
     })
 }
 
-fun RecyclerView.addDivider() {
-    this.addItemDecoration(DividerItemDecoration(this.context, LinearLayoutManager(this.context).orientation).apply {
-        setDrawable(ContextCompat.getDrawable(this@addDivider.context, R.drawable.shape_divider_vertical_6dp)!!)
+fun RecyclerView.setDivider(@DrawableRes drawableResId: Int) {
+    val context = this.context
+    this.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager(context).orientation).apply {
+        setDrawable(ContextCompat.getDrawable(context, drawableResId)!!)
     })
 }
