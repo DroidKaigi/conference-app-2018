@@ -48,14 +48,14 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
                 0F
             }
             supportActionBar?.apply {
-                if (navigationItem.imageRes != null) {
+                title = if (navigationItem.imageRes != null) {
                     setDisplayShowHomeEnabled(true)
                     setIcon(navigationItem.imageRes)
-                    title = null
+                    null
                 } else {
                     setDisplayShowHomeEnabled(false)
                     setIcon(null)
-                    title = item.title
+                    item.title
                 }
             }
 
@@ -68,6 +68,12 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
 
     enum class BottomNavigationItem(
             @MenuRes val menuId: Int,
