@@ -29,7 +29,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
     }
 
     private fun setupFirebase() {
-        if (!FirebaseApp.getApps(this).isEmpty()) {
+        if (FirebaseApp.getApps(this).isNotEmpty()) {
             val fireStore = FirebaseFirestore.getInstance()
             val settings = FirebaseFirestoreSettings.Builder()
                     .setPersistenceEnabled(true)
