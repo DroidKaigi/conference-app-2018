@@ -29,5 +29,4 @@ interface SessionFeedbackApi {
             @Field("entry.2121897737") knowledgeable: Int,
 
             @Field("entry.645604473") comment: String): Single<Response<Void>>
-
 }
