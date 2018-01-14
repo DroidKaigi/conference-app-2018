@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
+import io.github.droidkaigi.confsched2018.util.ext.map
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -26,6 +27,9 @@ class SessionsViewModel @Inject constructor(
         repository.rooms
                 .toResult(schedulerProvider)
                 .toLiveData()
+    }
+    val isLoading: LiveData<Boolean> by lazy {
+        rooms.map { result -> result.inProgress }
     }
     private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
     val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
