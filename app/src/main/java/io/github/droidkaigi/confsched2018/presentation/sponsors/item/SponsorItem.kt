@@ -3,14 +3,12 @@ package io.github.droidkaigi.confsched2018.presentation.sponsors.item
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.util.Base64
-import android.view.View
 import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSponsorBinding
 import io.github.droidkaigi.confsched2018.model.Sponsor
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
-import io.github.droidkaigi.confsched2018.util.ext.cloneConstraint
 
 data class SponsorItem(
         val fragment: Fragment,
