@@ -33,7 +33,7 @@ class RoomSessionsViewModel @Inject constructor(
                 .toLiveData()
     }
     val isLoading: LiveData<Boolean> by lazy {
-        sessions.map { result -> result.inProgress }
+        sessions.map { it.inProgress }
     }
 
     fun onFavoriteClick(session: Session.SpeechSession) {
