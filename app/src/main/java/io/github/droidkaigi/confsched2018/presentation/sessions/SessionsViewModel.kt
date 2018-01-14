@@ -29,7 +29,7 @@ class SessionsViewModel @Inject constructor(
                 .toLiveData()
     }
     val isLoading: LiveData<Boolean> by lazy {
-        rooms.map { result -> result.inProgress }
+        rooms.map { it.inProgress }
     }
     private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
     val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
