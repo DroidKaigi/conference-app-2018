@@ -44,12 +44,11 @@ class SponsorsViewModel @Inject constructor(
             val plans = moshi.adapter<List<ResponsePlan>>(Types.newParameterizedType(List::class.java, ResponsePlan::class.java)).fromJson(body.source())!!
             it.onSuccess(plans.map {
                 SponsorPlan(it.planName, when (it.planType) {
-                    ResponsePlan.Type.PLATINUM -> SponsorPlan.Type.Plutinum
+                    ResponsePlan.Type.PLATINUM -> SponsorPlan.Type.Platinum
                     ResponsePlan.Type.GOLD -> SponsorPlan.Type.Gold
                     ResponsePlan.Type.SILVER -> SponsorPlan.Type.Silver
                     ResponsePlan.Type.SUPPORTER -> SponsorPlan.Type.Supporter
                     ResponsePlan.Type.TECHNICAL_FOR_NETWORK -> SponsorPlan.Type.TechnicalForNetwork
-                    else -> throw IllegalStateException("Unknown plan type")
                 }, it.groups.map {
                     SponsorGroup(it.sponsors.map {
                         if (it.base64Img == it.imgUrl) {

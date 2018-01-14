@@ -12,7 +12,7 @@ data class Sponsor(
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (other == null || this::class != other::class) return false
-            return this.uri.equals((other as ImageUri).uri)
+            return this.uri == (other as ImageUri).uri
         }
 
         override fun hashCode(): Int = uri.hashCode()

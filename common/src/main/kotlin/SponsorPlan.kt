@@ -6,7 +6,7 @@ data class SponsorPlan(
         var groups: List<SponsorGroup>
 ) {
     sealed class Type {
-        object Plutinum : Type()
+        object Platinum : Type()
         object Gold : Type()
         object Silver : Type()
         object Supporter : Type()

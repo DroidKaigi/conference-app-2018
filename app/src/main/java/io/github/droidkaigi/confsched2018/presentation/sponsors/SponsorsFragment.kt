@@ -16,14 +16,13 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SpanSizeProvidable
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorPlanItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-const val SPONSOR_MAX_SPAN_SIZE = 6
+private const val MAX_SPAN_SIZE = 6
 
 class SponsorsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSponsorsBinding
@@ -60,25 +59,17 @@ class SponsorsFragment : Fragment(), Injectable {
     }
 
     fun initRecyclerView(context: Context) {
-        val layoutManager = GridLayoutManager(context, SPONSOR_MAX_SPAN_SIZE)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            init {
-                isSpanIndexCacheEnabled = true
-            }
-
-            override fun getSpanSize(position: Int): Int {
-                return (sponsorPlansSection.getItem(position) as? SpanSizeProvidable)?.getSpanSize() ?: let {
-                    throw IllegalStateException("unknown Item is found. ${sponsorPlansSection.getItem(position)::class.java.simpleName}")
-                }
-            }
-        }
-        binding.sponsorRecycler.layoutManager = layoutManager
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
+            spanCount = MAX_SPAN_SIZE
             add(sponsorPlansSection)
             setOnItemClickListener({ _, _ ->
                 //TODO
             })
         }
+        val layoutManager = GridLayoutManager(context, MAX_SPAN_SIZE).apply {
+            spanSizeLookup = groupAdapter.spanSizeLookup
+        }
+        binding.sponsorRecycler.layoutManager = layoutManager
         binding.sponsorRecycler.adapter = groupAdapter
     }
 
@@ -96,11 +87,9 @@ class SponsorsFragment : Fragment(), Injectable {
         }
 
         // A workaround for Groupie 2.0.0.
-        // Update threw an IndexOutOfBoundsException when an empty section had called update with the items.
-        if (sponsorPlansSection.itemCount == 0) {
+        // Update threw an IndexOutOfBoundsException when a nested section has been passed to update.
+        if (sponsorPlansSection.itemCount != 0) {
             sponsorPlansSection.addAll(items)
-        } else {
-            sponsorPlansSection.update(items)
         }
     }
 
