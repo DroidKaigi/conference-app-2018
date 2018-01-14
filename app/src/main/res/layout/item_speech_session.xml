@@ -176,7 +176,7 @@
                 android:layout_marginEnd="8dp"
                 android:padding="16dp"
                 android:scaleType="center"
-                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
+                app:colorTint="@{session.isFavorited ? @color/favorite_color : @color/sub_icon_color}"
                 app:layout_constraintBottom_toBottomOf="@id/speaker_summary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/speaker_summary"
