@@ -6,11 +6,6 @@
         <item name="android:fontFamily">@font/notosans_medium</item>
     </style>
 
-    <style name="TextAppearance.App.Toolbar.Title" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textSize">19dp</item>
-        <item name="android:fontFamily">@font/notosans_medium</item>
-    </style>
-
     <style name="TextAppearance.App.Subhead" parent="TextAppearance.AppCompat.Subhead">
         <item name="android:textSize">17sp</item>
         <item name="android:fontFamily">@font/notosans_regular</item>

@@ -28,7 +28,6 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = null
 
         setupBottomNavigation(savedInstanceState)
         drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer, true)
@@ -51,11 +50,11 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
                 if (navigationItem.imageRes != null) {
                     setDisplayShowHomeEnabled(true)
                     setIcon(navigationItem.imageRes)
-                    binding.toolbarTitle.text = null
+                    title = null
                 } else {
                     setDisplayShowHomeEnabled(false)
                     setIcon(null)
-                    binding.toolbarTitle.text = item.title
+                    title = item.title
                 }
             }
 
