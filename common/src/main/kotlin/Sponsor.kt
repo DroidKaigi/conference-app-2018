@@ -9,6 +9,8 @@ data class Sponsor(
         class Base64ImageUri(uri: String) : ImageUri(uri)
         class NetworkImageUri(uri: String) : ImageUri(uri)
 
+        operator fun component1() = uri
+
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (other == null || this::class != other::class) return false

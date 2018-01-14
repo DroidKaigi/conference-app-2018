@@ -1,6 +1,8 @@
 package io.github.droidkaigi.confsched2018.presentation.sponsors.item
 
 import android.support.constraint.ConstraintLayout
+import android.support.v4.app.Fragment
+import android.util.Base64
 import android.view.View
 import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
@@ -9,30 +11,33 @@ import io.github.droidkaigi.confsched2018.model.Sponsor
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import io.github.droidkaigi.confsched2018.util.ext.cloneConstraint
-import io.github.droidkaigi.confsched2018.util.ext.context
 
-/**
- * this class is depending on ConstraintLayout
- */
 data class SponsorItem(
+        val fragment: Fragment,
         val planType: SponsorPlan.Type,
         val sponsor: Sponsor
 ) : BindableItem<ItemSponsorBinding>(
         sponsor.hashCode().toLong()
-) {
-
+), SponsorItemExt {
     override fun bind(viewBinding: ItemSponsorBinding, position: Int) {
-        viewBinding.root.findViewById<ConstraintLayout>(R.id.constraint).adjustAspectRatioConstraint(viewBinding.card)
+        viewBinding.planType = planType
+        viewBinding.root.findViewById<ConstraintLayout>(R.id.constraint).adjustAspectRatioConstraint(planType, viewBinding.card)
 
-        // FIXME into Databinding adapters
+        val (uri) = sponsor.imageUri
+
         when (sponsor.imageUri) {
             is Sponsor.ImageUri.Base64ImageUri -> {
-                // FIXME base64
+                val base64encoded = uri.substring("image/png;base64,".length)
+                CustomGlideApp
+                        .with(fragment)
+                        .load(Base64.decode(base64encoded, Base64.DEFAULT))
+                        .dontAnimate()
+                        .into(viewBinding.logo)
             }
             is Sponsor.ImageUri.NetworkImageUri -> {
                 CustomGlideApp
-                        .with(viewBinding.context)
-                        .load(sponsor.imageUri.uri)
+                        .with(fragment)
+                        .load(uri)
                         .dontAnimate()
                         .into(viewBinding.logo)
             }
@@ -41,27 +46,5 @@ data class SponsorItem(
 
     override fun getLayout(): Int = R.layout.item_sponsor
 
-    override fun getSpanSize(spanCount: Int, position: Int): Int = when (planType) {
-        SponsorPlan.Type.Platinum, SponsorPlan.Type.TechnicalForNetwork -> spanCount / 2
-        SponsorPlan.Type.Gold, SponsorPlan.Type.Silver, SponsorPlan.Type.Supporter -> spanCount / 3
-    }
-
-    private fun SponsorPlan.Type.toDimensionRatio() = when (this) {
-        SponsorPlan.Type.Platinum, SponsorPlan.Type.Supporter, SponsorPlan.Type.TechnicalForNetwork -> "H,16:9"
-        SponsorPlan.Type.Gold -> "H,1:1"
-        SponsorPlan.Type.Silver -> "H,4:3"
-    }
-
-    private fun ConstraintLayout.adjustAspectRatioConstraint(target: View) {
-        val lp = target.layoutParams as? ConstraintLayout.LayoutParams ?: throw IllegalStateException("layout structure was changed.")
-        val newDimensionRatio = planType.toDimensionRatio()
-
-        if (newDimensionRatio == lp.dimensionRatio) {
-            return
-        }
-
-        val newConstraint = cloneConstraint()
-        newConstraint.setDimensionRatio(target.id, newDimensionRatio)
-        newConstraint.applyTo(this)
-    }
+    override fun getSpanSize(spanCount: Int, position: Int): Int = getSponsorItemSpanSize(planType, spanCount)
 }

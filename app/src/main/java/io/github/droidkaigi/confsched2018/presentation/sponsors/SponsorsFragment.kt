@@ -16,8 +16,10 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.sponsors.item.EmptySponsorItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorPlanItem
+import io.github.droidkaigi.confsched2018.presentation.sponsors.item.getSponsorItemSpanSize
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -76,13 +78,21 @@ class SponsorsFragment : Fragment(), Injectable {
     fun bindSponsorsToRecycler(sponsorPlans: List<SponsorPlan>) {
         val items = sponsorPlans.map { plan ->
             Section(SponsorPlanItem(plan)).apply {
-                addAll(
-                        plan.groups.flatMap {
-                            it.sponsors.map {
-                                SponsorItem(plan.type, it)
-                            }
-                        }
-                )
+                addAll(plan.groups.flatMap {
+                    it.sponsors.map {
+                        SponsorItem(this@SponsorsFragment, plan.type, it)
+                    }
+                })
+
+                // fill dead spaces by dummy sponsors
+                val columnSize = MAX_SPAN_SIZE / getSponsorItemSpanSize(plan.type, MAX_SPAN_SIZE)
+                val modSize = (groupCount - 1) % columnSize
+
+                if (modSize > 0) {
+                    0.until(columnSize - modSize).forEach {
+                        add(EmptySponsorItem(plan.type))
+                    }
+                }
             }
         }
 

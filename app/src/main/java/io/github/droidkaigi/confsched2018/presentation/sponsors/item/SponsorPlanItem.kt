@@ -10,10 +10,10 @@ data class SponsorPlanItem(
 ) : BindableItem<ItemSponsorPlanBinding>(
         sponsorPlan.hashCode().toLong()
 ) {
-
     override fun bind(viewBinding: ItemSponsorPlanBinding, position: Int) {
-        viewBinding.name = sponsorPlan.name
+        viewBinding.plan = sponsorPlan
     }
 
     override fun getLayout(): Int = R.layout.item_sponsor_plan
 }
+
