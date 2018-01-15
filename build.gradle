@@ -16,6 +16,7 @@ buildscript {
         classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:3.0.0"
         classpath 'io.fabric.tools:gradle:1.25.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
+        classpath 'com.deploygate:gradle:1.1.3'
     }
 }
 

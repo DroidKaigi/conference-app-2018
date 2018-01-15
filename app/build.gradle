@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'deploygate'
 
 android {
     compileSdkVersion 27
