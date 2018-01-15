@@ -7,3 +7,6 @@ annotation class RetrofitDroidKaigi
 
 @Qualifier
 annotation class RetrofitGoogleForm
+
+@Qualifier
+annotation class RetrofitGithub
