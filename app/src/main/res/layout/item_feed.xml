@@ -37,6 +37,7 @@
             android:maxLines="1"
             android:text="@{post.title}"
             android:textAppearance="@style/TextAppearance.App.Headline"
+            android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_headline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date"

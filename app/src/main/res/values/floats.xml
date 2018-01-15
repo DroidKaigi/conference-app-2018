@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="horizontal_visible_item_count" format="float" type="dimen">1.3</item>
+
+    <item name="line_spacing_multiplier_subhead" format="float" type="dimen">1.76</item>
+    <item name="line_spacing_multiplier_headline" format="float" type="dimen">1.42</item>
+    <item name="line_spacing_multiplier_title" format="float" type="dimen">1.25</item>
+    <item name="line_spacing_multiplier_body1" format="float" type="dimen">1.64</item>
+    <item name="line_spacing_multiplier_body2" format="float" type="dimen">1.86</item>
+    <item name="line_spacing_multiplier_caption" format="float" type="dimen">1.69</item>
 </resources>

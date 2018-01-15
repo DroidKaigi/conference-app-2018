@@ -58,6 +58,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/favorite_not_found"
             android:textAppearance="@style/TextAppearance.App.Title"
+            android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_title"
             app:layout_constraintBottom_toTopOf="@+id/mysession_inactive_detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
