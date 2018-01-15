@@ -15,7 +15,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActiv
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
 import javax.inject.Inject
 
-class ContributorActivity : BaseActivity(), HasSupportFragmentInjector {
+class ContributorsActivity : BaseActivity(), HasSupportFragmentInjector {
 
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
@@ -40,7 +40,7 @@ class ContributorActivity : BaseActivity(), HasSupportFragmentInjector {
 
     companion object {
         fun start(context: Context) {
-            context.startActivity(Intent(context, ContributorActivity::class.java))
+            context.startActivity(Intent(context, ContributorsActivity::class.java))
         }
     }
 }

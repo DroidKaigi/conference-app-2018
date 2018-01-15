@@ -7,6 +7,7 @@ import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.FeedApi
 import io.github.droidkaigi.confsched2018.data.api.FeedFireStoreApi
+import io.github.droidkaigi.confsched2018.data.api.GithubApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
 import okhttp3.OkHttpClient
@@ -15,6 +16,7 @@ import org.threeten.bp.LocalDateTime
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module internal class NetworkModule {
@@ -39,6 +41,20 @@ import javax.inject.Singleton
                 .build()
     }
 
+    @Singleton @Provides @Named("github")
+    fun provideRetrofitForGithub(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl("https://api.github.com")
+                .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
+                        .add(ApplicationJsonAdapterFactory.INSTANCE)
+                        .add(LocalDateTime::class.java, LocalDateTimeAdapter())
+                        .build()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+                .client(okHttpClient)
+                .build()
+
+    }
+
     @Singleton @Provides
     fun provideDroidKaigiApi(retrofit: Retrofit): DroidKaigiApi {
         return retrofit.create(DroidKaigiApi::class.java)
@@ -46,4 +62,9 @@ import javax.inject.Singleton
 
     @Singleton @Provides
     fun provideFeedApi(): FeedApi = FeedFireStoreApi()
+
+    @Singleton @Provides
+    fun provideGithubApi(@Named("github") retrofit: Retrofit): GithubApi {
+        return retrofit.create(GithubApi::class.java)
+    }
 }

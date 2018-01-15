@@ -4,8 +4,12 @@ import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.FeedApi
+import io.github.droidkaigi.confsched2018.data.api.GithubApi
+import io.github.droidkaigi.confsched2018.data.db.ContributorDatabase
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
+import io.github.droidkaigi.confsched2018.data.repository.ContributorDataRepository
+import io.github.droidkaigi.confsched2018.data.repository.ContributorRepository
 import io.github.droidkaigi.confsched2018.data.repository.FeedDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.FeedRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionDataRepository
@@ -34,4 +38,12 @@ internal class AppModule {
 
     @Singleton @Provides
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
+
+    @Singleton @Provides
+    fun provideContributorsRepository(
+            api: GithubApi,
+            contributorDatabase: ContributorDatabase,
+            schedulerProvider: SchedulerProvider
+    ): ContributorRepository =
+            ContributorDataRepository(api, contributorDatabase, schedulerProvider)
 }

@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2018.di
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppFragment
-import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorFragment
+import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsFragment
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
@@ -57,5 +57,5 @@ import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
 
     @ContributesAndroidInjector abstract fun contributeTopicDetailFragment(): TopicDetailFragment
 
-    @ContributesAndroidInjector abstract fun contributeContributorFragment(): ContributorFragment
+    @ContributesAndroidInjector abstract fun contributeContributorFragment(): ContributorsFragment
 }

@@ -89,7 +89,7 @@
                 />
         </activity>
         <activity
-            android:name=".presentation.contributor.ContributorActivity"
+            android:name=".presentation.contributor.ContributorsActivity"
             android:label="@string/contributors"
             android:parentActivityName=".presentation.MainActivity"
             >
