@@ -5,7 +5,7 @@ import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
 data class Session(
-        val id: String?,
+        val id: String,
         val isServiceSession: Boolean?,
         val isPlenumSession: Boolean?,
         val speakers: List<String?>?,

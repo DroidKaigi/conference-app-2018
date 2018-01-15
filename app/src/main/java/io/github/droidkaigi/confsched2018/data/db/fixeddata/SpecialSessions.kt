@@ -38,7 +38,7 @@ class SpecialSessions {
                                             .toUnixMills()
                             ),
                             parseDate(
-                                    LocalDateTimeAdapter.parseDateString("2018-02-08T10:20:00")
+                                    LocalDateTimeAdapter.parseDateString("2018-02-08T12:50:00")
                                             .toUnixMills()
                             ),
                             R.string.session_special_lunch,

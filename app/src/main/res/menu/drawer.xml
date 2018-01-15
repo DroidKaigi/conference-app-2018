@@ -1,7 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Group Id needs for showing divider -->
-    <group android:id="@+id/menu_group_1">
+    <group
+        android:id="@+id/menu_group_1"
+        android:checkableBehavior="single"
+        >
         <item
             android:id="@+id/nav_item_info"
             android:icon="@drawable/ic_information_black_24dp"
@@ -14,7 +17,10 @@
             />
 
     </group>
-    <group android:id="@+id/menu_group_2">
+    <group
+        android:id="@+id/menu_group_2"
+        android:checkableBehavior="single"
+        >
         <item
             android:id="@+id/nav_item_sponsor"
             android:icon="@drawable/ic_sponsor_black_24dp"
@@ -26,14 +32,20 @@
             android:title="@string/nav_item_contributor"
             />
     </group>
-    <group android:id="@+id/menu_group_3">
+    <group
+        android:id="@+id/menu_group_3"
+        android:checkableBehavior="single"
+        >
         <item
             android:id="@+id/nav_item_setting"
             android:icon="@drawable/ic_setting_black_24dp"
             android:title="@string/nav_item_setting"
             />
     </group>
-    <group android:id="@+id/menu_group_4">
+    <group
+        android:id="@+id/menu_group_4"
+        android:checkableBehavior="single"
+        >
         <item
             android:id="@+id/nav_item_all_survey"
             android:icon="@drawable/ic_survey_black_24dp"

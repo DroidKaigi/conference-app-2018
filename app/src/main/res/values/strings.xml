@@ -61,8 +61,8 @@
 
     <!-- Topic -->
     <plurals name="topic_total_session">
-        <item quantity="zero">%dsession</item>
-        <item quantity="one">%dsession</item>
-        <item quantity="other">%dsessions</item>
+        <item quantity="zero">%d session</item>
+        <item quantity="one">%d session</item>
+        <item quantity="other">%d sessions</item>
     </plurals>
 </resources>

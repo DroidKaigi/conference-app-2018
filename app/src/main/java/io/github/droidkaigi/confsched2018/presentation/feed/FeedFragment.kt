@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.feed.item.FeedItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -89,7 +91,11 @@ class FeedFragment : Fragment(), Injectable {
                 //TODO
             })
         }
-        binding.feedRecycler.adapter = groupAdapter
+        val linearLayoutManager = LinearLayoutManager(context)
+        binding.feedRecycler.apply {
+            adapter = groupAdapter
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
+        }
     }
 
     companion object {

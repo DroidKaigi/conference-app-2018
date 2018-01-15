@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.search
 
-import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
