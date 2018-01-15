@@ -9,7 +9,8 @@ import retrofit2.http.Query
 interface GithubApi {
     @GET("/repos/{owner}/{repo}/contributors")
     fun getContributors(@Path("owner") owner: String, @Path("repo") repo: String,
-                                  @Query("per_page") perPage: Int): Single<List<Contributor>>
+                        @Query("per_page") perPage: Int): Single<List<Contributor>>
+
     //Help wanted! We can load user's bio from this api. But this api can only load one user.
     @GET("/users/{username}")
     fun getUserRepos(@Path("username") user: String): Single<Contributor>

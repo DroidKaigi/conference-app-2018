@@ -51,7 +51,8 @@ class ContributorsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val contributors = result.data
-                    val header = ContributorHeaderItem(contributors.size, fragmentDataBindingComponent)
+                    val header =
+                            ContributorHeaderItem(contributors.size, fragmentDataBindingComponent)
                     contributorSection.setHeader(header)
                     contributorSection.updateContributors(contributors)
                 }

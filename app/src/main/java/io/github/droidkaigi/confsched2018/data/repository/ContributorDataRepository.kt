@@ -25,10 +25,10 @@ class ContributorDataRepository @Inject constructor(
                 .toCompletable()
     }
 
-    override val contributors: Flowable<List<Contributor>>
-            = contributorDatabase.getAllContributors()
-            .map { it.toContributors() }
-            .subscribeOn(schedulerProvider.computation())
+    override val contributors: Flowable<List<Contributor>> =
+            contributorDatabase.getAllContributors()
+                    .map { it.toContributors() }
+                    .subscribeOn(schedulerProvider.computation())
 
     companion object {
         private val OWNER = "DroidKaigi"

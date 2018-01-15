@@ -65,7 +65,6 @@ import javax.inject.Singleton
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .client(okHttpClient)
                 .build()
-
     }
 
     @Singleton @Provides @JvmStatic
