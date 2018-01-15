@@ -7,6 +7,7 @@ import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.FeedApi
 import io.github.droidkaigi.confsched2018.data.api.FeedFirestoreApi
+import io.github.droidkaigi.confsched2018.data.api.GithubApi
 import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
@@ -53,6 +54,19 @@ import javax.inject.Singleton
                 .build()
     }
 
+    @RetrofitGithub @Singleton @Provides @JvmStatic
+    fun provideRetrofitForGithub(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+                .baseUrl("https://api.github.com")
+                .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
+                        .add(ApplicationJsonAdapterFactory.INSTANCE)
+                        .add(LocalDateTime::class.java, LocalDateTimeAdapter())
+                        .build()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+                .client(okHttpClient)
+                .build()
+    }
+
     @Singleton @Provides @JvmStatic
     fun provideDroidKaigiApi(@RetrofitDroidKaigi retrofit: Retrofit): DroidKaigiApi {
         return retrofit.create(DroidKaigiApi::class.java)
@@ -64,5 +78,10 @@ import javax.inject.Singleton
     @Singleton @Provides @JvmStatic
     fun provideSessionFeedbackApi(@RetrofitGoogleForm retrofit: Retrofit): SessionFeedbackApi {
         return retrofit.create(SessionFeedbackApi::class.java)
+    }
+
+    @Singleton @Provides @JvmStatic
+    fun provideGithubApi(@RetrofitGithub retrofit: Retrofit): GithubApi {
+        return retrofit.create(GithubApi::class.java)
     }
 }

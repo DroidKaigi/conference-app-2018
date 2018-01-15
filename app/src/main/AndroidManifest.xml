@@ -88,6 +88,16 @@
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
                 />
         </activity>
+        <activity
+            android:name=".presentation.contributor.ContributorsActivity"
+            android:label="@string/contributors"
+            android:parentActivityName=".presentation.MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                />
+        </activity>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ import javax.inject.Singleton
     MainActivityBuilder::class,
     MapActivityBuilder::class,
     AboutThisAppActivityBuilder::class,
+    ContributorActivityBuilder::class,
     SettingsActivityBuilder::class,
     SponsorsActivityBuilder::class,
     SessionDetailActivityBuilder::class,
