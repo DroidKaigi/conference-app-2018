@@ -35,7 +35,6 @@ class ContributorsActivity : BaseActivity(), HasSupportFragmentInjector {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navigationController.navigateToContributor()
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
     companion object {

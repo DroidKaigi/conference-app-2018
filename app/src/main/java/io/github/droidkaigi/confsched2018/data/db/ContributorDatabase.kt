@@ -5,6 +5,6 @@ import io.github.droidkaigi.confsched2018.data.db.entity.ContributorEntity
 import io.reactivex.Flowable
 
 interface ContributorDatabase {
-    fun getAllContributors(): Flowable<List<ContributorEntity>>
+    fun getAll(): Flowable<List<ContributorEntity>>
     fun save(contributors: List<Contributor>)
 }

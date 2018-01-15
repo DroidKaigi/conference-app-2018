@@ -26,7 +26,7 @@ class ContributorDataRepository @Inject constructor(
     }
 
     override val contributors: Flowable<List<Contributor>> =
-            contributorDatabase.getAllContributors()
+            contributorDatabase.getAll()
                     .map { it.toContributors() }
                     .subscribeOn(schedulerProvider.computation())
 

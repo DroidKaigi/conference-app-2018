@@ -12,7 +12,7 @@ class ContributorRoomDatabase @Inject constructor(
         private val database: RoomDatabase,
         private val dao: ContributorDao
 ) : ContributorDatabase {
-    override fun getAllContributors(): Flowable<List<ContributorEntity>> =
+    override fun getAll(): Flowable<List<ContributorEntity>> =
             dao.getAllContributors()
 
     override fun save(contributors: List<Contributor>) {
