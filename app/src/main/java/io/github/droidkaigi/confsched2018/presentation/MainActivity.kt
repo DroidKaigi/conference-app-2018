@@ -62,7 +62,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
             navigationItem.navigate(navigationController)
             true
         })
-        binding.bottomNavigation.setOnNavigationItemReselectedListener {  }
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { }
         if (savedInstanceState == null) {
             binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
         }
