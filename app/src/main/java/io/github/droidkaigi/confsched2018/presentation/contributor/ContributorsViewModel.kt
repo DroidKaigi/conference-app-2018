@@ -5,8 +5,8 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
-import io.github.droidkaigi.confsched2018.data.api.response.Contributor
 import io.github.droidkaigi.confsched2018.data.repository.ContributorRepository
+import io.github.droidkaigi.confsched2018.model.Contributor
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler

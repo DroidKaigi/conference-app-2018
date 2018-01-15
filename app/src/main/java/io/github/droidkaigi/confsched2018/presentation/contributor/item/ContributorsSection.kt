@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.contributor.item
 
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
-import io.github.droidkaigi.confsched2018.data.api.response.Contributor
+import io.github.droidkaigi.confsched2018.model.Contributor
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
 class ContributorsSection(

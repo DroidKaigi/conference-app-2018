@@ -1,7 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.db.entity.mapper
 
-import io.github.droidkaigi.confsched2018.data.api.response.Contributor
 import io.github.droidkaigi.confsched2018.data.db.entity.ContributorEntity
+import io.github.droidkaigi.confsched2018.model.Contributor
 
 fun ContributorEntity.toContributor(): Contributor = Contributor(
         name = name,

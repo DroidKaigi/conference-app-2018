@@ -1,9 +1,9 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
 import io.github.droidkaigi.confsched2018.data.api.GithubApi
-import io.github.droidkaigi.confsched2018.data.api.response.Contributor
 import io.github.droidkaigi.confsched2018.data.db.ContributorDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toContributors
+import io.github.droidkaigi.confsched2018.model.Contributor
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Flowable

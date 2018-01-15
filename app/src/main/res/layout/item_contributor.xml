@@ -8,7 +8,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="contributor"
-            type="io.github.droidkaigi.confsched2018.data.api.response.Contributor"
+            type="io.github.droidkaigi.confsched2018.model.Contributor"
             />
     </data>
     <android.support.constraint.ConstraintLayout
