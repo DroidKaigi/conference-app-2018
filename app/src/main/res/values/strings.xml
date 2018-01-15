@@ -1,6 +1,7 @@
 <resources>
     <!-- Common -->
-    <string name="time_period">%1$s - %2$s%3$s</string>
+    <string name="time_period">%1$s - %2$s</string>
+    <string name="room_format" translatable="false">%1$s%2$s</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_map">Map</string>
@@ -18,8 +19,11 @@
     <string name="session_special_welcome_talk">Welcome talk</string>
     <string name="session_special_lunch">Lunch</string>
     <string name="session_special_party">Party</string>
+    <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
+    <string name="session_header_divider">" / "</string>
+    <string name="session_load_retry">Retry</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -56,7 +60,11 @@
     <string name="speaker_title_activity_detail">Speaker</string>
 
     <!-- Topic -->
-    <string name="topic_total_session">%dsessions</string>
+    <plurals name="topic_total_session">
+        <item quantity="zero">%d session</item>
+        <item quantity="one">%d session</item>
+        <item quantity="other">%d sessions</item>
+    </plurals>
 
     <!-- Contributors -->
     <string name="contributors">Contributors</string>

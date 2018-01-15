@@ -8,13 +8,20 @@ import io.github.droidkaigi.confsched2018.model.Session
 class SimpleSessionsSection(val fragment: Fragment) : Section() {
     fun updateSessions(
             sessions: List<Session>,
-            onFavoriteClickListener: (Session.SpeechSession) -> Unit
+            onFavoriteClickListener: (Session.SpeechSession) -> Unit,
+            searchQuery: String = ""
     ) {
         val sessionItems = sessions.map {
             when (it) {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
-                    SpeechSessionItem(it, onFavoriteClickListener, fragment, true) as Item<*>
+                    SpeechSessionItem(
+                            it,
+                            onFavoriteClickListener,
+                            fragment,
+                            true,
+                            searchQuery
+                    ) as Item<*>
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")

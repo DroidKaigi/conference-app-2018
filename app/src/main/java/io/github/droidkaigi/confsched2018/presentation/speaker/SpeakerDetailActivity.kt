@@ -31,14 +31,25 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
         navigationController.navigateToSpeakerDetail(intent.getStringExtra(EXTRA_SPEAKER_ID))
         drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
 
     companion object {
         const val EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID"

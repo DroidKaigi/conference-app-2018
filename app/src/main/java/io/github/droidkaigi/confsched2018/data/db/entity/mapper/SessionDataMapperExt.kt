@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.db.entity.mapper
 
+import android.annotation.SuppressLint
 import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
@@ -22,12 +23,12 @@ fun SessionWithSpeakers.toSession(
         firstDay: LocalDate
 ): Session.SpeechSession {
     val sessionEntity = session!!
-    require(!speakerIdList.isEmpty())
+    require(speakerIdList.isNotEmpty())
     val speakers = speakerIdList.map { speakerId ->
         val speakerEntity = speakerEntities.first { it.id == speakerId }
         speakerEntity.toSpeaker()
     }
-    require(!speakers.isEmpty())
+    require(speakers.isNotEmpty())
     return Session.SpeechSession(
             id = sessionEntity.id,
             // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
@@ -57,10 +58,12 @@ fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
         githubUrl = githubUrl
 )
 
+@SuppressLint("VisibleForTests")
 fun Flowable<List<RoomEntity>>.toRooms(): Flowable<List<Room>> = map { roomEntities ->
     roomEntities.toRooms()
 }
 
+@SuppressLint("VisibleForTests")
 fun Flowable<List<TopicEntity>>.toTopics(): Flowable<List<Topic>> = map { topicEntities ->
     topicEntities.toTopics()
 }

@@ -3,16 +3,19 @@ package io.github.droidkaigi.confsched2018.presentation.sessions
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,21 +42,36 @@ class SessionsFragment : Fragment(), Injectable {
                 .of(this, viewModelFactory)
                 .get(SessionsViewModel::class.java)
 
+        val progressTimeLatch = ProgressTimeLatch {
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
+        }
         sessionsViewModel.rooms.observe(this, { result ->
             when (result) {
-                is Result.InProgress -> {
-                    binding.progress.show()
-                }
                 is Result.Success -> {
-                    binding.progress.hide()
                     sessionsViewPagerAdapter.setRooms(result.data)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
-                    binding.progress.hide()
                 }
             }
         })
+        sessionsViewModel.isLoading.observe(this, { isLoading ->
+            progressTimeLatch.loading = isLoading ?: false
+        })
+        sessionsViewModel.refreshResult.observe(this, { result ->
+            when (result) {
+                is Result.Failure -> {
+                    // If user is offline, not error. So we write log to debug
+                    Timber.d(result.e)
+                    Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_LONG).apply {
+                        setAction(R.string.session_load_retry) {
+                            sessionsViewModel.onRetrySessions()
+                        }
+                    }.show()
+                }
+            }
+        })
+
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
@@ -100,6 +118,9 @@ class SessionsViewPagerAdapter(
     override fun getCount(): Int = tabs.size
 
     fun setRooms(rooms: List<Room>) {
+        if (rooms == roomTabs.map { it.room }) {
+            return
+        }
         roomTabs = rooms.map {
             Tab.RoomTab(it)
         }.toMutableList()

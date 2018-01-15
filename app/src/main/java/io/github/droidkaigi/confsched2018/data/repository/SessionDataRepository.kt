@@ -69,8 +69,8 @@ class SessionDataRepository @Inject constructor(
 
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()
-                    .map { speakers ->
-                        speakers.map { speaker -> speaker.toSpeaker() }
+                    .map {
+                        it.map { speaker -> speaker.toSpeaker() }
                     }
 
     override val roomSessions: Flowable<Map<Room, List<Session>>> =

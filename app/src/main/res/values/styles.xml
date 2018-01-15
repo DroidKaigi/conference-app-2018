@@ -36,5 +36,8 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
-
+    <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
 </resources>

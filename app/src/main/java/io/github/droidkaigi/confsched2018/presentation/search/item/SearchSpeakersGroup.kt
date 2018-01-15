@@ -9,10 +9,10 @@ class SearchSpeakersSection(
         private val dataBindingComponent: FragmentDataBindingComponent
 ) : Section() {
 
-    fun updateSpeakers(speakers: List<Speaker>) {
+    fun updateSpeakers(speakers: List<Speaker>, searchQuery: String = "") {
         val list = mutableListOf<Item<*>>()
         speakers.sortedBy { it.name }.mapTo(list) { speaker ->
-            SearchResultSpeakerItem(speaker, dataBindingComponent)
+            SearchResultSpeakerItem(speaker, dataBindingComponent, searchQuery)
         }
         update(list)
     }

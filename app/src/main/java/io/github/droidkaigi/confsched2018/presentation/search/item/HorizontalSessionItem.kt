@@ -2,21 +2,16 @@ package io.github.droidkaigi.confsched2018.presentation.search.item
 
 import android.support.v4.app.Fragment
 import android.view.View
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemHorizontalSessionBinding
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 import io.github.droidkaigi.confsched2018.util.ViewSizeCalculator.calculateViewSizeByScreenAndCount
 import io.github.droidkaigi.confsched2018.util.ext.context
 import io.github.droidkaigi.confsched2018.util.ext.displaySize
 import io.github.droidkaigi.confsched2018.util.ext.getFloat
-import io.github.droidkaigi.confsched2018.util.ext.toGone
-import io.github.droidkaigi.confsched2018.util.ext.toVisible
-import io.github.droidkaigi.confsched2018.util.lang
 
 class HorizontalSessionItem(
         val session: Session.SpeechSession,
@@ -40,32 +35,6 @@ class HorizontalSessionItem(
 
     override fun bind(viewBinding: ItemHorizontalSessionBinding, position: Int) {
         viewBinding.session = session
-        viewBinding.level.text = session.level.getNameByLang(lang())
-        val speakerImages = arrayOf(
-                viewBinding.speakerImage1,
-                viewBinding.speakerImage2,
-                viewBinding.speakerImage3,
-                viewBinding.speakerImage4,
-                viewBinding.speakerImage5
-        )
-        speakerImages.forEachIndexed { index, imageView ->
-            if (index < session.speakers.size) {
-                imageView.toVisible()
-                val size = viewBinding.root.resources.getDimensionPixelSize(R.dimen.speaker_image)
-                CustomGlideApp
-                        .with(fragment)
-                        .load(session.speakers[index].imageUrl)
-                        .placeholder(R.drawable.ic_person_black_24dp)
-                        .override(size, size)
-                        .dontAnimate()
-                        .transform(CircleCrop())
-                        .into(imageView)
-            } else {
-                imageView.toGone()
-            }
-        }
-
-        viewBinding.speakers.text = session.speakers.joinToString { it.name }
         viewBinding.root.setOnClickListener { view ->
             onItemClickListener.onItemClick(this, view)
         }

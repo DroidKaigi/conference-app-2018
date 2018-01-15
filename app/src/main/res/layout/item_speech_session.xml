@@ -14,13 +14,19 @@
             name="isShowDayNumber"
             type="boolean"
             />
+        <variable
+            name="searchQuery"
+            type="String"
+            />
+        <variable
+            name="simplify"
+            type="boolean"
+            />
     </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -42,12 +48,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
                 android:text='@{"DAY"+session.dayNumber+" / "}'
                 android:textAppearance="@style/TextAppearance.App.Caption"
-                android:visibility="@{isShowDayNumber ? View.VISIBLE : View.GONE}"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="DAY1 / "
                 />
@@ -61,11 +66,9 @@
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/day_number"
                 app:layout_constraintTop_toTopOf="@id/day_number"
-                app:layout_goneMarginStart="12dp"
                 app:layout_goneMarginTop="16dp"
-                app:postFix='@{" / "}'
                 app:startDate="@{session.startTime}"
-                tools:text="10:30 - 11:00 / "
+                tools:text="10:30 - 11:00"
                 />
 
             <TextView
@@ -73,29 +76,32 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                android:text="@{session.room.name}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
-                tools:text="Room A"
+                app:prefix='@{" / "}'
+                app:roomName="@{session.room.name}"
+                tools:text=" / Room A"
                 />
 
             <TextView
                 android:id="@+id/level"
                 android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginStart="12dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="12dp"
-                android:background="#64ffda"
+                android:background="@drawable/shape_round_corner_2dp"
                 android:gravity="center"
                 android:maxLines="3"
+                android:paddingBottom="4dp"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
+                android:paddingTop="4dp"
                 android:textAppearance="@style/TextAppearance.App.Body2"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/period"
                 tools:text="for intermediate and/or expert"
                 />
@@ -105,13 +111,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="@{session.title}"
                 android:textAppearance="@style/TextAppearance.App.Title"
+                app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/level"
+                app:layout_goneMarginTop="12dp"
                 tools:text="テストセッション"
                 />
 
@@ -120,14 +128,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:ellipsize="end"
+                android:includeFontPadding="false"
                 android:maxLines="3"
                 android:text="@{session.desc}"
                 android:textAppearance="@style/TextAppearance.App.Caption"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
+                app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tools:text="Material is the metaphor A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic."
                 />
@@ -137,109 +147,37 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
                 android:maxLines="2"
                 android:textAppearance="@style/TextAppearance.App.Caption"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 />
 
-            <ImageView
-                android:id="@+id/speaker_image_5"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_4"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_4"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_3"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_3"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_2"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_2"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginStart="22dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintStart_toStartOf="@id/speaker_image_1"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <ImageView
-                android:id="@+id/speaker_image_1"
-                android:layout_width="@dimen/speaker_image"
-                android:layout_height="@dimen/speaker_image"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="32dp"
-                android:contentDescription="@string/session_content_description_speaker"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/topic"
-                tools:src="@drawable/ic_person_black_24dp"
-                />
-
-            <TextView
-                android:id="@+id/speakers"
+            <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
+                android:id="@+id/speaker_summary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.App.Body2"
-                app:layout_constraintBottom_toBottomOf="@id/speaker_image_1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite"
-                app:layout_constraintStart_toEndOf="@id/speaker_image_5"
-                app:layout_constraintTop_toTopOf="@id/speaker_image_1"
-                app:layout_goneMarginStart="36dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/topic"
+                app:layout_goneMarginTop="16dp"
+                app:speakers="@{session.speakers}"
                 />
 
             <ImageView
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:padding="16dp"
                 android:scaleType="center"
                 app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/speaker_summary"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/speaker_summary"
                 app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
                 tools:src="@drawable/ic_favorite_black_24dp"
                 />

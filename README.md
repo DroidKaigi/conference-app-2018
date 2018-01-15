@@ -1,4 +1,4 @@
-# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2018 official Android app 
+# ![](app/src/main/res/mipmap-mdpi/ic_launcher.png) DroidKaigi 2018 official Android app
 [![CircleCI](https://circleci.com/gh/DroidKaigi/conference-app-2018.svg?style=svg&circle-token=b8e6a12e76295c24c7be8f57807cf6ab4139288e)](https://circleci.com/gh/DroidKaigi/conference-app-2018)[![Waffle.io - Columns and their card count](https://badge.waffle.io/4004fb95e3835aef9cfea229c8443b4b62eacf957879565e813f405126decfae.svg?columns=all)](https://waffle.io/DroidKaigi/conference-app-2018)
 
 [DroidKaigi 2018](https://droidkaigi.jp/2018/en/) is a conference tailored for developers on 8th and 9th February 2018.
@@ -9,11 +9,21 @@
 TBD
 
 # Contributing
-We use [waffle.io](https://waffle.io/DroidKaigi/conference-app-2018) to manage tasks. If you'd like to contribute to the project but are not sure where to start off, please look for issues labelled [welcome contribute](https://github.com/DroidKaigi/conference-app-2018/labels/welcome%20contribute).
+We are always welcome your contribution!
+
+## How to find the tasks
+We use [waffle.io](https://waffle.io/DroidKaigi/conference-app-2018) to manage the tasks.
+Please find the issues you'd like to contribute in it.
+[welcome contribute](https://github.com/DroidKaigi/conference-app-2018/labels/welcome%20contribute) and [easy](https://github.com/DroidKaigi/conference-app-2018/labels/easy) are good for first contribution.
+
+Of course, it would be great to send PullRequest which has no issue!
+
+## How to contribute
+If you find the tasks you want to contribute, please comment in the issue like [this](https://github.com/DroidKaigi/conference-app-2018/issues/73#issuecomment-357410022) to prevent to conflict contribution.
+We'll reply as soon as possible, but it's unnecessary to wait our reaction. It's okay to start contribution and send PullRequest!
 
 We've designated these issues as good candidates for easy contribution. You can always fork the repository and send a pull request (on a branch other than `master`).
 
-We do accept suggestions for translations at [res/values-**/strings.xml](https://github.com/DroidKaigi/conference-app-2018/tree/master/app/src/main/res).
 
 # Development Environment
 
@@ -241,7 +251,7 @@ Thank you for contributing!
 * Contributors
   * [GitHub : Contributors](https://github.com/DroidKaigi/conference-app-2018/graphs/contributors)
 * Designer  
-  * [okapi / Yuki Okamoto](https://www.instagram.com/okamoto.yuki/) 
+  * [okapi / Yuki Okamoto](https://www.instagram.com/okamoto.yuki/)
   * [DroidKaigi 2018 Zeplin Scene](https://scene.zeplin.io/project/5a327a64f0b20176887c556c)
 
 ## Credit
@@ -263,7 +273,7 @@ This project uses some modern Android libraries and source codes.
   * RecyclerView
   * AOSP Codes
 * Firebase
-  * [FireStore](https://firebase.google.com/docs/firestore/)
+  * [Cloud Firestore](https://firebase.google.com/docs/firestore/)
   * [Auth](https://firebase.google.com/docs/auth/)
 * [Dagger2](https://google.github.io/dagger/), Dagger Android Support, [Glide4](https://bumptech.github.io/glide/) - Google
 * [Kotlin](http://kotlinlang.org/) - JetBrains
@@ -275,7 +285,7 @@ This project uses some modern Android libraries and source codes.
 * [Stetho](http://facebook.github.io/stetho/) - Facebook
 * [Kotshi](https://github.com/ansman/kotshi) - ansman
 * [DownloadableCalligraphy](https://github.com/takahirom/DownloadableCalligraphy) - takahirom
-* [EllipsizingTextView](https://gist.github.com/stepango/1dcf6055a80f840f9185)
+* [ProgressTimeLatch](https://github.com/chrisbanes/tivi/blob/96e7cae7560ffd358b8c58c47267ed1024df53f6/app/src/main/java/me/banes/chris/tivi/ui/ProgressTimeLatch.kt) - chrisbanes
 * [Google I/O 2017](https://github.com/google/iosched)
 
 ## License

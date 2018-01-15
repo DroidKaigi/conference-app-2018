@@ -1,8 +1,13 @@
 package io.github.droidkaigi.confsched2018.model
 
 import java.text.SimpleDateFormat
-import java.util.*
-import java.util.Calendar.*
+import java.util.Calendar
+import java.util.Calendar.DAY_OF_MONTH
+import java.util.Calendar.HOUR_OF_DAY
+import java.util.Calendar.MINUTE
+import java.util.Calendar.MONTH
+import java.util.Calendar.YEAR
+import java.util.Locale
 
 actual class Date {
     private val calendar: Calendar
@@ -42,8 +47,8 @@ actual class Date {
 
 actual operator fun Date.compareTo(otherDate: Date): Int = date.compareTo(otherDate.date)
 
-val readableDateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
-val readableTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-actual fun Date.toReadableDateString() = readableDateFormat.format(date)
-actual fun Date.toReadableTimeString() = readableTimeFormat.format(date)
+fun readableDateFormat() = SimpleDateFormat("MM/dd", Locale.getDefault())
+fun readableTimeFormat() = SimpleDateFormat("HH:mm", Locale.getDefault())
+actual fun Date.toReadableDateString() = readableDateFormat().format(date)
+actual fun Date.toReadableTimeString() = readableTimeFormat().format(date)
 actual fun parseDate(timeInMills: Long): Date = Date(timeInMills)
