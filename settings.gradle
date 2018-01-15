@@ -1,1 +1,1 @@
-include ':app', ':common', ':common-jvm'
+include ':app', ':model'

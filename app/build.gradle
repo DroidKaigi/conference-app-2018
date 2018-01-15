@@ -67,7 +67,8 @@ android {
 }
 
 dependencies {
-    implementation project(':common-jvm')
+
+    implementation project(':model')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
