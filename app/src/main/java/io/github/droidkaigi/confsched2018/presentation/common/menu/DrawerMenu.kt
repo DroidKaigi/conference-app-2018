@@ -101,7 +101,6 @@ class DrawerMenu @Inject constructor(
         }),
         OTHER(0, Unit::class, {
             //do nothing
-        }),
-
+        })
     }
 }
