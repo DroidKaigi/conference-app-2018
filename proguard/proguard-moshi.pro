@@ -1,0 +1,2 @@
+-keep class com.squareup.moshi.JsonAdapter
+-keep class com.squareup.moshi.Moshi

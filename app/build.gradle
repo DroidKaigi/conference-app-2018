@@ -52,8 +52,17 @@ android {
             signingConfig signingConfigs.release
             debuggable false
             zipAlignEnabled true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            // global proguard settings
+            proguardFile file("proguard-rules.pro")
+            // library proguard settings
+            def files = rootProject.file("proguard")
+                    .listFiles()
+                    .findAll { it.name.startsWith("proguard") }
+                    .toList()
+                    .toArray()
+            proguardFiles(files)
         }
     }
     testOptions {
