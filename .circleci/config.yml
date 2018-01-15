@@ -67,7 +67,7 @@ jobs:
               fi
       - run:
           name: Deploy
-          command: ./deploy.sh
+          command: ./gradlew :app:uploadDeployGateDebug
       - store_artifacts:
           path: app/build/reports
           destination: reports
