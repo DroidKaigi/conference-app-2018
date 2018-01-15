@@ -22,7 +22,7 @@
             android:layout_width="@{@dimen/contributor_image_size, default=@dimen/contributor_image_size}"
             android:layout_height="@{@dimen/contributor_image_size, default=@dimen/contributor_image_size}"
             android:layout_margin="16dp"
-            android:contentDescription="avatar"
+            android:contentDescription="@string/contributors_avatar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

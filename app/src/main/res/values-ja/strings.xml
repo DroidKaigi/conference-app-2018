@@ -61,4 +61,5 @@
     <!-- Contributors -->
     <string name="contributors">コントリビュータ一覧</string>
     <string name="contributors_header">%d 人のコントリビュータ</string>
+    <string name="contributors_avatar">コントリビュータのプロフィール画像</string>
 </resources>

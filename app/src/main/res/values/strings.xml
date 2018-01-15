@@ -61,4 +61,5 @@
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
     <string name="contributors_header">%d Contributors</string>
+    <string name="contributors_avatar">contributors avatar</string>
 </resources>
