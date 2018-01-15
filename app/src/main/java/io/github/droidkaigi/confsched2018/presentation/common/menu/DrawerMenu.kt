@@ -21,6 +21,7 @@ class DrawerMenu @Inject constructor(
         private val navigationController: NavigationController
 ) {
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var currentNavigationItem: DrawerNavigationItem
 
     fun setup(
             toolbar: Toolbar,
@@ -48,15 +49,22 @@ class DrawerMenu @Inject constructor(
             DrawerNavigationItem
                     .values()
                     .first { it.menuId == item.itemId }
-                    .apply { navigate(navigationController) }
+                    .apply {
+                        if (this != currentNavigationItem) {
+                            navigate(navigationController)
+                        }
+                    }
             drawerLayout.closeDrawers()
             false
         }
-        val menuId = DrawerNavigationItem
+
+        currentNavigationItem = DrawerNavigationItem
                 .values()
                 .firstOrNull { activity::class == it.activityClass }
-                ?.menuId ?: 0
-        navigationView.setCheckedItem(menuId)
+                ?.also {
+                    navigationView.setCheckedItem(it.menuId)
+                }
+                ?: DrawerNavigationItem.OTHER
     }
 
     fun closeDrawerIfNeeded(): Boolean {
@@ -91,5 +99,8 @@ class DrawerMenu @Inject constructor(
         SURVEY(R.id.nav_item_all_survey, /*fixme*/AboutThisAppActivity::class, {
             //todo
         }),
+        OTHER(0, Unit::class, {
+            //do nothing
+        })
     }
 }
