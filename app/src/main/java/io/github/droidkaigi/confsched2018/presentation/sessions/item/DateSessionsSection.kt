@@ -3,9 +3,8 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 import android.support.v4.app.Fragment
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
+import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.model.toReadableDateString
-import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.SortedMap
 
 class DateSessionsSection(private val fragment: Fragment) : Section() {
@@ -28,21 +27,16 @@ class DateSessionsSection(private val fragment: Fragment) : Section() {
             }
         }
 
-        val dateSpeechSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>> =
-                sessionItems.groupBy {
-                    ReadableDateTimePair(it.session.startTime.toReadableDateString(),
-                            it.session.startTime.toReadableTimeString())
-                }.toSortedMap()
+        val dateSpeechSessionItemsMap: SortedMap<Date, List<SessionItem>> =
+                sessionItems.groupBy { it.session.startTime }.toSortedMap()
 
         val dateSessions = arrayListOf<Item<*>>()
-        dateSpeechSessionItemsMap.keys.forEach { key ->
-            key ?: return@forEach
-            val list = dateSpeechSessionItemsMap[key]
+        dateSpeechSessionItemsMap.keys.forEach { startTime ->
+            startTime ?: return@forEach
+            val list = dateSpeechSessionItemsMap[startTime]
 
             val endTime = list!![0].session.endTime
-            val endDateTimePair = ReadableDateTimePair(endTime.toReadableDateString(),
-                    endTime.toReadableTimeString())
-            dateSessions.add(DateHeaderItem(key, endDateTimePair))
+            dateSessions.add(DateHeaderItem(startTime, endTime))
             @Suppress("UNCHECKED_CAST")
             dateSessions.addAll(list.toMutableList() as List<Item<*>>)
         }
