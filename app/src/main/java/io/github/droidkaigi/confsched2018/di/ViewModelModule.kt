@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsViewModel
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailViewModel
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedViewModel
@@ -73,6 +74,12 @@ import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailViewMode
     @ViewModelKey(SearchSpeakersViewModel::class)
     abstract fun bindSearchSpeakersViewModel(
             sessionDetailViewModel: SearchSpeakersViewModel
+    ): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(ContributorsViewModel::class)
+    abstract fun bindContributorsViewModel(
+            contributorsViewModel: ContributorsViewModel
     ): ViewModel
 
     @Binds @IntoMap

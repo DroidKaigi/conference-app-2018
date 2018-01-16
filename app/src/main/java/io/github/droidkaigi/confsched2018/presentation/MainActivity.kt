@@ -65,6 +65,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         if (savedInstanceState == null) {
             binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
         }
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { }
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector

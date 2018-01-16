@@ -67,7 +67,8 @@ android {
 }
 
 dependencies {
-    implementation project(':common-jvm')
+
+    implementation project(':model')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -106,6 +107,7 @@ dependencies {
     implementation "com.android.support:design:$supportLibraryVersion"
     implementation "com.android.support:support-vector-drawable:$supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$supportLibraryVersion"
+    implementation "com.android.support:customtabs:$supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
 
     // DataBinding
@@ -160,6 +162,11 @@ dependencies {
     def stethoVersion = '1.5.0'
     debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
     debugImplementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
+
+    // Debot
+    def debotVersion = '2.0.3'
+    debugImplementation "com.tomoima.debot:debot:$debotVersion"
+    releaseImplementation "com.tomoima.debot:debot-no-op:$debotVersion"
 
     // Test
     testImplementation 'junit:junit:4.12'
