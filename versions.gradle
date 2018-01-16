@@ -20,6 +20,7 @@ ext {
             glide           : "4.4.0",
             groupie         : "2.0.2",
             stetho          : "1.5.0",
+            debot           : "2.0.3",
     ]
 
     depends = [
@@ -105,6 +106,10 @@ ext {
             crashlytics            : "com.crashlytics.sdk.android:crashlytics:2.7.1@aar",
             timber                 : "com.jakewharton.timber:timber:4.6.0",
             leakcanary             : "com.squareup.leakcanary:leakcanary-android:1.5.4",
+            debot                  : [
+                    core: "com.tomoima.debot:debot:$versions.debot",
+                    noop: "com.tomoima.debot:debot-no-op:$versions.debot",
+            ],
 
             //==================== Test ====================
             junit                  : "junit:junit:4.12",
