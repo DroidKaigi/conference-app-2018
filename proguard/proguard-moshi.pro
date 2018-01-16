@@ -1,2 +1,10 @@
--keep class com.squareup.moshi.JsonAdapter
--keep class com.squareup.moshi.Moshi
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
+-keep @com.squareup.moshi.JsonQualifier interface *
+
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}
