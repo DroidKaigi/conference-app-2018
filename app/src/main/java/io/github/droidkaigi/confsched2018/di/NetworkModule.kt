@@ -24,7 +24,9 @@ import javax.inject.Singleton
 internal object NetworkModule {
 
     @Singleton @Provides @JvmStatic
-    fun provideOkHttpClient(@NetworkLogger loggingInterceptors: Set<Interceptor>): OkHttpClient =
+    fun provideOkHttpClient(@NetworkLogger loggingInterceptors: Set<@JvmSuppressWildcards
+    Interceptor>):
+            OkHttpClient =
             OkHttpClient.Builder().apply {
                 loggingInterceptors.forEach {
                     addNetworkInterceptor(it)
