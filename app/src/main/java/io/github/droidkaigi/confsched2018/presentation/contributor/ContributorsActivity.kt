@@ -38,6 +38,12 @@ class ContributorsActivity : BaseActivity(), HasSupportFragmentInjector {
         drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
+
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, ContributorsActivity::class.java))
