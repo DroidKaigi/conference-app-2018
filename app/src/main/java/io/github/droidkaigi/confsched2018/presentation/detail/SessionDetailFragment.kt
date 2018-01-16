@@ -66,6 +66,7 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.session = session
         binding.fab.setOnClickListener {
             sessionDetailViewModel.onFavoriteClick(session)
+
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
     }

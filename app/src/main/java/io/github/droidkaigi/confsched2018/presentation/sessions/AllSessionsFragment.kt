@@ -22,6 +22,7 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.Alarm
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
@@ -49,6 +50,11 @@ class AllSessionsFragment : Fragment(), Injectable {
         // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
+        if (session.isFavorited) {
+            Alarm(context!!, session).register()
+        } else {
+            Alarm(context!!, session).unregister()
+        }
 
         sessionsViewModel.onFavoriteClick(session)
     }
