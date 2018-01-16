@@ -24,7 +24,6 @@ import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class TopicDetailFragment : Fragment(), Injectable {
 
     @Inject lateinit var navigationController: NavigationController
