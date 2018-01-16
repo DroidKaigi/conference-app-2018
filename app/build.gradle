@@ -5,6 +5,11 @@ apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.ben-manes.versions'
 
+// Manifest version
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+
 android {
     compileSdkVersion versions.compileSdk
     dataBinding.enabled = true
@@ -13,8 +18,8 @@ android {
         applicationId "io.github.droidkaigi.confsched2018"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 1
-        versionName "0.1"
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true

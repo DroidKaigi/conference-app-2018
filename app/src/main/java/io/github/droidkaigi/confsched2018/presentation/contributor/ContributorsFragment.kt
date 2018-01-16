@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,6 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
-import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorHeaderItem
 import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorItem
 import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorsSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -47,13 +47,11 @@ class ContributorsFragment : Fragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
 
         setupRecyclerView()
+        setupSwipeRefresh()
         contributorsViewModel.contributors.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
                     val contributors = result.data
-                    val header =
-                            ContributorHeaderItem(contributors.size, fragmentDataBindingComponent)
-                    contributorSection.setHeader(header)
                     contributorSection.updateContributors(contributors)
                 }
                 is Result.Failure -> {
@@ -84,6 +82,16 @@ class ContributorsFragment : Fragment(), Injectable {
             adapter = groupAdapter
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
+    }
+
+    private fun setupSwipeRefresh() {
+        binding.contributorsSwipeRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            contributorsViewModel.onRefreshContributors()
+
+            if (binding.contributorsSwipeRefresh.isRefreshing()) {
+                binding.contributorsSwipeRefresh.setRefreshing(false)
+            }
+        })
     }
 
     companion object {
