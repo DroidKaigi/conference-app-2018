@@ -163,6 +163,11 @@ dependencies {
     debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
     debugImplementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
+    // Debot
+    def debotVersion = '2.0.3'
+    debugImplementation "com.tomoima.debot:debot:$debotVersion"
+    releaseImplementation "com.tomoima.debot:debot-no-op:$debotVersion"
+
     // Test
     testImplementation 'junit:junit:4.12'
     testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
