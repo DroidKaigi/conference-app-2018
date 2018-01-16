@@ -17,6 +17,7 @@ import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
+import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -72,6 +73,8 @@ class AllSessionsFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+
+                    sessionsViewModel.onSuccessFetchSessions()
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -80,6 +83,12 @@ class AllSessionsFragment : Fragment(), Injectable {
         })
         sessionsViewModel.isLoading.observe(this, { isLoading ->
             progressTimeLatch.loading = isLoading ?: false
+        })
+        sessionsViewModel.refreshFocusCurrentSession.observe(this, {
+            if (it != true) return@observe
+            val now = Date()
+            val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
+            binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
         })
     }
 

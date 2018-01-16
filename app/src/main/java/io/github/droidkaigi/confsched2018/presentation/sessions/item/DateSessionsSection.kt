@@ -59,6 +59,27 @@ class DateSessionsSection(private val fragment: Fragment) : Section() {
         }
     }
 
+    fun getDateHeaderPositionByDate(date: Date): Int {
+        var position = 0
+        if (itemCount == 0) return position
+
+        val items = 0.until(itemCount).map { getItem(it) }
+        if (items.isEmpty()) return position
+
+        items.forEachIndexed { index, item ->
+            if (item !is DateHeaderItem) return@forEachIndexed
+
+            position = index
+
+            val time = date.getTime().toInt()
+            val sessionEndTime = item.endDateTime.getTime().toInt()
+
+            if (time <= sessionEndTime) return position
+        }
+
+        return position
+    }
+
     private fun getItemOrNull(i: Int): Item<*>? {
         if (itemCount <= i) {
             return null
