@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoSet
 import okhttp3.Interceptor
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
 @Module
