@@ -98,6 +98,11 @@
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
                 />
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts"
+            />
     </application>
 
 </manifest>

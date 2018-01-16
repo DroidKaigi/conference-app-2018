@@ -109,6 +109,7 @@ dependencies {
     implementation "com.android.support:cardview-v7:$supportLibraryVersion"
     implementation "com.android.support:customtabs:$supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
+    implementation "com.android.support:support-emoji:$supportLibraryVersion"
 
     // DataBinding
     kapt "com.android.databinding:compiler:3.0.1"

@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             >
-            <TextView
+            <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/session_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                     tools:text="Room A"
                     />
 
-                <TextView
+                <android.support.text.emoji.widget.EmojiTextView
                     android:id="@+id/session_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
