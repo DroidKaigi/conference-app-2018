@@ -19,7 +19,6 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
-import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorHeaderItem
 import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorItem
 import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorsSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -51,9 +50,6 @@ class ContributorsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val contributors = result.data
-                    val header =
-                            ContributorHeaderItem(contributors.size, fragmentDataBindingComponent)
-                    contributorSection.setHeader(header)
                     contributorSection.updateContributors(contributors)
                 }
                 is Result.Failure -> {
