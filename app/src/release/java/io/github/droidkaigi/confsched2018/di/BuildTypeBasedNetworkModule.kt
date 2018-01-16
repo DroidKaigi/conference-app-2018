@@ -11,6 +11,6 @@ internal class BuildTypeBasedNetworkModule {
 
     @NetworkLogger @Singleton @Provides @IntoSet
     fun provideNetworkLogger(): Interceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.NONE
+        level = HttpLoggingInterceptor.Level.BASIC
     }
 }
