@@ -10,11 +10,11 @@ import android.widget.ImageView
 
 @BindingMethods(
         BindingMethod(type = ImageView::class,
-                attribute = "app:srcCompat",
+                attribute = "srcCompat",
                 method = "setImageDrawable"))
 class ImageBinding
 
-@BindingAdapter("bind:colorTint", "app:srcCompat")
+@BindingAdapter("colorTint", "srcCompat")
 fun ImageView.setColorTint(@ColorInt color: Int, drawable: Drawable) {
     val wrappedDrawable = DrawableCompat.wrap(drawable.mutate())
     DrawableCompat.setTint(wrappedDrawable, color)
