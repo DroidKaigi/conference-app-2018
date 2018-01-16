@@ -28,7 +28,8 @@ import javax.inject.Singleton
             sessionSpeakerJoinDao: SessionSpeakerJoinDao,
             sessionFeedbackDao: SessionFeedbackDao
     ): SessionDatabase =
-            SessionRoomDatabase(appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao, sessionFeedbackDao)
+            SessionRoomDatabase(appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao,
+                    sessionFeedbackDao)
 
     @Singleton @Provides @JvmStatic
     fun provideFavoriteDatabase(): FavoriteDatabase =
