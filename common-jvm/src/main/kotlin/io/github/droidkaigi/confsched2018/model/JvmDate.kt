@@ -9,7 +9,8 @@ import java.util.Calendar.MONTH
 import java.util.Calendar.YEAR
 import java.util.Locale
 
-actual class Date {
+actual class Date : Comparable<Date> {
+
     private val calendar: Calendar
 
     actual constructor() {
@@ -43,9 +44,12 @@ actual class Date {
 
     override fun equals(other: Any?): Boolean =
             other is Date && other.calendar.time == calendar.time
+
+    override fun compareTo(other: Date): Int = date.compareTo(other.date)
 }
 
-actual operator fun Date.compareTo(otherDate: Date): Int = date.compareTo(otherDate.date)
+actual @Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+operator fun Date.compareTo(otherDate: Date): Int = date.compareTo(otherDate.date)
 
 fun readableDateFormat() = SimpleDateFormat("MM/dd", Locale.getDefault())
 fun readableTimeFormat() = SimpleDateFormat("HH:mm", Locale.getDefault())
