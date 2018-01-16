@@ -123,7 +123,7 @@ dependencies {
 
     // Firebase
     // Adjust version for emulator
-    def firebaseVersion = '11.8.0'
+    def firebaseVersion = '11.6.2'
     implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
     implementation "com.google.firebase:firebase-auth:$firebaseVersion"
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
