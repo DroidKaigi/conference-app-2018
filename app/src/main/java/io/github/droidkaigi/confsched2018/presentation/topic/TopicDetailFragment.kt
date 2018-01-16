@@ -83,7 +83,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         val linearLayoutManager = LinearLayoutManager(context)
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
+            setLinearDivider(R.drawable.shape_divider_vertical_12dp, linearLayoutManager)
         }
     }
 
