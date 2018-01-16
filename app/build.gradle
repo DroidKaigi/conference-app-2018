@@ -5,16 +5,21 @@ apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.ben-manes.versions'
 
+// Manifest version
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+
 android {
-    compileSdkVersion 27
+    compileSdkVersion versions.compileSdk
     dataBinding.enabled = true
 
     defaultConfig {
         applicationId "io.github.droidkaigi.confsched2018"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "0.1"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -66,110 +71,94 @@ android {
     }
 }
 
+// See versions.gradle
 dependencies {
-    implementation project(':common-jvm')
+    implementation project(':model')
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation depends.kotlin.stdlib
 
-    // Retrofit
-    def retrofitVersion = '2.3.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    
-    // Kotshi
-    def kotshiVersion = '0.3.0-beta1'
-    implementation "se.ansman.kotshi:api:$kotshiVersion"
-    kapt "se.ansman.kotshi:compiler:$kotshiVersion"
+    //==================== Support Library ====================
+    implementation depends.support.v4
+    implementation depends.support.appcompat
+    implementation depends.support.design
+    implementation depends.support.cardview
+    implementation depends.support.customtabs
+    implementation depends.support.constraint
+    implementation depends.support.multidex
 
-    // Android Architecture Components
-    implementation 'android.arch.lifecycle:runtime:1.0.3'
-    implementation 'android.arch.lifecycle:extensions:1.0.0'
-    implementation 'android.arch.lifecycle:reactivestreams:1.0.0'
-    implementation 'android.arch.persistence.room:runtime:1.0.0'
-    implementation "android.arch.persistence.room:rxjava2:1.0.0"
-    kapt 'android.arch.persistence.room:compiler:1.0.0'
+    //==================== Network ====================
+    implementation depends.okhttp3.loggingIntercepter
 
-    // RxJava
-    implementation "io.reactivex.rxjava2:rxjava:2.1.8"
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    implementation depends.retrofit.core
+    implementation depends.retrofit.converterMoshi
+    implementation depends.retrofit.adapterRxJava2
 
-    // OkHttp
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    //==================== Structure ====================
+    implementation depends.kotshi.api
+    kapt depends.kotshi.compiler
 
-    // Support Library
-    def supportLibraryVersion = '27.0.2'
-    implementation "com.android.support:support-v4:$supportLibraryVersion"
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation "com.android.support:design:$supportLibraryVersion"
-    implementation "com.android.support:support-vector-drawable:$supportLibraryVersion"
-    implementation "com.android.support:cardview-v7:$supportLibraryVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
+    implementation depends.lifecycle.runtime
+    implementation depends.lifecycle.extensions
+    implementation depends.lifecycle.reactivestreams
+    implementation depends.room.runtime
+    implementation depends.room.rxjava2
+    kapt depends.room.compiler
 
-    // DataBinding
-    kapt "com.android.databinding:compiler:3.0.1"
+    implementation depends.rxjava2.core
+    implementation depends.rxjava2.android
+    implementation depends.rxjava2.kotlin
 
-    // Dagger
-    def daggerVersion = '2.13'
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    implementation "com.google.dagger:dagger-android:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt depends.binding.compiler
 
-    // Firebase
-    // Adjust version for emulator
-    def firebaseVersion = '11.6.2'
-    implementation "com.google.firebase:firebase-firestore:$firebaseVersion"
-    implementation "com.google.firebase:firebase-auth:$firebaseVersion"
-    implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+    implementation depends.dagger.core
+    implementation depends.dagger.android
+    implementation depends.dagger.androidSupport
+    kapt depends.dagger.compiler
+    kapt depends.dagger.androidProcessor
+
+    implementation depends.firebase.firestore
+    implementation depends.firebase.auth
+    implementation depends.firebase.core
+
+    implementation depends.threetenabp
+
+    //==================== UI ====================
+    implementation depends.glide.core
+    implementation depends.glide.okhttp3
+    kapt depends.glide.compiler
+
+    implementation depends.groupie.core
+    implementation depends.groupie.binding
+
+    implementation depends.downloadableCalligraphy
+
+    //==================== Debug ====================
+    debugImplementation depends.stetho.core
+    debugImplementation depends.stetho.okhttp3
+
+    implementation(depends.crashlytics) {
         transitive = true
     }
 
-    // ThreeTenABP for JSR-310 backport
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
-    testImplementation 'org.threeten:threetenbp:1.3.3'
+    implementation depends.timber
 
-    // groupie for RecyclerView Adapter
-    def groupieVersion = '2.0.0'
-    implementation "com.xwray:groupie-databinding:$groupieVersion"
-    implementation "com.xwray:groupie:$groupieVersion"
+    debugImplementation depends.leakcanary
 
-    // MultiDex
-    implementation 'com.android.support:multidex:1.0.2'
+    debugImplementation depends.debot.core
+    releaseImplementation depends.debot.noop
 
-    // Glide
-    def glideVersion = '4.4.0'
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    implementation "com.github.bumptech.glide:okhttp3-integration:$glideVersion"
-    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    //==================== Test ====================
+    testImplementation depends.junit
+    testImplementation depends.mockitoKotlin
 
-    // Timber
-    implementation 'com.jakewharton.timber:timber:4.6.0'
+    testImplementation depends.robolectric.core
+    testImplementation depends.assertk
 
-    // Downloadable Calligraphy
-    implementation 'com.github.takahirom.downloadable.calligraphy:downloadable-calligraphy:0.1.2'
+    testImplementation depends.threetenbp
 
-    // LeakCanary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-
-    // Stetho
-    def stethoVersion = '1.5.0'
-    debugImplementation "com.facebook.stetho:stetho:$stethoVersion"
-    debugImplementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
-
-    // Test
-    testImplementation 'junit:junit:4.12'
-    testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
-    // Unit Test
-    testImplementation "org.robolectric:robolectric:3.5.1"
-    testImplementation 'com.willowtreeapps.assertk:assertk:0.9'
-    // Instrumentation Test
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation depends.supporttest.runner
+    androidTestImplementation depends.supporttest.espresso
 
 }
 
@@ -178,7 +167,7 @@ repositories {
 }
 
 ktlint {
-    version = "0.14.0"
+    version = versions.ktlint
     android = true
     reporter = "checkstyle"
     ignoreFailures = true

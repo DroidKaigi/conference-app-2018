@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
-        android:foreground="?selectableItemBackground"
         >
         <include
             android:id="@+id/search_content"

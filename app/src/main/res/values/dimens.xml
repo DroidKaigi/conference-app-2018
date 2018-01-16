@@ -14,4 +14,7 @@
 
     <!-- Elevation -->
     <dimen name="elevation_app_bar">4dp</dimen>
+
+    <!-- Contributors -->
+    <dimen name="contributor_image_size">40dp</dimen>
 </resources>
