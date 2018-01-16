@@ -4,7 +4,6 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import android.arch.persistence.room.Transaction
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
 import io.reactivex.Flowable
 
@@ -16,10 +15,5 @@ import io.reactivex.Flowable
     abstract fun delete(sessionId: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(sessionFeedback: SessionFeedbackEntity)
-
-    @Transaction open fun clearAndInsert(sessionFeedback: SessionFeedbackEntity) {
-        delete(sessionFeedback.sessionId)
-        insert(sessionFeedback)
-    }
+    abstract fun upsert(sessionFeedback: SessionFeedbackEntity)
 }

@@ -50,7 +50,7 @@ class SessionRoomDatabase @Inject constructor(
 
     override fun saveSessionFeedback(sessionFeedback: SessionFeedback) {
         database.runInTransaction {
-            sessionFeedbackDao.clearAndInsert(sessionFeedback.toSessionFeedbackEntity())
+            sessionFeedbackDao.upsert(sessionFeedback.toSessionFeedbackEntity())
         }
     }
 }
