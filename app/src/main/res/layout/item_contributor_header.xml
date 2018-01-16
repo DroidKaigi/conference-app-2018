@@ -17,10 +17,18 @@
             android:id="@+id/contributor_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:layout_marginEnd="72dp"
             android:layout_marginStart="72dp"
             android:layout_marginTop="36dp"
+            android:layout_marginBottom="36dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            android:gravity="center_horizontal"
             android:textSize="24sp"
             android:text="@{@string/contributors_header(contributorCount)}"
             tools:text="1000 Contributors"

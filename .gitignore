@@ -6,6 +6,8 @@
 /build
 /captures
 .externalNativeBuild
+/common
+/common-jvm
 
 # not ignore
 !.idea/codeStyleSettings.xml
