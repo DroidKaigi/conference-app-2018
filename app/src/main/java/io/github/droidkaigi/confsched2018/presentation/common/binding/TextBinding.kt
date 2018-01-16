@@ -14,7 +14,7 @@ import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.regex.Pattern
 
-@BindingAdapter(value = ["bind:dayNumber"])
+@BindingAdapter(value = ["dayNumber"])
 fun TextView.setDayText(dayNumber: Int) {
     text = context.getString(
             R.string.session_day_title,
@@ -22,7 +22,7 @@ fun TextView.setDayText(dayNumber: Int) {
     )
 }
 
-@BindingAdapter(value = ["bind:startDate", "bind:endDate"])
+@BindingAdapter(value = ["startDate", "endDate"])
 fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
     startDate ?: return
     endDate ?: return
@@ -33,7 +33,7 @@ fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
     )
 }
 
-@BindingAdapter(value = ["bind:prefix", "bind:roomName"])
+@BindingAdapter(value = ["prefix", "roomName"])
 fun TextView.setRoomText(prefix: String?, roomName: String?) {
     prefix ?: return
     text = when (roomName) { null -> ""
@@ -47,7 +47,7 @@ fun TextView.setDateText(date: Date?) {
     text = date.toReadableDateTimeString()
 }
 
-@BindingAdapter(value = ["bind:highlightText"])
+@BindingAdapter(value = ["highlightText"])
 fun TextView.setHighlightText(highlightText: String?) {
     // By toString, clear highlight text.
     val stringBuilder = SpannableStringBuilder(text.toString())
