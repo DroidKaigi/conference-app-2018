@@ -118,6 +118,9 @@ class SessionsViewPagerAdapter(
     override fun getCount(): Int = tabs.size
 
     fun setRooms(rooms: List<Room>) {
+        if (rooms == roomTabs.map { it.room }) {
+            return
+        }
         roomTabs = rooms.map {
             Tab.RoomTab(it)
         }.toMutableList()

@@ -36,7 +36,7 @@ class AllSessionsFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentAllSessionsBinding
 
-    private val sessionsSection = DateSessionsSection(this)
+    private val sessionsSection = DateSessionsSection()
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController

@@ -26,7 +26,7 @@
         android:layout_marginStart="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textAppearance="@style/TextAppearance.App.Body2"
+        style="@style/TextStyle.App.Body2"
         tools:text="John Doe"
         />
 
