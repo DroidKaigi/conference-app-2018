@@ -38,7 +38,6 @@ class SpeakerDetailFragment : Fragment(), Injectable {
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
         // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
         speakerDetailViewModel.onFavoriteClick(session)
     }

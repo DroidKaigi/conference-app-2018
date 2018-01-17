@@ -38,7 +38,6 @@ class TopicDetailFragment : Fragment(), Injectable {
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
         session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
         topicDetailViewModel.onFavoriteClick(session)
     }

@@ -1,10 +1,11 @@
-package io.github.droidkaigi.confsched2018.widget;
+package io.github.droidkaigi.confsched2018.presentation.common.view;
 
 import android.content.Context
 import android.graphics.drawable.Animatable
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.widget.Checkable
+import io.github.droidkaigi.confsched2018.R
 
 class FavoriteButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0): AppCompatImageView(context, attrs, defStyleAttr), Checkable {
     data class CustomAttribute(

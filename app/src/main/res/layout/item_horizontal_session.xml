@@ -112,7 +112,7 @@
                 app:layout_constraintTop_toBottomOf="@id/title"
                 />
 
-            <io.github.droidkaigi.confsched2018.widget.FavoriteButton
+            <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
                 android:checked="@{session.isFavorited}"

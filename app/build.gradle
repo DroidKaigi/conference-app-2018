@@ -83,7 +83,6 @@ android {
 // See versions.gradle
 dependencies {
     implementation project(':model')
-    implementation project(':widgets')
 
     // Kotlin
     implementation depends.kotlin.stdlib
