@@ -66,7 +66,6 @@
     <string name="contributors">コントリビューター</string>
     <string name="contributors_avatar">コントリビューターのプロフィール画像</string>
     <plurals name="contributors_header">
-        <item quantity="one">%d 人のコントリビューター</item>
         <item quantity="other">%d 人のコントリビューター</item>
     </plurals>
 </resources>
