@@ -82,7 +82,17 @@
             android:id="@+id/mysession_inactive_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="mysession_inactive_title,mysession_inactive_image,mysession_inactive_detail"
+            />
+        <ProgressBar
+            android:id="@+id/progress"
+            android:visibility="gone"
+            style="@style/ProgressBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>
