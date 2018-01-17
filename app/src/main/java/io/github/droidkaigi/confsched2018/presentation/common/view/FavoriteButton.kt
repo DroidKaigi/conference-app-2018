@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.common.view;
+package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
 import android.graphics.drawable.Animatable
@@ -7,7 +7,11 @@ import android.util.AttributeSet
 import android.widget.Checkable
 import io.github.droidkaigi.confsched2018.R
 
-class FavoriteButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0): AppCompatImageView(context, attrs, defStyleAttr), Checkable {
+class FavoriteButton @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr), Checkable {
+
     data class CustomAttribute(
             val checked: Boolean,
             val checkedColorTint: Int,
@@ -70,7 +74,7 @@ class FavoriteButton @JvmOverloads constructor(context: Context, attrs: Attribut
     private fun updateDrawableWithoutAnimation() {
         if (isChecked) {
             // TODO: apply checkedColorTint
-            setImageResource(R.drawable.ic_favorite_checked);
+            setImageResource(R.drawable.ic_favorite_checked)
         } else {
             // TODO: apply uncheckedColorTint
             setImageResource(R.drawable.ic_favorite_unchecked)
@@ -85,7 +89,7 @@ class FavoriteButton @JvmOverloads constructor(context: Context, attrs: Attribut
         }
         if (isChecked) {
             // TODO: apply checkedColorTint
-            setImageResource(R.drawable.ic_anim_favorite_checking);
+            setImageResource(R.drawable.ic_anim_favorite_checking)
         } else {
             // TODO: apply uncheckedColorTint
             setImageResource(R.drawable.ic_anim_favorite_unchecking)
