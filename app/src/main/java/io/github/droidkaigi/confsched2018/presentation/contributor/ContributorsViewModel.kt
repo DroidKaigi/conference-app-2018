@@ -32,6 +32,14 @@ class ContributorsViewModel @Inject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
+        refreshContributors()
+    }
+
+    fun onRefreshContributors() {
+        refreshContributors()
+    }
+
+    private fun refreshContributors() {
         repository.loadContributors()
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)

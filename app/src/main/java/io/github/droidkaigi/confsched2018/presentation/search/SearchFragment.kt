@@ -42,7 +42,7 @@ class SearchFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController
 
-    private val sessionsSection = SimpleSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection()
     private val speakersSection = SearchSpeakersSection(FragmentDataBindingComponent(this))
 
     private val searchViewModel: SearchViewModel by lazy {
