@@ -12,7 +12,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDa
 data class ContributorItem(
         val contributor: Contributor,
         private val dataBindingComponent: FragmentDataBindingComponent
-) : BindableItem<ItemContributorBinding>() {
+) : BindableItem<ItemContributorBinding>(contributor.name.hashCode().toLong()) {
 
     override fun createViewHolder(itemView: View): ViewHolder<ItemContributorBinding> {
         return ViewHolder(DataBindingUtil.bind(itemView, dataBindingComponent))
