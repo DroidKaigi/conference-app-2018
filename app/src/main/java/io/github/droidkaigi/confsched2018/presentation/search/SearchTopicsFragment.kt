@@ -62,7 +62,7 @@ class SearchTopicsFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            setOnItemClickListener {item, _ ->
+            setOnItemClickListener { item, _ ->
                 val topicItem = item as? TopicItem ?: return@setOnItemClickListener
                 navigationController.navigateToTopicDetailActivity(topicItem.topic.id)
             }

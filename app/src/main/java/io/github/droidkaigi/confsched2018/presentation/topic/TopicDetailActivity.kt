@@ -31,7 +31,8 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding: ActivityTopicDetailBinding by lazy {
-        DataBindingUtil.setContentView<ActivityTopicDetailBinding>(this, R.layout.activity_topic_detail)
+        DataBindingUtil
+                .setContentView<ActivityTopicDetailBinding>(this, R.layout.activity_topic_detail)
     }
 
     private val topicDetailViewModel: TopicDetailViewModel by lazy {

@@ -1,0 +1,3 @@
+# Support library
+
+-keep class android.support.v7.widget.SearchView { *; }
