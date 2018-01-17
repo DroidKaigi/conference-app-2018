@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
-import android.support.v4.app.Fragment
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Session
@@ -8,7 +7,7 @@ import io.github.droidkaigi.confsched2018.model.toReadableDateString
 import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.SortedMap
 
-class DateSessionsSection(private val fragment: Fragment) : Section() {
+class DateSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
@@ -19,7 +18,7 @@ class DateSessionsSection(private val fragment: Fragment) : Section() {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
                     SpeechSessionItem(
-                            it, onFavoriteClickListener, fragment, simplify) as SessionItem
+                            it, onFavoriteClickListener, simplify) as SessionItem
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")

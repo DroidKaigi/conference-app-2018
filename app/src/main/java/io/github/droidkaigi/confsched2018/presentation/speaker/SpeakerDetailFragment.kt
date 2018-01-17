@@ -28,7 +28,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSpeakerDetailBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val sessionsSection = SimpleSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection()
     @Inject lateinit var navigationController: NavigationController
 
     private val speakerDetailViewModel: SpeakerDetailViewModel by lazy {
