@@ -16,4 +16,6 @@
 
     <color name="highlight_text">#FFEB3B</color>
 
+    <color name="recents_background">#B88E0F</color>
+
 </resources>
