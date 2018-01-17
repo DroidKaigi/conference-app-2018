@@ -41,8 +41,8 @@ internal object AppModule {
 
     @Singleton @Provides @JvmStatic
     fun provideSponsorPlanRepository(
-            sponsorApi: SponsorApi
-    ): SponsorPlanRepository = SponsorPlanDataRepository(sponsorApi)
+            droidKaigiApi: DroidKaigiApi
+    ): SponsorPlanRepository = SponsorPlanDataRepository(droidKaigiApi)
 
     @Singleton @Provides @JvmStatic
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
