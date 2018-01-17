@@ -30,7 +30,7 @@ class TopicDetailFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: FragmentTopicDetailBinding
-    private val sessionsSection = SimpleSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection()
 
     private val topicDetailViewModel: TopicDetailViewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(TopicDetailViewModel::class.java)
