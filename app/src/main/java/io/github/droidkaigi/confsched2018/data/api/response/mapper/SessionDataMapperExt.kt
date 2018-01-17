@@ -17,7 +17,7 @@ fun List<Session>?.toSessionSpeakerJoinEntities(): List<SessionSpeakerJoinEntity
     this!!.forEach { responseSession ->
         responseSession.speakers!!.forEach { speakerId ->
             sessionSpeakerJoinEntity +=
-                    SessionSpeakerJoinEntity(responseSession.id!!, speakerId!!)
+                    SessionSpeakerJoinEntity(responseSession.id, speakerId!!)
         }
     }
     return sessionSpeakerJoinEntity
