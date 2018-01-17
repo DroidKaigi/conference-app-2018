@@ -1,6 +1,8 @@
-<animated-vector
+<animated-vector xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt">
+    xmlns:aapt="http://schemas.android.com/aapt"
+    tools:ignore="NewApi"
+    >
     <aapt:attr name="android:drawable">
         <vector
             android:name="vector"
