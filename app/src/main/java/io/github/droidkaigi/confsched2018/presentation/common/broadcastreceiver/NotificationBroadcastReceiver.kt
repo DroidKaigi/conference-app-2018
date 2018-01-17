@@ -23,7 +23,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
                 .create(context!!)
                 .addNextIntent(MainActivity.createIntent(context))
                 .addNextIntent(SessionDetailActivity.createIntent(context, sessionId))
-                .getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT)
+                .getPendingIntent(sessionId.hashCode(), PendingIntent.FLAG_UPDATE_CURRENT)
         showNotification(context, title, text, pendingIntent, channelId)
     }
 
