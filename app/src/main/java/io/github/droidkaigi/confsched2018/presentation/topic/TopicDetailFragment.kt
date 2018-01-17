@@ -24,7 +24,6 @@ import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class TopicDetailFragment : Fragment(), Injectable {
 
     @Inject lateinit var navigationController: NavigationController
@@ -83,7 +82,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         val linearLayoutManager = LinearLayoutManager(context)
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
+            setLinearDivider(R.drawable.shape_divider_vertical_12dp, linearLayoutManager)
         }
     }
 

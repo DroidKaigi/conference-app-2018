@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.contributor.item
 
 import android.databinding.DataBindingUtil
 import android.view.View
+import com.xwray.groupie.Item
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -22,4 +23,12 @@ class ContributorHeaderItem(
     override fun bind(viewBinding: ItemContributorHeaderBinding, position: Int) {
         viewBinding.contributorCount = contributorCount
     }
+
+    override fun isSameAs(other: Item<*>?): Boolean =
+            other is ContributorHeaderItem
+
+    override fun equals(other: Any?): Boolean =
+            contributorCount == (other as? ContributorHeaderItem?)?.contributorCount
+
+    override fun hashCode(): Int = contributorCount
 }
