@@ -17,4 +17,9 @@
 
     <!-- Contributors -->
     <dimen name="contributor_image_size">40dp</dimen>
+
+    <!-- Sticky header -->
+    <dimen name="sticky_header_margin_left">20dp</dimen>
+    <dimen name="sticky_header_margin_right">20dp</dimen>
+    <dimen name="sticky_header_margin_top">26dp</dimen>
 </resources>
