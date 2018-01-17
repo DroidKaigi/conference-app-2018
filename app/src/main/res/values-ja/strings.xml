@@ -66,4 +66,8 @@
     <string name="contributors">コントリビューター</string>
     <string name="contributors_header">%d 人のコントリビューター</string>
     <string name="contributors_avatar">コントリビューターのプロフィール画像</string>
+
+    <!-- Notification -->
+    <string name="notification_title">%1$s がもうすぐ始まります。</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 </resources>
