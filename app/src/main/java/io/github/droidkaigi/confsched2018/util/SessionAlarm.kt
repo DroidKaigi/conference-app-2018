@@ -20,7 +20,7 @@ class SessionAlarm(val context: Context, val session: Session.SpeechSession) {
         }
 
     private fun register() {
-        val time = session.startTime.getTime().toInt() - NOTIFICATION_TIME_BEFORE_START_MILLS
+        val time = session.startTime.getTime().toLong() - NOTIFICATION_TIME_BEFORE_START_MILLS
 //        val time = System.currentTimeMillis() + 61000
         if (System.currentTimeMillis() < time) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
