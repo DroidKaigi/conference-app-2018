@@ -19,7 +19,6 @@ import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
 
-
 @SuppressLint("Registered")
 open class App : MultiDexApplication(), HasActivityInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
