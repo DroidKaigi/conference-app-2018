@@ -1,9 +1,11 @@
 package io.github.droidkaigi.confsched2018.presentation.detail
 
 import android.arch.lifecycle.Observer
-import com.nhaarman.mockito_kotlin.*
-import io.github.droidkaigi.confsched2018.DUMMY_SESSION_ID1
-import io.github.droidkaigi.confsched2018.createDummySession
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import io.github.droidkaigi.confsched2018.createDummySessions
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session

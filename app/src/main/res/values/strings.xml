@@ -8,7 +8,7 @@
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
-    <string name="nav_item_contributor">Contributors</string>
+    <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_all_survey">Conference survey</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
@@ -22,6 +22,8 @@
     <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
+    <string name="session_header_divider">" / "</string>
+    <string name="session_load_retry">Retry</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -59,8 +61,13 @@
 
     <!-- Topic -->
     <plurals name="topic_total_session">
-        <item quantity="zero">%dsession</item>
-        <item quantity="one">%dsession</item>
-        <item quantity="other">%dsessions</item>
+        <item quantity="zero">%d session</item>
+        <item quantity="one">%d session</item>
+        <item quantity="other">%d sessions</item>
     </plurals>
+
+    <!-- Contributors -->
+    <string name="contributors">Contributors</string>
+    <string name="contributors_header">%d Contributors</string>
+    <string name="contributors_avatar">contributors avatar</string>
 </resources>

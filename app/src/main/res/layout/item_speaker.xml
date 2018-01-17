@@ -8,20 +8,24 @@
             name="speaker"
             type="io.github.droidkaigi.confsched2018.model.Speaker"
             />
+        <variable
+            name="searchQuery"
+            type="String"
+            />
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?selectableItemBackground"
+        android:background="?selectableItemBackground"
         >
 
         <ImageView
             android:id="@+id/speaker_image"
             android:layout_width="@{@dimen/search_speaker_image_size, default=@dimen/search_speaker_image_size}"
             android:layout_height="@{@dimen/search_speaker_image_size, default=@dimen/search_speaker_image_size}"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@{speaker.name}"
-            android:textAppearance="@style/TextAppearance.App.Body1"
+            style="@style/TextStyle.App.Body1"
+            app:highlightText="@{searchQuery}"
             app:layout_constraintBottom_toTopOf="@+id/speaker_desc"
             app:layout_constraintStart_toEndOf="@id/speaker_image"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +55,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{speaker.tagLine}"
-            android:textAppearance="@style/TextAppearance.App.Body2"
+            style="TextStyle.App.Body2"
+            app:highlightText="@{searchQuery}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

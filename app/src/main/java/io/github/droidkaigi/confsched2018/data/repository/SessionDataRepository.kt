@@ -32,6 +32,7 @@ class SessionDataRepository @Inject constructor(
 
     override val rooms: Flowable<List<Room>> =
             sessionDatabase.getAllRoom().toRooms()
+                    .filter { it.isNotEmpty() }
     override val topics: Flowable<List<Topic>> =
             sessionDatabase.getAllTopic().toTopics()
     override val sessions: Flowable<List<Session>> =
@@ -69,8 +70,8 @@ class SessionDataRepository @Inject constructor(
 
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()
-                    .map { speakers ->
-                        speakers.map { speaker -> speaker.toSpeaker() }
+                    .map {
+                        it.map { speaker -> speaker.toSpeaker() }
                     }
 
     override val roomSessions: Flowable<Map<Room, List<Session>>> =

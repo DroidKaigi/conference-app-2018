@@ -12,7 +12,8 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
-import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLolipop
+import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
+import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLollipop
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), HasSupportFragmentInjector {
@@ -34,27 +35,27 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
-
+        binding.bottomNavigation.disableShiftMode()
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->
             val navigationItem = BottomNavigationItem
                     .values()
                     .first { it.menuId == item.itemId }
 
-            binding.toolbar.elevationForPostLolipop = if (navigationItem.isUseToolbarElevation) {
+            binding.toolbar.elevationForPostLollipop = if (navigationItem.isUseToolbarElevation) {
                 resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
             } else {
                 0F
             }
             supportActionBar?.apply {
-                if (navigationItem.imageRes != null) {
+                title = if (navigationItem.imageRes != null) {
                     setDisplayShowHomeEnabled(true)
                     setIcon(navigationItem.imageRes)
-                    title = null
+                    null
                 } else {
                     setDisplayShowHomeEnabled(false)
                     setIcon(null)
-                    title = item.title
+                    item.title
                 }
             }
 
@@ -64,9 +65,16 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         if (savedInstanceState == null) {
             binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
         }
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { }
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
 
     enum class BottomNavigationItem(
             @MenuRes val menuId: Int,

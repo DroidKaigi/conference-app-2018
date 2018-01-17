@@ -9,6 +9,8 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppFragment
+import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsActivity
+import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsFragment
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsFragment
@@ -80,6 +82,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 .beginTransaction()
                 .replace(containerId, fragment)
                 .commitAllowingStateLoss()
+    }
+
+    fun navigateToContributor() {
+        replaceFragment(ContributorsFragment.newInstance())
+    }
+
+    fun navigateToContributorActivity() {
+        ContributorsActivity.start(activity)
     }
 
     fun navigateToSessionDetailActivity(session: Session) {

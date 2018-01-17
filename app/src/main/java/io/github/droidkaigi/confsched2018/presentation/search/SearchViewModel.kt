@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.search
 
-import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -20,14 +20,18 @@ class SearchViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
-    val result: MutableLiveData<Result<SearchResult>> = MutableLiveData()
+    private val mutableResult = MutableLiveData<Result<SearchResult>>()
+    val result: LiveData<Result<SearchResult>> = mutableResult
+
+    var searchQuery: String = ""
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun onQuery(query: String) {
         repository.search(query)
                 .toResult(schedulerProvider)
                 .subscribe {
-                    result.value = it
+                    mutableResult.value = it
+                    searchQuery = query
                 }
                 .addTo(compositeDisposable)
     }

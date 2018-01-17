@@ -37,6 +37,12 @@ class AboutThisAppActivity : BaseActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
+
     companion object {
         fun start(context: Context) {
             context.startActivity(Intent(context, AboutThisAppActivity::class.java))

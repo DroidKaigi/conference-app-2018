@@ -5,7 +5,7 @@
     <!-- NavigationDrawer -->
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
-    <string name="nav_item_contributor">コントリビュータ一覧</string>
+    <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_all_survey">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
@@ -21,6 +21,7 @@
     <string name="session_fetch_failed">セッションの取得に失敗しました</string>
     <string name="session_content_description_speaker">スピーカーの画像</string>
     <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
+    <string name="session_load_retry">リトライ</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -60,4 +61,9 @@
     <plurals name="topic_total_session">
         <item quantity="other">%dセッション</item>
     </plurals>
+
+    <!-- Contributors -->
+    <string name="contributors">コントリビューター</string>
+    <string name="contributors_header">%d 人のコントリビューター</string>
+    <string name="contributors_avatar">コントリビューターのプロフィール画像</string>
 </resources>

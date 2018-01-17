@@ -31,7 +31,8 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding: ActivityTopicDetailBinding by lazy {
-        DataBindingUtil.setContentView<ActivityTopicDetailBinding>(this, R.layout.activity_topic_detail)
+        DataBindingUtil
+                .setContentView<ActivityTopicDetailBinding>(this, R.layout.activity_topic_detail)
     }
 
     private val topicDetailViewModel: TopicDetailViewModel by lazy {
@@ -41,8 +42,11 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+        }
+        binding.toolbar.setNavigationOnClickListener { finish() }
 
         topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {
@@ -55,20 +59,31 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
             }
         })
 
+        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val factor = (-verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
+            binding.toolbarTextColorFactor = factor
+        }
+
         navigationController.navigateToTopicDetail(intent.getIntExtra(EXTRA_TOPIC_ID, 0))
         drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
+    override fun onBackPressed() {
+        if (drawerMenu.closeDrawerIfNeeded()) {
+            super.onBackPressed()
+        }
+    }
+
     private fun updateAppBarLayout(topic: Topic, total: Int) {
         binding.total = resources.getQuantityString(R.plurals.topic_total_session, total, total)
         if (lang() == Lang.JA) {
-            binding.topicName.text = topic.getNameByLang(Lang.JA)
-            binding.topicTranslation.text = topic.getNameByLang(Lang.EN)
+            binding.name = topic.getNameByLang(Lang.JA)
+            binding.translation = topic.getNameByLang(Lang.EN)
         } else {
-            binding.topicName.text = topic.getNameByLang(Lang.EN)
-            binding.topicTranslation.text = topic.getNameByLang(Lang.JA)
+            binding.name = topic.getNameByLang(Lang.EN)
+            binding.translation = topic.getNameByLang(Lang.JA)
         }
     }
 

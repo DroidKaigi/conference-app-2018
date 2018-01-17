@@ -38,11 +38,10 @@
             app:layout_constraintTop_toBottomOf="@id/tab_layout"
             />
 
-        <android.support.v4.widget.ContentLoadingProgressBar
+        <ProgressBar
             android:id="@+id/progress"
-            style="?android:attr/android:progressBarStyleLarge"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:visibility="gone"
+            style="@style/ProgressBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

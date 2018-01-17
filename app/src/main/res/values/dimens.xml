@@ -1,6 +1,7 @@
 <resources>
     <!-- Session -->
     <dimen name="speaker_image">28dp</dimen>
+    <dimen name="session_title_line_spacing">4sp</dimen>
 
     <!-- Feed -->
     <dimen name="feed_expand_button_size">48dp</dimen>
@@ -9,7 +10,11 @@
 
     <!-- Search -->
     <dimen name="search_speaker_image_size">40dp</dimen>
+    <dimen name="search_result_top_margin">18dp</dimen>
 
     <!-- Elevation -->
     <dimen name="elevation_app_bar">4dp</dimen>
+
+    <!-- Contributors -->
+    <dimen name="contributor_image_size">40dp</dimen>
 </resources>
