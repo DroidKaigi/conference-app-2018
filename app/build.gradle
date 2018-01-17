@@ -133,6 +133,7 @@ dependencies {
     implementation depends.groupie.binding
 
     implementation depends.downloadableCalligraphy
+    implementation depends.gms
 
     //==================== Debug ====================
     debugImplementation depends.stetho.core
@@ -160,9 +161,6 @@ dependencies {
 
     androidTestImplementation depends.supporttest.runner
     androidTestImplementation depends.supporttest.espresso
-
-    // Licenses
-    implementation 'com.google.android.gms:play-services-oss-licenses:11.4.2'
 }
 
 repositories {
