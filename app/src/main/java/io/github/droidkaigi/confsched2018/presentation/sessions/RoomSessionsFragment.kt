@@ -23,6 +23,7 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.Alarm
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
@@ -53,6 +54,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
         sessionsViewModel.onFavoriteClick(session)
+        Alarm(context!!, session).register = session.isFavorited
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
