@@ -29,7 +29,7 @@ import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultS
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchSpeakersSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
-import io.github.droidkaigi.confsched2018.util.Alarm
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.color
 import io.github.droidkaigi.confsched2018.util.ext.eachChildView
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -56,7 +56,7 @@ class SearchFragment : Fragment(), Injectable {
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
         searchViewModel.onFavoriteClick(session)
-        Alarm(context!!, session).register = session.isFavorited
+        SessionAlarm(context!!, session).register = session.isFavorited
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

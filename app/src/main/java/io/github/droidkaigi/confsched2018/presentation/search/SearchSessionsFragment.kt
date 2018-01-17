@@ -16,7 +16,7 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.search.item.HorizontalSessionItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.LevelSessionsSection
-import io.github.droidkaigi.confsched2018.util.Alarm
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -38,7 +38,7 @@ class SearchSessionsFragment : Fragment(), Injectable {
         binding.searchSessionRecycler.adapter.notifyDataSetChanged()
 
         searchSessionsViewModel.onFavoriteClick(session)
-        Alarm(context!!, session).register = session.isFavorited
+        SessionAlarm(context!!, session).register = session.isFavorited
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

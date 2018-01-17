@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBindi
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
@@ -66,7 +67,7 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.session = session
         binding.fab.setOnClickListener {
             sessionDetailViewModel.onFavoriteClick(session)
-
+            SessionAlarm(context!!, session).register = session.isFavorited
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
     }

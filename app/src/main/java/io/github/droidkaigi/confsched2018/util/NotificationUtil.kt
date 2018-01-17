@@ -26,7 +26,8 @@ fun notificationBuilder(context: Context, channelId: String): NotificationCompat
 
 @RequiresApi(Build.VERSION_CODES.O)
 private fun createDefaultNotificationChannel(context: Context, channelId: String) {
-    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val appName = context.getString(R.string.app_name)
     val channel = NotificationChannel(channelId,
             appName, NotificationManager.IMPORTANCE_DEFAULT)

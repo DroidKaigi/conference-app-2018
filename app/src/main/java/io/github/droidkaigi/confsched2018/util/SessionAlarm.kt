@@ -10,8 +10,7 @@ import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.presentation.common.broadcastreceiver.NotificationBroadcastReceiver
 import java.util.concurrent.TimeUnit
 
-
-class Alarm(val context: Context, val session: Session.SpeechSession) {
+class SessionAlarm(val context: Context, val session: Session.SpeechSession) {
     var register: Boolean
         @Deprecated("This property does not have getter") get() {
             throw NotImplementedError()
@@ -26,7 +25,11 @@ class Alarm(val context: Context, val session: Session.SpeechSession) {
         if (System.currentTimeMillis() < time) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, createAlarmIntent(context, session))
+                alarmManager.setAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        time,
+                        createAlarmIntent(context, session)
+                )
             } else {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, time, createAlarmIntent(context, session))
             }
