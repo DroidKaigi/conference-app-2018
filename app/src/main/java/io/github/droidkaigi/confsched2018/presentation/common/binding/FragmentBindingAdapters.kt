@@ -12,8 +12,8 @@ class FragmentBindingAdapters @Inject
 constructor(internal val fragment: Fragment) {
     @BindingAdapter(
             value = [
-                "bind:loadImage",
-                "bind:placeHolder",
+                "loadImage",
+                "placeHolder",
                 "android:layout_width",
                 "android:layout_height"
             ]

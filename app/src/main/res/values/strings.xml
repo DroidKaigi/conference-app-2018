@@ -61,14 +61,18 @@
 
     <!-- Topic -->
     <plurals name="topic_total_session">
+        <item quantity="zero">%d session</item>
         <item quantity="one">%d session</item>
         <item quantity="other">%d sessions</item>
     </plurals>
 
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
-    <string name="contributors_header">%d Contributors</string>
     <string name="contributors_avatar">contributors avatar</string>
+    <plurals name="contributors_header">
+        <item quantity="one">%d Contributor</item>
+        <item quantity="other">%d Contributors</item>
+    </plurals>
 
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>

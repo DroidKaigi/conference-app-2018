@@ -8,6 +8,7 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
@@ -33,6 +34,7 @@ import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.color
 import io.github.droidkaigi.confsched2018.util.ext.eachChildView
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
@@ -43,7 +45,7 @@ class SearchFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController
 
-    private val sessionsSection = SimpleSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection()
     private val speakersSection = SearchSpeakersSection(FragmentDataBindingComponent(this))
 
     private val searchViewModel: SearchViewModel by lazy {
@@ -125,6 +127,8 @@ class SearchFragment : Fragment(), Injectable {
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp,
+                    layoutManager as LinearLayoutManager)
         }
     }
 

@@ -85,7 +85,6 @@ class SessionDetailActivity :
         }
     }
 
-
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     override fun onBackPressed() {

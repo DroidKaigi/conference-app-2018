@@ -64,8 +64,10 @@
 
     <!-- Contributors -->
     <string name="contributors">コントリビューター</string>
-    <string name="contributors_header">%d 人のコントリビューター</string>
     <string name="contributors_avatar">コントリビューターのプロフィール画像</string>
+    <plurals name="contributors_header">
+        <item quantity="other">%d 人のコントリビューター</item>
+    </plurals>
 
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>

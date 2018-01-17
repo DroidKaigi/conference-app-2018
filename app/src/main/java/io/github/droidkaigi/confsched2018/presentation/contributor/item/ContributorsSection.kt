@@ -9,7 +9,8 @@ class ContributorsSection(
         private val dataBindingComponent: FragmentDataBindingComponent
 ) : Section() {
     fun updateContributors(topics: List<Contributor>) {
-        val list = mutableListOf<Item<*>>()
+        val header = ContributorHeaderItem(topics.size, dataBindingComponent)
+        val list = mutableListOf<Item<*>>(header)
         topics.sortedByDescending { it.contributions }.mapTo(list) {
             ContributorItem(it, dataBindingComponent)
         }

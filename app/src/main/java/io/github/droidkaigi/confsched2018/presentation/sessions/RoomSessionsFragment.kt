@@ -39,7 +39,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentRoomSessionsBinding
     private lateinit var roomName: String
 
-    private val sessionsSection = DateSessionsSection(this)
+    private val sessionsSection = DateSessionsSection()
 
     @Inject lateinit var navigationController: NavigationController
 
