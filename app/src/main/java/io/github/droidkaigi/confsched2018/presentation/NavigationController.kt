@@ -133,7 +133,8 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 )
                 .build()
                 .apply {
-                    intent.putExtra(Intent.EXTRA_REFERRER, Uri.parse("android-app://" + activity.packageName))
+                    val appUri = Uri.parse("android-app://${activity.packageName}")
+                    intent.putExtra(Intent.EXTRA_REFERRER, appUri)
                 }
 
         // welcome contributions :)
