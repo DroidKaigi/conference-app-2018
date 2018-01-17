@@ -26,7 +26,6 @@ data class FeedItem(
     override fun bind(viewBinding: ItemFeedBinding, position: Int) {
         viewBinding.post = post
         viewBinding.root.setOnClickListener {
-            // FIXME: Animation!!
             val parent = viewBinding.root.parent as RecyclerView
             parent.setOnTouchListener(touchIgnorer)
             val transition = (if (expanded) collapseTransition else expandTransition).clone()
