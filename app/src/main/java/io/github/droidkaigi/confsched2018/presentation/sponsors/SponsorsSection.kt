@@ -19,7 +19,8 @@ class SponsorsSection : Section() {
                 })
 
                 // fill dead spaces by dummy sponsors
-                val columnSize = SPONSOR_SCREEN_MAX_SPAN_SIZE / getSponsorItemSpanSize(plan.type, SPONSOR_SCREEN_MAX_SPAN_SIZE)
+                val spanSize = getSponsorItemSpanSize(plan.type, SPONSOR_SCREEN_MAX_SPAN_SIZE)
+                val columnSize = SPONSOR_SCREEN_MAX_SPAN_SIZE / spanSize
                 val modSize = (groupCount - 1) % columnSize
 
                 if (modSize > 0) {
