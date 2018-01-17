@@ -11,7 +11,6 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemFeedBinding
 import io.github.droidkaigi.confsched2018.model.Post
 
-
 data class FeedItem(
         val post: Post,
         private val feedItemCollapsed: ConstraintSet,
@@ -37,8 +36,7 @@ data class FeedItem(
                     parent.setOnTouchListener(null)
                 }
             })
-            TransitionManager
-                    .beginDelayedTransition(parent, transition)
+            TransitionManager.beginDelayedTransition(parent, transition)
             expanded = !expanded
             if (!expanded) {
                 feedItemCollapsed.applyTo(viewBinding.feedItemConstraintLayout)
