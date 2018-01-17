@@ -5,6 +5,3 @@
 }
 -keep @com.squareup.moshi.JsonQualifier interface *
 
--keepclassmembers class kotlin.Metadata {
-    public <methods>;
-}
