@@ -46,6 +46,8 @@ class SponsorsFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycle.addObserver(sponsorsViewModel)
+
         val context = context ?: throw AssertionError("this never happen")
 
         initRecyclerView(context)
@@ -60,6 +62,11 @@ class SponsorsFragment : Fragment(), Injectable {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        lifecycle.removeObserver(sponsorsViewModel)
+        super.onDestroyView()
     }
 
     fun initRecyclerView(context: Context) {
