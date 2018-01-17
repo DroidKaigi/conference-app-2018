@@ -50,13 +50,9 @@ class AllSessionsFragment : Fragment(), Injectable {
         // Since it takes time to change the favorite state, change only the state of View first
         session.isFavorited = !session.isFavorited
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
-        if (session.isFavorited) {
-            Alarm(context!!, session).register()
-        } else {
-            Alarm(context!!, session).unregister()
-        }
 
         sessionsViewModel.onFavoriteClick(session)
+        Alarm(context!!, session).register = session.isFavorited
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
