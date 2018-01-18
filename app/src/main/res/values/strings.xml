@@ -28,6 +28,8 @@
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
+    <string name="detail_sessions_content_description_prev">Previous</string>
+    <string name="detail_sessions_content_description_next">Next</string>
 
     <!-- Search-->
     <string name="search_title">Search</string>
