@@ -64,12 +64,12 @@
 
                         <android.support.text.emoji.widget.EmojiTextView
                             android:id="@+id/session_title"
+                            style="@style/TextStyle.App.Title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:lineSpacingExtra="8sp"
                             android:text="@{session.title}"
-                            style="@style/TextStyle.App.Title"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.6"
@@ -79,11 +79,11 @@
                             />
                         <TextView
                             android:id="@+id/session_topic"
+                            style="@style/TextStyle.App.Subhead"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:paddingTop="8dp"
-                            style="@style/TextStyle.App.Subhead"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/session_title"
@@ -103,6 +103,7 @@
                             />
                         <TextView
                             android:id="@+id/level"
+                            style="@style/TextStyle.App.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
@@ -110,7 +111,6 @@
                             android:paddingBottom="6dp"
                             android:paddingEnd="12dp"
                             android:text="@{session.level.name}"
-                            style="@style/TextStyle.App.Caption"
                             android:textColor="?colorAccent"
                             app:layout_constraintStart_toStartOf="@id/level_background"
                             app:layout_constraintTop_toTopOf="@id/level_background"
@@ -158,23 +158,23 @@
 
                     <TextView
                         android:id="@+id/session_day_number"
+                        style="@style/TextStyle.App.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="24dp"
                         android:text='@{"DAY"+session.dayNumber+" / "}'
-                        style="@style/TextStyle.App.Caption"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="DAY1 / "
                         />
                     <TextView
                         android:id="@+id/session_period"
+                        style="@style/TextStyle.App.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        style="@style/TextStyle.App.Caption"
                         app:endDate="@{session.endTime}"
                         app:layout_constraintStart_toEndOf="@id/session_day_number"
                         app:layout_constraintTop_toTopOf="@id/session_day_number"
@@ -185,18 +185,19 @@
                         />
                     <TextView
                         android:id="@+id/session_room"
+                        style="@style/TextStyle.App.Caption"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:maxLines="3"
                         android:text="@{session.room.name}"
-                        style="@style/TextStyle.App.Caption"
                         app:layout_constraintStart_toStartOf="@id/session_day_number"
                         app:layout_constraintTop_toBottomOf="@id/session_day_number"
                         tools:text="Room A"
                         />
                     <android.support.text.emoji.widget.EmojiTextView
                         android:id="@+id/session_text"
+                        style="@style/TextStyle.App.Caption"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -206,7 +207,6 @@
                         android:gravity="top"
                         android:lineSpacingExtra="8sp"
                         android:text="@{session.desc}"
-                        style="@style/TextStyle.App.Caption"
                         app:layout_constraintBottom_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
