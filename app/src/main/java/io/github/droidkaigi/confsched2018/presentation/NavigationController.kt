@@ -1,7 +1,11 @@
 package io.github.droidkaigi.confsched2018.presentation
 
+import android.content.Intent
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
@@ -116,5 +120,26 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateToTopicDetailActivity(topicId: Int) {
         TopicDetailActivity.start(activity, topicId)
+    }
+
+    fun navigateToExternalBrowser(url: String) {
+        val customTabsIntent = CustomTabsIntent.Builder()
+                .setShowTitle(true)
+                .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
+                .setExitAnimations(
+                        activity,
+                        android.R.anim.slide_in_left,
+                        android.R.anim.slide_out_right
+                )
+                .build()
+                .apply {
+                    val appUri = Uri.parse("android-app://${activity.packageName}")
+                    intent.putExtra(Intent.EXTRA_REFERRER, appUri)
+                }
+
+        // welcome contributions :)
+        // e.g. support in-app browser
+
+        customTabsIntent.launchUrl(activity, Uri.parse(url))
     }
 }

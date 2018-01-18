@@ -21,6 +21,7 @@ ext {
             groupie         : "2.0.2",
             stetho          : "1.5.0",
             debot           : "2.0.3",
+            deploygate      : "1.1.4",
     ]
 
     depends = [
@@ -37,6 +38,7 @@ ext {
                     customtabs: "com.android.support:customtabs:$versions.supportLibrary",
                     constraint: "com.android.support.constraint:constraint-layout:1.1.0-beta4",
                     multidex  : "com.android.support:multidex:1.0.2",
+                    emoji     : "com.android.support:support-emoji-appcompat:$versions.supportLibrary",
             ],
 
             //==================== Network ====================
