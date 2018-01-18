@@ -19,7 +19,7 @@ data class SponsorItem(
     override fun bind(viewBinding: ItemSponsorBinding, position: Int) {
         viewBinding.planType = planType
 
-        val (uri) = sponsor.imageUri
+        val uri = sponsor.imageUri.uri
 
         when (sponsor.imageUri) {
             is Sponsor.ImageUri.Base64ImageUri -> {
