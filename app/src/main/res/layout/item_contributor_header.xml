@@ -27,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center_horizontal"
             android:textSize="24sp"
-            android:text="@{@string/contributors_header(contributorCount)}"
+            android:text="@{@plurals/contributors_header(contributorCount, contributorCount)}"
             tools:text="1000 Contributors"
             />
     </android.support.constraint.ConstraintLayout>

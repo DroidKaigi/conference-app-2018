@@ -25,6 +25,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -39,9 +40,10 @@ class RoomSessionsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentRoomSessionsBinding
     private lateinit var roomName: String
 
-    private val sessionsSection = DateSessionsSection(this)
+    private val sessionsSection = DateSessionsSection()
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: RoomSessionsViewModel by lazy {
@@ -49,11 +51,8 @@ class RoomSessionsFragment : Fragment(), Injectable {
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
-
         sessionsViewModel.onFavoriteClick(session)
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

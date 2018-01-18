@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep the names of our models so that Moshi can use them
+-keepnames class io.github.droidkaigi.confsched2018.data.api.response.** { *; }
+
+# Keep SourceFile names & Line Numbers for stack traces. (Note: If we are really security concious,
+# we should remove this line.
+-keepattributes SourceFile,LineNumberTable

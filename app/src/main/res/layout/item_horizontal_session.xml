@@ -42,7 +42,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:dayNumber="@{session.dayNumber}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/session_header_divider"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/day"
                 app:layout_constraintTop_toTopOf="@id/day"
                 />
@@ -63,7 +63,7 @@
                 android:id="@+id/period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/divider_day_and_period"
                 app:layout_constraintTop_toTopOf="@id/divider_day_and_period"
@@ -76,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
                 app:prefix='@{" / "}'
@@ -95,7 +95,7 @@
                 android:lineSpacingExtra="@dimen/session_title_line_spacing"
                 android:maxLines="2"
                 android:text="@{session.title}"
-                android:textAppearance="@style/TextAppearance.App.Title"
+                style="@style/TextStyle.App.Title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/period"
@@ -112,15 +112,15 @@
                 app:layout_constraintTop_toBottomOf="@id/title"
                 />
 
-            <ImageView
+            <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
-                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
+                android:checked="@{session.isFavorited}"
+                app:checkedColorTint="@color/accent"
+                app:uncheckedColorTint="@color/sub_icon_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
-                app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
-                tools:src="@drawable/ic_favorite_black_24dp"
                 />
 
         </android.support.constraint.ConstraintLayout>

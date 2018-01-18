@@ -25,9 +25,9 @@ class DrawerMenu @Inject constructor(
     private lateinit var currentNavigationItem: DrawerNavigationItem
 
     fun setup(
-            toolbar: Toolbar,
             drawerLayout: DrawerLayout,
             navigationView: NavigationView,
+            toolbar: Toolbar? = null,
             actionBarDrawerSync: Boolean = false
     ) {
         this.drawerLayout = drawerLayout
@@ -42,7 +42,7 @@ class DrawerMenu @Inject constructor(
                 drawerLayout.addDrawerListener(it)
             }.apply {
                 isDrawerIndicatorEnabled = true
-                isDrawerSlideAnimationEnabled = true
+                isDrawerSlideAnimationEnabled = false
                 syncState()
             }
         }

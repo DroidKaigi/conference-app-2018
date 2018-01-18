@@ -32,7 +32,7 @@ class AboutThisAppActivity : BaseActivity(), HasSupportFragmentInjector {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         navigationController.navigateToAboutThisApp()
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector

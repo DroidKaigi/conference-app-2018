@@ -32,6 +32,7 @@ class SessionDataRepository @Inject constructor(
 
     override val rooms: Flowable<List<Room>> =
             sessionDatabase.getAllRoom().toRooms()
+                    .filter { it.isNotEmpty() }
     override val topics: Flowable<List<Topic>> =
             sessionDatabase.getAllTopic().toTopics()
     override val sessions: Flowable<List<Session>> =
