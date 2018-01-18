@@ -68,4 +68,8 @@
     <plurals name="contributors_header">
         <item quantity="other">%d 人のコントリビューター</item>
     </plurals>
+
+    <!-- Notification -->
+    <string name="notification_title">%1$s がもうすぐ始まります。</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 </resources>
