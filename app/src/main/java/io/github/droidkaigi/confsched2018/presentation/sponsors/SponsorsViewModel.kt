@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
+import io.github.droidkaigi.confsched2018.util.ext.map
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -28,6 +29,10 @@ class SponsorsViewModel @Inject constructor(
         sponsorPlanRepository.sponsorPlans()
                 .toResult(schedulerProvider)
                 .toLiveData()
+    }
+
+    val isLoading: LiveData<Boolean> by lazy {
+        sponsors.map { it.inProgress }
     }
 
     @VisibleForTesting
