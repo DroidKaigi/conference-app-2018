@@ -31,8 +31,12 @@ private fun createDefaultNotificationChannel(context: Context, channelId: String
     val appName = context.getString(R.string.app_name)
     val importance =
             when (channelId) {
-                NotificationUtil.FAVORITE_SESSION_START_CHANNEL_ID -> NotificationManager.IMPORTANCE_HIGH
-                else -> NotificationManager.IMPORTANCE_DEFAULT
+                NotificationUtil.FAVORITE_SESSION_START_CHANNEL_ID -> {
+                    NotificationManager.IMPORTANCE_HIGH
+                }
+                else -> {
+                    NotificationManager.IMPORTANCE_DEFAULT
+                }
             }
     val channel = NotificationChannel(channelId, appName, importance)
     notificationManager.createNotificationChannel(channel)
