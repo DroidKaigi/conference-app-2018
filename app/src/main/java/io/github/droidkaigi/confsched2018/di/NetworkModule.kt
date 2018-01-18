@@ -37,7 +37,7 @@ internal object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://droidkaigi.jp/2018/sessionize/")
+                .baseUrl("https://droidkaigi.jp/2018/")
                 .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
                         .add(ApplicationJsonAdapterFactory.INSTANCE)
                         .add(LocalDateTime::class.java, LocalDateTimeAdapter())

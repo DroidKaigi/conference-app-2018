@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.app.TaskStackBuilder
+import android.support.v4.content.ContextCompat
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
@@ -37,9 +38,10 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
         val notification = notificationBuilder(context, channelId)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setContentIntent(pendingIntent)
+                .setFullScreenIntent(pendingIntent, true)
                 .setAutoCancel(true)
-                .setSmallIcon(R.mipmap.ic_launcher).build()
+                .setColor(ContextCompat.getColor(context, R.color.primary))
+                .setSmallIcon(R.drawable.ic_notification).build()
 
         val notificationManagerCompat = NotificationManagerCompat.from(context)
         notificationManagerCompat.notify(title.hashCode(), notification)

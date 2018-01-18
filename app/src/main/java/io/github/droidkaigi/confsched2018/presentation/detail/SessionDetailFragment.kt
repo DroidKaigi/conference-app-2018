@@ -62,6 +62,13 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.detailSessionsNextSession.setOnClickListener {
             (activity as? OnClickBottomAreaListener)?.onClickNextSession()
         }
+
+        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val factor = (-verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
+            binding.toolbarTextColorFactor = factor
+        }
+
+        binding.toolbar.setNavigationOnClickListener { activity?.finish() }
     }
 
     private fun bindSession(session: Session.SpeechSession) {
