@@ -55,9 +55,12 @@
 
     <!-- Settings -->
     <string name="settings_title_activity">Settings</string>
-    <string name="settings_enable_local_time_title_preference">Enable local time</string>
+    <string name="settings_enable_local_time_title_preference">Use local time</string>
     <string name="settings_enable_local_time_summary_preference">Use your local time
-        instead of the conference\'s local time</string>
+        instead of the conference\'s local time.</string>
+    <string name="settings_enable_notification_summary_preference">Choose whether to receive
+        notification in this app.</string>
+    <string name="settings_enable_notification_title_preference">Receive notification</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
