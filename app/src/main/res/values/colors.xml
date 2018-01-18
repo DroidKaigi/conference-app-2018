@@ -16,4 +16,5 @@
 
     <color name="highlight_text">#FFEB3B</color>
 
+    <color name="divider_background">#eaeaea</color>
 </resources>
