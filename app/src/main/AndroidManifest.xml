@@ -25,7 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.detail.SessionDetailActivity">
+        <activity
+            android:name=".presentation.detail.SessionDetailActivity"
+            android:parentActivityName=".presentation.MainActivity"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
