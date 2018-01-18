@@ -30,7 +30,7 @@ class BottomBarBehavior(context: Context, attrs: AttributeSet) :
         if (defaultDependencyTop == -1) {
             defaultDependencyTop = dependency!!.top
         }
-        ViewCompat.setTranslationY(bottomBar!!, (-dependency!!.top + defaultDependencyTop).toFloat())
+        bottomBar!!.translationY = (-dependency!!.top + defaultDependencyTop).toFloat()
         return true
     }
 }
