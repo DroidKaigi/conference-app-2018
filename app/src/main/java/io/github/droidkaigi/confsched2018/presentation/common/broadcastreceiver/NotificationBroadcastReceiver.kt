@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.app.TaskStackBuilder
 import io.github.droidkaigi.confsched2018.R
@@ -37,7 +38,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
         val notification = notificationBuilder(context, channelId)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setContentIntent(pendingIntent)
+                .setFullScreenIntent(pendingIntent, true)
                 .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.ic_launcher).build()
 
