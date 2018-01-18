@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'deploygate'
 
 // Manifest version
 def versionMajor = 0
@@ -184,3 +185,18 @@ ktlint {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+deploygate {
+    userName = "takahirom"
+    token = System.getenv("DEPLOY_GATE_API_KEY")
+
+    apks {
+        release {
+            def hash = 'git rev-parse --short HEAD'.execute([], project.rootDir).in.text.trim()
+            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+
+            distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
+            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+        }
+    }
+}

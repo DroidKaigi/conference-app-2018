@@ -99,6 +99,7 @@
                 />
         </activity>
 
+        <receiver android:name=".presentation.common.broadcastreceiver.NotificationBroadcastReceiver" />
     </application>
 
 </manifest>

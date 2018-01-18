@@ -120,9 +120,13 @@ class SessionDetailActivity :
     companion object {
         val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun start(context: Context, session: Session) {
-            context.startActivity(Intent(context, SessionDetailActivity::class.java).apply {
-                putExtra(EXTRA_SESSION_ID, session.id)
-            })
+            context.startActivity(createIntent(context, session.id))
+        }
+
+        fun createIntent(context: Context, sessionId: String): Intent {
+            return Intent(context, SessionDetailActivity::class.java).apply {
+                putExtra(EXTRA_SESSION_ID, sessionId)
+            }
         }
     }
 }

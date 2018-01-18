@@ -14,6 +14,7 @@ buildscript {
         classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$versions.ktlintGradle"
         classpath "io.fabric.tools:gradle:$versions.fabricGradleTool"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versions.gradleVersions"
+        classpath "com.deploygate:gradle:$versions.deploygate"
     }
 }
 
