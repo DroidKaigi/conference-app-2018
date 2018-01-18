@@ -65,7 +65,11 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
             true
         })
         if (savedInstanceState == null) {
-            binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
+            if (intent.getStringExtra("shortcut") != null) {
+                binding.bottomNavigation.selectedItemId = R.id.navigation_favorite_sessions
+            }  else {
+                binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
+            }
         }
         binding.bottomNavigation.setOnNavigationItemReselectedListener { }
     }
