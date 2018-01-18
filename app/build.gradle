@@ -13,6 +13,7 @@ def versionPatch = 0
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     dataBinding.enabled = true
 
     defaultConfig {
