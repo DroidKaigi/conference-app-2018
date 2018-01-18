@@ -48,7 +48,6 @@ class SessionDetailActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
@@ -66,7 +65,7 @@ class SessionDetailActivity :
         }
 
         binding.detailSessionsPager.adapter = pagerAdapter
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer)
     }
 
     private fun bindSessions(sessions: List<Session.SpeechSession>) {
