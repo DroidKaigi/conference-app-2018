@@ -15,15 +15,18 @@ import android.view.View
  * Created by hakutosuzuki on 2018/01/18.
  */
 
-class BottomBarBehavior(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<ConstraintLayout>(context, attrs) {
+class BottomBarBehavior(context: Context, attrs: AttributeSet) :
+        CoordinatorLayout.Behavior<ConstraintLayout>(context, attrs) {
 
     private var defaultDependencyTop = -1
 
-    override fun layoutDependsOn(parent: CoordinatorLayout?, bottomBar: ConstraintLayout?, dependency: View?): Boolean {
+    override fun layoutDependsOn(parent: CoordinatorLayout?, bottomBar: ConstraintLayout?,
+                                 dependency: View?): Boolean {
         return dependency is AppBarLayout
     }
 
-    override fun onDependentViewChanged(parent: CoordinatorLayout?, bottomBar: ConstraintLayout?, dependency: View?): Boolean {
+    override fun onDependentViewChanged(parent: CoordinatorLayout?, bottomBar: ConstraintLayout?,
+                                        dependency: View?): Boolean {
         if (defaultDependencyTop == -1) {
             defaultDependencyTop = dependency!!.top
         }
