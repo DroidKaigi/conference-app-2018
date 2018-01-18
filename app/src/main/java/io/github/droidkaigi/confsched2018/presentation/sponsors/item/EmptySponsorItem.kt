@@ -9,10 +9,9 @@ data class EmptySponsorItem(
         val planType: SponsorPlan.Type
 ) : BindableItem<ItemDummySponsorBinding>(
         planType.hashCode().toLong()
-), SponsorItemExt {
+) {
     override fun bind(viewBinding: ItemDummySponsorBinding, position: Int) {
         viewBinding.planType = planType
-        viewBinding.constraint.adjustAspectRatioConstraint(planType, viewBinding.cover)
     }
 
     override fun getLayout(): Int = R.layout.item_dummy_sponsor

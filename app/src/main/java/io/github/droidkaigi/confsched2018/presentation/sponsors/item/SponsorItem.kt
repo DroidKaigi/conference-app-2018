@@ -15,10 +15,9 @@ data class SponsorItem(
         val sponsor: Sponsor
 ) : BindableItem<ItemSponsorBinding>(
         sponsor.hashCode().toLong()
-), SponsorItemExt {
+) {
     override fun bind(viewBinding: ItemSponsorBinding, position: Int) {
         viewBinding.planType = planType
-        viewBinding.constraint.adjustAspectRatioConstraint(planType, viewBinding.card)
 
         val (uri) = sponsor.imageUri
 

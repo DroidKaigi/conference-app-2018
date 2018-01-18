@@ -8,19 +8,20 @@
             name="planType"
             type="io.github.droidkaigi.confsched2018.model.SponsorPlan.Type"
             />
-        <import type="io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorColor" />
+        <import type="io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItemExt" />
     </data>
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{SponsorColor.fromPlanType(context, planType)}"
+        android:background="@{SponsorItemExt.fromPlanType(context, planType)}"
         >
 
         <View
             android:id="@+id/cover"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="@{SponsorItemExt.toDimensionRatio(planType)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_constraintDimensionRatio="H,16:9"
