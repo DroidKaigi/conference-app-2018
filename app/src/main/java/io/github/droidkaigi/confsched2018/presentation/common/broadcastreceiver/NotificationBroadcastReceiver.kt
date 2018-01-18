@@ -38,7 +38,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
         val notification = notificationBuilder(context, channelId)
                 .setContentTitle(title)
                 .setContentText(text)
-                .setContentIntent(pendingIntent)
+                .setFullScreenIntent(pendingIntent, true)
                 .setAutoCancel(true)
                 .setColor(ContextCompat.getColor(context, R.color.primary))
                 .setSmallIcon(R.drawable.ic_notification).build()
