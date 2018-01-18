@@ -19,7 +19,7 @@
             />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -43,11 +43,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
+                    app:layout_collapseMode="parallax"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     >
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/app_bar2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fitsSystemWindows="true"
@@ -67,7 +67,6 @@
                             app:layout_constraintTop_toTopOf="parent"
                             tools:text="How to create DroidKaigi"
                             />
-
                         <TextView
                             android:id="@+id/session_topic"
                             android:layout_width="0dp"
@@ -81,7 +80,6 @@
                             app:layout_constraintTop_toBottomOf="@id/session_title"
                             tools:text="開発環境/Productivity and Tools"
                             />
-
                         <View
                             android:id="@+id/level_background"
                             android:layout_width="0dp"
@@ -93,7 +91,6 @@
                             app:layout_constraintStart_toStartOf="@id/session_topic"
                             app:layout_constraintTop_toBottomOf="@id/session_topic"
                             />
-
                         <TextView
                             android:id="@+id/level"
                             android:layout_width="wrap_content"
@@ -109,7 +106,6 @@
                             app:layout_constraintTop_toTopOf="@id/level_background"
                             tools:text="初心者向け"
                             />
-
                         <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
                             android:layout_width="0dp"
                             android:layout_height="60dp"
@@ -151,7 +147,6 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="DAY1 / "
                         />
-
                     <TextView
                         android:id="@+id/session_period"
                         android:layout_width="wrap_content"
@@ -166,7 +161,6 @@
                         app:startDate="@{session.startTime}"
                         tools:text="10:30 - 11:00 / "
                         />
-
                     <TextView
                         android:id="@+id/session_room"
                         android:layout_width="0dp"
@@ -179,7 +173,6 @@
                         app:layout_constraintTop_toBottomOf="@id/session_day_number"
                         tools:text="Room A"
                         />
-
                     <TextView
                         android:id="@+id/session_text"
                         android:layout_width="0dp"
@@ -199,11 +192,9 @@
                         tools:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic"
                         />
 
-
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.v4.widget.NestedScrollView>
-
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -220,7 +211,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-
                     />
                 <ImageView
                     android:id="@+id/detail_sessions_prev_session"
@@ -290,7 +280,6 @@
                     app:layout_constraintTop_toTopOf="@id/detail_sessions_indicator_background"
                     />
 
-
             </android.support.constraint.ConstraintLayout>
 
             <android.support.design.widget.FloatingActionButton
@@ -307,8 +296,6 @@
                 />
 
         </android.support.design.widget.CoordinatorLayout>
-
-    </android.support.constraint.ConstraintLayout>
-
+    </FrameLayout>
 </layout>
 
