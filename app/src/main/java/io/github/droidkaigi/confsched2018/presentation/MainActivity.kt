@@ -65,8 +65,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
             true
         })
         if (savedInstanceState == null) {
-            when(intent.getStringExtra("shortcut")) {
-                "favorite" -> binding.bottomNavigation.selectedItemId = R.id.navigation_favorite_sessions
+            when (intent.getStringExtra("shortcut")) {
+                "favorite" -> {
+                    binding.bottomNavigation.selectedItemId = R.id.navigation_favorite_sessions
+                }
                 else -> binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
             }
         }
