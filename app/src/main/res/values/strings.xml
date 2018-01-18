@@ -61,6 +61,7 @@
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
+    <string name="speaker_content_description">Speaker image</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
