@@ -18,7 +18,7 @@ sealed class Session(
             val language: String,
             val topic: Topic,
             val level: Level,
-            var isFavorited: Boolean,
+            val isFavorited: Boolean,
             val speakers: List<Speaker>
     ) : Session(id, dayNumber, startTime, endTime)
 
