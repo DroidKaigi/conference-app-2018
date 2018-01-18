@@ -6,6 +6,9 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.lang
+import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
 
 data class SpeechSessionItem(
         override val session: Session.SpeechSession,
@@ -28,7 +31,18 @@ data class SpeechSessionItem(
         }
         viewBinding.isShowDayNumber = isShowDayNumber
         viewBinding.simplify = simplify
+        viewBinding.isFinished = isFinishedSession(session)
+        viewBinding.goToQuestionnaire.setOnClickListener {
+            //TODO: will implement this. Please check comments of issue #141
+        }
     }
 
     override fun getLayout(): Int = R.layout.item_speech_session
+
+    fun isFinishedSession(session: Session.SpeechSession): Boolean {
+        val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("JST"));
+        cal.setTimeInMillis(System.currentTimeMillis())
+        val now: Date = cal.getTime()
+        return now.time.toInt() > session.endTime.getTime().toInt()
+    }
 }
