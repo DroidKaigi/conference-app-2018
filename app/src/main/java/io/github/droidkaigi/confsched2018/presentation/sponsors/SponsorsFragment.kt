@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItem
+import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -48,6 +49,10 @@ class SponsorsFragment : Fragment(), Injectable {
 
         initRecyclerView(context)
 
+        val progressTimeLatch = ProgressTimeLatch {
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
         sponsorsViewModel.sponsors.observe(this) {
             when (it) {
                 is Result.Success<List<SponsorPlan>> -> {
@@ -58,6 +63,10 @@ class SponsorsFragment : Fragment(), Injectable {
                 }
             }
         }
+
+        sponsorsViewModel.isLoading.observe(this) { isLoading ->
+            progressTimeLatch.loading = isLoading ?: false
+        }
     }
 
     override fun onDestroyView() {
@@ -65,7 +74,7 @@ class SponsorsFragment : Fragment(), Injectable {
         super.onDestroyView()
     }
 
-    fun initRecyclerView(context: Context) {
+    private fun initRecyclerView(context: Context) {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             spanCount = SPONSOR_SCREEN_MAX_SPAN_SIZE
             add(sponsorPlansSection)
@@ -81,7 +90,7 @@ class SponsorsFragment : Fragment(), Injectable {
         binding.sponsorRecycler.adapter = groupAdapter
     }
 
-    fun bindSponsorsToRecycler(sponsorPlans: List<SponsorPlan>) {
+    private fun bindSponsorsToRecycler(sponsorPlans: List<SponsorPlan>) {
         sponsorPlansSection.updateSponsorPlans(this, sponsorPlans)
     }
 
