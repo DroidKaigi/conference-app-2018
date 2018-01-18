@@ -18,7 +18,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     private lateinit var binding: FragmentMapBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private var mapView: MapView? = null
+    private lateinit var mapView: MapView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,37 +39,37 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onStart() {
         super.onStart()
-        mapView?.onStart()
+        mapView.onStart()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView?.onResume()
+        mapView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView?.onPause()
+        mapView.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView?.onStop()
+        mapView.onStop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView?.onDestroy()
+        mapView.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView?.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView?.onLowMemory()
+        mapView.onLowMemory()
     }
 
     companion object {
