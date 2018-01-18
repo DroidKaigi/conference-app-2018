@@ -37,7 +37,7 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
 
         navigationController.navigateToSpeakerDetail(intent.getStringExtra(EXTRA_SPEAKER_ID))
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector

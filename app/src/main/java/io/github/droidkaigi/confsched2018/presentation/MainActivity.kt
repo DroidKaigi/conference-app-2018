@@ -33,7 +33,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         setSupportActionBar(binding.toolbar)
 
         setupBottomNavigation(savedInstanceState)
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer, true)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar, true)
     }
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {

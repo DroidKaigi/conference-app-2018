@@ -65,7 +65,7 @@ class SessionDetailActivity :
         }
 
         binding.detailSessionsPager.adapter = pagerAdapter
-        drawerMenu.setup(null, binding.drawerLayout, binding.drawer)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer)
     }
 
     private fun bindSessions(sessions: List<Session.SpeechSession>) {

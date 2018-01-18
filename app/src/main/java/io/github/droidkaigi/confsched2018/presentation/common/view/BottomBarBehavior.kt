@@ -24,11 +24,11 @@ class BottomBarBehavior(context: Context, attrs: AttributeSet) :
     }
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, bottomBar: ConstraintLayout,
-                                        dependency: View?): Boolean {
+                                        dependency: View): Boolean {
         if (defaultDependencyTop == -1) {
-            defaultDependencyTop = dependency!!.top
+            defaultDependencyTop = dependency.top
         }
-        bottomBar.translationY = (-dependency!!.top + defaultDependencyTop).toFloat()
+        bottomBar.translationY = (-dependency.top + defaultDependencyTop).toFloat()
         return true
     }
 }

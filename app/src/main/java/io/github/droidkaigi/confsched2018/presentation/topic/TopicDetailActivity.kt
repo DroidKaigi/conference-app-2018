@@ -64,7 +64,7 @@ class TopicDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
 
         navigationController.navigateToTopicDetail(intent.getIntExtra(EXTRA_TOPIC_ID, 0))
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
