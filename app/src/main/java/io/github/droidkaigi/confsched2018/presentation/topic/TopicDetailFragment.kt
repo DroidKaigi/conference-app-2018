@@ -28,6 +28,7 @@ import javax.inject.Inject
 class TopicDetailFragment : Fragment(), Injectable {
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: FragmentTopicDetailBinding
@@ -38,11 +39,8 @@ class TopicDetailFragment : Fragment(), Injectable {
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
-
         topicDetailViewModel.onFavoriteClick(session)
-        SessionAlarm(context!!, session).register = session.isFavorited
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -22,6 +22,7 @@ class SessionDetailFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSessionDetailBinding
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var sessionAlarm: SessionAlarm
 
     private val sessionDetailViewModel: SessionDetailViewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(SessionDetailViewModel::class.java)
@@ -67,7 +68,7 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.session = session
         binding.fab.setOnClickListener {
             sessionDetailViewModel.onFavoriteClick(session)
-            SessionAlarm(context!!, session).register = session.isFavorited
+            sessionAlarm.toggleRegister(session)
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
     }

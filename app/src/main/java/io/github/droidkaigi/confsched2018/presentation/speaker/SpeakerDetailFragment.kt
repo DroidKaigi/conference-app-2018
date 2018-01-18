@@ -31,18 +31,15 @@ class SpeakerDetailFragment : Fragment(), Injectable {
 
     private val sessionsSection = SimpleSessionsSection()
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
 
     private val speakerDetailViewModel: SpeakerDetailViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SpeakerDetailViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
-
         speakerDetailViewModel.onFavoriteClick(session)
-        SessionAlarm(context!!, session).register = session.isFavorited
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

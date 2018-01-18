@@ -9,19 +9,21 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.presentation.common.broadcastreceiver.NotificationBroadcastReceiver
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class SessionAlarm(val context: Context, val session: Session.SpeechSession) {
-    var register: Boolean
-        @Deprecated("This property does not have getter") get() {
-            throw NotImplementedError()
-        }
-        set(value) {
-            if (value) register() else unregister()
-        }
+class SessionAlarm @Inject constructor(val context: Context) {
+    /**
+     * Toggle Session Alarm
+     * this method use [session.isFavorited] for determinate register or unregister Alarm
+     * If [session.isFavorited] is true, this method unregister. And else register
+     */
+    fun toggleRegister(session: Session.SpeechSession) {
+        if (session.isFavorited) unregister(session) else register(session)
+    }
 
-    private fun register() {
-        val time = session.startTime.getTime().toLong() - NOTIFICATION_TIME_BEFORE_START_MILLS
-//        val time = System.currentTimeMillis() + 61000
+    private fun register(session: Session.SpeechSession) {
+//        val time = session.startTime.getTime().toLong() - NOTIFICATION_TIME_BEFORE_START_MILLS
+        val time = System.currentTimeMillis() + 61000
         if (System.currentTimeMillis() < time) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -36,7 +38,7 @@ class SessionAlarm(val context: Context, val session: Session.SpeechSession) {
         }
     }
 
-    private fun unregister() {
+    private fun unregister(session: Session.SpeechSession) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(createAlarmIntent(context, session))
     }

@@ -42,6 +42,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
     private val sessionsSection = DateSessionsSection()
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: RoomSessionsViewModel by lazy {
@@ -49,12 +50,8 @@ class RoomSessionsFragment : Fragment(), Injectable {
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
-
         sessionsViewModel.onFavoriteClick(session)
-        SessionAlarm(context!!, session).register = session.isFavorited
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

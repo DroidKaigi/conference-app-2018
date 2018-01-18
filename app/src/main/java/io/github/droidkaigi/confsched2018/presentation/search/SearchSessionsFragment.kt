@@ -28,17 +28,14 @@ class SearchSessionsFragment : Fragment(), Injectable {
     private val sessionsSection = LevelSessionsSection(this)
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
     private val searchSessionsViewModel: SearchSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchSessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.searchSessionRecycler.adapter.notifyDataSetChanged()
-
         searchSessionsViewModel.onFavoriteClick(session)
-        SessionAlarm(context!!, session).register = session.isFavorited
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
