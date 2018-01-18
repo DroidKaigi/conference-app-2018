@@ -86,12 +86,14 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
      *     app:speakers="@{speakers}"
      *     />
      */
-    fun setSpeakers(speakers: List<Speaker>) {
-        speakerList.clear()
-        speakerList.addAll(speakers)
+    fun setSpeakers(speakers: List<Speaker>?) {
+        speakers?.let {
+            speakerList.clear()
+            speakerList.addAll(speakers)
 
-        updateIcons()
-        updateText()
+            updateIcons()
+            updateText()
+        }
     }
 
     private fun updateIcons() {

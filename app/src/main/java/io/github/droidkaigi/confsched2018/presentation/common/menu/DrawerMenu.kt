@@ -42,7 +42,7 @@ class DrawerMenu @Inject constructor(
                 drawerLayout.addDrawerListener(it)
             }.apply {
                 isDrawerIndicatorEnabled = true
-                isDrawerSlideAnimationEnabled = true
+                isDrawerSlideAnimationEnabled = false
                 syncState()
             }
         }

@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -84,7 +83,6 @@ class SessionDetailActivity :
         }
     }
 
-
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     override fun onBackPressed() {
@@ -120,9 +118,13 @@ class SessionDetailActivity :
     companion object {
         val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun start(context: Context, session: Session) {
-            context.startActivity(Intent(context, SessionDetailActivity::class.java).apply {
-                putExtra(EXTRA_SESSION_ID, session.id)
-            })
+            context.startActivity(createIntent(context, session.id))
+        }
+
+        fun createIntent(context: Context, sessionId: String): Intent {
+            return Intent(context, SessionDetailActivity::class.java).apply {
+                putExtra(EXTRA_SESSION_ID, sessionId)
+            }
         }
     }
 }
