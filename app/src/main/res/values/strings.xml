@@ -55,6 +55,9 @@
 
     <!-- Settings -->
     <string name="settings_title_activity">Settings</string>
+    <string name="settings_enable_local_time_title_preference">Enable local time</string>
+    <string name="settings_enable_local_time_summary_preference">Use your local time
+        instead of the conference\'s local time</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
