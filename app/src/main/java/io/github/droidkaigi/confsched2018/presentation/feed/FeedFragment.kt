@@ -66,14 +66,17 @@ class FeedFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val posts = result.data
                     val inflater = TransitionInflater.from(context)
-                    val expandTransition = inflater.inflateTransition(R.transition.expand_toggle)
+                    val expandTransition = inflater.inflateTransition(R.transition.feed_item_expand)
+                    val collapseTransition =
+                            inflater.inflateTransition(R.transition.feed_item_collapse)
                     postsSection.update(posts
                             .map {
                                 FeedItem(
                                         it,
                                         feedItemCollapsed,
                                         feedItemExpanded,
-                                        expandTransition
+                                        expandTransition,
+                                        collapseTransition
                                 )
                             })
                 }

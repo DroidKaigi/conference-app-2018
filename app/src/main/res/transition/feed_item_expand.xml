@@ -12,23 +12,27 @@
   the License.
   -->
 
-<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together"
+    >
 
+    <changeBounds android:duration="50">
+        <targets>
+            <target android:targetId="@id/feed_item_constraint_layout" />
+        </targets>
+    </changeBounds>
     <transition class="io.github.droidkaigi.confsched2018.presentation.common.transition.Rotate">
         <targets>
             <target android:targetId="@id/expand_icon" />
         </targets>
     </transition>
-    <changeBounds
-        android:duration="170"
-        android:startDelay="30"
-        >
+
+    <changeBounds>
         <targets>
             <target android:targetId="@id/content" />
         </targets>
         <arcMotion />
     </changeBounds>
 
-    <changeBounds />
 
 </transitionSet>

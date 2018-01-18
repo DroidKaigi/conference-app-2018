@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2018.di
 
+import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
@@ -22,6 +24,8 @@ import javax.inject.Singleton
 
 @Module(includes = [(ViewModelModule::class)])
 internal object AppModule {
+    @Singleton @Provides @JvmStatic
+    fun provideContext(application: Application): Context = application
 
     @Singleton @Provides @JvmStatic
     fun provideSessionRepository(
