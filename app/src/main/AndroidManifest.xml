@@ -98,6 +98,8 @@
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
                 />
         </activity>
+
+        <receiver android:name=".presentation.common.broadcastreceiver.NotificationBroadcastReceiver" />
     </application>
 
 </manifest>
