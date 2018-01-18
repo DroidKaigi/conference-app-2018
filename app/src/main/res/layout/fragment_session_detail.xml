@@ -50,14 +50,16 @@
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:titleEnabled="false"
                     >
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="?android:attr/actionBarSize"
                         android:alpha="@{1.0f - toolbarTextColorFactor}"
-                        app:layout_collapseMode="parallax"
                         android:fitsSystemWindows="true"
+                        app:layout_collapseMode="parallax"
                         >
 
                         <TextView
@@ -65,6 +67,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:lineSpacingExtra="8sp"
                             android:text="@{session.title}"
                             android:textAppearance="@style/TextAppearance.App.Title"
                             android:textColor="@color/app_bar_text_color"
@@ -130,9 +133,12 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
+                        android:textColor="@color/app_bar_text_color"
+                        app:layout_collapseMode="pin"
+                        app:layout_constraintBottom_toTopOf="@id/session_title"
+                        app:navigationIcon="?attr/homeAsUpIndicator"
                         app:title="@{session.title}"
                         app:titleTextColor="@{ColorCalculator.calculateColor(toolbarTextColorFactor, @color/app_bar_text_color)}"
-                        app:layout_collapseMode="pin"
                         />
 
                 </android.support.design.widget.CollapsingToolbarLayout>
@@ -198,6 +204,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
                         android:gravity="top"
+                        android:lineSpacingExtra="8sp"
                         android:text="@{session.desc}"
                         android:textAppearance="@style/TextAppearance.App.Body1"
                         app:layout_constraintBottom_toTopOf="parent"

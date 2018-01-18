@@ -66,6 +66,7 @@ class SessionDetailFragment : Fragment(), Injectable {
             binding.toolbarTextColorFactor = factor
         }
 
+        binding.toolbar.setNavigationOnClickListener { activity?.finish() }
     }
 
     private fun bindSession(session: Session.SpeechSession) {
