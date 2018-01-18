@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="plan"
+            type="io.github.droidkaigi.confsched2018.model.SponsorPlan"
+            />
+        <import type="io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItemExt" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{SponsorItemExt.fromPlanType(context, plan.type)}"
+        android:paddingBottom="16dp"
+        android:paddingEnd="4dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingStart="4dp"
+        android:paddingTop="16dp"
+        >
+        <TextView
+            android:id="@+id/planName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{plan.name}"
+            android:textAppearance="@style/TextAppearance.App.Body1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="PLATINUM SPONSORS"
+            />
+
+        <View
+            android:id="@+id/border"
+            android:layout_width="52dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#607d8b"
+            app:layout_constraintTop_toBottomOf="@id/planName"
+            />
+    </android.support.constraint.ConstraintLayout>
+</layout>
