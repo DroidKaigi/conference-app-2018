@@ -11,7 +11,6 @@ import android.view.View
  * A custom view for showing move next or prev session
  *
  * ref: https://github.com/DroidKaigi/conference-app-2018/issues/180
- * Created by hakutosuzuki on 2018/01/18.
  */
 
 class BottomBarBehavior(context: Context, attrs: AttributeSet) :
