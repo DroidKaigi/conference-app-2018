@@ -7,17 +7,9 @@ import android.view.View
 
 @BindingAdapter("layout_constraintDimensionRatio")
 fun View.layout_constraintDimensionRatio(newDimensionRatio: String) {
-    val id = id.takeIf { it != View.NO_ID } ?: let {
-        return
-    }
-
-    val parent = parent as? ConstraintLayout ?: let {
-        return
-    }
-
-    val lp = layoutParams as? ConstraintLayout.LayoutParams ?: let {
-        return
-    }
+    val id = id.takeIf { it != View.NO_ID } ?: return
+    val parent = parent as? ConstraintLayout ?: return
+    val lp = layoutParams as? ConstraintLayout.LayoutParams ?: return
 
     if (newDimensionRatio == lp.dimensionRatio) {
         return
