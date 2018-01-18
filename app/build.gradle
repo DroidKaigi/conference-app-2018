@@ -81,6 +81,10 @@ android {
     }
 }
 
+kapt {
+    useBuildCache = true
+}
+
 // See versions.gradle
 dependencies {
     implementation project(':model')

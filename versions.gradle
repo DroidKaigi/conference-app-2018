@@ -5,7 +5,7 @@ ext {
             minSdk          : 19,
             targetSdk       : 27,
             gradleBuildTool : "3.0.1",
-            kotlin          : "1.2.10",
+            kotlin          : "1.2.20",
             googleServices  : "3.1.1",
             ktlint          : "0.14.0",
             ktlintGradle    : "3.0.0",
