@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.db.fixeddata
 
+import android.net.Uri
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.AboutThisApp
 
@@ -33,23 +34,21 @@ class AboutThisApps {
                             R.string.about_licenses_title,
                             R.string.about_licenses_description,
                             // TODO add navigation url
-                            ""
+                            getUriBuilder("licenses")
                     ),
                     // Sponsors
                     AboutThisApp.Item(
                             10000 + index++,
                             R.string.about_sponsors_title,
                             R.string.about_sponsors_description,
-                            // TODO add navigation url
-                            ""
+                            getUriBuilder("sponsors")
                     ),
                     // Contributors
                     AboutThisApp.Item(
                             10000 + index++,
                             R.string.about_contributors_title,
                             R.string.about_contributors_description,
-                            // TODO add navigation url
-                            ""
+                            getUriBuilder("contributors")
                     ),
                     // Dev Version
                     AboutThisApp.Item(
@@ -60,6 +59,18 @@ class AboutThisApps {
                             ""
                     )
             )
+        }
+
+        private fun getUriBuilder(path: String): String {
+            val scheme = "conference"
+            val host = "droidkaigi.co.jp"
+            return Uri.Builder()
+                    .scheme(scheme)
+                    .authority(host)
+                    .path(path)
+                    .build()
+                    .toString()
+
         }
     }
 }

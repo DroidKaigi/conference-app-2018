@@ -53,6 +53,15 @@
             android:label="@string/sponsors_title_activity"
             android:parentActivityName=".presentation.MainActivity"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="droidkaigi.co.jp"
+                    android:path="/sponsors"
+                    android:scheme="conference"
+                    />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
@@ -101,6 +110,15 @@
             android:label="@string/contributors"
             android:parentActivityName=".presentation.MainActivity"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="droidkaigi.co.jp"
+                    android:path="/contributors"
+                    android:scheme="conference"
+                    />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"

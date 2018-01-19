@@ -10,7 +10,7 @@ import io.github.droidkaigi.confsched2018.model.AboutThisApp
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
 data class AboutThisAppItem(
-        private val aboutThisApp: AboutThisApp,
+        val aboutThisApp: AboutThisApp,
         private val dataBindingComponent: FragmentDataBindingComponent
 ) : BindableItem<ItemAboutThisAppBinding>() {
 
