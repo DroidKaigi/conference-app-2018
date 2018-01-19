@@ -17,21 +17,22 @@ import timber.log.Timber
 class NotificationBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("NotificationBroadcastReceiver.onReceive")
-        if (Prefs.enableNotification) {
-            Timber.d("Show Notification")
-            val sessionId = intent!!.getStringExtra(EXTRA_SESSION_ID)
-            val title = intent.getStringExtra(EXTRA_TITLE)
-            val text = intent.getStringExtra(EXTRA_TEXT)
-            val channelId = intent.getStringExtra(EXTRA_CHANNEL_ID)
-            val pendingIntent = TaskStackBuilder
-                    .create(context!!)
-                    .addNextIntent(MainActivity.createIntent(context))
-                    .addNextIntent(SessionDetailActivity.createIntent(context, sessionId))
-                    .getPendingIntent(sessionId.hashCode(), PendingIntent.FLAG_UPDATE_CURRENT)
-            showNotification(context, title, text, pendingIntent, channelId)
-        } else {
+        if (!Prefs.enableNotification) {
             Timber.d("Do not show Notification")
+            return
         }
+
+        Timber.d("Show Notification")
+        val sessionId = intent!!.getStringExtra(EXTRA_SESSION_ID)
+        val title = intent.getStringExtra(EXTRA_TITLE)
+        val text = intent.getStringExtra(EXTRA_TEXT)
+        val channelId = intent.getStringExtra(EXTRA_CHANNEL_ID)
+        val pendingIntent = TaskStackBuilder
+                .create(context!!)
+                .addNextIntent(MainActivity.createIntent(context))
+                .addNextIntent(SessionDetailActivity.createIntent(context, sessionId))
+                .getPendingIntent(sessionId.hashCode(), PendingIntent.FLAG_UPDATE_CURRENT)
+        showNotification(context, title, text, pendingIntent, channelId)
     }
 
     private fun showNotification(
