@@ -29,7 +29,7 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
-import org.chromium.customtabsclient.shared.CustomTabsHelper
+import io.github.droidkaigi.confsched2018.util.CustomTabsHelper
 import javax.inject.Inject
 
 class NavigationController @Inject constructor(private val activity: AppCompatActivity) {

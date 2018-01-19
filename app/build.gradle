@@ -89,7 +89,6 @@ kapt {
 // See versions.gradle
 dependencies {
     implementation project(':model')
-    implementation project(':customtabs')
 
     // Kotlin
     implementation depends.kotlin.stdlib
