@@ -1,1 +1,1 @@
-include ':app', ':model'
+include ':app', ':model', ':customtabs'
