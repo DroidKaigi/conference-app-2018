@@ -25,9 +25,9 @@ class DrawerMenu @Inject constructor(
     private lateinit var currentNavigationItem: DrawerNavigationItem
 
     fun setup(
-            toolbar: Toolbar,
             drawerLayout: DrawerLayout,
             navigationView: NavigationView,
+            toolbar: Toolbar? = null,
             actionBarDrawerSync: Boolean = false
     ) {
         this.drawerLayout = drawerLayout

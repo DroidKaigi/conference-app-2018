@@ -22,6 +22,8 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
+import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -38,17 +40,15 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
     private val sessionsSection = DateSessionsSection()
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val sessionsViewModel: FavoriteSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(FavoriteSessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
-
         sessionsViewModel.onFavoriteClick(session)
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -62,9 +62,14 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
         setupRecyclerView()
 
+        val progressTimeLatch = ProgressTimeLatch {
+            binding.progress.visibility = if (it) View.VISIBLE else View.GONE
+        }
+        progressTimeLatch.loading = true
         sessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
+                    progressTimeLatch.loading = false
                     val sessions = result.data
                     sessionsSection.updateSessions(
                             sessions, onFavoriteClickListener, simplify = true)
@@ -73,6 +78,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
+                    progressTimeLatch.loading = false
                 }
             }
         })

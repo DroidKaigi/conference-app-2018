@@ -4,12 +4,12 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
 
-@Module abstract class SponsorsActivityBuilder {
+@Module interface SponsorsActivityBuilder {
     @ContributesAndroidInjector(
             modules = [
                 FragmentBuildersModule::class,
                 SponsorsActivityModule::class
             ]
     )
-    abstract fun contributeSponsorsActivity(): SponsorsActivity
+    fun contributeSponsorsActivity(): SponsorsActivity
 }

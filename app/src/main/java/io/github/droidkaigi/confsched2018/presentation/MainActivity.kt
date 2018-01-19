@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2018.presentation
 
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.DrawableRes
@@ -31,7 +33,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         setSupportActionBar(binding.toolbar)
 
         setupBottomNavigation(savedInstanceState)
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer, true)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar, true)
     }
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
@@ -63,7 +65,12 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
             true
         })
         if (savedInstanceState == null) {
-            binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
+            when (intent.getStringExtra("shortcut")) {
+                "favorite" -> {
+                    binding.bottomNavigation.selectedItemId = R.id.navigation_favorite_sessions
+                }
+                else -> binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
+            }
         }
         binding.bottomNavigation.setOnNavigationItemReselectedListener { }
     }
@@ -94,5 +101,9 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         FEED(R.id.navigation_feed, null, true, {
             navigateToFeed()
         })
+    }
+
+    companion object {
+        fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
     }
 }

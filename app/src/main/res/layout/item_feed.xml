@@ -13,6 +13,7 @@
         android:id="@+id/feed_item_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         >
         <TextView
             android:id="@+id/date"

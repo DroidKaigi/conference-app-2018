@@ -35,7 +35,7 @@ class ContributorsActivity : BaseActivity(), HasSupportFragmentInjector {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navigationController.navigateToContributor()
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
     }
 
     override fun onBackPressed() {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:defaultValue="@bool/pref_default_value_enable_local_time"
+        android:key="@string/pref_key_enable_local_time"
+        android:summary="@string/settings_enable_local_time_summary_preference"
+        android:title="@string/settings_enable_local_time_title_preference"
+        />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:defaultValue="@bool/pref_default_value_enable_notification"
+        android:key="@string/pref_key_enable_notification"
+        android:summary="@string/settings_enable_notification_summary_preference"
+        android:title="@string/settings_enable_notification_title_preference"
+        />
+</PreferenceScreen>
