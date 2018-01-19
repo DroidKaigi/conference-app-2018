@@ -157,9 +157,11 @@ class SearchFragment : Fragment(), Injectable {
         changeSearchViewTextColor(searchView)
 
         searchView.setOnQueryTextFocusChangeListener { view, b ->
-            val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as
-                    InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
+            if(!b) {
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                        InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
         }
     }
 
