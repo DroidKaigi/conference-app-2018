@@ -1,23 +1,13 @@
 package io.github.droidkaigi.confsched2018.presentation.settings
 
-import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import io.github.droidkaigi.confsched2018.databinding.FragmentSettingsBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
-import javax.inject.Inject
+import android.support.v7.preference.PreferenceFragmentCompat
+import io.github.droidkaigi.confsched2018.R
 
-class SettingsFragment : Fragment(), Injectable {
-    private lateinit var binding: FragmentSettingsBinding
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+class SettingsFragment : PreferenceFragmentCompat() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        binding = FragmentSettingsBinding.inflate(inflater, container!!, false)
-        return binding.root
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        addPreferencesFromResource(R.xml.preferences)
     }
 
     companion object {
