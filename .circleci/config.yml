@@ -67,7 +67,10 @@ jobs:
               fi
       - run:
           name: Deploy
-          command: ./deploy.sh
+          command: |
+              if [ $CIRCLE_BRANCH = 'master' ]; then
+                  ./gradlew :app:uploadDeployGateRelease
+              fi
       - store_artifacts:
           path: app/build/reports
           destination: reports

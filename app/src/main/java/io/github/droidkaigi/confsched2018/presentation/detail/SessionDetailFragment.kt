@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBindi
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
@@ -21,6 +22,7 @@ class SessionDetailFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSessionDetailBinding
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var sessionAlarm: SessionAlarm
 
     private val sessionDetailViewModel: SessionDetailViewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(SessionDetailViewModel::class.java)
@@ -60,12 +62,20 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.detailSessionsNextSession.setOnClickListener {
             (activity as? OnClickBottomAreaListener)?.onClickNextSession()
         }
+
+        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val factor = (-verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
+            binding.toolbarTextColorFactor = factor
+        }
+
+        binding.toolbar.setNavigationOnClickListener { activity?.finish() }
     }
 
     private fun bindSession(session: Session.SpeechSession) {
         binding.session = session
         binding.fab.setOnClickListener {
             sessionDetailViewModel.onFavoriteClick(session)
+            sessionAlarm.toggleRegister(session)
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
     }

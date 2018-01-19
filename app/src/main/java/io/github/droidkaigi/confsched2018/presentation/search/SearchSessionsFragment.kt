@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.search.item.HorizontalSessionItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.LevelSessionsSection
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,16 +28,14 @@ class SearchSessionsFragment : Fragment(), Injectable {
     private val sessionsSection = LevelSessionsSection(this)
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
     private val searchSessionsViewModel: SearchSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchSessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.searchSessionRecycler.adapter.notifyDataSetChanged()
-
         searchSessionsViewModel.onFavoriteClick(session)
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

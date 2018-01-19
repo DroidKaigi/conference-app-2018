@@ -4,12 +4,12 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
 
-@Module abstract class SettingsActivityBuilder {
+@Module interface SettingsActivityBuilder {
     @ContributesAndroidInjector(
             modules = [
                 FragmentBuildersModule::class,
                 SettingsActivityModule::class
             ]
     )
-    abstract fun contributeSettingsActivity(): SettingsActivity
+    fun contributeSettingsActivity(): SettingsActivity
 }

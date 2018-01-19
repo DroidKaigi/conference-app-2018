@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation
 
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
+import com.tomoima.debot.DebotConfigurator
 import timber.log.Timber
 
 class DebugApp : App() {
@@ -11,6 +12,7 @@ class DebugApp : App() {
         setupTimber()
         setupLeakCanary()
         setupStetho()
+        setupDebot()
     }
 
     private fun setupTimber() {
@@ -23,5 +25,10 @@ class DebugApp : App() {
 
     private fun setupStetho() {
         Stetho.initializeWithDefaults(this)
+    }
+
+    private fun setupDebot() {
+        DebotConfigurator.configureWithDefault()
+        registerActivityLifecycleCallbacks(DebotObserver())
     }
 }

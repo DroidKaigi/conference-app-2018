@@ -5,12 +5,13 @@
     <!-- NavigationDrawer -->
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
-    <string name="nav_item_contributor">コントリビュータ一覧</string>
+    <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_all_survey">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
     <string name="nav_content_description_drawer_open">ナビゲーションドロワーを開く</string>
     <string name="nav_content_description_drawer_close">ナビゲーションドロワーを閉じる</string>
+    <string name="nav_content_description_drawer_header">DroidKaigi 2018</string>
 
     <!-- Session -->
     <string name="session_title">セッション</string>
@@ -27,6 +28,8 @@
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
+    <string name="detail_sessions_content_description_prev">前へ</string>
+    <string name="detail_sessions_content_description_next">次へ</string>
 
     <!-- Search-->
     <string name="search_title">検索</string>
@@ -48,7 +51,8 @@
     <string name="map_title_activity">地図</string>
 
     <!-- Sponsor -->
-    <string name="sponsors_title_activity">スポンサー</string>
+    <string name="sponsors_title_activity">スポンサー一覧</string>
+    <string name="sponsors_logo_content_description">スポンサーロゴ画像</string>
 
     <!-- About This App -->
     <string name="about_title_activity">このアプリについて</string>
@@ -58,9 +62,21 @@
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
+    <string name="speaker_content_description">スピーカー画像</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
         <item quantity="other">%dセッション</item>
     </plurals>
+
+    <!-- Contributors -->
+    <string name="contributors">コントリビューター</string>
+    <string name="contributors_avatar">コントリビューターのプロフィール画像</string>
+    <plurals name="contributors_header">
+        <item quantity="other">%d 人のコントリビューター</item>
+    </plurals>
+
+    <!-- Notification -->
+    <string name="notification_title">%1$s がもうすぐ始まります。</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 </resources>

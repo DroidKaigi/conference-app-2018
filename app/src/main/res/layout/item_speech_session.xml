@@ -54,7 +54,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:text='@{"DAY"+session.dayNumber+" / "}'
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/day_number"
                 app:layout_constraintTop_toTopOf="@id/day_number"
@@ -80,7 +80,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
                 app:prefix='@{" / "}'
@@ -101,7 +101,7 @@
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"
-                android:textAppearance="@style/TextAppearance.App.Body2"
+                style="@style/TextStyle.App.Body2"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -110,7 +110,7 @@
                 tools:text="for intermediate and/or expert"
                 />
 
-            <TextView
+            <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="@{session.title}"
-                android:textAppearance="@style/TextAppearance.App.Title"
+                style="@style/TextStyle.App.Title"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
                 tools:text="テストセッション"
                 />
 
-            <TextView
+            <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
                 android:includeFontPadding="false"
                 android:maxLines="3"
                 android:text="@{session.desc}"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -153,7 +153,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:maxLines="2"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/title"
@@ -172,18 +172,16 @@
                 app:speakers="@{session.speakers}"
                 />
 
-            <ImageView
+            <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
                 android:layout_marginEnd="8dp"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
+                android:checked="@{session.isFavorited}"
+                app:checkedColorTint="@color/accent"
+                app:uncheckedColorTint="@color/sub_icon_color"
                 app:layout_constraintBottom_toBottomOf="@id/speaker_summary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/speaker_summary"
-                app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
-                tools:src="@drawable/ic_favorite_black_24dp"
                 />
 
             <View

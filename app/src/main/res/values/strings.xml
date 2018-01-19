@@ -8,10 +8,11 @@
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
-    <string name="nav_item_contributor">Contributors</string>
+    <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_all_survey">Conference survey</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
+    <string name="nav_content_description_drawer_header">DroidKaigi 2018</string>
 
     <!-- Session -->
     <string name="session_title">Session</string>
@@ -29,6 +30,8 @@
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
+    <string name="detail_sessions_content_description_prev">Previous</string>
+    <string name="detail_sessions_content_description_next">Next</string>
 
     <!-- Search-->
     <string name="search_title">Search</string>
@@ -51,6 +54,7 @@
 
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
+    <string name="sponsors_logo_content_description">Sponsor logo image</string>
 
     <!-- About This App -->
     <string name="about_title_activity">About this app</string>
@@ -60,6 +64,7 @@
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
+    <string name="speaker_content_description">Speaker image</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -67,4 +72,16 @@
         <item quantity="one">%d session</item>
         <item quantity="other">%d sessions</item>
     </plurals>
+
+    <!-- Contributors -->
+    <string name="contributors">Contributors</string>
+    <string name="contributors_avatar">contributors avatar</string>
+    <plurals name="contributors_header">
+        <item quantity="one">%d Contributor</item>
+        <item quantity="other">%d Contributors</item>
+    </plurals>
+
+    <!-- Notification -->
+    <string name="notification_title">%1$s will start soon</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 </resources>

@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/favorite_not_found"
-            android:textAppearance="@style/TextAppearance.App.Title"
+            style="@style/TextStyle.App.Title"
             app:layout_constraintBottom_toTopOf="@+id/mysession_inactive_detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -71,7 +71,7 @@
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="@string/favorite_not_found_detail"
-            android:textAppearance="@style/TextAppearance.App.Caption"
+            style="@style/TextStyle.App.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -82,7 +82,17 @@
             android:id="@+id/mysession_inactive_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:constraint_referenced_ids="mysession_inactive_title,mysession_inactive_image,mysession_inactive_detail"
+            />
+        <ProgressBar
+            android:id="@+id/progress"
+            android:visibility="gone"
+            style="@style/ProgressBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

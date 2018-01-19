@@ -45,7 +45,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
                 android:text='@{"DAY"+session.dayNumber+" / "}'
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 android:visibility="@{isShowDayNumber ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/day_number"
                 app:layout_constraintTop_toTopOf="@id/day_number"
@@ -72,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                android:textAppearance="@style/TextAppearance.App.Caption"
+                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
                 app:prefix='@{" / "}'
@@ -80,7 +80,7 @@
                 tools:text="Room A"
                 />
 
-            <TextView
+            <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:text="@{session.title}"
-                android:textAppearance="@style/TextAppearance.App.Title"
+                style="@style/TextStyle.App.Title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
+import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsActivity
 import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
@@ -24,9 +25,9 @@ class DrawerMenu @Inject constructor(
     private lateinit var currentNavigationItem: DrawerNavigationItem
 
     fun setup(
-            toolbar: Toolbar,
             drawerLayout: DrawerLayout,
             navigationView: NavigationView,
+            toolbar: Toolbar? = null,
             actionBarDrawerSync: Boolean = false
     ) {
         this.drawerLayout = drawerLayout
@@ -41,7 +42,7 @@ class DrawerMenu @Inject constructor(
                 drawerLayout.addDrawerListener(it)
             }.apply {
                 isDrawerIndicatorEnabled = true
-                isDrawerSlideAnimationEnabled = true
+                isDrawerSlideAnimationEnabled = false
                 syncState()
             }
         }
@@ -90,8 +91,8 @@ class DrawerMenu @Inject constructor(
         SPONSOR(R.id.nav_item_sponsor, SponsorsActivity::class, {
             navigateToSponsorsActivity()
         }),
-        CONTRIBUTOR(R.id.nav_item_contributor, /*fixme*/AboutThisAppActivity::class, {
-            //todo
+        CONTRIBUTOR(R.id.nav_item_contributor, ContributorsActivity::class, {
+            navigateToContributorActivity()
         }),
         SETTINGS(R.id.nav_item_setting, SettingsActivity::class, {
             navigateToSettingsActivity()
