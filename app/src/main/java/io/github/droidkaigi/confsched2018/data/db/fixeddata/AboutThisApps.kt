@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.db.fixeddata
 
 import android.net.Uri
+import io.github.droidkaigi.confsched2018.BuildConfig
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.AboutThisApp
 
@@ -63,7 +64,8 @@ class AboutThisApps {
 
         private fun getUriBuilder(path: String): String {
             val scheme = "conference"
-            val host = "droidkaigi.co.jp"
+            val host = "droidkaigi.co.jp" +
+                    if (BuildConfig.DEBUG) "." + BuildConfig.BUILD_TYPE else ""
             return Uri.Builder()
                     .scheme(scheme)
                     .authority(host)

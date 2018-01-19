@@ -57,9 +57,9 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
-                    android:host="droidkaigi.co.jp"
+                    android:host="${host}"
                     android:path="/sponsors"
-                    android:scheme="conference"
+                    android:scheme="${scheme}"
                     />
             </intent-filter>
             <meta-data
@@ -114,9 +114,9 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data
-                    android:host="droidkaigi.co.jp"
+                    android:host="${host}"
                     android:path="/contributors"
-                    android:scheme="conference"
+                    android:scheme="${scheme}"
                     />
             </intent-filter>
             <meta-data
