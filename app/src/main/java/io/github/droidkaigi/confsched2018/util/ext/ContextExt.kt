@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.util.ext
 
 import android.content.Context
 import android.graphics.Point
+import android.support.annotation.BoolRes
 import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.view.WindowManager
@@ -14,5 +15,7 @@ fun Context.displaySize(): Size {
 }
 
 fun Context.color(@ColorRes color: Int): Int = ContextCompat.getColor(this, color)
+
+fun Context.bool(@BoolRes boolRes: Int): Boolean = resources.getBoolean(boolRes)
 
 data class Size(val width: Int, val height: Int)
