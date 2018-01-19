@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.presentation.common.pref
 
 import com.chibatching.kotpref.KotprefModel
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.util.ext.bool
 
 object Prefs : KotprefModel() {
