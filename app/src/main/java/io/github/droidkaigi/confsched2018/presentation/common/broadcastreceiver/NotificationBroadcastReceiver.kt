@@ -9,6 +9,7 @@ import android.support.v4.app.TaskStackBuilder
 import android.support.v4.content.ContextCompat
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 import io.github.droidkaigi.confsched2018.util.notificationBuilder
 import timber.log.Timber
@@ -16,16 +17,21 @@ import timber.log.Timber
 class NotificationBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("NotificationBroadcastReceiver.onReceive")
-        val sessionId = intent!!.getStringExtra(EXTRA_SESSION_ID)
-        val title = intent.getStringExtra(EXTRA_TITLE)
-        val text = intent.getStringExtra(EXTRA_TEXT)
-        val channelId = intent.getStringExtra(EXTRA_CHANNEL_ID)
-        val pendingIntent = TaskStackBuilder
-                .create(context!!)
-                .addNextIntent(MainActivity.createIntent(context))
-                .addNextIntent(SessionDetailActivity.createIntent(context, sessionId))
-                .getPendingIntent(sessionId.hashCode(), PendingIntent.FLAG_UPDATE_CURRENT)
-        showNotification(context, title, text, pendingIntent, channelId)
+        if (Prefs.enableNotification) {
+            Timber.d("Show Notification")
+            val sessionId = intent!!.getStringExtra(EXTRA_SESSION_ID)
+            val title = intent.getStringExtra(EXTRA_TITLE)
+            val text = intent.getStringExtra(EXTRA_TEXT)
+            val channelId = intent.getStringExtra(EXTRA_CHANNEL_ID)
+            val pendingIntent = TaskStackBuilder
+                    .create(context!!)
+                    .addNextIntent(MainActivity.createIntent(context))
+                    .addNextIntent(SessionDetailActivity.createIntent(context, sessionId))
+                    .getPendingIntent(sessionId.hashCode(), PendingIntent.FLAG_UPDATE_CURRENT)
+            showNotification(context, title, text, pendingIntent, channelId)
+        } else {
+            Timber.d("Do not show Notification")
+        }
     }
 
     private fun showNotification(
