@@ -92,7 +92,7 @@ class SessionDetailFragment : Fragment(), Injectable {
     }
 
     companion object {
-        val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
+        const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun newInstance(sessionId: String): SessionDetailFragment = SessionDetailFragment().apply {
             arguments = Bundle().apply {
                 putString(EXTRA_SESSION_ID, sessionId)
