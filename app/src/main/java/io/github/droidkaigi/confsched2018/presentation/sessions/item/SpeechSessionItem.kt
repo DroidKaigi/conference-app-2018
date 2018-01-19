@@ -37,7 +37,7 @@ data class SpeechSessionItem(
 
     override fun getLayout(): Int = R.layout.item_speech_session
 
-    fun isFinishedSession(session: Session.SpeechSession): Boolean {
+    private fun isFinishedSession(session: Session.SpeechSession): Boolean {
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("JST"));
         cal.setTimeInMillis(System.currentTimeMillis())
         val now: Date = cal.getTime()
