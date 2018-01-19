@@ -9,6 +9,7 @@ import android.support.v4.app.TaskStackBuilder
 import android.support.v4.content.ContextCompat
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 import io.github.droidkaigi.confsched2018.util.notificationBuilder
 import timber.log.Timber
@@ -16,6 +17,12 @@ import timber.log.Timber
 class NotificationBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("NotificationBroadcastReceiver.onReceive")
+        if (!Prefs.enableNotification) {
+            Timber.d("Do not show Notification")
+            return
+        }
+
+        Timber.d("Show Notification")
         val sessionId = intent!!.getStringExtra(EXTRA_SESSION_ID)
         val title = intent.getStringExtra(EXTRA_TITLE)
         val text = intent.getStringExtra(EXTRA_TEXT)
