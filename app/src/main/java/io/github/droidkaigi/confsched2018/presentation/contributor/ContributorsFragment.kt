@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
@@ -75,7 +74,7 @@ class ContributorsFragment : Fragment(), Injectable {
     }
 
     private fun setupSwipeRefresh() {
-        binding.contributorsSwipeRefresh.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+        binding.contributorsSwipeRefresh.setOnRefreshListener({
             contributorsViewModel.onRefreshContributors()
 
             if (binding.contributorsSwipeRefresh.isRefreshing()) {
