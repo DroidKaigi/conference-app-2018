@@ -33,6 +33,9 @@ android {
             }
         }
     }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "versionInfo", variant.versionName
+    }
     signingConfigs {
         debug {
             storeFile rootProject.file("debug.keystore")

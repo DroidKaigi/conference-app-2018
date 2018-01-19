@@ -90,4 +90,18 @@
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+
+    <!-- AboutThisApp -->
+    <!-- TODO check if these English are all natural to international ppl. -->
+    <string name="about_official_site_title">DroidKaigi2018 Homepage</string>
+    <string name="about_official_site_description">This is DroidKaigi2018 Official Site</string>
+    <string name="about_licenses_title">Licenses</string>
+    <string name="about_licenses_description">This app introduces many wonderful libraries.</string>
+    <string name="about_sponsors_title">Sponsors</string>
+    <string name="about_sponsors_description">DroidKaigi is supported by many sponsors.</string>
+    <string name="about_contributors_title">Contributors</string>
+    <string name="about_contributors_description">Those who contribute to creation.</string>
+    <string name="about_version_title">Version</string>
+    <string name="about_version_description">%1$s</string>
+
 </resources>
