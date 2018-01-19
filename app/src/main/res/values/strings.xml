@@ -3,6 +3,10 @@
     <string name="time_period">%1$s - %2$s</string>
     <string name="room_format" translatable="false">%1$s%2$s</string>
 
+    <!-- Preference Keys -->
+    <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
+    <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
+
     <!-- NavigationDrawer -->
     <string name="nav_item_map">Map</string>
     <string name="nav_item_sponsor">Sponsor</string>
@@ -25,6 +29,8 @@
     <string name="session_content_description_favorite_button">Favorite button</string>
     <string name="session_header_divider">" / "</string>
     <string name="session_load_retry">Retry</string>
+    <string name="session_finished">Finished Session</string>
+    <string name="session_go_to_questionnaire">Go To Questionnaire</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -59,6 +65,12 @@
 
     <!-- Settings -->
     <string name="settings_title_activity">Settings</string>
+    <string name="settings_enable_local_time_title_preference">Use local time</string>
+    <string name="settings_enable_local_time_summary_preference">Use your local time
+        instead of the conference\'s local time.</string>
+    <string name="settings_enable_notification_summary_preference">Choose whether to receive
+        notification in this app.</string>
+    <string name="settings_enable_notification_title_preference">Receive notification</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>

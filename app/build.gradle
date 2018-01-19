@@ -13,6 +13,7 @@ def versionPatch = 0
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     dataBinding.enabled = true
 
     defaultConfig {
@@ -101,6 +102,7 @@ dependencies {
     implementation depends.support.constraint
     implementation depends.support.multidex
     implementation depends.support.emoji
+    implementation depends.support.preference
 
     //==================== Network ====================
     implementation depends.okhttp3.loggingIntercepter
@@ -137,6 +139,9 @@ dependencies {
     implementation depends.firebase.core
 
     implementation depends.threetenabp
+
+    implementation depends.kotpref.kotpref
+    implementation depends.kotpref.initializer
 
     //==================== UI ====================
     implementation depends.glide.core

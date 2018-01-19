@@ -16,6 +16,7 @@
 
     <color name="highlight_text">#FFEB3B</color>
 
+    <color name="divider_background">#eaeaea</color>
     <color name="recents_background">#B88E0F</color>
 
     <color name="sponsor_platinum">#f5f8fa</color>

@@ -4,12 +4,12 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 
-@Module abstract class MainActivityBuilder {
+@Module interface MainActivityBuilder {
     @ContributesAndroidInjector(
             modules = [
                 FragmentBuildersModule::class,
                 MainActivityModule::class
             ]
     )
-    abstract fun contributeMainActivity(): MainActivity
+    fun contributeMainActivity(): MainActivity
 }
