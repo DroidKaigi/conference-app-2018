@@ -4,8 +4,7 @@
     <string name="room_format" translatable="false">%1$s%2$s</string>
 
     <!-- Preference Keys -->
-    <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time
-    </string>
+    <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
 
     <!-- NavigationDrawer -->
