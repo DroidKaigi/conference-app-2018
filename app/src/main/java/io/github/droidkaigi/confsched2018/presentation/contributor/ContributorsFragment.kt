@@ -77,8 +77,8 @@ class ContributorsFragment : Fragment(), Injectable {
         binding.contributorsSwipeRefresh.setOnRefreshListener({
             contributorsViewModel.onRefreshContributors()
 
-            if (binding.contributorsSwipeRefresh.isRefreshing()) {
-                binding.contributorsSwipeRefresh.setRefreshing(false)
+            if (binding.contributorsSwipeRefresh.isRefreshing) {
+                binding.contributorsSwipeRefresh.isRefreshing = false
             }
         })
     }
