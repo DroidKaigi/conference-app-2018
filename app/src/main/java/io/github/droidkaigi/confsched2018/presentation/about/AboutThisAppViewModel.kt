@@ -10,16 +10,13 @@ import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import javax.inject.Inject
 
-
 class AboutThisAppViewModel @Inject constructor(
         private val repository: AboutThisAppDataRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
-
     val aboutThisApps: LiveData<Result<List<AboutThisApp>>> by lazy {
         repository.aboutThisApps
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
-
 }

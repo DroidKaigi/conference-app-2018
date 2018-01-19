@@ -8,7 +8,6 @@ import io.reactivex.Flowable
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class AboutThisAppDataRepository @Inject constructor() : AboutThisAppRepository {
 
     override val aboutThisApps: Flowable<List<AboutThisApp>> = Flowable.create({ emitter ->
@@ -19,5 +18,4 @@ class AboutThisAppDataRepository @Inject constructor() : AboutThisAppRepository 
         }
         emitter.onNext(AboutThisApps.getThisApps())
     }, BackpressureStrategy.LATEST)
-
 }

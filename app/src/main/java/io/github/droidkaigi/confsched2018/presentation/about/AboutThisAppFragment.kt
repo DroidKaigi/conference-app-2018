@@ -49,14 +49,16 @@ class AboutThisAppFragment : Fragment(), Injectable {
         viewModel.aboutThisApps.observe(this, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    aboutThisAppSection.updateAboutThisApps(result.data, onAboutThisHeaderIconClickListener)
+                    aboutThisAppSection.updateAboutThisApps(
+                            result.data,
+                            onAboutThisHeaderIconClickListener
+                    )
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
                 }
             }
         })
-
     }
 
     private fun setupRecyclerView() {

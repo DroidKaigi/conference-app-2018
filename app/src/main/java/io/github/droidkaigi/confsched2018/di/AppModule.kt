@@ -62,5 +62,4 @@ internal object AppModule {
 
     @Singleton @Provides @JvmStatic
     fun provideAboutThisAppsRepository(): AboutThisAppRepository = AboutThisAppDataRepository()
-
 }

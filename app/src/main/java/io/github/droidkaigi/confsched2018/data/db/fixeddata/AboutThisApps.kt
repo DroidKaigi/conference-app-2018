@@ -72,7 +72,6 @@ class AboutThisApps {
                     .path(path)
                     .build()
                     .toString()
-
         }
     }
 }
