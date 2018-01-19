@@ -26,7 +26,7 @@
     <string name="session_header_divider">" / "</string>
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
-    <string name="go_to_questionnaire">Go To Questionnaire</string>
+    <string name="session_go_to_questionnaire">Go To Questionnaire</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
