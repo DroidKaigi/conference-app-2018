@@ -31,6 +31,8 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import io.github.droidkaigi.confsched2018.util.ext.setVisible
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -85,7 +87,7 @@ class AllSessionsFragment : Fragment(), Injectable {
         })
         sessionsViewModel.refreshFocusCurrentSession.observe(this, {
             if (it != true) return@observe
-            val now = Date()
+            val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"])).toInstant().toEpochMilli())
             val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
             binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
         })
