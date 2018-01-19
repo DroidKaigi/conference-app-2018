@@ -25,4 +25,6 @@
     <color name="sponsor_supporter">#ffffff</color>
     <color name="sponsor_technical_for_network">#ffffff</color>
 
+    <color name="item_header_background">#f5f5f5</color>
+
 </resources>

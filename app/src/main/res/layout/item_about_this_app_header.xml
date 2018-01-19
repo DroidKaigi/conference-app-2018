@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <!-- TODO: add header specific dataset-->
+        <variable
+            name="headItem"
+            type="io.github.droidkaigi.confsched2018.model.AboutThisApp.HeadItem"
+            />
+    </data>
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/item_header_background"
+        android:padding="16dp"
+        >
+
+        <!-- TODO put logo between text-->
+
+        <TextView
+            android:id="@+id/about_this_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@{headItem.name}"
+            android:textColor="#de000000"
+            android:textSize="23sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="What is DroidKaigi?"
+            />
+
+        <TextView
+            android:id="@+id/about_this_app_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="9.6sp"
+            android:text="@{headItem.description}"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/about_this_app_name"
+            app:layout_constraintTop_toBottomOf="@id/about_this_app_name"
+            tools:text="DroidKaigiは、エンジニアがAndroid技術情報の共有とコミュニケーションを目的としたカンファレンスです。"
+            />
+
+        <!-- TODO adapt icons-->
+
+        <ImageButton
+            android:id="@+id/about_this_app_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="@id/about_this_app_name"
+            app:layout_constraintTop_toBottomOf="@id/about_this_app_description"
+            app:srcCompat="@drawable/ic_access_black_24dp"
+            />
+
+        <ImageButton
+            android:id="@+id/about_this_app_twitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            app:layout_constraintStart_toEndOf="@id/about_this_app_facebook"
+            app:layout_constraintTop_toTopOf="@id/about_this_app_facebook"
+            app:srcCompat="@drawable/ic_access_black_24dp"
+            />
+
+        <ImageButton
+            android:id="@+id/about_this_app_github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            app:layout_constraintStart_toEndOf="@id/about_this_app_twitter"
+            app:layout_constraintTop_toTopOf="@id/about_this_app_twitter"
+            app:srcCompat="@drawable/ic_access_black_24dp"
+            />
+
+        <ImageButton
+            android:id="@+id/about_this_app_youtube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            app:layout_constraintStart_toEndOf="@id/about_this_app_github"
+            app:layout_constraintTop_toTopOf="@id/about_this_app_github"
+            app:srcCompat="@drawable/ic_access_black_24dp"
+            />
+
+        <!-- TODO Medium would be coming here.-->
+        <!--<ImageButton-->
+        <!--android:id="@+id/about_this_app_youtube"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:srcCompat="@drawable/ic_access_black_24dp"-->
+        <!--/>-->
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

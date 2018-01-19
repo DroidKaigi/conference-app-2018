@@ -142,4 +142,13 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
         customTabsIntent.launchUrl(activity, Uri.parse(url))
     }
+
+    fun navigateImplicitly(url: String?) {
+        url?.let {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            intent.resolveActivity(activity.packageManager)?.let {
+                activity.startActivity(intent)
+            }
+        }
+    }
 }
