@@ -48,10 +48,10 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        private val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
-        private val EXTRA_TITLE = "EXTRA_TITLE"
-        private val EXTRA_TEXT = "EXTRA_TEXT"
-        private val EXTRA_CHANNEL_ID = "EXTRA_CHANNEL_ID"
+        private const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
+        private const val EXTRA_TITLE = "EXTRA_TITLE"
+        private const val EXTRA_TEXT = "EXTRA_TEXT"
+        private const val EXTRA_CHANNEL_ID = "EXTRA_CHANNEL_ID"
         fun createIntent(
                 context: Context,
                 sessionId: String,

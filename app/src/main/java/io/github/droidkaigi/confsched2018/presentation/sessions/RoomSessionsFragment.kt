@@ -129,7 +129,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
     }
 
     companion object {
-        private val ARG_ROOM_NAME = "room_name"
+        private const val ARG_ROOM_NAME = "room_name"
 
         fun newInstance(room: Room): RoomSessionsFragment = RoomSessionsFragment().apply {
             arguments = Bundle().apply {
