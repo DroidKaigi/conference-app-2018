@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppViewModel
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsViewModel
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailViewModel
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsViewModel
@@ -92,10 +91,6 @@ interface ViewModelModule {
     @Binds @IntoMap
     @ViewModelKey(SponsorsViewModel::class)
     fun bindSponsorsViewModel(sponsorsViewModel: SponsorsViewModel): ViewModel
-
-    @Binds @IntoMap
-    @ViewModelKey(AboutThisAppViewModel::class)
-    fun bindAboutThisAppsViewModel(aboutThisAppViewModel: AboutThisAppViewModel): ViewModel
 
     @Binds fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

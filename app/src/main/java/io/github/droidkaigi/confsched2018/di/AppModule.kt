@@ -10,8 +10,6 @@ import io.github.droidkaigi.confsched2018.data.api.GithubApi
 import io.github.droidkaigi.confsched2018.data.db.ContributorDatabase
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
-import io.github.droidkaigi.confsched2018.data.repository.AboutThisAppDataRepository
-import io.github.droidkaigi.confsched2018.data.repository.AboutThisAppRepository
 import io.github.droidkaigi.confsched2018.data.repository.ContributorDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.ContributorRepository
 import io.github.droidkaigi.confsched2018.data.repository.FeedDataRepository
@@ -59,7 +57,4 @@ internal object AppModule {
             schedulerProvider: SchedulerProvider
     ): ContributorRepository =
             ContributorDataRepository(api, contributorDatabase, schedulerProvider)
-
-    @Singleton @Provides @JvmStatic
-    fun provideAboutThisAppsRepository(): AboutThisAppRepository = AboutThisAppDataRepository()
 }
