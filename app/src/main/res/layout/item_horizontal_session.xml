@@ -112,15 +112,15 @@
                 app:layout_constraintTop_toBottomOf="@id/title"
                 />
 
-            <ImageView
+            <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
-                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
+                android:checked="@{session.isFavorited}"
+                app:checkedColorTint="@color/accent"
+                app:uncheckedColorTint="@color/sub_icon_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
-                app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
-                tools:src="@drawable/ic_favorite_black_24dp"
                 />
 
         </android.support.constraint.ConstraintLayout>

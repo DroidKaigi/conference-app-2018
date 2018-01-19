@@ -6,7 +6,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppFragment"
         tools:showIn="@layout/activity_about_this_app"
         >
 

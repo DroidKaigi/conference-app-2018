@@ -15,10 +15,10 @@ sealed class Result<T>(val inProgress: Boolean) {
     data class Success<T>(var data: T) : Result<T>(false)
     data class Failure<T>(val errorMessage: String?, val e: Throwable) : Result<T>(false)
     companion object {
-        fun <T> inProgress(): Result<T> = InProgress<T>()
+        fun <T> inProgress(): Result<T> = InProgress()
 
-        fun <T> success(data: T): Result<T> = Success<T>(data)
+        fun <T> success(data: T): Result<T> = Success(data)
 
-        fun <T> failure(errorMessage: String, e: Throwable): Result<T> = Failure<T>(errorMessage, e)
+        fun <T> failure(errorMessage: String, e: Throwable): Result<T> = Failure(errorMessage, e)
     }
 }

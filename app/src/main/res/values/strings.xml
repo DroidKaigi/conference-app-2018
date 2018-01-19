@@ -3,6 +3,10 @@
     <string name="time_period">%1$s - %2$s</string>
     <string name="room_format" translatable="false">%1$s%2$s</string>
 
+    <!-- Preference Keys -->
+    <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
+    <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
+
     <!-- NavigationDrawer -->
     <string name="nav_item_map">Map</string>
     <string name="nav_item_sponsor">Sponsor</string>
@@ -12,6 +16,7 @@
     <string name="nav_item_all_survey">Conference survey</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
+    <string name="nav_content_description_drawer_header">DroidKaigi 2018</string>
 
     <!-- Session -->
     <string name="session_title">Session</string>
@@ -24,9 +29,13 @@
     <string name="session_content_description_favorite_button">Favorite button</string>
     <string name="session_header_divider">" / "</string>
     <string name="session_load_retry">Retry</string>
+    <string name="session_finished">Finished Session</string>
+    <string name="session_go_to_questionnaire">Go To Questionnaire</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
+    <string name="detail_sessions_content_description_prev">Previous</string>
+    <string name="detail_sessions_content_description_next">Next</string>
 
     <!-- Search-->
     <string name="search_title">Search</string>
@@ -49,15 +58,23 @@
 
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
+    <string name="sponsors_logo_content_description">Sponsor logo image</string>
 
     <!-- About This App -->
     <string name="about_title_activity">About this app</string>
 
     <!-- Settings -->
     <string name="settings_title_activity">Settings</string>
+    <string name="settings_enable_local_time_title_preference">Use local time</string>
+    <string name="settings_enable_local_time_summary_preference">Use your local time
+        instead of the conference\'s local time.</string>
+    <string name="settings_enable_notification_summary_preference">Choose whether to receive
+        notification in this app.</string>
+    <string name="settings_enable_notification_title_preference">Receive notification</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
+    <string name="speaker_content_description">Speaker image</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -68,6 +85,13 @@
 
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
-    <string name="contributors_header">%d Contributors</string>
     <string name="contributors_avatar">contributors avatar</string>
+    <plurals name="contributors_header">
+        <item quantity="one">%d Contributor</item>
+        <item quantity="other">%d Contributors</item>
+    </plurals>
+
+    <!-- Notification -->
+    <string name="notification_title">%1$s will start soon</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 </resources>

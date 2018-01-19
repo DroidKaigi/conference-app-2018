@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2018.di
 
+import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
@@ -14,12 +16,16 @@ import io.github.droidkaigi.confsched2018.data.repository.FeedDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.FeedRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
+import io.github.droidkaigi.confsched2018.data.repository.SponsorPlanDataRepository
+import io.github.droidkaigi.confsched2018.data.repository.SponsorPlanRepository
 import io.github.droidkaigi.confsched2018.util.rx.AppSchedulerProvider
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import javax.inject.Singleton
 
 @Module(includes = [(ViewModelModule::class)])
 internal object AppModule {
+    @Singleton @Provides @JvmStatic
+    fun provideContext(application: Application): Context = application
 
     @Singleton @Provides @JvmStatic
     fun provideSessionRepository(
@@ -35,6 +41,11 @@ internal object AppModule {
             feedApi: FeedApi
     ): FeedRepository =
             FeedDataRepository(feedApi)
+
+    @Singleton @Provides @JvmStatic
+    fun provideSponsorPlanRepository(
+            droidKaigiApi: DroidKaigiApi
+    ): SponsorPlanRepository = SponsorPlanDataRepository(droidKaigiApi)
 
     @Singleton @Provides @JvmStatic
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()

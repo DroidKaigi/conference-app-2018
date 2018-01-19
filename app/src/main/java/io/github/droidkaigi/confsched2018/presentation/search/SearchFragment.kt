@@ -8,6 +8,7 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -29,9 +31,11 @@ import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultS
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchSpeakersSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.color
 import io.github.droidkaigi.confsched2018.util.ext.eachChildView
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
@@ -41,8 +45,9 @@ class SearchFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSearchBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
 
-    private val sessionsSection = SimpleSessionsSection(this)
+    private val sessionsSection = SimpleSessionsSection()
     private val speakersSection = SearchSpeakersSection(FragmentDataBindingComponent(this))
 
     private val searchViewModel: SearchViewModel by lazy {
@@ -50,11 +55,8 @@ class SearchFragment : Fragment(), Injectable {
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
-
         searchViewModel.onFavoriteClick(session)
+        sessionAlarm.toggleRegister(session)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,6 +125,8 @@ class SearchFragment : Fragment(), Injectable {
         binding.sessionsRecycler.apply {
             adapter = groupAdapter
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            setLinearDivider(R.drawable.shape_divider_vertical_6dp,
+                    layoutManager as LinearLayoutManager)
         }
     }
 
@@ -151,6 +155,14 @@ class SearchFragment : Fragment(), Injectable {
             }
         })
         changeSearchViewTextColor(searchView)
+
+        searchView.setOnQueryTextFocusChangeListener { view, hasFocus ->
+            if (!hasFocus) {
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as
+                        InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+        }
     }
 
     private fun changeSearchViewTextColor(view: View) {

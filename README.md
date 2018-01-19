@@ -245,6 +245,11 @@ SessionsFragment.kt
         })
 ```
 
+## iOS App with Kotlin/Native and Kotlin Multiplatform Projects
+Some contributors are challenging to develop iOS app with [Kotlin/Native](https://kotlinlang.org/docs/reference/native-overview.html) and [Kotlin Multiplatform Projects](https://kotlinlang.org/docs/reference/multiplatform.html).  
+We are watching this project. 
+[DroidKaigi2018iOS](https://github.com/kikuchy/DroidKaigi2018iOS)
+
 ## Thanks
 Thank you for contributing!
 
@@ -285,6 +290,7 @@ This project uses some modern Android libraries and source codes.
 * [Stetho](http://facebook.github.io/stetho/) - Facebook
 * [Kotshi](https://github.com/ansman/kotshi) - ansman
 * [DownloadableCalligraphy](https://github.com/takahirom/DownloadableCalligraphy) - takahirom
+* [Kotpref](https://github.com/chibatching/Kotpref) - chibatching
 * [ProgressTimeLatch](https://github.com/chrisbanes/tivi/blob/96e7cae7560ffd358b8c58c47267ed1024df53f6/app/src/main/java/me/banes/chris/tivi/ui/ProgressTimeLatch.kt) - chrisbanes
 * [Google I/O 2017](https://github.com/google/iosched)
 

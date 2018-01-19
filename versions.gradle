@@ -1,11 +1,11 @@
 ext {
     versions = [
             compileSdk      : 27,
-            buildTools      : "26.0.1",
+            buildTools      : "27.0.2",
             minSdk          : 19,
             targetSdk       : 27,
             gradleBuildTool : "3.0.1",
-            kotlin          : "1.2.10",
+            kotlin          : "1.2.20",
             googleServices  : "3.1.1",
             ktlint          : "0.14.0",
             ktlintGradle    : "3.0.0",
@@ -17,11 +17,13 @@ ext {
             arch            : "1.0.0",
             dagger          : "2.13",
             firebase        : "11.6.2", // Adjust version for emulator
+            kotpref         : "2.3.0",
             glide           : "4.4.0",
             groupie         : "2.0.2",
             stetho          : "1.5.0",
             debot           : "2.0.3",
-            ossLicenses      : "0.9.1"
+            ossLicenses     : "0.9.1",
+            deploygate      : "1.1.4",
     ]
 
     depends = [
@@ -38,6 +40,8 @@ ext {
                     customtabs: "com.android.support:customtabs:$versions.supportLibrary",
                     constraint: "com.android.support.constraint:constraint-layout:1.1.0-beta4",
                     multidex  : "com.android.support:multidex:1.0.2",
+                    emoji     : "com.android.support:support-emoji-appcompat:$versions.supportLibrary",
+                    preference: "com.android.support:preference-v7:$versions.supportLibrary",
             ],
 
             //==================== Network ====================
@@ -86,6 +90,10 @@ ext {
                     core     : "com.google.firebase:firebase-core:$versions.firebase",
             ],
             threetenabp            : "com.jakewharton.threetenabp:threetenabp:1.0.5",
+            kotpref                : [
+                    kotpref    : "com.chibatching.kotpref:kotpref:$versions.kotpref",
+                    initializer: "com.chibatching.kotpref:initializer:$versions.kotpref",
+            ],
 
             //==================== UI ====================
             glide                  : [

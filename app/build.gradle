@@ -5,6 +5,7 @@ apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
 apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'deploygate'
 
 // Manifest version
 def versionMajor = 0
@@ -13,6 +14,7 @@ def versionPatch = 0
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     dataBinding.enabled = true
 
     defaultConfig {
@@ -58,8 +60,17 @@ android {
             signingConfig signingConfigs.release
             debuggable false
             zipAlignEnabled true
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            // global proguard settings
+            proguardFile file("proguard-rules.pro")
+            // library proguard settings
+            def files = rootProject.file("proguard")
+                    .listFiles()
+                    .findAll { it.name.startsWith("proguard") }
+                    .toList()
+                    .toArray()
+            proguardFiles(files)
         }
     }
     testOptions {
@@ -70,6 +81,10 @@ android {
         textReport true
         textOutput 'stdout'
     }
+}
+
+kapt {
+    useBuildCache = true
 }
 
 // See versions.gradle
@@ -87,6 +102,8 @@ dependencies {
     implementation depends.support.customtabs
     implementation depends.support.constraint
     implementation depends.support.multidex
+    implementation depends.support.emoji
+    implementation depends.support.preference
 
     //==================== Network ====================
     implementation depends.okhttp3.loggingIntercepter
@@ -123,6 +140,9 @@ dependencies {
     implementation depends.firebase.core
 
     implementation depends.threetenabp
+
+    implementation depends.kotpref.kotpref
+    implementation depends.kotpref.initializer
 
     //==================== UI ====================
     implementation depends.glide.core
@@ -175,3 +195,18 @@ ktlint {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+deploygate {
+    userName = "takahirom"
+    token = System.getenv("DEPLOY_GATE_API_KEY")
+
+    apks {
+        release {
+            def hash = 'git rev-parse --short HEAD'.execute([], project.rootDir).in.text.trim()
+            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+
+            distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
+            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+        }
+    }
+}

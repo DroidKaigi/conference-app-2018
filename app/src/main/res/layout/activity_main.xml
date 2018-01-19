@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.MainActivity"
     >
 
     <data>
@@ -20,7 +21,6 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="io.github.droidkaigi.confsched2018.presentation.MainActivity"
             >
 
             <android.support.v7.widget.Toolbar
