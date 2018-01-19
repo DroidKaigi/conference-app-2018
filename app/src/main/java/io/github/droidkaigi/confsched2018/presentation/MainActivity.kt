@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.annotation.MenuRes
 import android.support.v4.app.Fragment
+import android.widget.Toast
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -14,6 +15,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
 import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
 import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLollipop
 import javax.inject.Inject
@@ -34,6 +36,12 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
         setupBottomNavigation(savedInstanceState)
         drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar, true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(this, "" + Prefs.enableLocalTime + ":" + Prefs.enableNotification, Toast
+                .LENGTH_LONG).show()
     }
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {

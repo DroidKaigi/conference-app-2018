@@ -140,6 +140,9 @@ dependencies {
 
     implementation depends.threetenabp
 
+    implementation depends.kotpref.kotpref
+    implementation depends.kotpref.initializer
+
     //==================== UI ====================
     implementation depends.glide.core
     implementation depends.glide.okhttp3
