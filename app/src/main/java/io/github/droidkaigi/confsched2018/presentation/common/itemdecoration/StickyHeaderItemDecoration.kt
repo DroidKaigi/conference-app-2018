@@ -21,11 +21,9 @@ class StickyHeaderItemDecoration constructor(
 ): RecyclerView.ItemDecoration() {
 
     private val textPaint = TextPaint()
-    private val paint = Paint()
-    private val marginLeft: Int
-    private val marginRight: Int
-    private val marginTop: Int
-    private val fontMetrics = Paint.FontMetrics()
+    private val labelPadding: Int
+    private val contentMargin: Int
+    private val fontMetrics: Paint.FontMetrics
 
     init {
         val resource = context!!.resources
@@ -33,21 +31,19 @@ class StickyHeaderItemDecoration constructor(
         textPaint.apply {
             typeface = Typeface.DEFAULT
             isAntiAlias = true
-            textSize = 24f
+            textSize = resource.getDimension(R.dimen.sticky_label_font_size)
             color = ContextCompat.getColor(context, R.color.primary)
-            getFontMetrics(this.fontMetrics)
             textAlign = Paint.Align.LEFT
         }
 
-        marginLeft = resource.getDimensionPixelSize(R.dimen.sticky_header_margin_left)
-        marginRight = resource.getDimensionPixelSize(R.dimen.sticky_header_margin_right)
-        marginTop = resource.getDimensionPixelSize(R.dimen.sticky_header_margin_top)
+        fontMetrics = textPaint.fontMetrics
+
+        labelPadding = resource.getDimensionPixelSize(R.dimen.sticky_label_padding)
+        contentMargin = resource.getDimensionPixelSize(R.dimen.sticky_label_content_margin)
     }
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
-
-//        parent ?: return
 
         val position = parent.getChildAdapterPosition(view)
         val groupId = callback.getGroupId(position)
@@ -56,11 +52,7 @@ class StickyHeaderItemDecoration constructor(
             return
         }
 
-        outRect.apply {
-            left = marginLeft
-            right = marginRight
-            top = if (position == 0 || isFirstInGroup(position)) marginTop else 0
-        }
+        outRect.left = contentMargin
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -68,10 +60,8 @@ class StickyHeaderItemDecoration constructor(
 
         val totalItemCount = state.itemCount
         val childCount = parent.childCount
-        val paddingLeft = parent.paddingLeft.toFloat()
         val lineHeight = textPaint.textSize + fontMetrics.descent
-
-        var previousGroupId: Long = -1
+        var previousGroupId: Long
         var groupId: Long = -1
 
         for (i in 0 until childCount) {
@@ -83,30 +73,18 @@ class StickyHeaderItemDecoration constructor(
 
             if (groupId < 0 || previousGroupId == groupId) continue
 
-            val textLine = callback.getGroupFirstLine(position)?.toUpperCase()
+            val textLine = callback.getGroupFirstLine(position)
             if (TextUtils.isEmpty(textLine)) continue
 
             val viewBottom = view.bottom + view.paddingBottom
-            var textY = Math.max(marginTop, view.top + view.paddingTop).toFloat()
+            var textY = Math.max(view.height, viewBottom) - lineHeight
             if (position + 1 < totalItemCount) {
                 val nextGroupId = callback.getGroupId(position + 1)
                 if (nextGroupId != groupId && viewBottom < textY + lineHeight) {
                     textY = viewBottom - lineHeight
                 }
             }
-
-            c.drawText(textLine, paddingLeft, textY, textPaint)
-        }
-
-    }
-
-    private fun isFirstInGroup(position: Int): Boolean {
-        return if (position == 0) {
-            true
-        } else {
-            val previousGroupId = callback.getGroupId(position - 1)
-            val groupId = callback.getGroupId(position)
-            previousGroupId != groupId
+            c.drawText(textLine, labelPadding.toFloat(), textY, textPaint)
         }
     }
 

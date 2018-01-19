@@ -18,8 +18,8 @@
     <!-- Contributors -->
     <dimen name="contributor_image_size">40dp</dimen>
 
-    <!-- Sticky header -->
-    <dimen name="sticky_header_margin_left">20dp</dimen>
-    <dimen name="sticky_header_margin_right">20dp</dimen>
-    <dimen name="sticky_header_margin_top">26dp</dimen>
+    <!-- Sticky label -->
+    <dimen name="sticky_label_padding">20dp</dimen>
+    <dimen name="sticky_label_font_size">24sp</dimen>
+    <dimen name="sticky_label_content_margin">60dp</dimen>
 </resources>
