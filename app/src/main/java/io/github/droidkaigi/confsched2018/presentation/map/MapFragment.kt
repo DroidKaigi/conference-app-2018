@@ -6,9 +6,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import io.github.droidkaigi.confsched2018.databinding.FragmentMapBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import javax.inject.Inject
@@ -34,7 +37,13 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        // TODO
+        map?.run {
+            val latLng = LatLng(35.6957954, 139.69038920000003)
+            addMarker(MarkerOptions().position(latLng))
+
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16f)
+            moveCamera(cameraUpdate)
+        }
     }
 
     override fun onStart() {
