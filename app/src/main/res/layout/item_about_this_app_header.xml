@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <!-- TODO: add header specific dataset-->
+        <variable
+            name="sample"
+            type="Integer"
+            />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <!--TODO layout the right views.-->
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
