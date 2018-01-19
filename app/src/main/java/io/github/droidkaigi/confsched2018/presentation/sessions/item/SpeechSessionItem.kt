@@ -41,6 +41,6 @@ data class SpeechSessionItem(
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("JST"))
         cal.setTimeInMillis(System.currentTimeMillis())
         val now: Date = cal.getTime()
-        return now.time.toInt() < session.endTime.getTime().toInt()
+        return now.time.toInt() > session.endTime.getTime().toInt()
     }
 }
