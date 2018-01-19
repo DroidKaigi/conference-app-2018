@@ -35,7 +35,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -45,7 +45,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -55,7 +55,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -65,7 +65,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -75,7 +75,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -84,7 +84,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -93,7 +93,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -103,7 +103,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
 
