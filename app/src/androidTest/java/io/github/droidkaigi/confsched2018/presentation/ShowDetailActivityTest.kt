@@ -24,7 +24,7 @@ class ShowDetailActivityTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+    var activityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun showDetailActivityTest() {

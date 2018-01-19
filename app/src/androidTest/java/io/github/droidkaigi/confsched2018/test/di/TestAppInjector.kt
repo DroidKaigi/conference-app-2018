@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.di
+package io.github.droidkaigi.confsched2018.test.di
 
 import android.app.Activity
 import android.app.Application
@@ -9,15 +9,17 @@ import android.support.v4.app.FragmentManager
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
-import io.github.droidkaigi.confsched2018.presentation.App
+import io.github.droidkaigi.confsched2018.di.DaggerAppComponent
+import io.github.droidkaigi.confsched2018.di.Injectable
+import io.github.droidkaigi.confsched2018.test.TestApp
 
-class AppInjector {
+class TestAppInjector {
     companion object {
-        fun init(app: App) {
+        fun init(app: TestApp) {
             DaggerAppComponent.builder()
                     .application(app)
-                    .networkModule(NetworkModule.instance)
-                    .databaseModule(DatabaseModule.instance)
+                    .networkModule(MockNetworkModule())
+                    .databaseModule(MockDatabaseModule())
                     .build().inject(app)
             app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -55,4 +57,5 @@ class AppInjector {
                     }, true)
         }
     }
+
 }

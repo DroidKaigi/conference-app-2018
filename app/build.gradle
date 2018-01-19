@@ -22,7 +22,7 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "io.github.droidkaigi.confsched2018.test.TestAppRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         resConfigs "en", "ja"
