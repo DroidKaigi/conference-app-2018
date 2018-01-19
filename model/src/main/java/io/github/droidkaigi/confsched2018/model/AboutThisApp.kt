@@ -1,8 +1,27 @@
 package io.github.droidkaigi.confsched2018.model
 
-data class AboutThisApp(
-        val id: Int,
-        val name: Int,
-        val description: Int,
-        val navigationUrl: String?
-)
+sealed class AboutThisApp(
+        open val id: Int,
+        open val name: Int,
+        open val description: Int,
+        open val navigationUrl: String?
+) {
+    data class Item(
+            override val id: Int,
+            override val name: Int,
+            override val description: Int,
+            override val navigationUrl: String?
+    ) : AboutThisApp(id, name, description, navigationUrl)
+
+    data class HeadItem(
+            override val id: Int,
+            override val name: Int,
+            override val description: Int,
+            override val navigationUrl: String?,
+            val faceBookUrl: String,
+            val twitterUrl: String,
+            val githubUrl: String,
+            val youtubeUrl: String
+    ) : AboutThisApp(id, name, description, navigationUrl)
+
+}

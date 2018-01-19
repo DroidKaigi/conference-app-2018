@@ -9,16 +9,26 @@ class AboutThisApps {
         fun getThisApps(): List<AboutThisApp> {
             var index = 0
             return listOf(
+                    // Head Item
+                    AboutThisApp.HeadItem(
+                            10000 + index++,
+                            R.string.about_official_head_title,
+                            R.string.about_official_head_description,
+                            "",
+                            "https://www.facebook.com/DroidKaigi/",
+                            "https://twitter.com/droidkaigi",
+                            "https://github.com/DroidKaigi/conference-app-2018",
+                            "https://www.youtube.com/channel/UCgK6L-PKx2OZBuhrQ6mmQZw"
+                    ),
                     // Official site
-                    AboutThisApp(
+                    AboutThisApp.Item(
                             10000 + index++,
                             R.string.about_official_site_title,
                             R.string.about_official_site_description,
-                            // TODO add navigation url
-                            ""
+                            "https://droidkaigi.jp/2018/"
                     ),
                     // Licenses
-                    AboutThisApp(
+                    AboutThisApp.Item(
                             10000 + index++,
                             R.string.about_licenses_title,
                             R.string.about_licenses_description,
@@ -26,7 +36,7 @@ class AboutThisApps {
                             ""
                     ),
                     // Sponsors
-                    AboutThisApp(
+                    AboutThisApp.Item(
                             10000 + index++,
                             R.string.about_sponsors_title,
                             R.string.about_sponsors_description,
@@ -34,7 +44,7 @@ class AboutThisApps {
                             ""
                     ),
                     // Contributors
-                    AboutThisApp(
+                    AboutThisApp.Item(
                             10000 + index++,
                             R.string.about_contributors_title,
                             R.string.about_contributors_description,
@@ -42,7 +52,7 @@ class AboutThisApps {
                             ""
                     ),
                     // Dev Version
-                    AboutThisApp(
+                    AboutThisApp.Item(
                             10000 + index++,
                             R.string.about_version_title,
                             R.string.versionInfo,

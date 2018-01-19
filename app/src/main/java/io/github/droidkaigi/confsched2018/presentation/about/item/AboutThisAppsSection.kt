@@ -9,12 +9,21 @@ class AboutThisAppsSection(
         private val dataBindingComponent: FragmentDataBindingComponent
 ) : Section() {
 
-    fun updateAboutThisApps(aboutThisApps: List<AboutThisApp>) {
-        val header = AboutThisAppHeaderItem(dataBindingComponent)
+    fun updateAboutThisApps(
+            aboutThisApps: List<AboutThisApp>,
+            onAboutThisHeaderIconClickListener: (String) -> Unit?
+    ) {
+        val headItem = aboutThisApps.first { it is AboutThisApp.HeadItem } as AboutThisApp.HeadItem
+        val header = AboutThisAppHeaderItem(
+                headItem,
+                onAboutThisHeaderIconClickListener,
+                dataBindingComponent
+        )
         val list = mutableListOf<Item<*>>(header)
-        aboutThisApps.mapTo(list) {
-            AboutThisAppItem(it, dataBindingComponent)
-        }
+        aboutThisApps.filter { it is AboutThisApp.Item }
+                .mapTo(list) {
+                    AboutThisAppItem(it, dataBindingComponent)
+                }
         update(list)
     }
 }

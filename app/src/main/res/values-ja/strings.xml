@@ -81,6 +81,8 @@
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
 
     <!-- AboutThisApp -->
+    <string name="about_official_head_title">What is "DroidKaigi"?</string>
+    <string name="about_official_head_description">DroidKaigiは、エンジニアがAndroid技術情報の共有とコミュニケーションを目的としたカンファレンスです。</string>
     <string name="about_official_site_title">DroidKaigi2018 ホームページ</string>
     <string name="about_official_site_description">DroidKaigi2018の公式ホームページです。</string>
     <string name="about_licenses_title">ライセンス</string>

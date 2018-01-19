@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
-        <import type="android.view.View" />
-        <import type="android.text.TextUtils" />
         <variable
             name="aboutThisApp"
             type="io.github.droidkaigi.confsched2018.model.AboutThisApp"
@@ -14,7 +12,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@android:color/white"
+        android:foreground="?android:attr/selectableItemBackground"
         >
 
         <TextView

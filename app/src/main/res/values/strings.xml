@@ -93,6 +93,9 @@
 
     <!-- AboutThisApp -->
     <!-- TODO check if these English are all natural to international ppl. -->
+    <string name="about_official_head_title">What is "DroidKaigi"?</string>
+    <string name="about_official_head_description">DroidKaigi is the conference where
+        Engineers can share and communicate about Android.</string>
     <string name="about_official_site_title">DroidKaigi2018 Homepage</string>
     <string name="about_official_site_description">This is DroidKaigi2018 Official Site</string>
     <string name="about_licenses_title">Licenses</string>
