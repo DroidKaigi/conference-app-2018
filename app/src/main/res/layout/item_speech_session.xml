@@ -49,12 +49,12 @@
 
             <TextView
                 android:id="@+id/day_number"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:text='@{"DAY"+session.dayNumber+" / "}'
-                style="@style/TextStyle.App.Caption"
                 android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toTopOf="parent"
@@ -63,10 +63,10 @@
 
             <TextView
                 android:id="@+id/period"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                style="@style/TextStyle.App.Caption"
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/day_number"
                 app:layout_constraintTop_toTopOf="@id/day_number"
@@ -77,10 +77,10 @@
 
             <TextView
                 android:id="@+id/room"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
                 app:prefix='@{" / "}'
@@ -90,6 +90,7 @@
 
             <TextView
                 android:id="@+id/level"
+                style="@style/TextStyle.App.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -101,7 +102,6 @@
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"
-                style="@style/TextStyle.App.Body2"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -112,13 +112,13 @@
 
             <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/title"
+                style="@style/TextStyle.App.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="@{session.title}"
-                style="@style/TextStyle.App.Title"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +129,7 @@
 
             <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/description"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -137,7 +138,6 @@
                 android:includeFontPadding="false"
                 android:maxLines="3"
                 android:text="@{session.desc}"
-                style="@style/TextStyle.App.Caption"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -148,12 +148,12 @@
 
             <TextView
                 android:id="@+id/topic"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:maxLines="2"
-                style="@style/TextStyle.App.Caption"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/title"
@@ -164,7 +164,6 @@
                 android:id="@+id/speaker_summary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topic"
@@ -178,10 +177,10 @@
                 android:layout_marginEnd="8dp"
                 android:checked="@{session.isFavorited}"
                 app:checkedColorTint="@color/accent"
-                app:uncheckedColorTint="@color/sub_icon_color"
                 app:layout_constraintBottom_toBottomOf="@id/speaker_summary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/speaker_summary"
+                app:uncheckedColorTint="@color/sub_icon_color"
                 />
 
             <View
@@ -190,7 +189,6 @@
                 android:layout_height="1dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="18dp"
                 android:background="@color/divider_background"
                 android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -202,15 +200,17 @@
                 android:id="@+id/finished_session_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:drawablePadding="4dp"
                 android:drawableStart="@drawable/ic_check_circle_black_24dp"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp"
+                android:gravity="center_vertical"
                 android:text="@string/session_finished"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
                 />
