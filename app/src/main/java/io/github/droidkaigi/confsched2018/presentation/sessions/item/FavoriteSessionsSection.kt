@@ -4,8 +4,6 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.model.toReadableDateString
-import io.github.droidkaigi.confsched2018.model.toReadableTimeString
 import java.util.SortedMap
 
 class FavoriteSessionsSection : Section() {
@@ -39,7 +37,7 @@ class FavoriteSessionsSection : Section() {
         var item = getItemOrNull(position) ?: return null
         item = item as? SpeechSessionItem ?: getItemOrNull(position + 1) ?: return null
         return when (item) {
-            is SpeechSessionItem -> {
+            is SessionItem -> {
                 item.session.dayNumber
             }
             else -> null
