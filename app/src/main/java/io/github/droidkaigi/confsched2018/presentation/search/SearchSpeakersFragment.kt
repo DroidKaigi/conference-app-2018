@@ -72,7 +72,7 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         }
 
         binding.searchSessionRecycler.addItemDecoration(StickyHeaderItemDecoration(context,
-                object: StickyHeaderItemDecoration.Callback {
+                object : StickyHeaderItemDecoration.Callback {
                     override fun getGroupId(position: Int): Long {
                         val initial = speakersSection.getSpeakerNameOrNull(position)?.get(0)
                         initial ?: return -1
@@ -80,7 +80,7 @@ class SearchSpeakersFragment : Fragment(), Injectable {
                     }
 
                     override fun getGroupFirstLine(position: Int): String? {
-                        return speakersSection.getSpeakerNameOrNull(position)?.get(0).toString()
+                        return speakersSection.getSpeakerNameOrNull(position)?.get(0)?.toString()
                     }
                 }))
     }

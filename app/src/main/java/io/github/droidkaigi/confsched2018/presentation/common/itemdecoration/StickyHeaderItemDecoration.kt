@@ -18,7 +18,7 @@ import io.github.droidkaigi.confsched2018.R
 class StickyHeaderItemDecoration constructor(
         context: Context?,
         private val callback: Callback
-): RecyclerView.ItemDecoration() {
+) : RecyclerView.ItemDecoration() {
 
     private val textPaint = TextPaint()
     private val labelPadding: Int
@@ -42,7 +42,8 @@ class StickyHeaderItemDecoration constructor(
         contentMargin = resource.getDimensionPixelSize(R.dimen.sticky_label_content_margin)
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
+                                state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
 
         val position = parent.getChildAdapterPosition(view)
