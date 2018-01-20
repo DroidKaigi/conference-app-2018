@@ -20,5 +20,5 @@ object Converters {
     @JvmStatic
     @TypeConverter
     fun dateToTimestamp(date: LocalDateTime?): Long? =
-            date?.atZone(ZoneId.of("JST", ZoneId.SHORT_IDS))!!.toEpochSecond()
+            date?.atZone(ZoneId.of("JST", ZoneId.SHORT_IDS))?.toEpochSecond()
 }
