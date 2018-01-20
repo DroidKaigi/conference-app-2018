@@ -34,6 +34,9 @@ android {
             }
         }
     }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "versionInfo", variant.versionName
+    }
     signingConfigs {
         debug {
             storeFile rootProject.file("debug.keystore")
@@ -50,12 +53,14 @@ android {
     }
     buildTypes {
         debug {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp.debug"]
             resValue "string", "app_name", "DroidKaigi 2018 Dev"
             signingConfig signingConfigs.debug
             applicationIdSuffix '.debug'
             versionNameSuffix "-debug"
         }
         release {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp"]
             resValue "string", "app_name", "DroidKaigi 2018"
             signingConfig signingConfigs.release
             debuggable false
