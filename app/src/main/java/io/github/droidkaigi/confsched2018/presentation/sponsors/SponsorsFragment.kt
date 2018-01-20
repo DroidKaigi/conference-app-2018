@@ -9,8 +9,10 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
@@ -26,6 +28,7 @@ const val SPONSOR_SCREEN_MAX_SPAN_SIZE = 6
 
 class SponsorsFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSponsorsBinding
+    private lateinit var fireBaseAnalytics: FirebaseAnalytics
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController
 
@@ -69,6 +72,11 @@ class SponsorsFragment : Fragment(), Injectable {
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
+    }
+
     override fun onDestroyView() {
         lifecycle.removeObserver(sponsorsViewModel)
         super.onDestroyView()
@@ -79,8 +87,15 @@ class SponsorsFragment : Fragment(), Injectable {
             spanCount = SPONSOR_SCREEN_MAX_SPAN_SIZE
             add(sponsorPlansSection)
             setOnItemClickListener({ item, _ ->
-                val url = (item as? SponsorItem)?.sponsor?.link ?: return@setOnItemClickListener
+                val sponsor = (item as? SponsorItem)?.sponsor
+                val url = sponsor?.link ?: return@setOnItemClickListener
                 navigationController.navigateToExternalBrowser(url)
+                val params = Bundle()
+                params.putString(FirebaseAnalytics.Param.ITEM_NAME, sponsor.link)
+                params.putString(FirebaseAnalytics.Param.CONTENT_TYPE, getString(R.string.firebase_analytics_event_sponsor))
+                params.putString(FirebaseAnalytics.Param.GROUP_ID,
+                        item.planType::class.java.simpleName.toLowerCase());
+                fireBaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, params)
             })
         }
         val layoutManager = GridLayoutManager(context, SPONSOR_SCREEN_MAX_SPAN_SIZE).apply {
