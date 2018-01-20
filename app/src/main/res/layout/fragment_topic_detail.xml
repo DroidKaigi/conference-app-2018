@@ -12,7 +12,6 @@
         android:clipToPadding="false"
         android:paddingTop="24dp"
         android:orientation="vertical"
-        app:fastScrollEnabled="true"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_speech_session"
         />

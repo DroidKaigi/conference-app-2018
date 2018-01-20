@@ -42,6 +42,7 @@
     </style>
 
     <style name="BaseRecyclerView">
+        <item name="fastScrollEnabled">true</item>
         <item name="fastScrollHorizontalThumbDrawable">@drawable/state_fast_scroll_thumb</item>
         <item name="fastScrollHorizontalTrackDrawable">@drawable/state_fast_scroll_track</item>
         <item name="fastScrollVerticalThumbDrawable">@drawable/state_fast_scroll_thumb</item>
