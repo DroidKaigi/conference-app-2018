@@ -36,8 +36,8 @@ class SponsorsViewModel @Inject constructor(
     }
 
     @VisibleForTesting
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
         sponsorPlanRepository
                 .refreshSponsorPlans()
                 .subscribeBy(onError = defaultErrorHandler())
