@@ -53,7 +53,7 @@ class AboutThisApps {
                     ),
                     // Dev Version
                     AboutThisApp.Item(
-                            10000 + index++,
+                            10000 + index,
                             R.string.about_version_title,
                             R.string.versionInfo,
                             // TODO add navigation url
