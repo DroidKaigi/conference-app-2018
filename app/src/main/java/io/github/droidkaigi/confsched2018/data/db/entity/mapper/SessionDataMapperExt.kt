@@ -11,11 +11,11 @@ import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
-import io.github.droidkaigi.confsched2018.model.parseDate
 import io.github.droidkaigi.confsched2018.util.ext.toUnixMills
 import io.reactivex.Flowable
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
+import java.util.Date
 
 fun SessionWithSpeakers.toSession(
         speakerEntities: List<SpeakerEntity>,
@@ -33,8 +33,8 @@ fun SessionWithSpeakers.toSession(
             id = sessionEntity.id,
             // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
             dayNumber = Period.between(firstDay, sessionEntity.stime.toLocalDate()).days + 1,
-            startTime = parseDate(sessionEntity.stime.toUnixMills()),
-            endTime = parseDate(sessionEntity.etime.toUnixMills()),
+            startTime = Date(sessionEntity.stime.toUnixMills()),
+            endTime = Date(sessionEntity.etime.toUnixMills()),
             title = sessionEntity.title,
             desc = sessionEntity.desc,
             room = Room(sessionEntity.room.id, sessionEntity.room.name),

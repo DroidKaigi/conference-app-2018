@@ -11,8 +11,8 @@ import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
-import io.github.droidkaigi.confsched2018.model.parseDate
 import org.threeten.bp.LocalDateTime
+import java.util.Date
 
 const val DUMMY_SESSION_ID1 = "111111"
 const val DUMMY_SESSION_ID2 = "222222"
@@ -33,8 +33,8 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
     return Session.SpeechSession(
             id = sessionId,
             dayNumber = dayNumber,
-            startTime = parseDate(startTime),
-            endTime = parseDate(endTime),
+            startTime = Date(startTime),
+            endTime = Date(endTime),
             title = title,
             desc = "How to create DroidKaigi app",
             room = Room(1, "Hall"),
@@ -55,8 +55,8 @@ fun createDummySpecialSession(dayNumber: Int = 1,
     return Session.SpecialSession(
             id = DUMMY_SESSION_ID1,
             dayNumber = dayNumber,
-            startTime = parseDate(startTime),
-            endTime = parseDate(endTime),
+            startTime = Date(startTime),
+            endTime = Date(endTime),
             title = 0,
             room = Room(1, "Hall")
     )

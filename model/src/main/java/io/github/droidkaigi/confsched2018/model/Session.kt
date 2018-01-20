@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2018.model
 
+import java.util.Date
+
 sealed class Session(
         open val id: String,
         open val dayNumber: Int,
