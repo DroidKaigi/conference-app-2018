@@ -37,7 +37,7 @@ class FavoriteSessionsSection : Section() {
         var item = getItemOrNull(position) ?: return null
         item = item as? SpeechSessionItem ?: getItemOrNull(position + 1) ?: return null
         return when (item) {
-            is SpeechSessionItem -> {
+            is SessionItem -> {
                 item.session.dayNumber
             }
             else -> null

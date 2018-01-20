@@ -55,8 +55,8 @@ fun createDummySpecialSession(dayNumber: Int = 1,
     return Session.SpecialSession(
             id = DUMMY_SESSION_ID1,
             dayNumber = dayNumber,
-            startTime = parseDate(startTime),
-            endTime = parseDate(endTime),
+            startTime = Date(startTime),
+            endTime = Date(endTime),
             title = 0,
             room = Room(1, "Hall")
     )
