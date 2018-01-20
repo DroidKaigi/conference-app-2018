@@ -94,4 +94,7 @@
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+
+    <!-- FireBase -->
+    <string name="firebase_analytics_event_sponsor">sponsor</string>
 </resources>
