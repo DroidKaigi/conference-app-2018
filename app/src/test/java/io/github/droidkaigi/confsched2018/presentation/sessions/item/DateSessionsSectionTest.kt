@@ -53,7 +53,7 @@ class DateSessionsSectionTest {
 
             /*
             sections[0] : DateHeaderItem()
-            sections[1] : Session()
+            sections[1] : SpeechSessionItem()
              */
             section.updateSessions(listOf(createDummySession()), {})
             assertItemCount(2)
@@ -69,8 +69,8 @@ class DateSessionsSectionTest {
             // include SpeechSession and SpecialSession
             /*
             sections[0] : DateHeaderItem()
-            sections[1] : Session.SpecialSession()
-            sections[2] : Session.SpeechSession()
+            sections[1] : SpecialSessionItem()
+            sections[2] : SpeechSessionItem()
              */
             section.updateSessions(listOf(
                     createDummySpecialSession(),
@@ -93,13 +93,13 @@ class DateSessionsSectionTest {
         @Test fun existSessions() {
             /*
             sections[0] : DateHeaderItem(10000~10000)
-            sections[1] : Session()
-            sections[2] : Session()
+            sections[1] : SpeechSessionItem()
+            sections[2] : SpeechSessionItem()
             sections[3] : DateHeaderItem(20000~20000)
-            sections[4] : Session()
-            sections[5] : Session()
+            sections[4] : SpeechSessionItem()
+            sections[5] : SpeechSessionItem()
             sections[6] : DateHeaderItem(30000~30000)
-            sections[7] : Session()
+            sections[7] : SpeechSessionItem()
              */
             section.updateSessions(listOf(
                     createDummySession(startTime = 10000, endTime = 10000),
@@ -133,12 +133,12 @@ class DateSessionsSectionTest {
         @Test fun existSessions() {
             /*
             sections[0] : DateHeaderItem()
-            sections[1] : Session(dayNumber=1)
-            sections[2] : Session(dayNumber=1)
+            sections[1] : SpeechSessionItem(dayNumber=1)
+            sections[2] : SpeechSessionItem(dayNumber=1)
             sections[3] : DateHeaderItem()
-            sections[4] : Session(dayNumber=2)
-            sections[5] : Session(dayNumber=2)
-            sections[6] : Session(dayNumber=2)
+            sections[4] : SpeechSessionItem(dayNumber=2)
+            sections[5] : SpeechSessionItem(dayNumber=2)
+            sections[6] : SpeechSessionItem(dayNumber=2)
              */
             section.updateSessions(listOf(
                     createDummySession(dayNumber = 1, startTime = 10000, endTime = 10000),
