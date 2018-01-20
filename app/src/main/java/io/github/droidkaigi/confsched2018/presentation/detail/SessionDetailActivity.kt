@@ -48,12 +48,10 @@ class SessionDetailActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
         }
-        binding.toolbar.setNavigationOnClickListener { finish() }
         sessionDetailViewModel.sessions.observe(this) { result ->
             when (result) {
                 is Result.Success -> {
@@ -67,7 +65,7 @@ class SessionDetailActivity :
         }
 
         binding.detailSessionsPager.adapter = pagerAdapter
-        drawerMenu.setup(binding.toolbar, binding.drawerLayout, binding.drawer)
+        drawerMenu.setup(binding.drawerLayout, binding.drawer)
     }
 
     private fun bindSessions(sessions: List<Session.SpeechSession>) {
@@ -118,11 +116,15 @@ class SessionDetailActivity :
     }
 
     companion object {
-        val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
+        const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun start(context: Context, session: Session) {
-            context.startActivity(Intent(context, SessionDetailActivity::class.java).apply {
-                putExtra(EXTRA_SESSION_ID, session.id)
-            })
+            context.startActivity(createIntent(context, session.id))
+        }
+
+        fun createIntent(context: Context, sessionId: String): Intent {
+            return Intent(context, SessionDetailActivity::class.java).apply {
+                putExtra(EXTRA_SESSION_ID, sessionId)
+            }
         }
     }
 }

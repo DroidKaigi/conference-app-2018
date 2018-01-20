@@ -13,6 +13,7 @@ import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionRoomDatabase
 import io.github.droidkaigi.confsched2018.data.db.dao.ContributorDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
+import io.github.droidkaigi.confsched2018.data.db.dao.SessionFeedbackDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import javax.inject.Singleton
@@ -24,9 +25,11 @@ import javax.inject.Singleton
             appDatabase: AppDatabase,
             sessionDbDao: SessionDao,
             speakerDao: SpeakerDao,
-            sessionSpeakerJoinDao: SessionSpeakerJoinDao
+            sessionSpeakerJoinDao: SessionSpeakerJoinDao,
+            sessionFeedbackDao: SessionFeedbackDao
     ): SessionDatabase =
-            SessionRoomDatabase(appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao)
+            SessionRoomDatabase(appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao,
+                    sessionFeedbackDao)
 
     @Singleton @Provides @JvmStatic
     fun provideFavoriteDatabase(): FavoriteDatabase =
@@ -54,4 +57,7 @@ import javax.inject.Singleton
 
     @Singleton @Provides @JvmStatic
     fun provideContributorDao(db: AppDatabase): ContributorDao = db.contributorDao()
+
+    @Singleton @Provides @JvmStatic
+    fun provideSessionFeedbackDao(db: AppDatabase): SessionFeedbackDao = db.sessionFeedbackDao()
 }

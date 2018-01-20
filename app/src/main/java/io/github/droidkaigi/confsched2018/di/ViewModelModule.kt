@@ -17,74 +17,80 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewM
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailViewModel
+import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsViewModel
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailViewModel
 
-@Module abstract class ViewModelModule {
+@Module
+interface ViewModelModule {
     @Binds @IntoMap
     @ViewModelKey(AllSessionsViewModel::class)
-    abstract fun bindAllSessionsViewModel(allSessionsViewModel: AllSessionsViewModel): ViewModel
+    fun bindAllSessionsViewModel(allSessionsViewModel: AllSessionsViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(FavoriteSessionsViewModel::class)
-    abstract fun bindFavoriteSessionsViewModel(
+    fun bindFavoriteSessionsViewModel(
             favoriteSessionsViewModel: FavoriteSessionsViewModel
     ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SessionsViewModel::class)
-    abstract fun bindSessionsViewModel(sessionsViewModel: SessionsViewModel): ViewModel
+    fun bindSessionsViewModel(sessionsViewModel: SessionsViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(RoomSessionsViewModel::class)
-    abstract fun bindRoomSessionsViewModel(roomSessionsViewModel: RoomSessionsViewModel): ViewModel
+    fun bindRoomSessionsViewModel(roomSessionsViewModel: RoomSessionsViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchSessionsViewModel::class)
-    abstract fun bindSearchSessionViewModel(
+    fun bindSearchSessionViewModel(
             searchSessionsViewModel: SearchSessionsViewModel
     ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchViewModel::class)
-    abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+    fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(FeedViewModel::class)
-    abstract fun bindFeedViewModel(feedViewModel: FeedViewModel): ViewModel
+    fun bindFeedViewModel(feedViewModel: FeedViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SessionDetailViewModel::class)
-    abstract fun bindSessionDetailViewModel(
+    fun bindSessionDetailViewModel(
             sessionDetailViewModel: SessionDetailViewModel
     ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchTopicsViewModel::class)
-    abstract fun bindSearchTopicsViewModel(
+    fun bindSearchTopicsViewModel(
             sessionDetailViewModel: SearchTopicsViewModel
     ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SpeakerDetailViewModel::class)
-    abstract fun bindSpeakerDetailViewModel(
+    fun bindSpeakerDetailViewModel(
             sessionDetailViewModel: SpeakerDetailViewModel
     ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchSpeakersViewModel::class)
-    abstract fun bindSearchSpeakersViewModel(
+    fun bindSearchSpeakersViewModel(
             sessionDetailViewModel: SearchSpeakersViewModel
     ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(ContributorsViewModel::class)
-    abstract fun bindContributorsViewModel(
+    fun bindContributorsViewModel(
             contributorsViewModel: ContributorsViewModel
     ): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(TopicDetailViewModel::class)
-    abstract fun bindTopicDetailViewModel(topicDetailViewModel: TopicDetailViewModel): ViewModel
+    fun bindTopicDetailViewModel(topicDetailViewModel: TopicDetailViewModel): ViewModel
 
-    @Binds abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+    @Binds @IntoMap
+    @ViewModelKey(SponsorsViewModel::class)
+    fun bindSponsorsViewModel(sponsorsViewModel: SponsorsViewModel): ViewModel
+
+    @Binds fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

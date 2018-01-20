@@ -3,7 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'deploygate'
 
 // Manifest version
 def versionMajor = 0
@@ -12,6 +14,7 @@ def versionPatch = 0
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     dataBinding.enabled = true
 
     defaultConfig {
@@ -31,6 +34,9 @@ android {
             }
         }
     }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "versionInfo", variant.versionName
+    }
     signingConfigs {
         debug {
             storeFile rootProject.file("debug.keystore")
@@ -47,12 +53,14 @@ android {
     }
     buildTypes {
         debug {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp.debug"]
             resValue "string", "app_name", "DroidKaigi 2018 Dev"
             signingConfig signingConfigs.debug
             applicationIdSuffix '.debug'
             versionNameSuffix "-debug"
         }
         release {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp"]
             resValue "string", "app_name", "DroidKaigi 2018"
             signingConfig signingConfigs.release
             debuggable false
@@ -80,6 +88,10 @@ android {
     }
 }
 
+kapt {
+    useBuildCache = true
+}
+
 // See versions.gradle
 dependencies {
     implementation project(':model')
@@ -95,6 +107,8 @@ dependencies {
     implementation depends.support.customtabs
     implementation depends.support.constraint
     implementation depends.support.multidex
+    implementation depends.support.emoji
+    implementation depends.support.preference
 
     //==================== Network ====================
     implementation depends.okhttp3.loggingIntercepter
@@ -134,6 +148,9 @@ dependencies {
 
     implementation depends.threetenabp
 
+    implementation depends.kotpref.kotpref
+    implementation depends.kotpref.initializer
+
     //==================== UI ====================
     implementation depends.glide.core
     implementation depends.glide.okhttp3
@@ -143,6 +160,7 @@ dependencies {
     implementation depends.groupie.binding
 
     implementation depends.downloadableCalligraphy
+    implementation depends.gms
 
     //==================== Debug ====================
     debugImplementation depends.stetho.core
@@ -170,7 +188,6 @@ dependencies {
 
     androidTestImplementation depends.supporttest.runner
     androidTestImplementation depends.supporttest.espresso
-
 }
 
 repositories {
@@ -185,3 +202,18 @@ ktlint {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+deploygate {
+    userName = "takahirom"
+    token = System.getenv("DEPLOY_GATE_API_KEY")
+
+    apks {
+        release {
+            def hash = 'git rev-parse --short HEAD'.execute([], project.rootDir).in.text.trim()
+            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
+
+            distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
+            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
+        }
+    }
+}

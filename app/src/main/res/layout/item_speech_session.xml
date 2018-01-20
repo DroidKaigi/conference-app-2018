@@ -22,6 +22,10 @@
             name="simplify"
             type="boolean"
             />
+        <variable
+            name="isFinished"
+            type="boolean"
+            />
     </data>
 
     <android.support.v7.widget.CardView
@@ -45,12 +49,12 @@
 
             <TextView
                 android:id="@+id/day_number"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:text='@{"DAY"+session.dayNumber+" / "}'
-                style="@style/TextStyle.App.Caption"
                 android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toTopOf="parent"
@@ -59,10 +63,10 @@
 
             <TextView
                 android:id="@+id/period"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                style="@style/TextStyle.App.Caption"
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/day_number"
                 app:layout_constraintTop_toTopOf="@id/day_number"
@@ -73,10 +77,10 @@
 
             <TextView
                 android:id="@+id/room"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
                 app:prefix='@{" / "}'
@@ -86,6 +90,7 @@
 
             <TextView
                 android:id="@+id/level"
+                style="@style/TextStyle.App.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -97,7 +102,6 @@
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"
-                style="@style/TextStyle.App.Body2"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -106,15 +110,15 @@
                 tools:text="for intermediate and/or expert"
                 />
 
-            <TextView
+            <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/title"
+                style="@style/TextStyle.App.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="@{session.title}"
-                style="@style/TextStyle.App.Title"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,8 +127,9 @@
                 tools:text="テストセッション"
                 />
 
-            <TextView
+            <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/description"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -133,7 +138,6 @@
                 android:includeFontPadding="false"
                 android:maxLines="3"
                 android:text="@{session.desc}"
-                style="@style/TextStyle.App.Caption"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -144,12 +148,12 @@
 
             <TextView
                 android:id="@+id/topic"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:maxLines="2"
-                style="@style/TextStyle.App.Caption"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/title"
@@ -160,7 +164,6 @@
                 android:id="@+id/speaker_summary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topic"
@@ -168,18 +171,62 @@
                 app:speakers="@{session.speakers}"
                 />
 
-            <ImageView
+            <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
                 android:layout_marginEnd="8dp"
-                android:padding="16dp"
-                android:scaleType="center"
-                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
+                android:checked="@{session.isFavorited}"
+                app:checkedColorTint="@color/accent"
                 app:layout_constraintBottom_toBottomOf="@id/speaker_summary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/speaker_summary"
-                app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
-                tools:src="@drawable/ic_favorite_black_24dp"
+                app:uncheckedColorTint="@color/sub_icon_color"
+                />
+
+            <View
+                android:id="@+id/divider_finished_session"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:background="@color/divider_background"
+                android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/favorite"
+                />
+
+            <TextView
+                android:id="@+id/finished_session_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:drawablePadding="4dp"
+                android:drawableStart="@drawable/ic_check_circle_black_24dp"
+                android:gravity="center_vertical"
+                android:text="@string/session_finished"
+                android:textColor="@android:color/black"
+                android:textSize="10sp"
+                android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
+                />
+
+            <TextView
+                android:id="@+id/go_to_questionnaire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:text="@string/session_go_to_questionnaire"
+                android:textColor="@color/primary_dark"
+                android:textSize="14sp"
+                android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBaseline_toBaselineOf="@id/finished_session_check"
+                app:layout_constraintRight_toRightOf="parent"
                 />
 
         </android.support.constraint.ConstraintLayout>

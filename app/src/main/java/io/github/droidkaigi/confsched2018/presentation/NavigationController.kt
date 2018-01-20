@@ -1,7 +1,11 @@
 package io.github.droidkaigi.confsched2018.presentation
 
+import android.content.Intent
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
@@ -25,6 +29,7 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
+import io.github.droidkaigi.confsched2018.util.CustomTabsHelper
 import javax.inject.Inject
 
 class NavigationController @Inject constructor(private val activity: AppCompatActivity) {
@@ -116,5 +121,40 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateToTopicDetailActivity(topicId: Int) {
         TopicDetailActivity.start(activity, topicId)
+    }
+
+    fun navigateToExternalBrowser(url: String) {
+        val customTabsIntent = CustomTabsIntent.Builder()
+                .setShowTitle(true)
+                .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
+                .setExitAnimations(
+                        activity,
+                        android.R.anim.slide_in_left,
+                        android.R.anim.slide_out_right
+                )
+                .build()
+                .apply {
+                    val appUri = Uri.parse("android-app://${activity.packageName}")
+                    intent.putExtra(Intent.EXTRA_REFERRER, appUri)
+                }
+
+        val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+        packageName ?: run {
+            // Cannot use custom tabs.
+            activity.startActivity(customTabsIntent.intent.setData(Uri.parse(url)))
+            return
+        }
+
+        customTabsIntent.intent.`package` = packageName
+        customTabsIntent.launchUrl(activity, Uri.parse(url))
+    }
+
+    fun navigateImplicitly(url: String?) {
+        url?.let {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            intent.resolveActivity(activity.packageManager)?.let {
+                activity.startActivity(intent)
+            }
+        }
     }
 }
