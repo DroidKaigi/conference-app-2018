@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         >
-        <android.support.text.emoji.widget.EmojiTextView
+        <TextView
             android:id="@+id/date"
             style="@style/TextStyle.App.Caption"
             android:layout_width="wrap_content"
