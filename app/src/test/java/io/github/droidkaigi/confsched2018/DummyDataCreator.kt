@@ -48,6 +48,19 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
     )
 }
 
+fun createDummySpecialSession(dayNumber: Int = 1,
+                              startTime: Long = 10000,
+                              endTime: Long = 10000): Session.SpecialSession {
+    return Session.SpecialSession(
+            id = DUMMY_SESSION_ID1,
+            dayNumber = dayNumber,
+            startTime = parseDate(startTime),
+            endTime = parseDate(endTime),
+            title = 0,
+            room = Room(1, "Hall")
+    )
+}
+
 fun createDummySpeaker(): Speaker {
     return Speaker(
             id = "tmtm",

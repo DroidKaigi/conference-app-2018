@@ -2,7 +2,9 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
 import assertk.assert
 import assertk.assertions.isEqualTo
+import assertk.assertions.isInstanceOf
 import io.github.droidkaigi.confsched2018.createDummySession
+import io.github.droidkaigi.confsched2018.createDummySpecialSession
 import io.github.droidkaigi.confsched2018.model.Date
 import org.junit.Before
 import org.junit.Test
@@ -19,6 +21,56 @@ class DateSessionsSectionTest {
 
         @Before fun init() {
             section = DateSessionsSection()
+        }
+
+        fun assertItemCount(expected: Int) {
+            assert(section.itemCount).isEqualTo(expected)
+        }
+
+        fun <T : Any> assertItemInstanceOf(position: Int, expected: Class<T>) {
+            assert(section.getItem(position)).isInstanceOf(expected)
+        }
+    }
+
+    class UpdateSessionsTest : BaseTest() {
+
+        @Test fun emptySessions() {
+            assertItemCount(0)
+            section.updateSessions(emptyList(), {})
+            assertItemCount(0)
+        }
+
+        @Test fun updateSessions() {
+            assertItemCount(0)
+
+            /*
+            sections[0] : DateHeaderItem()
+            sections[1] : Session()
+             */
+            section.updateSessions(listOf(createDummySession()), {})
+            assertItemCount(2)
+            assertItemInstanceOf(0, DateHeaderItem::class.java)
+            assertItemInstanceOf(1, SpeechSessionItem::class.java)
+
+            // re-update test
+            section.updateSessions(listOf(createDummySession()), {})
+            assertItemCount(2)
+            assertItemInstanceOf(0, DateHeaderItem::class.java)
+            assertItemInstanceOf(1, SpeechSessionItem::class.java)
+
+            // include SpeechSession and SpecialSession
+            /*
+            sections[0] : DateHeaderItem()
+            sections[1] : Session.SpecialSession()
+            sections[2] : Session.SpeechSession()
+             */
+            section.updateSessions(listOf(
+                    createDummySpecialSession(),
+                    createDummySession()), {})
+            assertItemCount(3)
+            assertItemInstanceOf(0, DateHeaderItem::class.java)
+            assertItemInstanceOf(1, SpecialSessionItem::class.java)
+            assertItemInstanceOf(2, SpeechSessionItem::class.java)
         }
     }
 
