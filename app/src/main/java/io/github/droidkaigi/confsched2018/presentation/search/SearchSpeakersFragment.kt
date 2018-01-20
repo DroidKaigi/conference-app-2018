@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchSpeakersBinding
@@ -23,6 +24,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SearchSpeakersFragment : Fragment(), Injectable {
+
+    private var fireBaseAnalytics : FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchSpeakersBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -58,6 +61,18 @@ class SearchSpeakersFragment : Fragment(), Injectable {
                 }
             }
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
+        }
     }
 
     private fun setupRecyclerView() {

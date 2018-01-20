@@ -12,6 +12,7 @@ import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -36,6 +37,7 @@ import javax.inject.Inject
 
 class RoomSessionsFragment : Fragment(), Injectable {
 
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentRoomSessionsBinding
     private lateinit var roomName: String
 
@@ -88,6 +90,19 @@ class RoomSessionsFragment : Fragment(), Injectable {
         sessionsViewModel.isLoading.observe(this, { isLoading ->
             progressTimeLatch.loading = isLoading ?: false
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java
+                    .simpleName + sessionsViewModel.roomName)
+        }
     }
 
     private fun setupRecyclerView() {
