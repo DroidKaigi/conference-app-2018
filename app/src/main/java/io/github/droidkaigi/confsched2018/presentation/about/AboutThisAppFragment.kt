@@ -12,8 +12,8 @@ import io.github.droidkaigi.confsched2018.data.db.fixeddata.AboutThisApps
 import io.github.droidkaigi.confsched2018.databinding.FragmentAboutThisAppBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
-import io.github.droidkaigi.confsched2018.presentation.contributor.item.AboutThisAppItem
-import io.github.droidkaigi.confsched2018.presentation.contributor.item.AboutThisAppsSection
+import io.github.droidkaigi.confsched2018.presentation.about.item.AboutThisAppItem
+import io.github.droidkaigi.confsched2018.presentation.about.item.AboutThisAppsSection
 import javax.inject.Inject
 
 class AboutThisAppFragment : Fragment(), Injectable {

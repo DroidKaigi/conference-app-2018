@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.contributor.item
+package io.github.droidkaigi.confsched2018.presentation.about.item
 
 import android.databinding.DataBindingUtil
 import android.view.View
