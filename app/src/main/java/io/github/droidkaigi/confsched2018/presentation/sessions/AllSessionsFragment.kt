@@ -87,7 +87,8 @@ class AllSessionsFragment : Fragment(), Injectable {
         })
         sessionsViewModel.refreshFocusCurrentSession.observe(this, {
             if (it != true) return@observe
-            val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"])).toInstant().toEpochMilli())
+            val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
+                    .toInstant().toEpochMilli())
             val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
             binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
         })
