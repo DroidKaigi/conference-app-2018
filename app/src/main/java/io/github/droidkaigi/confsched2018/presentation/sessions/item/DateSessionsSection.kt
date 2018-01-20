@@ -70,10 +70,7 @@ class DateSessionsSection : Section() {
 
             position = index
 
-            val time = date.getTime().toInt()
-            val sessionEndTime = item.endDateTime.getTime().toInt()
-
-            if (time <= sessionEndTime) return position
+            if (date.getTime() <= item.endDateTime.getTime()) return position
         }
 
         return position

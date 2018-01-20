@@ -53,7 +53,7 @@ class SessionDataRepository @Inject constructor(
                         val speakerSessions = sessionEntities
                                 .map { it.toSession(speakerEntities, favList, firstDay) }
                                 .sortedWith(compareBy(
-                                        { it.startTime.getTime().toInt() },
+                                        { it.startTime.getTime() },
                                         { it.room.id }
                                 ))
 
