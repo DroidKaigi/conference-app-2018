@@ -22,6 +22,7 @@ ext {
             groupie         : "2.0.2",
             stetho          : "1.5.0",
             debot           : "2.0.3",
+            ossLicenses     : "0.9.1",
             deploygate      : "1.1.4",
     ]
 
@@ -105,6 +106,7 @@ ext {
                     binding: "com.xwray:groupie-databinding:$versions.groupie",
             ],
             downloadableCalligraphy: "com.github.takahirom.downloadable.calligraphy:downloadable-calligraphy:0.1.2",
+            gms                    : "com.google.android.gms:play-services-oss-licenses:11.6.2",
 
             //==================== Debug ====================
             stetho                 : [

@@ -14,4 +14,18 @@ class SpeakersSection(private val dataBindingComponent: FragmentDataBindingCompo
         }
         update(list)
     }
+
+    fun getSpeakerNameOrNull(position: Int): String? {
+        if (position < 0) return null
+
+        val item = getItemOrNull(position) ?: return null
+        return (item as? SpeakerItem)?.speaker?.name
+    }
+
+    private fun getItemOrNull(i: Int): Item<*>? {
+        if (itemCount <= i) {
+            return null
+        }
+        return getItem(i)
+    }
 }
