@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.di
+package io.github.droidkaigi.confsched2018.di.activitymodule
 
 import android.support.v7.app.AppCompatActivity
 import dagger.Binds
