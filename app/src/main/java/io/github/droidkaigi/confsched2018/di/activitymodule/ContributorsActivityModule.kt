@@ -5,6 +5,6 @@ import dagger.Binds
 import dagger.Module
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsActivity
 
-@Module interface ContributorModule {
+@Module interface ContributorsActivityModule {
     @Binds fun providesAppCompatActivity(activity: ContributorsActivity): AppCompatActivity
 }

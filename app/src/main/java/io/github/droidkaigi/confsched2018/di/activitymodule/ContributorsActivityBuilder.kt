@@ -8,7 +8,7 @@ import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsA
 @Module interface ContributorsActivityBuilder {
     @ContributesAndroidInjector(modules = [
         FragmentBuildersModule::class,
-        ContributorModule::class]
+        ContributorsActivityModule::class]
     )
     fun contributeContributorActivity(): ContributorsActivity
 }
