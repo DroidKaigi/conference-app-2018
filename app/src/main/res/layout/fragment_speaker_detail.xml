@@ -42,11 +42,11 @@
 
         <TextView
             android:id="@+id/speaker_name"
+            style="@style/TextStyle.App.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{speaker.name}"
-            style="@style/TextStyle.App.Title"
             android:textColor="@color/app_bar_text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,14 +55,14 @@
             />
         <TextView
             android:id="@+id/speaker_tag_line"
+            style="@style/TextStyle.App.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingBottom="32dp"
-            android:paddingStart="8dp"
             android:paddingEnd="8dp"
+            android:paddingStart="8dp"
             android:text="@{speaker.tagLine}"
-            style="@style/TextStyle.App.Subhead"
             android:textColor="@color/app_bar_text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
