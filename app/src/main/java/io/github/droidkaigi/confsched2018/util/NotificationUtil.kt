@@ -18,10 +18,7 @@ fun notificationBuilder(context: Context, channelId: String): NotificationCompat
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         createDefaultNotificationChannel(context, channelId)
     }
-    @Suppress("DEPRECATION")
-    val builder = NotificationCompat.Builder(context)
-    builder.setChannelId(channelId)
-    return builder
+    return NotificationCompat.Builder(context, channelId)
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
