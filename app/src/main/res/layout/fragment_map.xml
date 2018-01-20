@@ -4,84 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data></data>
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="io.github.droidkaigi.confsched2018.presentation.map.MapFragment"
         tools:showIn="@layout/activity_map"
         >
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map_view"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            />
-        <FrameLayout
-            android:id="@+id/place_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/map_view"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:lineSpacingExtra="7.2sp"
-                android:textColor="#ffffff"
-                android:textSize="18sp"
-                android:text="ベルサール新宿グランドコンファレンスセンター "
+            android:layout_height="match_parent">
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
                 />
-            <TextView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/place_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="75dp"
-                android:text="DroidKaigi 2018 会場"
-                android:textColor="#ffffff"
-                android:textSize="12sp"
-                />
-        </FrameLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@drawable/shape_divider_vertical_6dp"
-            android:showDividers="middle"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/place_view"
-            app:layout_constraintStart_toStartOf="@+id/place_view"
-            app:layout_constraintTop_toBottomOf="@+id/place_view"
-            >
-            <TextView
-                android:layout_width="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/map_view"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:lineSpacingExtra="7.2sp"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:text="ベルサール新宿グランドコンファレンスセンター "
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="75dp"
+                    android:text="DroidKaigi 2018 会場"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    />
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="72dp"
-                android:layout_marginTop="8dp"
-                android:lineSpacingExtra="9.6sp"
-                android:text="〒160-0023 東京都新宿区西新宿8丁目17 西新宿8-17−１ 住友不動産新宿グランドタワー5F"
-                android:textColor="#000000"
-                />
-            <!--android:textSize="12sp"-->
-            <!--android:textStyle="normal"-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="72dp"
-                android:layout_marginTop="8dp"
-                android:lineSpacingExtra="9.6sp"
-                android:text="丸ノ内線「西新宿駅」 (1番出口徒歩3分)
+                android:divider="@drawable/shape_divider_vertical_6dp"
+                android:showDividers="middle"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/place_view"
+                app:layout_constraintStart_toStartOf="@+id/place_view"
+                app:layout_constraintTop_toBottomOf="@+id/place_view"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="9.6sp"
+                    android:text="〒160-0023 東京都新宿区西新宿8丁目17 西新宿8-17−１ 住友不動産新宿グランドタワー5F"
+                    android:textColor="#000000"
+                    />
+                <!--android:textSize="12sp"-->
+                <!--android:textStyle="normal"-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="9.6sp"
+                    android:text="丸ノ内線「西新宿駅」 (1番出口徒歩3分)
 大江戸線「都庁前駅」 (E4出口徒歩7分)
 大江戸線「新宿西口駅」(D4出口徒歩11分)
 JR線・丸ノ内線･小田急線･京王線・新宿線・大江戸線「新宿駅」 (西口徒歩15分)"
-                android:textColor="#000000"
-                android:textSize="12sp"
-                />
-        </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+                    android:textColor="#000000"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </layout>
