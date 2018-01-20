@@ -40,4 +40,12 @@
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
     </style>
+
+    <style name="BaseRecyclerView">
+        <item name="fastScrollEnabled">true</item>
+        <item name="fastScrollHorizontalThumbDrawable">@drawable/state_fast_scroll_thumb</item>
+        <item name="fastScrollHorizontalTrackDrawable">@drawable/state_fast_scroll_track</item>
+        <item name="fastScrollVerticalThumbDrawable">@drawable/state_fast_scroll_thumb</item>
+        <item name="fastScrollVerticalTrackDrawable">@drawable/state_fast_scroll_track</item>
+    </style>
 </resources>
