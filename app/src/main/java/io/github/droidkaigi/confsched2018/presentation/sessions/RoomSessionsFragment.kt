@@ -81,7 +81,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }

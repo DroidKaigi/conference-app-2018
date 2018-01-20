@@ -10,18 +10,18 @@ class DateSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
-            simplify: Boolean = false
+            isShowDayNumber: Boolean = false
     ) {
         val sessionItems = sessions.map {
             when (it) {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
                     SpeechSessionItem(
-                            it, onFavoriteClickListener, simplify) as SessionItem
+                            it, onFavoriteClickListener, isShowDayNumber) as SessionItem
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")
-                    SpecialSessionItem(it) as SessionItem
+                    SpecialSessionItem(it, isShowDayNumber) as SessionItem
                 }
             }
         }
