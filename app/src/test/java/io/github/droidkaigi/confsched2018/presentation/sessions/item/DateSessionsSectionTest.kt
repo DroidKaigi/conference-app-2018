@@ -30,6 +30,10 @@ class DateSessionsSectionTest {
         fun <T : Any> assertItemInstanceOf(position: Int, expected: Class<T>) {
             assert(section.getItem(position)).isInstanceOf(expected)
         }
+
+        fun assertDateHeaderPosition(by: Date, expected: Int) {
+            assert(section.getDateHeaderPositionByDate(by)).isEqualTo(expected)
+        }
     }
 
     class UpdateSessionsTest : BaseTest() {
@@ -77,9 +81,9 @@ class DateSessionsSectionTest {
     class GateHeaderPositionByDateTest : BaseTest() {
 
         @Test fun emptySessions() {
-            assert(section.getDateHeaderPositionByDate(Date())).isEqualTo(0)
+            assertDateHeaderPosition(Date(), 0)
             section.updateSessions(emptyList(), {})
-            assert(section.getDateHeaderPositionByDate(Date())).isEqualTo(0)
+            assertDateHeaderPosition(Date(), 0)
         }
 
         @Test fun existSessions() {
@@ -101,16 +105,16 @@ class DateSessionsSectionTest {
                     createDummySession(startTime = 30000, endTime = 30000)
             ), {})
 
-            assert(section.itemCount).isEqualTo(8)
-            assert(section.getDateHeaderPositionByDate(Date(1000))).isEqualTo(0)
-            assert(section.getDateHeaderPositionByDate(Date(10000))).isEqualTo(0)
-            assert(section.getDateHeaderPositionByDate(Date(10001))).isEqualTo(3)
-            assert(section.getDateHeaderPositionByDate(Date(19999))).isEqualTo(3)
-            assert(section.getDateHeaderPositionByDate(Date(20000))).isEqualTo(3)
-            assert(section.getDateHeaderPositionByDate(Date(20001))).isEqualTo(6)
-            assert(section.getDateHeaderPositionByDate(Date(29999))).isEqualTo(6)
-            assert(section.getDateHeaderPositionByDate(Date(30000))).isEqualTo(6)
-            assert(section.getDateHeaderPositionByDate(Date(30001))).isEqualTo(6)
+            assertItemCount(8)
+            assertDateHeaderPosition(Date(1000), 0)
+            assertDateHeaderPosition(Date(10000), 0)
+            assertDateHeaderPosition(Date(10001), 3)
+            assertDateHeaderPosition(Date(19999), 3)
+            assertDateHeaderPosition(Date(20000), 3)
+            assertDateHeaderPosition(Date(20001), 6)
+            assertDateHeaderPosition(Date(29999), 6)
+            assertDateHeaderPosition(Date(30000), 6)
+            assertDateHeaderPosition(Date(30001), 6)
         }
     }
 }
