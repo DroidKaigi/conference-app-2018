@@ -12,7 +12,6 @@ import io.github.droidkaigi.confsched2018.data.db.fixeddata.AboutThisApps
 import io.github.droidkaigi.confsched2018.databinding.FragmentAboutThisAppBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.contributor.item.AboutThisAppItem
 import io.github.droidkaigi.confsched2018.presentation.contributor.item.AboutThisAppsSection
 import javax.inject.Inject
@@ -20,8 +19,7 @@ import javax.inject.Inject
 class AboutThisAppFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentAboutThisAppBinding
     @Inject lateinit var navigationController: NavigationController
-    private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
-    private val aboutThisAppSection = AboutThisAppsSection(fragmentDataBindingComponent)
+    private val aboutThisAppSection = AboutThisAppsSection()
 
     private val onAboutThisHeaderIconClickListener = { navUrl: String ->
         navigationController.navigateToExternalBrowser(navUrl)

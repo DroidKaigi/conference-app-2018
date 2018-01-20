@@ -7,16 +7,14 @@ import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSearchSpeakerBinding
 import io.github.droidkaigi.confsched2018.model.Speaker
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
 data class SearchResultSpeakerItem(
         val speaker: Speaker,
-        private val dataBindingComponent: FragmentDataBindingComponent,
         private val searchQuery: String = ""
 ) : BindableItem<ItemSearchSpeakerBinding>(speaker.id.hashCode().toLong()) {
     override fun createViewHolder(itemView: View): ViewHolder<ItemSearchSpeakerBinding> {
         val viewDataBinding =
-                DataBindingUtil.bind<ItemSearchSpeakerBinding>(itemView, dataBindingComponent)
+                DataBindingUtil.bind<ItemSearchSpeakerBinding>(itemView)
         return ViewHolder(viewDataBinding)
     }
 
