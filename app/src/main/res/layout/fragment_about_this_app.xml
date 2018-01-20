@@ -12,6 +12,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/about_this_app_recycler"
+            style="@style/BaseRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
