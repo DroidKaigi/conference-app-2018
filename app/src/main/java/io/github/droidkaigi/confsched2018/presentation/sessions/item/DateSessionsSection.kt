@@ -2,8 +2,8 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
-import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
+import java.util.Date
 import java.util.SortedMap
 
 class DateSessionsSection : Section() {

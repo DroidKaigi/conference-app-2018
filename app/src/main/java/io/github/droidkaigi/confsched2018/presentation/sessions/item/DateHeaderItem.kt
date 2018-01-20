@@ -3,9 +3,9 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemDateHeaderBinding
-import io.github.droidkaigi.confsched2018.model.Date
-import io.github.droidkaigi.confsched2018.model.toReadableDateString
-import io.github.droidkaigi.confsched2018.model.toReadableTimeString
+import io.github.droidkaigi.confsched2018.util.ext.toReadableDateString
+import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
+import java.util.Date
 
 data class DateHeaderItem(
         val startDateTime: Date,
