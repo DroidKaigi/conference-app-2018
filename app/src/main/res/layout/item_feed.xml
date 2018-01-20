@@ -17,18 +17,19 @@
         >
         <android.support.text.emoji.widget.EmojiTextView
             android:id="@+id/date"
+            style="@style/TextStyle.App.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:layout_marginTop="22dp"
             android:text="@{post.date}"
-            style="@style/TextStyle.App.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2/7, 12:00 AM"
             />
         <android.support.text.emoji.widget.EmojiTextView
             android:id="@+id/title"
+            style="@style/TextStyle.App.Headline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="72dp"
@@ -37,7 +38,6 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{post.title}"
-            style="@style/TextStyle.App.Headline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date"
@@ -45,6 +45,7 @@
             />
         <android.support.text.emoji.widget.EmojiTextView
             android:id="@+id/content"
+            style="@style/TextStyle.App.Caption"
             android:layout_width="0dp"
             android:layout_height="@dimen/feed_collapse_content_size"
             android:layout_marginBottom="22dp"
@@ -53,7 +54,6 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:text="@{post.content}"
-            style="@style/TextStyle.App.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
