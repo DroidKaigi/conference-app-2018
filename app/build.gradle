@@ -208,10 +208,10 @@ deploygate {
     apks {
         release {
             def hash = 'git rev-parse --short HEAD'.execute([], project.rootDir).in.text.trim()
-            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
 
             distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
-            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
         }
     }
 }
