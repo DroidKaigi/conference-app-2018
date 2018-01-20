@@ -29,6 +29,7 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
+import io.github.droidkaigi.confsched2018.util.CustomTabsHelper
 import javax.inject.Inject
 
 class NavigationController @Inject constructor(private val activity: AppCompatActivity) {
@@ -137,9 +138,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                     intent.putExtra(Intent.EXTRA_REFERRER, appUri)
                 }
 
-        // welcome contributions :)
-        // e.g. support in-app browser
+        val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+        packageName ?: run {
+            // Cannot use custom tabs.
+            activity.startActivity(customTabsIntent.intent.setData(Uri.parse(url)))
+            return
+        }
 
+        customTabsIntent.intent.`package` = packageName
         customTabsIntent.launchUrl(activity, Uri.parse(url))
     }
 
