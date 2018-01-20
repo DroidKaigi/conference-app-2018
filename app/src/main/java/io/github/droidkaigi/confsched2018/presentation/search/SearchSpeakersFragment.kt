@@ -4,8 +4,6 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.common.itemdecoration.StickyHeaderItemDecoration
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -71,8 +70,19 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         binding.searchSessionRecycler.apply {
             adapter = groupAdapter
         }
-        binding.searchSessionRecycler.addItemDecoration(DividerItemDecoration(context,
-                LinearLayoutManager(activity).orientation))
+
+        binding.searchSessionRecycler.addItemDecoration(StickyHeaderItemDecoration(context,
+                object : StickyHeaderItemDecoration.Callback {
+                    override fun getGroupId(position: Int): Long {
+                        val initial = speakersSection.getSpeakerNameOrNull(position)?.get(0)
+                        initial ?: return -1
+                        return Character.toUpperCase(initial).toLong()
+                    }
+
+                    override fun getGroupFirstLine(position: Int): String? {
+                        return speakersSection.getSpeakerNameOrNull(position)?.get(0)?.toString()
+                    }
+                }))
     }
 
     companion object {
