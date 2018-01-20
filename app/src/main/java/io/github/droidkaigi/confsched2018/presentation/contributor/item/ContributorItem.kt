@@ -7,15 +7,13 @@ import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemContributorBinding
 import io.github.droidkaigi.confsched2018.model.Contributor
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
 data class ContributorItem(
-        val contributor: Contributor,
-        private val dataBindingComponent: FragmentDataBindingComponent
+        val contributor: Contributor
 ) : BindableItem<ItemContributorBinding>(contributor.name.hashCode().toLong()) {
 
     override fun createViewHolder(itemView: View): ViewHolder<ItemContributorBinding> {
-        return ViewHolder(DataBindingUtil.bind(itemView, dataBindingComponent))
+        return ViewHolder(DataBindingUtil.bind(itemView))
     }
 
     override fun getLayout(): Int = R.layout.item_contributor

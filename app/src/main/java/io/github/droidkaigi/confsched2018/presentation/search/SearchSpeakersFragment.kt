@@ -13,7 +13,6 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSearchSpeakersBind
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.common.itemdecoration.StickyHeaderItemDecoration
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersSection
@@ -30,8 +29,7 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         ViewModelProviders.of(this, viewModelFactory).get(SearchSpeakersViewModel::class.java)
     }
 
-    private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
-    private val speakersSection = SpeakersSection(fragmentDataBindingComponent)
+    private val speakersSection = SpeakersSection()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
