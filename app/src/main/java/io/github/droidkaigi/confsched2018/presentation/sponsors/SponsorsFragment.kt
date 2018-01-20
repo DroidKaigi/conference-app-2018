@@ -92,9 +92,10 @@ class SponsorsFragment : Fragment(), Injectable {
                 navigationController.navigateToExternalBrowser(url)
                 val params = Bundle()
                 params.putString(FirebaseAnalytics.Param.ITEM_NAME, sponsor.link)
-                params.putString(FirebaseAnalytics.Param.CONTENT_TYPE, getString(R.string.firebase_analytics_event_sponsor))
+                params.putString(FirebaseAnalytics.Param.CONTENT_TYPE,
+                        getString(R.string.firebase_analytics_event_sponsor))
                 params.putString(FirebaseAnalytics.Param.GROUP_ID,
-                        item.planType::class.java.simpleName.toLowerCase());
+                        item.planType::class.java.simpleName.toLowerCase())
                 fireBaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, params)
             })
         }

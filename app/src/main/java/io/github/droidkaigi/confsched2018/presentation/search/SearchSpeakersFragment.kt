@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 class SearchSpeakersFragment : Fragment(), Injectable {
 
-    private var fireBaseAnalytics : FirebaseAnalytics? = null
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchSpeakersBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 

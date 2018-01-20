@@ -36,7 +36,7 @@ import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
 
-    private var fireBaseAnalytics : FirebaseAnalytics? = null
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentAllSessionsBinding
 
     private val sessionsSection = DateSessionsSection()

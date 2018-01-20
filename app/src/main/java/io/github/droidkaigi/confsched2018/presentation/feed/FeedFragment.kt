@@ -61,7 +61,7 @@ class FeedFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context);
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         postsViewModel.feeds.observe(this, { result ->
