@@ -24,13 +24,13 @@ class DateSessionsSectionTest {
 
     class GateHeaderPositionByDateTest : BaseTest() {
 
-        @Test fun emptySections() {
+        @Test fun emptySessions() {
             assert(section.getDateHeaderPositionByDate(Date())).isEqualTo(0)
             section.updateSessions(emptyList(), {})
             assert(section.getDateHeaderPositionByDate(Date())).isEqualTo(0)
         }
 
-        @Test fun existSections() {
+        @Test fun existSessions() {
             /*
             sections[0] : DateHeaderItem(10000~10000)
             sections[1] : Session()
