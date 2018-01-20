@@ -59,6 +59,10 @@
 
     <!-- Settings -->
     <string name="settings_title_activity">設定</string>
+    <string name="settings_enable_local_time_title_preference">現在地の時間を使用する</string>
+    <string name="settings_enable_local_time_summary_preference">DroidKaigiの現地時間の代わりに現在地の時間を使用します。</string>
+    <string name="settings_enable_notification_title_preference">通知を受信する</string>
+    <string name="settings_enable_notification_summary_preference">このアプリで通知を受信するかどうかを選択できます。</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
