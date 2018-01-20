@@ -20,9 +20,8 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.FavoriteSessionItem
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.FavoriteSessionsSection
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
@@ -89,7 +88,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsSection)
             setOnItemClickListener({ item, _ ->
-                val sessionItem = item as? SpeechSessionItem ?: return@setOnItemClickListener
+                val sessionItem = item as? FavoriteSessionItem ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
             })
         }
