@@ -34,6 +34,10 @@ class DateSessionsSectionTest {
         fun assertDateHeaderPosition(by: Date, expected: Int) {
             assert(section.getDateHeaderPositionByDate(by)).isEqualTo(expected)
         }
+
+        fun assertDateNumberOrNull(position: Int, expected: Int?) {
+            assert(section.getDateNumberOrNull(position)).isEqualTo(expected)
+        }
     }
 
     class UpdateSessionsTest : BaseTest() {
@@ -115,6 +119,44 @@ class DateSessionsSectionTest {
             assertDateHeaderPosition(Date(29999), 6)
             assertDateHeaderPosition(Date(30000), 6)
             assertDateHeaderPosition(Date(30001), 6)
+        }
+    }
+
+    class GetDateNumberOrNullTest : BaseTest() {
+
+        @Test fun emptySessions() {
+            assertDateNumberOrNull(0, null)
+            section.updateSessions(emptyList(), {})
+            assertDateNumberOrNull(0, null)
+        }
+
+        @Test fun existSessions() {
+            /*
+            sections[0] : DateHeaderItem()
+            sections[1] : Session(dayNumber=1)
+            sections[2] : Session(dayNumber=1)
+            sections[3] : DateHeaderItem()
+            sections[4] : Session(dayNumber=2)
+            sections[5] : Session(dayNumber=2)
+            sections[6] : Session(dayNumber=2)
+             */
+            section.updateSessions(listOf(
+                    createDummySession(dayNumber = 1, startTime = 10000, endTime = 10000),
+                    createDummySession(dayNumber = 1, startTime = 10000, endTime = 10000),
+                    createDummySession(dayNumber = 2, startTime = 20000, endTime = 20000),
+                    createDummySession(dayNumber = 2, startTime = 20000, endTime = 20000),
+                    createDummySession(dayNumber = 2, startTime = 20000, endTime = 20000)
+            ), {})
+
+            assertItemCount(7)
+            assertDateNumberOrNull(0, 1)
+            assertDateNumberOrNull(1, 1)
+            assertDateNumberOrNull(2, 1)
+            assertDateNumberOrNull(3, 2)
+            assertDateNumberOrNull(4, 2)
+            assertDateNumberOrNull(5, 2)
+            assertDateNumberOrNull(6, 2)
+            assertDateNumberOrNull(7, null)
         }
     }
 }

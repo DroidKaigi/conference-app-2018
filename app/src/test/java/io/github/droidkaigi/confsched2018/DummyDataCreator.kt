@@ -27,11 +27,12 @@ fun createDummySessions(): List<Session> =
 
 fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
                        title: String = DUMMY_SESSION_TITLE1,
+                       dayNumber: Int = 1,
                        startTime: Long = 10000,
                        endTime: Long = 10000): Session.SpeechSession {
     return Session.SpeechSession(
             id = sessionId,
-            dayNumber = 1,
+            dayNumber = dayNumber,
             startTime = parseDate(startTime),
             endTime = parseDate(endTime),
             title = title,
