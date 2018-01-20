@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         >
-        <TextView
+        <android.support.text.emoji.widget.EmojiTextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2/7, 12:00 AM"
             />
-        <TextView
+        <android.support.text.emoji.widget.EmojiTextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@id/date"
             tools:text="マイセッションを見つけよう!"
             />
-        <TextView
+        <android.support.text.emoji.widget.EmojiTextView
             android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="@dimen/feed_collapse_content_size"
