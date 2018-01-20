@@ -14,8 +14,8 @@ import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.model.parseDate
 import org.threeten.bp.LocalDateTime
 
-const val DUMMY_SESSION_ID1 = "test1"
-const val DUMMY_SESSION_ID2 = "test2"
+const val DUMMY_SESSION_ID1 = "111111"
+const val DUMMY_SESSION_ID2 = "222222"
 const val DUMMY_SESSION_TITLE1 = "DroidKaigi"
 const val DUMMY_SESSION_TITLE2 = "RejectKaigi"
 
@@ -25,12 +25,16 @@ fun createDummySessions(): List<Session> =
                 createDummySession(DUMMY_SESSION_ID2, DUMMY_SESSION_TITLE2)
         )
 
-fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DUMMY_SESSION_TITLE1): Session.SpeechSession {
+fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
+                       title: String = DUMMY_SESSION_TITLE1,
+                       dayNumber: Int = 1,
+                       startTime: Long = 10000,
+                       endTime: Long = 10000): Session.SpeechSession {
     return Session.SpeechSession(
             id = sessionId,
-            dayNumber = 1,
-            startTime = parseDate(10000),
-            endTime = parseDate(10000),
+            dayNumber = dayNumber,
+            startTime = parseDate(startTime),
+            endTime = parseDate(endTime),
             title = title,
             desc = "How to create DroidKaigi app",
             room = Room(1, "Hall"),
@@ -42,6 +46,19 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1, title: String = DU
             createDummySpeaker(),
             createDummySpeaker()
     )
+    )
+}
+
+fun createDummySpecialSession(dayNumber: Int = 1,
+                              startTime: Long = 10000,
+                              endTime: Long = 10000): Session.SpecialSession {
+    return Session.SpecialSession(
+            id = DUMMY_SESSION_ID1,
+            dayNumber = dayNumber,
+            startTime = parseDate(startTime),
+            endTime = parseDate(endTime),
+            title = 0,
+            room = Room(1, "Hall")
     )
 }
 
