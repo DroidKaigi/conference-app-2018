@@ -91,6 +91,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(ContributorsFragment.newInstance())
     }
 
+    fun navigateToMainActivity() {
+        MainActivity.start(activity)
+    }
+
     fun navigateToContributorActivity() {
         ContributorsActivity.start(activity)
     }

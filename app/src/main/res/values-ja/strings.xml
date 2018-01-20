@@ -3,6 +3,7 @@
     <string name="time_period">%1$s - %2$s</string>
 
     <!-- NavigationDrawer -->
+    <string name="nav_item_home">ホーム</string>
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>

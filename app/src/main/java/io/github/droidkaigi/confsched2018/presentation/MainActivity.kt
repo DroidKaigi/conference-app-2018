@@ -105,5 +105,9 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
     companion object {
         fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
+
+        fun start(context: Context) {
+            context.startActivity(createIntent(context))
+        }
     }
 }
