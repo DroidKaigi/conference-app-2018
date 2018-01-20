@@ -6,7 +6,7 @@ import java.util.Locale
 
 class Date(
         optTimeInMills: Long? = null
-) {
+) : Comparable<Date> {
 
     private val calendar: Calendar = Calendar.getInstance().apply {
         if (optTimeInMills != null) {
@@ -35,6 +35,8 @@ class Date(
 
     override fun equals(other: Any?): Boolean =
             other is Date && other.calendar.time == calendar.time
+
+    override fun compareTo(other: Date): Int = date.compareTo(other.date)
 }
 
 fun Date.toReadableDateTimeString() = "${toReadableDateString()} ${toReadableTimeString()}"
