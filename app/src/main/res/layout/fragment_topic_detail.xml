@@ -6,16 +6,13 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sessions_recycler"
+        style="@style/BaseRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingTop="24dp"
         android:orientation="vertical"
         app:fastScrollEnabled="true"
-        app:fastScrollHorizontalThumbDrawable="@drawable/state_fast_scroll_thumb"
-        app:fastScrollHorizontalTrackDrawable="@drawable/state_fast_scroll_track"
-        app:fastScrollVerticalThumbDrawable="@drawable/state_fast_scroll_thumb"
-        app:fastScrollVerticalTrackDrawable="@drawable/state_fast_scroll_track"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_speech_session"
         />
