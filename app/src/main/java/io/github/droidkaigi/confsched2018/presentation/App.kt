@@ -50,7 +50,9 @@ open class App : MultiDexApplication(), HasActivityInjector {
     }
 
     private fun setupThreeTenABP() {
-        AndroidThreeTen.init(this)
+        if (!isInUnitTests()) {
+            AndroidThreeTen.init(this)
+        }
     }
 
     open fun setupDagger() {
@@ -89,4 +91,6 @@ open class App : MultiDexApplication(), HasActivityInjector {
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> =
             dispatchingAndroidInjector
+
+    open protected fun isInUnitTests() = false
 }
