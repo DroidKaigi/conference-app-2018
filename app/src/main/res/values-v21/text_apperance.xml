@@ -1,30 +1,31 @@
 <resources>
-    <style name="TextStyle.App.Title">
+
+    <style name="TextStyle.App.Title" parent="Platform.TextStyle.App.Title">
         <item name="android:lineSpacingMultiplier">1.25</item>
         <!-- 1.25 (Title is 21sp and "should exist as single lines", so adjusted manually) -->
     </style>
 
-    <style name="TextStyle.App.Subhead">
+    <style name="TextStyle.App.Subhead" parent="Platform.TextStyle.App.Subhead">
         <item name="android:lineSpacingMultiplier">1.76</item>
         <!-- 1.76 ≒ 30 / 17 (Type 17sp, Leading 30dp) -->
     </style>
 
-    <style name="TextStyle.App.Headline">
+    <style name="TextStyle.App.Headline" parent="Platform.TextStyle.App.Headline">
         <item name="android:lineSpacingMultiplier">1.42</item>
         <!-- 1.42 ≒ 34 / 24  (Type 24sp, Leading 34dp) -->
     </style>
 
-    <style name="TextStyle.App.Body2">
+    <style name="TextStyle.App.Body2" parent="Platform.TextStyle.App.Body2">
         <item name="android:lineSpacingMultiplier">1.86</item>
         <!-- 1.86 ≒ 26 / 14  (Type 14sp, Leading 26dp) -->
     </style>
 
-    <style name="TextStyle.App.Body1">
+    <style name="TextStyle.App.Body1" parent="Platform.TextStyle.App.Body1">
         <item name="android:lineSpacingMultiplier">1.64</item>
         <!-- 1.64 ≒ 23 / 14  (Type 14sp, Leading 23dp) -->
     </style>
 
-    <style name="TextStyle.App.Caption">
+    <style name="TextStyle.App.Caption" parent="Platform.TextStyle.App.Caption">
         <item name="android:lineSpacingMultiplier">1.69</item>
         <!-- 1.69 (Title is 13sp and "should exist as single lines", so adjusted manually) -->
     </style>

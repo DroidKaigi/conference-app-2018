@@ -31,32 +31,50 @@
         <item name="android:fontFamily">@font/notosans_regular</item>
     </style>
 
-    <style name="TextStyle" />
+    <style name="Platform" />
 
-    <style name="TextStyle.App" />
+    <style name="Platform.TextStyle" />
 
-    <style name="TextStyle.App.Title">
+    <style name="Platform.TextStyle.App" />
+
+    <style name="Platform.TextStyle.App.Title">
         <item name="android:textAppearance">@style/TextAppearance.App.Title</item>
     </style>
 
-    <style name="TextStyle.App.Subhead">
+    <style name="Platform.TextStyle.App.Subhead">
         <item name="android:textAppearance">@style/TextAppearance.App.Subhead</item>
     </style>
 
-    <style name="TextStyle.App.Headline">
+    <style name="Platform.TextStyle.App.Headline">
         <item name="android:textAppearance">@style/TextAppearance.App.Headline</item>
     </style>
 
-    <style name="TextStyle.App.Body2">
+    <style name="Platform.TextStyle.App.Body2">
         <item name="android:textAppearance">@style/TextAppearance.App.Body2</item>
     </style>
 
-    <style name="TextStyle.App.Body1">
+    <style name="Platform.TextStyle.App.Body1">
         <item name="android:textAppearance">@style/TextAppearance.App.Body1</item>
     </style>
 
-    <style name="TextStyle.App.Caption">
+    <style name="Platform.TextStyle.App.Caption">
         <item name="android:textAppearance">@style/TextAppearance.App.Caption</item>
     </style>
+
+    <style name="TextStyle" parent="Platform.TextStyle"/>
+
+    <style name="TextStyle.App" parent="Platform.TextStyle.App"/>
+
+    <style name="TextStyle.App.Title" parent="Platform.TextStyle.App.Title"/>
+
+    <style name="TextStyle.App.Subhead" parent="Platform.TextStyle.App.Subhead"/>
+
+    <style name="TextStyle.App.Headline" parent="Platform.TextStyle.App.Headline"/>
+
+    <style name="TextStyle.App.Body2" parent="Platform.TextStyle.App.Body2"/>
+
+    <style name="TextStyle.App.Body1" parent="Platform.TextStyle.App.Body1"/>
+
+    <style name="TextStyle.App.Caption" parent="Platform.TextStyle.App.Caption"/>
 
 </resources>
