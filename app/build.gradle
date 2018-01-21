@@ -6,6 +6,7 @@ apply plugin: 'io.fabric'
 apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'deploygate'
+apply plugin: 'com.github.triplet.play'
 
 // Manifest version
 def versionMajor = 0
@@ -17,6 +18,15 @@ android {
     buildToolsVersion versions.buildTools
     dataBinding.enabled = true
 
+    // Play publisher
+    playAccountConfigs {
+        defaultAccountConfig {
+            // TODO Replace json file to the one which is generated in the API console.
+            // https://github.com/Triple-T/gradle-play-publisher#authentication
+            jsonFile = file('publisher-keys.json')
+        }
+    }
+
     defaultConfig {
         applicationId "io.github.droidkaigi.confsched2018"
         minSdkVersion versions.minSdk
@@ -27,6 +37,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         resConfigs "en", "ja"
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -199,6 +210,11 @@ dependencies {
 
 repositories {
     mavenCentral()
+}
+
+play {
+    track = 'beta' // 'production' or 'rollout' or 'beta' or 'alpha'
+    // userFraction = 0.1
 }
 
 ktlint {
