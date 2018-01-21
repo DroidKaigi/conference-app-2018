@@ -86,5 +86,10 @@ fun TextView.setVectorDrawableStart(drawable: Drawable) {
     }
 
     val drawables = compoundDrawables
-    setCompoundDrawablesWithIntrinsicBounds(vectorDrawable, drawables[1], drawables[2], drawables[3])
+    setCompoundDrawablesWithIntrinsicBounds(
+            vectorDrawable,
+            drawables[1],
+            drawables[2],
+            drawables[3]
+    )
 }
