@@ -39,7 +39,6 @@
         <item name="android:textAppearance">@style/TextAppearance.App.Title</item>
     </style>
 
-
     <style name="TextStyle.App.Subhead">
         <item name="android:textAppearance">@style/TextAppearance.App.Subhead</item>
     </style>
@@ -48,11 +47,9 @@
         <item name="android:textAppearance">@style/TextAppearance.App.Headline</item>
     </style>
 
-
     <style name="TextStyle.App.Body2">
         <item name="android:textAppearance">@style/TextAppearance.App.Body2</item>
     </style>
-
 
     <style name="TextStyle.App.Body1">
         <item name="android:textAppearance">@style/TextAppearance.App.Body1</item>
