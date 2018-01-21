@@ -18,6 +18,8 @@ import io.github.droidkaigi.confsched2018.data.repository.SessionDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.data.repository.SponsorPlanDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.SponsorPlanRepository
+import io.github.droidkaigi.confsched2018.data.repository.StaffDataRepository
+import io.github.droidkaigi.confsched2018.data.repository.StaffRepository
 import io.github.droidkaigi.confsched2018.util.rx.AppSchedulerProvider
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import javax.inject.Singleton
@@ -57,4 +59,11 @@ internal object AppModule {
             schedulerProvider: SchedulerProvider
     ): ContributorRepository =
             ContributorDataRepository(api, contributorDatabase, schedulerProvider)
+
+    @Singleton @Provides @JvmStatic
+    fun provideStaffRepository(
+            context: Context,
+            schedulerProvider: SchedulerProvider
+    ): StaffRepository =
+            StaffDataRepository(context, schedulerProvider)
 }

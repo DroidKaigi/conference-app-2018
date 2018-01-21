@@ -14,6 +14,7 @@
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
     <string name="nav_item_contributor">@string/contributors</string>
+    <string name="nav_item_staff">@string/staff</string>
     <string name="nav_item_all_survey">Conference survey</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
@@ -97,6 +98,11 @@
         <item quantity="one">%d Contributor</item>
         <item quantity="other">%d Contributors</item>
     </plurals>
+
+    <!-- Staff -->
+    <string name="staff">Staff</string>
+    <string name="staff_avatar">staff avatar</string>
+    <string name="staff_header">%d Staff</string>
 
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>

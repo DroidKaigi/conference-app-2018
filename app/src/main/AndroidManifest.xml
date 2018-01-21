@@ -24,6 +24,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts"
@@ -55,13 +56,16 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="${host}"
                     android:path="/sponsors"
                     android:scheme="${scheme}"
                     />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.MainActivity"
@@ -109,10 +113,11 @@
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:theme="@style/AppTheme.ActionBar"
             >
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="${host}"
                     android:path="/licenses"
@@ -131,13 +136,16 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="${host}"
                     android:path="/contributors"
                     android:scheme="${scheme}"
                     />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.MainActivity"
@@ -148,6 +156,8 @@
             android:value="AIzaSyDGetZ-L3B8oKXLHELbMsHmyPSyrQZW55s"
             />
         <receiver android:name=".presentation.common.broadcastreceiver.NotificationBroadcastReceiver" />
+
+        <activity android:name=".presentation.staff.StaffActivity"></activity>
         <receiver android:name=".presentation.common.broadcastreceiver.LocaleChangedBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
