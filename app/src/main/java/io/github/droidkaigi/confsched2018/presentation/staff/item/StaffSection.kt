@@ -5,12 +5,14 @@ import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Staff
 
 class StaffSection : Section() {
-    fun updateStaff(topics: List<Staff>) {
-        val header = StaffHeaderItem(topics.size)
+    fun updateStaff(staffList: List<Staff>) {
+        val header = StaffHeaderItem(staffList.size)
         val list = mutableListOf<Item<*>>(header)
-        topics.sortedBy { it.name }.mapTo(list) {
-            StaffItem(it)
-        }
+        staffList
+                .sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER, { it.name }))
+                .mapTo(list) {
+                    StaffItem(it)
+                }
         update(list)
     }
 }
