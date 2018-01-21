@@ -15,10 +15,14 @@ class NotificationUtil {
 }
 
 fun notificationBuilder(context: Context, channelId: String): NotificationCompat.Builder {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        createDefaultNotificationChannel(context, channelId)
-    }
     return NotificationCompat.Builder(context, channelId)
+}
+
+fun initNotificationChannel(context: Context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        createDefaultNotificationChannel(context,
+                NotificationUtil.FAVORITE_SESSION_START_CHANNEL_ID)
+    }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
