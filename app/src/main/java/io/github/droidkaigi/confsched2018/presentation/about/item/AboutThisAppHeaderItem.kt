@@ -34,6 +34,9 @@ class AboutThisAppHeaderItem(
         viewBinding.aboutThisAppYoutube.setOnClickListener {
             onAboutThisHeaderIconClickListener(headItem.youtubeUrl)
         }
+        viewBinding.aboutThisAppMedium.setOnClickListener {
+            onAboutThisHeaderIconClickListener(headItem.mediumUrl)
+        }
     }
 
     override fun isSameAs(other: Item<*>?): Boolean =

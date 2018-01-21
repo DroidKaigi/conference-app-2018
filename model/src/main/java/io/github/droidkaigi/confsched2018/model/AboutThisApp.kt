@@ -21,7 +21,8 @@ sealed class AboutThisApp(
             val faceBookUrl: String,
             val twitterUrl: String,
             val githubUrl: String,
-            val youtubeUrl: String
+            val youtubeUrl: String,
+            val mediumUrl: String
     ) : AboutThisApp(id, name, description, navigationUrl)
 
 }

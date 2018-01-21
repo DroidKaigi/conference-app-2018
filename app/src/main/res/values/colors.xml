@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#FBC812</color>
-    <color name="primary_dark">#FEAD22</color>
-    <color name="accent">#F57C00</color>
+    <color name="primary">#fbc812</color>
+    <color name="primary_dark">#fead22</color>
+    <color name="accent">#f57c00</color>
 
     <color name="window_background">#f2f2f2</color>
 
     <color name="day_header_text_color">#d7a611</color>
-    <color name="app_bar_text_color">#FFF</color>
+    <color name="app_bar_text_color">#ffffff</color>
 
-    <color name="card_background_color">#FFF</color>
+    <color name="card_background_color">#ffffff</color>
 
     <color name="sub_icon_color">#8a000000</color>
     <color name="circle_button_background">#f6f6f6</color>
@@ -17,7 +17,7 @@
     <color name="highlight_text">#FFEB3B</color>
 
     <color name="divider_background">#eaeaea</color>
-    <color name="recents_background">#B88E0F</color>
+    <color name="recents_background">#b88e0f</color>
 
     <color name="sponsor_platinum">#f5f8fa</color>
     <color name="sponsor_gold">#fff8e1</color>
