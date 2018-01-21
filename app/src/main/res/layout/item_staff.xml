@@ -19,10 +19,10 @@
 
         <ImageView
             android:id="@+id/staff_avatar"
-            android:layout_width="@{@dimen/contributor_image_size, default=@dimen/contributor_image_size}"
-            android:layout_height="@{@dimen/contributor_image_size, default=@dimen/contributor_image_size}"
+            android:layout_width="@{@dimen/staff_image_size, default=@dimen/staff_image_size}"
+            android:layout_height="@{@dimen/staff_image_size, default=@dimen/staff_image_size}"
             android:layout_margin="16dp"
-            android:contentDescription="@string/contributors_avatar"
+            android:contentDescription="@string/staff_avatar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
