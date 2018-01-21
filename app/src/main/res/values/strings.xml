@@ -94,6 +94,14 @@
         <item quantity="other">%d Contributors</item>
     </plurals>
 
+    <!-- Staff -->
+    <string name="staff">Staff</string>
+    <string name="staff_avatar">staff avatar</string>
+    <plurals name="staff_header">
+        <item quantity="one">%d Staff</item>
+        <item quantity="other">%d Staffs</item>
+    </plurals>
+
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
