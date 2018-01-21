@@ -67,8 +67,6 @@
                     android:text="@string/address"
                     android:textColor="#000000"
                     />
-                <!--android:textSize="12sp"-->
-                <!--android:textStyle="normal"-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
