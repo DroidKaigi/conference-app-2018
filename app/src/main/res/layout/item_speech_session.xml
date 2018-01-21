@@ -129,6 +129,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="16dp"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 />
@@ -155,7 +156,7 @@
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topic"
-                app:layout_goneMarginTop="16dp"
+                app:layout_goneMarginTop="0dp"
                 app:speakers="@{session.speakers}"
                 />
 
