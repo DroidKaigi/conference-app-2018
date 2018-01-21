@@ -109,6 +109,7 @@ dependencies {
     implementation depends.support.multidex
     implementation depends.support.emoji
     implementation depends.support.preference
+    implementation depends.support.preferenceV14
 
     //==================== Network ====================
     implementation depends.okhttp3.loggingIntercepter

@@ -31,9 +31,7 @@
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        style="@style/DrawerLayout"
         tools:openDrawer="start"
         >
         <android.support.design.widget.CoordinatorLayout
@@ -136,8 +134,6 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/drawer"
             style="@style/DrawerNavigation"
-            app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/drawer"
             />
     </android.support.v4.widget.DrawerLayout>
 </layout>
