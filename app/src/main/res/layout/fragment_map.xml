@@ -11,7 +11,7 @@
         >
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <com.google.android.gms.maps.MapView
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                     android:lineSpacingExtra="7.2sp"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
-                    android:text="ベルサール新宿グランドコンファレンスセンター "
+                    android:text="@string/place_name"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="75dp"
-                    android:text="DroidKaigi 2018 会場"
+                    android:text="@string/meeting_rooms_name"
                     android:textColor="#ffffff"
                     android:textSize="12sp"
                     />
@@ -64,7 +64,7 @@
                     android:layout_marginStart="72dp"
                     android:layout_marginTop="8dp"
                     android:lineSpacingExtra="9.6sp"
-                    android:text="〒160-0023 東京都新宿区西新宿8丁目17 西新宿8-17−１ 住友不動産新宿グランドタワー5F"
+                    android:text="@string/address"
                     android:textColor="#000000"
                     />
                 <!--android:textSize="12sp"-->
@@ -77,10 +77,7 @@
                     android:layout_marginStart="72dp"
                     android:layout_marginTop="8dp"
                     android:lineSpacingExtra="9.6sp"
-                    android:text="丸ノ内線「西新宿駅」 (1番出口徒歩3分)
-大江戸線「都庁前駅」 (E4出口徒歩7分)
-大江戸線「新宿西口駅」(D4出口徒歩11分)
-JR線・丸ノ内線･小田急線･京王線・新宿線・大江戸線「新宿駅」 (西口徒歩15分)"
+                    android:text="@string/nearby_stations"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     />
