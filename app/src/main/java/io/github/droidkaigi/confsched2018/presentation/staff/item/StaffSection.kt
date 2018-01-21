@@ -11,7 +11,7 @@ class StaffSection : Section() {
     fun updateStaff(topics: List<Staff>) {
         val header = StaffHeaderItem(topics.size)
         val list = mutableListOf<Item<*>>(header)
-        topics.sortedByDescending { it.name }.mapTo(list) {
+        topics.sortedBy { it.name }.mapTo(list) {
             StaffItem(it)
         }
         update(list)
