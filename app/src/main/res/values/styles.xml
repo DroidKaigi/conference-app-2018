@@ -34,6 +34,10 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">start</item>
         <item name="android:fitsSystemWindows">true</item>
+        <item name="headerLayout">@layout/drawer_header</item>
+        <item name="itemIconTint">@color/drawer_item_icon_tint</item>
+        <item name="itemTextColor">@color/drawer_item_text_color</item>
+        <item name="menu">@menu/drawer</item>
     </style>
 
     <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
