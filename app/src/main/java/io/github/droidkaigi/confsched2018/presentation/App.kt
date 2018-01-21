@@ -92,5 +92,5 @@ open class App : MultiDexApplication(), HasActivityInjector {
     override fun activityInjector(): DispatchingAndroidInjector<Activity> =
             dispatchingAndroidInjector
 
-    open protected fun isInUnitTests() = false
+    protected open fun isInUnitTests() = false
 }

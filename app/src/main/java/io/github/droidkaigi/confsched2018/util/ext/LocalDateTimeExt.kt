@@ -15,5 +15,5 @@ fun LocalDateTime.toUnixMills(): Long {
     return atZone(timeZone).toInstant().toEpochMilli()
 }
 
-private fun toZoneId(id: String, shortIds: MutableMap<String, String> = ZoneId.SHORT_IDS) = ZoneId.of(id,
-        shortIds)
+private fun toZoneId(id: String, shortIds: MutableMap<String, String> = ZoneId.SHORT_IDS) =
+        ZoneId.of(id, shortIds)
