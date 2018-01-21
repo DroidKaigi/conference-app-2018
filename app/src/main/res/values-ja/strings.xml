@@ -86,6 +86,7 @@
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+    <string name="notification_channel_name_start_favorite_session">マイセッションの開始</string>
 
     <!-- AboutThisApp -->
     <string name="about_official_head_title">What is "DroidKaigi"?</string>

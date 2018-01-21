@@ -85,6 +85,9 @@ ext {
                     androidSupport  : "com.google.dagger:dagger-android-support:$versions.dagger",
                     androidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
             ],
+            playService            : [
+                    map      : "com.google.android.gms:play-services-maps:$versions.firebase"
+            ],
             firebase               : [
                     firestore: "com.google.firebase:firebase-firestore:$versions.firebase",
                     auth     : "com.google.firebase:firebase-auth:$versions.firebase",

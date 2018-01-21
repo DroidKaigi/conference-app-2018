@@ -30,6 +30,7 @@
             <FrameLayout
                 android:id="@+id/content"
                 style="@style/ContentFrameLayout"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
                 />
 
             <android.support.design.widget.BottomNavigationView

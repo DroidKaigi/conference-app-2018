@@ -143,8 +143,16 @@
                 android:value=".presentation.MainActivity"
                 />
         </activity>
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDGetZ-L3B8oKXLHELbMsHmyPSyrQZW55s"
+            />
         <receiver android:name=".presentation.common.broadcastreceiver.NotificationBroadcastReceiver" />
+        <receiver android:name=".presentation.common.broadcastreceiver.LocaleChangedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
