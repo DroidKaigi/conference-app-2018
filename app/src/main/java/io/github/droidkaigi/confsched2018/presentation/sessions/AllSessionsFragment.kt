@@ -36,7 +36,6 @@ import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentAllSessionsBinding
 
     private val sessionsSection = DateSessionsSection()
@@ -63,7 +62,6 @@ class AllSessionsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         val progressTimeLatch = ProgressTimeLatch {
@@ -88,7 +86,7 @@ class AllSessionsFragment : Fragment(), Injectable {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
+            sessionsViewModel.sendAllSessionsPageView(activity!!, this::class.java.simpleName)
         }
     }
 

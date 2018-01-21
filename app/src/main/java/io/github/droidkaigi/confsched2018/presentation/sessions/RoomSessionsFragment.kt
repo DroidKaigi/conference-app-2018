@@ -37,7 +37,6 @@ import javax.inject.Inject
 
 class RoomSessionsFragment : Fragment(), Injectable {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentRoomSessionsBinding
     private lateinit var roomName: String
 
@@ -92,16 +91,10 @@ class RoomSessionsFragment : Fragment(), Injectable {
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
-    }
-
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java
-                    .simpleName + sessionsViewModel.roomName)
+            sessionsViewModel.sendRoomPageView(activity!!, this::class.java.simpleName)
         }
     }
 

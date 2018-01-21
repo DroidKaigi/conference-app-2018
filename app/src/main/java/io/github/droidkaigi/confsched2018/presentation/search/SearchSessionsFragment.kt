@@ -24,7 +24,6 @@ import javax.inject.Inject
 
 class SearchSessionsFragment : Fragment(), Injectable {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchSessionsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -68,15 +67,10 @@ class SearchSessionsFragment : Fragment(), Injectable {
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
-    }
-
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
+            searchSessionsViewModel.sendSearchSessionsPageView(activity!!, this::class.java.simpleName)
         }
     }
 

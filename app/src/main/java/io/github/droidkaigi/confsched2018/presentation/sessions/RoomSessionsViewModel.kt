@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
+import android.app.Activity
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -7,6 +8,7 @@ import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
+import io.github.droidkaigi.confsched2018.util.FirebaseEvent
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.map
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
@@ -19,7 +21,8 @@ import javax.inject.Inject
 
 class RoomSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
-        private val schedulerProvider: SchedulerProvider
+        private val schedulerProvider: SchedulerProvider,
+        private val firebaseEvent: FirebaseEvent
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     lateinit var roomName: String
@@ -46,5 +49,10 @@ class RoomSessionsViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
+    }
+
+    fun sendRoomPageView(activity: Activity, className: String) {
+        val concatClassAndRoomName = className + ":" + roomName
+        firebaseEvent.sendPageView(activity, concatClassAndRoomName)
     }
 }
