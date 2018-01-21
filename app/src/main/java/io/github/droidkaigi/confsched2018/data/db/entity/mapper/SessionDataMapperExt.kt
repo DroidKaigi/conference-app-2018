@@ -41,7 +41,7 @@ fun SessionWithSpeakers.toSession(
             format = sessionEntity.sessionFormat,
             language = sessionEntity.language,
             topic = Topic(sessionEntity.topic.id, sessionEntity.topic.name),
-            level = Level(sessionEntity.level.id, sessionEntity.level.name),
+            level = Level.of(sessionEntity.level.id, sessionEntity.level.name),
             isFavorited = favList!!.map { it.toString() }.contains(sessionEntity.id),
             speakers = speakers
     )
