@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.presentation
 
 
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
@@ -14,11 +15,15 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.util.ext.currentActivity
 import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.concurrent.TimeUnit
+import assertk.assert
+import assertk.assertions.isInstanceOf
+import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -49,6 +54,9 @@ class ShowDetailActivityTest {
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(TimeUnit.SECONDS.toMillis(10))
+
+        val activity = InstrumentationRegistry.getInstrumentation().currentActivity()
+        assert(activity!!).isInstanceOf(SessionDetailActivity::class.java)
         onView(
                 allOf(
                         withId(R.id.session_title),

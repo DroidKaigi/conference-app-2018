@@ -188,6 +188,7 @@ dependencies {
     androidTestImplementation depends.supporttest.runner
     androidTestImplementation depends.supporttest.espresso
     androidTestImplementation depends.supporttest.contrib
+    androidTestImplementation depends.assertk
 }
 
 repositories {
