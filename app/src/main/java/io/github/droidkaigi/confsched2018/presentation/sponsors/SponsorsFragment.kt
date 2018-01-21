@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
@@ -88,6 +89,7 @@ class SponsorsFragment : Fragment(), Injectable {
         }
         binding.sponsorRecycler.layoutManager = layoutManager
         binding.sponsorRecycler.adapter = groupAdapter
+        binding.sponsorRecycler.addItemDecoration(SponsorsItemDecoration(R.layout.item_sponsor))
     }
 
     private fun bindSponsorsToRecycler(sponsorPlans: List<SponsorPlan>) {
