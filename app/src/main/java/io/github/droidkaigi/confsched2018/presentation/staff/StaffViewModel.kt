@@ -32,10 +32,6 @@ class StaffViewModel @Inject constructor(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        refreshStaff()
-    }
-
-    private fun refreshStaff() {
         repository.loadStaff()
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
