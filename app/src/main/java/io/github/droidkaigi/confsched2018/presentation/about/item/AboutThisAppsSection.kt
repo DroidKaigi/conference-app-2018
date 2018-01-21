@@ -1,13 +1,10 @@
-package io.github.droidkaigi.confsched2018.presentation.contributor.item
+package io.github.droidkaigi.confsched2018.presentation.about.item
 
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.AboutThisApp
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
-class AboutThisAppsSection(
-        private val dataBindingComponent: FragmentDataBindingComponent
-) : Section() {
+class AboutThisAppsSection : Section() {
 
     fun updateAboutThisApps(
             aboutThisApps: List<AboutThisApp>,
@@ -16,13 +13,12 @@ class AboutThisAppsSection(
         val headItem = aboutThisApps.first { it is AboutThisApp.HeadItem } as AboutThisApp.HeadItem
         val header = AboutThisAppHeaderItem(
                 headItem,
-                onAboutThisHeaderIconClickListener,
-                dataBindingComponent
+                onAboutThisHeaderIconClickListener
         )
         val list = mutableListOf<Item<*>>(header)
         aboutThisApps.filter { it is AboutThisApp.Item }
                 .mapTo(list) {
-                    AboutThisAppItem(it, dataBindingComponent)
+                    AboutThisAppItem(it)
                 }
         update(list)
     }

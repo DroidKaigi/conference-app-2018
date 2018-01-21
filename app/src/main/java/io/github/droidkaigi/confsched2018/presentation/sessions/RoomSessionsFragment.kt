@@ -17,7 +17,6 @@ import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentRoomSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
-import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -35,6 +34,7 @@ import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
+import java.util.Date
 import javax.inject.Inject
 
 class RoomSessionsFragment : Fragment(), Injectable {

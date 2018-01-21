@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:parentTag="android.widget.LinearLayout"
-    tools:orientation="horizontal"
     tools:gravity="center_vertical"
+    tools:orientation="horizontal"
+    tools:parentTag="android.widget.LinearLayout"
     >
     <FrameLayout
         android:id="@+id/speaker_image_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        >
-    </FrameLayout>
+        />
 
     <TextView
         android:id="@+id/speakers"
+        style="@style/TextStyle.App.Body2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginStart="8dp"
+        android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
-        style="@style/TextStyle.App.Body2"
         tools:text="John Doe"
         />
 
