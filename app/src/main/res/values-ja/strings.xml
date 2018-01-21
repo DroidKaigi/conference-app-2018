@@ -3,6 +3,7 @@
     <string name="time_period">%1$s - %2$s</string>
 
     <!-- NavigationDrawer -->
+    <string name="nav_item_home">ホーム</string>
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>
@@ -53,6 +54,8 @@
     <!-- Sponsor -->
     <string name="sponsors_title_activity">スポンサー一覧</string>
     <string name="sponsors_logo_content_description">スポンサーロゴ画像</string>
+    <string name="sponsors_fetch_failed">スポンサーの取得に失敗しました</string>
+    <string name="sponsors_load_retry">リトライ</string>
 
     <!-- About This App -->
     <string name="about_title_activity">このアプリについて</string>

@@ -204,7 +204,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:drawablePadding="4dp"
-                android:drawableStart="@drawable/ic_check_circle_black_24dp"
                 android:gravity="center_vertical"
                 android:text="@string/session_finished"
                 android:textColor="@android:color/black"
@@ -213,6 +212,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
+                app:vectorDrawableStart="@{@drawable/ic_check_circle_black_24dp}"
+                tools:drawableStart="@drawable/ic_check_circle_black_24dp"
                 />
 
             <TextView

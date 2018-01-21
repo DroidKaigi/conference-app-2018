@@ -13,7 +13,7 @@ ext {
             gradleVersions  : "0.17.0",
             supportLibrary  : "27.0.2",
             retrofit        : "2.3.0",
-            kotshi          : "0.3.0-beta1",
+            kotshi          : "0.3.0",
             arch            : "1.0.0",
             dagger          : "2.13",
             firebase        : "11.6.2", // Adjust version for emulator
@@ -41,7 +41,8 @@ ext {
                     constraint: "com.android.support.constraint:constraint-layout:1.1.0-beta4",
                     multidex  : "com.android.support:multidex:1.0.2",
                     emoji     : "com.android.support:support-emoji-appcompat:$versions.supportLibrary",
-                    preference: "com.android.support:preference-v7:$versions.supportLibrary",
+                    preference   : "com.android.support:preference-v7:$versions.supportLibrary",
+                    preferenceV14: "com.android.support:preference-v14:$versions.supportLibrary"
             ],
 
             //==================== Network ====================

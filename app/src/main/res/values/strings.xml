@@ -8,6 +8,7 @@
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
 
     <!-- NavigationDrawer -->
+    <string name="nav_item_home">Home</string>
     <string name="nav_item_map">Map</string>
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
@@ -59,6 +60,8 @@
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
     <string name="sponsors_logo_content_description">Sponsor logo image</string>
+    <string name="sponsors_fetch_failed">Failed to fetch sponsors</string>
+    <string name="sponsors_load_retry">Retry</string>
 
     <!-- About This App -->
     <string name="about_title_activity">About this app</string>

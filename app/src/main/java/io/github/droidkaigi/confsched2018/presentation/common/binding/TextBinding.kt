@@ -2,6 +2,9 @@ package io.github.droidkaigi.confsched2018.presentation.common.binding
 
 import android.databinding.BindingAdapter
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.StateListDrawable
+import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -72,4 +75,21 @@ fun TextView.setHighlightText(highlightText: String?) {
         )
     }
     text = stringBuilder
+}
+
+@BindingAdapter(value = ["vectorDrawableStart"])
+fun TextView.setVectorDrawableStart(drawable: Drawable) {
+    val vectorDrawable = drawable.takeIf {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+    } ?: StateListDrawable().apply {
+        addState(intArrayOf(), drawable)
+    }
+
+    val drawables = compoundDrawables
+    setCompoundDrawablesWithIntrinsicBounds(
+            vectorDrawable,
+            drawables[1],
+            drawables[2],
+            drawables[3]
+    )
 }
