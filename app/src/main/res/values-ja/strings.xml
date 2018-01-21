@@ -7,6 +7,7 @@
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>
+    <string name="nav_item_staff">@string/staff</string>
     <string name="nav_item_all_survey">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
@@ -81,6 +82,13 @@
     <string name="contributors_avatar">コントリビューターのプロフィール画像</string>
     <plurals name="contributors_header">
         <item quantity="other">%d 人のコントリビューター</item>
+    </plurals>
+
+    <!-- Staff -->
+    <string name="staff">スタッフ</string>
+    <string name="staff_avatar">スタッフのプロフィール画像</string>
+    <plurals name="staff_header">
+        <item quantity="other">%d 人のスタッフ</item>
     </plurals>
 
     <!-- Notification -->
