@@ -80,6 +80,8 @@
     </style>
 
     <style name="SocialMediaButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/bg_social_media_button</item>
         <item name="android:elevation" tools:targetApi="21">2dp</item>
     </style>
