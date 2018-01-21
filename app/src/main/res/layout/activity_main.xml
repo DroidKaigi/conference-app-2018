@@ -31,7 +31,7 @@
 
             <FrameLayout
                 android:id="@+id/content"
-                style="@style/FrameLayout"
+                style="@style/ContentFrameLayout"
                 />
 
             <android.support.design.widget.BottomNavigationView

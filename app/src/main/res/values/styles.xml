@@ -63,7 +63,7 @@
         <item name="titleTextColor">@color/app_bar_text_color</item>
     </style>
 
-    <style name="FrameLayout">
+    <style name="ContentFrameLayout">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
