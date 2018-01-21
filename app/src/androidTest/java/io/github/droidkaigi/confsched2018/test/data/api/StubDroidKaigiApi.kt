@@ -9,9 +9,9 @@ import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTime
 import io.reactivex.Single
 import org.threeten.bp.LocalDateTime
 
-class MockDroidKaigiApi : DroidKaigiApi {
+class StubDroidKaigiApi : DroidKaigiApi {
     override fun getSessions(): Single<Response> = Single.create { emitter ->
-        val json = MockDroidKaigiApi::class.java.classLoader.getResourceAsStream("all.json")
+        val json = StubDroidKaigiApi::class.java.classLoader.getResourceAsStream("all.json")
                 .bufferedReader().use { it.readText() }
         val moshi = Moshi.Builder()
                 .add(ApplicationJsonAdapterFactory.INSTANCE)

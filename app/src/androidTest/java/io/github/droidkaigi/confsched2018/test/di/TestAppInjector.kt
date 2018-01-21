@@ -18,8 +18,8 @@ class TestAppInjector {
         fun init(app: TestApp) {
             DaggerAppComponent.builder()
                     .application(app)
-                    .networkModule(MockNetworkModule())
-                    .databaseModule(MockDatabaseModule())
+                    .networkModule(StubNetworkModule())
+                    .databaseModule(StubDatabaseModule())
                     .build().inject(app)
             app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

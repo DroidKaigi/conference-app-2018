@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room
 import io.github.droidkaigi.confsched2018.data.db.AppDatabase
 import io.github.droidkaigi.confsched2018.di.DatabaseModule
 
-class MockDatabaseModule : DatabaseModule(){
+class StubDatabaseModule : DatabaseModule(){
 
     override fun provideDb(app: Application): AppDatabase =
             Room
