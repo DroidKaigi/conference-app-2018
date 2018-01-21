@@ -20,8 +20,7 @@ class AboutThisApps {
                             "https://www.facebook.com/DroidKaigi/",
                             "https://twitter.com/droidkaigi",
                             "https://github.com/DroidKaigi/conference-app-2018",
-                            "https://www.youtube.com/channel/UCgK6L-PKx2OZBuhrQ6mmQZw",
-                            "https://medium.com/droidkaigi"
+                            "https://www.youtube.com/channel/UCgK6L-PKx2OZBuhrQ6mmQZw"
                     ),
                     // Official site
                     AboutThisApp.Item(
@@ -35,6 +34,7 @@ class AboutThisApps {
                             10000 + index++,
                             R.string.about_licenses_title,
                             R.string.about_licenses_description,
+                            // TODO add navigation url
                             getUriBuilder("licenses")
                     ),
                     // Sponsors
