@@ -109,7 +109,7 @@ dependencies {
     implementation depends.support.multidex
     implementation depends.support.emoji
     implementation depends.support.preference
-    implementation "com.android.support:preference-v14:27.0.2"
+    implementation depends.support.preferenceV14
 
     //==================== Network ====================
     implementation depends.okhttp3.loggingIntercepter
