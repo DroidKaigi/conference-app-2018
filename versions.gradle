@@ -135,7 +135,8 @@ ext {
             threetenbp             : "org.threeten:threetenbp:1.3.3",
             supporttest            : [
                     runner  : "com.android.support.test:runner:1.0.1",
-                    espresso: "com.android.support.test.espresso:espresso-core:3.0.1"
+                    espresso: "com.android.support.test.espresso:espresso-core:3.0.1",
+                    contrib : "com.android.support.test.espresso:espresso-contrib:2.2.2"
             ],
     ]
 }

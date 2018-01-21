@@ -21,9 +21,13 @@ import javax.inject.Singleton
 @Module(
         includes = [BuildTypeBasedNetworkModule::class]
 )
-internal object NetworkModule {
+open class NetworkModule {
 
-    @Singleton @Provides @JvmStatic
+    companion object {
+        val instance = NetworkModule()
+    }
+
+    @Singleton @Provides
     fun provideOkHttpClient(@NetworkLogger loggingInterceptors: Set<@JvmSuppressWildcards
     Interceptor>):
             OkHttpClient =
@@ -33,7 +37,7 @@ internal object NetworkModule {
                 }
             }.build()
 
-    @RetrofitDroidKaigi @Singleton @Provides @JvmStatic
+    @RetrofitDroidKaigi @Singleton @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
@@ -46,7 +50,7 @@ internal object NetworkModule {
                 .build()
     }
 
-    @RetrofitGoogleForm @Singleton @Provides @JvmStatic
+    @RetrofitGoogleForm @Singleton @Provides
     fun provideRetrofitForGoogleForm(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .client(okHttpClient)
@@ -59,7 +63,7 @@ internal object NetworkModule {
                 .build()
     }
 
-    @RetrofitGithub @Singleton @Provides @JvmStatic
+    @RetrofitGithub @Singleton @Provides
     fun provideRetrofitForGithub(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
                 .baseUrl("https://api.github.com")
@@ -72,20 +76,20 @@ internal object NetworkModule {
                 .build()
     }
 
-    @Singleton @Provides @JvmStatic
-    fun provideDroidKaigiApi(@RetrofitDroidKaigi retrofit: Retrofit): DroidKaigiApi {
+    @Singleton @Provides
+    open fun provideDroidKaigiApi(@RetrofitDroidKaigi retrofit: Retrofit): DroidKaigiApi {
         return retrofit.create(DroidKaigiApi::class.java)
     }
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideFeedApi(): FeedApi = FeedFirestoreApi()
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideSessionFeedbackApi(@RetrofitGoogleForm retrofit: Retrofit): SessionFeedbackApi {
         return retrofit.create(SessionFeedbackApi::class.java)
     }
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideGithubApi(@RetrofitGithub retrofit: Retrofit): GithubApi {
         return retrofit.create(GithubApi::class.java)
     }
