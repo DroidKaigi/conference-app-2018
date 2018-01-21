@@ -52,4 +52,14 @@
         <item name="fastScrollVerticalThumbDrawable">@drawable/state_fast_scroll_thumb</item>
         <item name="fastScrollVerticalTrackDrawable">@drawable/state_fast_scroll_track</item>
     </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="titleTextColor">@color/app_bar_text_color</item>
+    </style>
 </resources>
