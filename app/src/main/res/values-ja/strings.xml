@@ -3,6 +3,7 @@
     <string name="time_period">%1$s - %2$s</string>
 
     <!-- NavigationDrawer -->
+    <string name="nav_item_home">ホーム</string>
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>
@@ -53,12 +54,18 @@
     <!-- Sponsor -->
     <string name="sponsors_title_activity">スポンサー一覧</string>
     <string name="sponsors_logo_content_description">スポンサーロゴ画像</string>
+    <string name="sponsors_fetch_failed">スポンサーの取得に失敗しました</string>
+    <string name="sponsors_load_retry">リトライ</string>
 
     <!-- About This App -->
     <string name="about_title_activity">このアプリについて</string>
 
     <!-- Settings -->
     <string name="settings_title_activity">設定</string>
+    <string name="settings_enable_local_time_title_preference">現在地の時間を使用する</string>
+    <string name="settings_enable_local_time_summary_preference">DroidKaigiの現地時間の代わりに現在地の時間を使用します。</string>
+    <string name="settings_enable_notification_title_preference">通知を受信する</string>
+    <string name="settings_enable_notification_summary_preference">このアプリで通知を受信するかどうかを選択できます。</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
@@ -79,4 +86,18 @@
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+
+    <!-- AboutThisApp -->
+    <string name="about_official_head_title">What is "DroidKaigi"?</string>
+    <string name="about_official_head_description">DroidKaigiは、エンジニアがAndroid技術情報の共有とコミュニケーションを目的としたカンファレンスです。</string>
+    <string name="about_official_site_title">DroidKaigi2018 ホームページ</string>
+    <string name="about_official_site_description">DroidKaigi2018の公式ホームページです。</string>
+    <string name="about_licenses_title">ライセンス</string>
+    <string name="about_licenses_description">このアプリでは、多くの素晴らしいライブラリを使用させていただいています。 </string>
+    <string name="about_sponsors_title">スポンサー</string>
+    <string name="about_sponsors_description">DroidKaigiは多くのスポンサーによってサポートされています。</string>
+    <string name="about_contributors_title">コントリビュータ</string>
+    <string name="about_contributors_description">App制作に携わった人たちです。</string>
+    <string name="about_version_title">開発情報</string>
+    <string name="about_version_description">%1$s</string>
 </resources>

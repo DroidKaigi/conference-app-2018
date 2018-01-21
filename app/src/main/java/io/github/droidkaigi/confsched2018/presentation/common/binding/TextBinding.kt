@@ -9,9 +9,9 @@ import android.text.style.BackgroundColorSpan
 import android.text.style.StyleSpan
 import android.widget.TextView
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.model.Date
-import io.github.droidkaigi.confsched2018.model.toReadableDateTimeString
-import io.github.droidkaigi.confsched2018.model.toReadableTimeString
+import io.github.droidkaigi.confsched2018.util.ext.toReadableDateTimeString
+import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
+import java.util.Date
 import java.util.regex.Pattern
 
 @BindingAdapter(value = ["dayNumber"])

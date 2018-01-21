@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'deploygate'
 
@@ -33,6 +34,9 @@ android {
             }
         }
     }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "versionInfo", variant.versionName
+    }
     signingConfigs {
         debug {
             storeFile rootProject.file("debug.keystore")
@@ -49,12 +53,14 @@ android {
     }
     buildTypes {
         debug {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp.debug"]
             resValue "string", "app_name", "DroidKaigi 2018 Dev"
             signingConfig signingConfigs.debug
             applicationIdSuffix '.debug'
             versionNameSuffix "-debug"
         }
         release {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp"]
             resValue "string", "app_name", "DroidKaigi 2018"
             signingConfig signingConfigs.release
             debuggable false
@@ -103,6 +109,7 @@ dependencies {
     implementation depends.support.multidex
     implementation depends.support.emoji
     implementation depends.support.preference
+    implementation depends.support.preferenceV14
 
     //==================== Network ====================
     implementation depends.okhttp3.loggingIntercepter
@@ -152,6 +159,7 @@ dependencies {
     implementation depends.groupie.binding
 
     implementation depends.downloadableCalligraphy
+    implementation depends.gms
 
     //==================== Debug ====================
     debugImplementation depends.stetho.core
@@ -180,7 +188,6 @@ dependencies {
     androidTestImplementation depends.supporttest.runner
     androidTestImplementation depends.supporttest.espresso
     androidTestImplementation depends.supporttest.contrib
-
 }
 
 repositories {
@@ -203,10 +210,10 @@ deploygate {
     apks {
         release {
             def hash = 'git rev-parse --short HEAD'.execute([], project.rootDir).in.text.trim()
-            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
 
             distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
-            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} https://circleci.com/gh/DroidKaigi/conference-app-2018/${System.getenv("CIRCLE_BUILD_NUM")}"
+            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
         }
     }
 }

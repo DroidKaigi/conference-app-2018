@@ -35,7 +35,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -45,7 +45,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -53,9 +53,18 @@
             android:label="@string/sponsors_title_activity"
             android:parentActivityName=".presentation.MainActivity"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="${host}"
+                    android:path="/sponsors"
+                    android:scheme="${scheme}"
+                    />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -65,7 +74,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -75,7 +84,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -84,7 +93,7 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
         <activity
@@ -93,17 +102,45 @@
             >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:theme="@style/AppTheme.ActionBar"
+            >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="${host}"
+                    android:path="/licenses"
+                    android:scheme="${scheme}"
+                    />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:theme="@style/AppTheme.ActionBar"
+            />
         <activity
             android:name=".presentation.contributor.ContributorsActivity"
             android:label="@string/contributors"
             android:parentActivityName=".presentation.MainActivity"
             >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="${host}"
+                    android:path="/contributors"
+                    android:scheme="${scheme}"
+                    />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.droidkaigi.confsched2018.presentation.MainActivity"
+                android:value=".presentation.MainActivity"
                 />
         </activity>
 

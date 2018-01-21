@@ -9,6 +9,7 @@ import android.support.v4.app.TaskStackBuilder
 import android.support.v4.content.ContextCompat
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 import io.github.droidkaigi.confsched2018.util.notificationBuilder
 import timber.log.Timber
@@ -16,6 +17,12 @@ import timber.log.Timber
 class NotificationBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("NotificationBroadcastReceiver.onReceive")
+        if (!Prefs.enableNotification) {
+            Timber.d("Do not show Notification")
+            return
+        }
+
+        Timber.d("Show Notification")
         val sessionId = intent!!.getStringExtra(EXTRA_SESSION_ID)
         val title = intent.getStringExtra(EXTRA_TITLE)
         val text = intent.getStringExtra(EXTRA_TEXT)
@@ -48,10 +55,10 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        private val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
-        private val EXTRA_TITLE = "EXTRA_TITLE"
-        private val EXTRA_TEXT = "EXTRA_TEXT"
-        private val EXTRA_CHANNEL_ID = "EXTRA_CHANNEL_ID"
+        private const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
+        private const val EXTRA_TITLE = "EXTRA_TITLE"
+        private const val EXTRA_TEXT = "EXTRA_TEXT"
+        private const val EXTRA_CHANNEL_ID = "EXTRA_CHANNEL_ID"
         fun createIntent(
                 context: Context,
                 sessionId: String,

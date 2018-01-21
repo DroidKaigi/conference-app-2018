@@ -41,7 +41,7 @@ class ShowDetailActivityTest {
                 )
         )
         recyclerView.check(matches(isDisplayed()))
-        recyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(1, click()))
+        recyclerView.perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(3, click()))
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:

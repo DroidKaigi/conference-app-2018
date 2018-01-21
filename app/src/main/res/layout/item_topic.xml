@@ -14,11 +14,11 @@
 
         <TextView
             android:id="@+id/topic_name"
+            style="@style/TextStyle.App.Subhead"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            style="@style/TextStyle.App.Subhead"
             app:layout_constraintBottom_toTopOf="@+id/topic_translation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,12 +29,12 @@
 
         <TextView
             android:id="@+id/topic_translation"
+            style="@style/TextStyle.App.Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            style="@style/TextStyle.App.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

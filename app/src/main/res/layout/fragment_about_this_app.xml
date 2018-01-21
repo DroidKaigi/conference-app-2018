@@ -3,12 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data></data>
-    <android.support.constraint.ConstraintLayout
+
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppFragment"
         tools:showIn="@layout/activity_about_this_app"
         >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/about_this_app_recycler"
+            style="@style/BaseRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_about_this_app"
+            />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

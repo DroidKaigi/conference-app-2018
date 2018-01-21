@@ -1,11 +1,11 @@
 package io.github.droidkaigi.confsched2018.util.ext
 
-import io.github.droidkaigi.confsched2018.model.Date
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-fun Date.toLocalDateTime(): LocalDateTime =
-        LocalDateTime.of(getFullYear(), getMonth(), getDate(), getHours(), getMinutes())
+fun Date.toReadableDateTimeString() = "${toReadableDateString()} ${toReadableTimeString()}"
 
-fun Date.toLocalDate(): LocalDate =
-        LocalDate.of(getFullYear(), getMonth(), getDate())
+fun Date.toReadableDateString() = SimpleDateFormat("MM/dd", Locale.getDefault()).format(this)
+
+fun Date.toReadableTimeString() = SimpleDateFormat("HH:mm", Locale.getDefault()).format(this)

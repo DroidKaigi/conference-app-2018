@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Room
@@ -22,6 +23,9 @@ class RoomSessionsViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+    private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
+    val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
     lateinit var roomName: String
 
     val sessions: LiveData<Result<List<Session>>> by lazy {
@@ -41,6 +45,16 @@ class RoomSessionsViewModel @Inject constructor(
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
+    }
+
+    fun onSuccessFetchSessions() {
+        refreshFocusCurrentSession()
+    }
+
+    private fun refreshFocusCurrentSession() {
+        if (focusCurrentSession.value != true) {
+            focusCurrentSession.value = true
+        }
     }
 
     override fun onCleared() {

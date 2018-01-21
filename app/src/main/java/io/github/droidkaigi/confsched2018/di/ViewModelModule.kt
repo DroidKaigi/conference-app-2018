@@ -20,7 +20,8 @@ import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailView
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsViewModel
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailViewModel
 
-@Module interface ViewModelModule {
+@Module
+interface ViewModelModule {
     @Binds @IntoMap
     @ViewModelKey(AllSessionsViewModel::class)
     fun bindAllSessionsViewModel(allSessionsViewModel: AllSessionsViewModel): ViewModel

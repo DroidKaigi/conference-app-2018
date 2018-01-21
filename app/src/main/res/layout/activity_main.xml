@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.MainActivity"
     >
 
     <data>
@@ -20,19 +21,12 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="io.github.droidkaigi.confsched2018.presentation.MainActivity"
             >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                style="@style/Toolbar"
                 android:theme="@style/AppTheme.AppBarOverlay"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:titleTextColor="@color/app_bar_text_color"
                 />
 
             <FrameLayout
@@ -63,8 +57,6 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/drawer"
             style="@style/DrawerNavigation"
-            app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/drawer"
             />
     </android.support.v4.widget.DrawerLayout>
 </layout>

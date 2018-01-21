@@ -39,8 +39,8 @@ data class SpeechSessionItem(
 
     private fun isFinishedSession(session: Session.SpeechSession): Boolean {
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("JST"))
-        cal.setTimeInMillis(System.currentTimeMillis())
-        val now: Date = cal.getTime()
-        return now.time.toInt() < session.endTime.getTime().toInt()
+        cal.timeInMillis = System.currentTimeMillis()
+        val now: Date = cal.time
+        return now.time > session.endTime.getTime()
     }
 }

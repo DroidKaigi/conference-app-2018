@@ -38,6 +38,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sessions_recycler"
+            style="@style/BaseRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"

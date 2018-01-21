@@ -20,8 +20,8 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.FavoriteSessionItem
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.FavoriteSessionsSection
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
@@ -37,7 +37,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentFavoriteSessionsBinding
 
-    private val sessionsSection = DateSessionsSection()
+    private val sessionsSection = FavoriteSessionsSection()
 
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
@@ -72,7 +72,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                     progressTimeLatch.loading = false
                     val sessions = result.data
                     sessionsSection.updateSessions(
-                            sessions, onFavoriteClickListener, simplify = true)
+                            sessions, onFavoriteClickListener)
                     binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
                     binding.sessionsRecycler.setVisible(sessions.isNotEmpty())
                 }
@@ -88,7 +88,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             add(sessionsSection)
             setOnItemClickListener({ item, _ ->
-                val sessionItem = item as? SpeechSessionItem ?: return@setOnItemClickListener
+                val sessionItem = item as? FavoriteSessionItem ?: return@setOnItemClickListener
                 navigationController.navigateToSessionDetailActivity(sessionItem.session)
             })
         }

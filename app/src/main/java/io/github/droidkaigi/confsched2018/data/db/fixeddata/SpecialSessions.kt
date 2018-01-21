@@ -4,8 +4,8 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.model.parseDate
 import io.github.droidkaigi.confsched2018.util.ext.toUnixMills
+import java.util.Date
 
 class SpecialSessions {
     companion object {
@@ -17,12 +17,12 @@ class SpecialSessions {
                     Session.SpecialSession(
                             "100000" + index++,
                             1,
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter
                                             .parseDateString("2018-02-08T10:00:00")
                                             .toUnixMills()
                             ),
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter
                                             .parseDateString("2018-02-08T10:20:00")
                                             .toUnixMills()
@@ -33,11 +33,11 @@ class SpecialSessions {
                     Session.SpecialSession(
                             "100000" + index++,
                             1,
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T11:50:00")
                                             .toUnixMills()
                             ),
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T12:50:00")
                                             .toUnixMills()
                             ),
@@ -47,11 +47,11 @@ class SpecialSessions {
                     Session.SpecialSession(
                             "100000" + index++,
                             1,
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T17:40:00")
                                             .toUnixMills()
                             ),
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter.parseDateString("2018-02-08T19:40:00")
                                             .toUnixMills()
                             ),
@@ -62,11 +62,11 @@ class SpecialSessions {
                     Session.SpecialSession(
                             "100000" + index,
                             2,
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter.parseDateString("2018-02-09T11:50:00")
                                             .toUnixMills()
                             ),
-                            parseDate(
+                            Date(
                                     LocalDateTimeAdapter.parseDateString("2018-02-09T12:50:00")
                                             .toUnixMills()
                             ),

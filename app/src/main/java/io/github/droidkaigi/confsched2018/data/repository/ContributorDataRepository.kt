@@ -31,9 +31,9 @@ class ContributorDataRepository @Inject constructor(
                     .subscribeOn(schedulerProvider.computation())
 
     companion object {
-        private val OWNER = "DroidKaigi"
-        private val REPO = "conference-app-2018"
-        private val MAX_PER_PAGE = 300
-        private val DEBUG = false
+        private const val OWNER = "DroidKaigi"
+        private const val REPO = "conference-app-2018"
+        private const val MAX_PER_PAGE = 300
+        private const val DEBUG = false
     }
 }

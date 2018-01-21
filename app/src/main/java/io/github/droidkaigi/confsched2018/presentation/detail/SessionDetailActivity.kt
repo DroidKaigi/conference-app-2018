@@ -116,7 +116,7 @@ class SessionDetailActivity :
     }
 
     companion object {
-        val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
+        const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun start(context: Context, session: Session) {
             context.startActivity(createIntent(context, session.id))
         }
