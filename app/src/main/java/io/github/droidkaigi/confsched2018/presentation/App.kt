@@ -15,6 +15,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.di.AppInjector
+import io.github.droidkaigi.confsched2018.util.initNotificationChannel
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
@@ -31,6 +32,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
         setupDagger()
         setupCalligraphy()
         setupEmoji()
+        setupNotification()
     }
 
     private fun setupFirebase() {
@@ -79,6 +81,10 @@ open class App : MultiDexApplication(), HasActivityInjector {
                     }
                 })
         EmojiCompat.init(config)
+    }
+
+    private fun setupNotification() {
+        initNotificationChannel(this)
     }
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> =

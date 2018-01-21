@@ -8,14 +8,17 @@ import java.util.SortedMap
 
 class FavoriteSessionsSection : Section() {
     fun updateSessions(
-            sessions: List<Session>,
+            sessions: List<Session.SpeechSession>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit
     ) {
         val sessionItems = sessions.map {
-            FavoriteSessionItem(it as Session.SpeechSession, onFavoriteClickListener) as SessionItem
+            SpeechSessionItem(
+                    it,
+                    onFavoriteClickListener,
+                    simplify = true)
         }
 
-        val dateSpeechSessionItemsMap: SortedMap<Date, List<SessionItem>> =
+        val dateSpeechSessionItemsMap: SortedMap<Date, List<SpeechSessionItem>> =
                 sessionItems.groupBy { it.session.startTime }.toSortedMap()
 
         val dateSessions = arrayListOf<Item<*>>()
@@ -36,12 +39,7 @@ class FavoriteSessionsSection : Section() {
 
         var item = getItemOrNull(position) ?: return null
         item = item as? SpeechSessionItem ?: getItemOrNull(position + 1) ?: return null
-        return when (item) {
-            is SessionItem -> {
-                item.session.dayNumber
-            }
-            else -> null
-        }
+        return (item as? SpeechSessionItem)?.session?.dayNumber
     }
 
     private fun getItemOrNull(i: Int): Item<*>? {
