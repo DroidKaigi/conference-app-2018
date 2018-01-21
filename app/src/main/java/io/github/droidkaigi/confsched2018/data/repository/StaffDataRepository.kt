@@ -7,6 +7,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import org.json.JSONObject
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -27,7 +28,7 @@ class StaffDataRepository @Inject constructor(
                 val asset = loadJsonFromAsset()
                 emitter.onSuccess(mapToEntity(asset))
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.e(e)
                 emitter.onError(e)
             }
         }
