@@ -107,6 +107,7 @@ class SponsorsFragment : Fragment(), Injectable {
         }
         binding.sponsorRecycler.layoutManager = layoutManager
         binding.sponsorRecycler.adapter = groupAdapter
+        binding.sponsorRecycler.addItemDecoration(SponsorsItemDecoration(R.layout.item_sponsor))
     }
 
     private fun bindSponsorsToRecycler(sponsorPlans: List<SponsorPlan>) {
