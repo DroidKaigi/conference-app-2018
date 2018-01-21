@@ -5,7 +5,6 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.presentation.common.binding.setVectorDrawableStart
 import io.github.droidkaigi.confsched2018.util.ext.context
 import io.github.droidkaigi.confsched2018.util.ext.drawable
 import java.util.Calendar
