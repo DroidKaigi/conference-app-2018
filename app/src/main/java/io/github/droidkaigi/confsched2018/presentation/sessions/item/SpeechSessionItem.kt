@@ -5,6 +5,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.common.binding.setVectorDrawableStart
 import io.github.droidkaigi.confsched2018.util.ext.context
 import io.github.droidkaigi.confsched2018.util.ext.drawable
 import java.util.Calendar
@@ -35,9 +36,9 @@ data class SpeechSessionItem(
             //TODO: will implement this. Please check comments of issue #141
         }
         val levelDrawable = viewBinding.context.drawable(when (session.level) {
-            is Level.Beginner -> R.drawable.ic_beginner_lightgreen_20dp
-            is Level.IntermediateOrExpert -> R.drawable.ic_intermediate_senior_bluegray_20dp
-            is Level.Niche -> R.drawable.ic_niche_cyan_20dp
+            is Level.Beginner -> R.drawable.ic_beginner_lightgreen_20_dp
+            is Level.IntermediateOrExpert -> R.drawable.ic_intermediate_senior_bluegray_20_dp
+            is Level.Niche -> R.drawable.ic_niche_cyan_20_dp
         })
         viewBinding.level.setImageDrawable(levelDrawable)
     }
