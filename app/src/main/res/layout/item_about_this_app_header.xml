@@ -80,8 +80,6 @@
         <ImageButton
             android:id="@+id/about_this_app_facebook"
             style="@style/SocialMediaButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="32dp"
             android:contentDescription="facebook link button"
@@ -96,9 +94,6 @@
         <ImageButton
             android:id="@+id/about_this_app_twitter"
             style="@style/SocialMediaButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:contentDescription="twitter link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_facebook"
             app:layout_constraintLeft_toRightOf="@+id/about_this_app_facebook"
@@ -110,9 +105,6 @@
         <ImageButton
             android:id="@+id/about_this_app_github"
             style="@style/SocialMediaButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:contentDescription="github link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_twitter"
             app:layout_constraintLeft_toRightOf="@+id/about_this_app_twitter"
@@ -124,9 +116,6 @@
         <ImageButton
             android:id="@+id/about_this_app_youtube"
             style="@style/SocialMediaButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:contentDescription="youtube link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_github"
             app:layout_constraintLeft_toRightOf="@+id/about_this_app_github"
@@ -139,9 +128,6 @@
         <ImageButton
             android:id="@+id/about_this_app_Medium"
             style="@style/SocialMediaButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:contentDescription="medium link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_youtube"
             app:layout_constraintLeft_toRightOf="@+id/about_this_app_youtube"
