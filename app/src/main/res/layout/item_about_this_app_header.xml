@@ -88,7 +88,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/about_this_app_name"
             app:layout_constraintTop_toBottomOf="@id/about_this_app_description"
-            app:srcCompat="@drawable/ic_facebook_purple_24_dp"
+            app:srcCompat="@drawable/ic_facebook_purple_24dp"
             />
 
         <ImageButton
@@ -101,7 +101,7 @@
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_facebook"
             app:layout_constraintStart_toEndOf="@id/about_this_app_facebook"
             app:layout_constraintTop_toTopOf="@id/about_this_app_facebook"
-            app:srcCompat="@drawable/ic_twitter_blue_24_dp"
+            app:srcCompat="@drawable/ic_twitter_blue_24dp"
             />
 
         <ImageButton
@@ -114,7 +114,7 @@
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_twitter"
             app:layout_constraintStart_toEndOf="@id/about_this_app_twitter"
             app:layout_constraintTop_toTopOf="@id/about_this_app_twitter"
-            app:srcCompat="@drawable/ic_github_black_24_dp"
+            app:srcCompat="@drawable/ic_github_black_24dp"
             />
 
         <ImageButton
@@ -127,7 +127,7 @@
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_github"
             app:layout_constraintStart_toEndOf="@id/about_this_app_github"
             app:layout_constraintTop_toTopOf="@id/about_this_app_github"
-            app:srcCompat="@drawable/ic_youtube_24_dp"
+            app:srcCompat="@drawable/ic_youtube_24dp"
             />
 
         <!-- TODO Replace the icon from access to Medium.-->
