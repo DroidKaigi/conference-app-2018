@@ -24,6 +24,7 @@ ext {
             debot           : "2.0.3",
             ossLicenses     : "0.9.1",
             deploygate      : "1.1.4",
+            robolectric     : "3.5.1",
     ]
 
     depends = [
@@ -33,14 +34,14 @@ ext {
 
             //==================== Support Library ====================
             support                : [
-                    v4        : "com.android.support:support-v4:$versions.supportLibrary",
-                    appcompat : "com.android.support:appcompat-v7:$versions.supportLibrary",
-                    design    : "com.android.support:design:$versions.supportLibrary",
-                    cardview  : "com.android.support:cardview-v7:$versions.supportLibrary",
-                    customtabs: "com.android.support:customtabs:$versions.supportLibrary",
-                    constraint: "com.android.support.constraint:constraint-layout:1.1.0-beta4",
-                    multidex  : "com.android.support:multidex:1.0.2",
-                    emoji     : "com.android.support:support-emoji-appcompat:$versions.supportLibrary",
+                    v4           : "com.android.support:support-v4:$versions.supportLibrary",
+                    appcompat    : "com.android.support:appcompat-v7:$versions.supportLibrary",
+                    design       : "com.android.support:design:$versions.supportLibrary",
+                    cardview     : "com.android.support:cardview-v7:$versions.supportLibrary",
+                    customtabs   : "com.android.support:customtabs:$versions.supportLibrary",
+                    constraint   : "com.android.support.constraint:constraint-layout:1.1.0-beta4",
+                    multidex     : "com.android.support:multidex:1.0.2",
+                    emoji        : "com.android.support:support-emoji-appcompat:$versions.supportLibrary",
                     preference   : "com.android.support:preference-v7:$versions.supportLibrary",
                     preferenceV14: "com.android.support:preference-v14:$versions.supportLibrary"
             ],
@@ -129,7 +130,8 @@ ext {
             junit                  : "junit:junit:4.12",
             mockitoKotlin          : "com.nhaarman:mockito-kotlin:1.5.0",
             robolectric            : [
-                    core: "org.robolectric:robolectric:3.5.1",
+                    core    : "org.robolectric:robolectric:$versions.robolectric",
+                    multidex: "org.robolectric:shadows-multidex:$versions.robolectric"
             ],
             assertk                : "com.willowtreeapps.assertk:assertk:0.9",
             threetenbp             : "org.threeten:threetenbp:1.3.3",

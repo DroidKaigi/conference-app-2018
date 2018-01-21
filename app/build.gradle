@@ -79,7 +79,10 @@ android {
         }
     }
     testOptions {
-        unitTests.returnDefaultValues = true
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
     }
     lintOptions {
         lintConfig file('lint.xml')
@@ -183,6 +186,7 @@ dependencies {
     testImplementation depends.mockitoKotlin
 
     testImplementation depends.robolectric.core
+    testImplementation depends.robolectric.multidex
     testImplementation depends.assertk
 
     testImplementation depends.threetenbp

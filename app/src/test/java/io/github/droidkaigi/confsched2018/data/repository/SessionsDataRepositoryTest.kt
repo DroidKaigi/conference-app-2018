@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import com.chibatching.kotpref.Kotpref
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -25,6 +26,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 import org.threeten.bp.LocalDate
 
 @RunWith(RobolectricTestRunner::class)
@@ -33,6 +35,7 @@ class SessionsDataRepositoryTest {
     private val favoriteDatabase: FavoriteDatabase = mock()
 
     @Before fun init() {
+        Kotpref.init(RuntimeEnvironment.application)
         whenever(sessionDatabase.getAllRoom()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllTopic()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(mock()))

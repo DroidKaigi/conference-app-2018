@@ -6,8 +6,8 @@ import org.threeten.bp.ZoneId
 import java.util.TimeZone
 
 fun LocalDateTime.toUnixMills(): Long {
-    val defaultTimeZone = TimeZone.getDefault()
     val timeZone = if (Prefs.enableLocalTime) {
+        val defaultTimeZone = TimeZone.getDefault()
         toZoneId(defaultTimeZone.id)
     } else {
         toZoneId("JST")
@@ -15,5 +15,5 @@ fun LocalDateTime.toUnixMills(): Long {
     return atZone(timeZone).toInstant().toEpochMilli()
 }
 
-private fun toZoneId(id: String, shortIds: Map<String, String> = ZoneId.SHORT_IDS) = ZoneId.of(id,
+private fun toZoneId(id: String, shortIds: MutableMap<String, String> = ZoneId.SHORT_IDS) = ZoneId.of(id,
         shortIds)
