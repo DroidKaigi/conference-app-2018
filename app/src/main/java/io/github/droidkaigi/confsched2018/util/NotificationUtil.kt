@@ -29,7 +29,7 @@ fun initNotificationChannel(context: Context) {
 private fun createDefaultNotificationChannel(context: Context, channelId: String) {
     val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    val appName = context.getString(R.string.app_name)
+    val channelName = context.getString(R.string.notification_channel_name_start_favorite_session)
     val importance =
             when (channelId) {
                 NotificationUtil.FAVORITE_SESSION_START_CHANNEL_ID -> {
@@ -39,7 +39,7 @@ private fun createDefaultNotificationChannel(context: Context, channelId: String
                     NotificationManager.IMPORTANCE_DEFAULT
                 }
             }
-    val channel = NotificationChannel(channelId, appName, importance)
+    val channel = NotificationChannel(channelId, channelName, importance)
     notificationManager.createNotificationChannel(channel)
 }
 
