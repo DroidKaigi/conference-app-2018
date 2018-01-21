@@ -3,14 +3,12 @@ package io.github.droidkaigi.confsched2018.presentation.staff
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.databinding.ActivityContributorBinding
 import io.github.droidkaigi.confsched2018.databinding.ActivityStaffBinding
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity

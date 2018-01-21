@@ -14,7 +14,6 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentStaffBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorItem
 import io.github.droidkaigi.confsched2018.presentation.staff.item.StaffItem
 import io.github.droidkaigi.confsched2018.presentation.staff.item.StaffSection
 import io.github.droidkaigi.confsched2018.util.ext.observe

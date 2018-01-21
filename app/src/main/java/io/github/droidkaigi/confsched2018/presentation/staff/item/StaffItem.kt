@@ -5,9 +5,7 @@ import android.view.View
 import com.xwray.groupie.databinding.BindableItem
 import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.databinding.ItemContributorBinding
 import io.github.droidkaigi.confsched2018.databinding.ItemStaffBinding
-import io.github.droidkaigi.confsched2018.model.Contributor
 import io.github.droidkaigi.confsched2018.model.Staff
 
 data class StaffItem(

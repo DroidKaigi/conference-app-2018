@@ -11,7 +11,6 @@ import io.github.droidkaigi.confsched2018.data.repository.SponsorPlanRepository
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
-import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.map
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider

@@ -1,18 +1,12 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
 import android.content.Context
-import io.github.droidkaigi.confsched2018.data.api.GithubApi
-import io.github.droidkaigi.confsched2018.data.db.ContributorDatabase
-import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toContributors
-import io.github.droidkaigi.confsched2018.model.Contributor
 import io.github.droidkaigi.confsched2018.model.Staff
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import org.intellij.lang.annotations.Flow
 import org.json.JSONObject
-import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
