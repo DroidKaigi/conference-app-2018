@@ -9,7 +9,7 @@ import timber.log.Timber
 class LocaleChangedBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("LocaleChangedBroadcastReceiver.onReceive")
-        if (Intent.ACTION_LOCALE_CHANGED == intent!!.action) {
+        if (Intent.ACTION_LOCALE_CHANGED == intent?.action) {
             initNotificationChannel(context!!)
         }
     }
