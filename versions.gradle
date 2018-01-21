@@ -41,7 +41,8 @@ ext {
                     constraint: "com.android.support.constraint:constraint-layout:1.1.0-beta4",
                     multidex  : "com.android.support:multidex:1.0.2",
                     emoji     : "com.android.support:support-emoji-appcompat:$versions.supportLibrary",
-                    preference: "com.android.support:preference-v7:$versions.supportLibrary",
+                    preference   : "com.android.support:preference-v7:$versions.supportLibrary",
+                    preferenceV14: "com.android.support:preference-v14:$versions.supportLibrary"
             ],
 
             //==================== Network ====================
