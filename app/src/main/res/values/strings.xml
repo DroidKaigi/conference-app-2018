@@ -8,6 +8,7 @@
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
 
     <!-- NavigationDrawer -->
+    <string name="nav_item_home">Home</string>
     <string name="nav_item_map">Map</string>
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
