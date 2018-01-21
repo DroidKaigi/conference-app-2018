@@ -30,4 +30,5 @@
     <color name="drawer_item_icon_tint">#666666</color>
     <color name="drawer_item_text_color">#222222</color>
 
+    <color name="social_media_button_ripple">#40000000</color>
 </resources>
