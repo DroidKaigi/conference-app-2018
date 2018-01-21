@@ -96,7 +96,7 @@
     <string name="about_licenses_description">このアプリでは、多くの素晴らしいライブラリを使用させていただいています。 </string>
     <string name="about_sponsors_title">スポンサー</string>
     <string name="about_sponsors_description">DroidKaigiは多くのスポンサーによってサポートされています。</string>
-    <string name="about_contributors_title">コントリビュータ</string>
+    <string name="about_contributors_title">コントリビューター</string>
     <string name="about_contributors_description">App制作に携わった人たちです。</string>
     <string name="about_version_title">開発情報</string>
     <string name="about_version_description">%1$s</string>
