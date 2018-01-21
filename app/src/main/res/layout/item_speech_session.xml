@@ -129,8 +129,8 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/description"
                 app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/description"
                 />
 
             <TextView
@@ -142,6 +142,7 @@
                 android:layout_marginStart="8dp"
                 android:maxLines="2"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/level"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/level"
                 app:layout_constraintTop_toTopOf="@id/level"
