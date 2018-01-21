@@ -53,8 +53,7 @@ class SponsorsViewModel @Inject constructor(
                 .refreshSponsorPlans()
                 .toResult<Unit>(schedulerProvider)
                 .subscribeBy(
-                        onNext = { mutableRefreshState.value = it },
-                        onError = defaultErrorHandler()
+                        onNext = { mutableRefreshState.value = it }
                 )
                 .addTo(compositeDisposable)
     }
