@@ -107,7 +107,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
 
         fun start(context: Context) {
-            context.startActivity(createIntent(context))
+            createIntent(context).let {
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(it)
+            }
         }
     }
 }
