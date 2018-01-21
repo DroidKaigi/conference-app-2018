@@ -15,6 +15,7 @@ import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsA
 import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
+import io.github.droidkaigi.confsched2018.presentation.staff.StaffActivity
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -98,7 +99,7 @@ class DrawerMenu @Inject constructor(
         CONTRIBUTOR(R.id.nav_item_contributor, ContributorsActivity::class, {
             navigateToContributorActivity()
         }),
-        STAFF(R.id.nav_item_staff, ContributorsActivity::class, {
+        STAFF(R.id.nav_item_staff, StaffActivity::class, {
             navigateToStaffActivity()
         }),
         SETTINGS(R.id.nav_item_setting, SettingsActivity::class, {
