@@ -41,7 +41,7 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
             format = "30分",
             language = "JA",
             topic = Topic(2, "Development tool"),
-            level = Level(1, "Beginner"),
+            level = Level.of(3540, "Beginner"),
             isFavorited = true, speakers = listOf(
             createDummySpeaker(),
             createDummySpeaker()
