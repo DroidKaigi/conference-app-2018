@@ -63,10 +63,6 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/drawer"
             style="@style/DrawerNavigation"
-            app:headerLayout="@layout/drawer_header"
-            app:itemIconTint="@color/drawer_item_icon_tint"
-            app:itemTextColor="@color/drawer_item_text_color"
-            app:menu="@menu/drawer"
             />
     </android.support.v4.widget.DrawerLayout>
 </layout>
