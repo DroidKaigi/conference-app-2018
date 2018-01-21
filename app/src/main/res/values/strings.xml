@@ -59,6 +59,8 @@
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
     <string name="sponsors_logo_content_description">Sponsor logo image</string>
+    <string name="sponsors_fetch_failed">Failed to fetch sponsors</string>
+    <string name="sponsors_load_retry">Retry</string>
 
     <!-- About This App -->
     <string name="about_title_activity">About this app</string>
