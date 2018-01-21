@@ -114,7 +114,7 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     LocalDateTime.of(1, 1, 1, 1, 1),
                     "30分",
                     "日本語",
-                    LevelEntity(1, "ニッチ / Niche"),
+                    LevelEntity(3540, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
                     RoomEntity(1, "ホール")),
                     listOf("aaaa", "bbbb")),
@@ -125,7 +125,7 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     LocalDateTime.of(1, 1, 1, 1, 1),
                     "30分",
                     "日本語",
-                    LevelEntity(1, "ニッチ / Niche"),
+                    LevelEntity(3542, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
                     RoomEntity(1, "ホール")),
                     listOf("aaaa"))
