@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
@@ -66,6 +68,23 @@ class SponsorsFragment : Fragment(), Injectable {
 
         sponsorsViewModel.isLoading.observe(this) { isLoading ->
             progressTimeLatch.loading = isLoading ?: false
+        }
+
+        sponsorsViewModel.refreshResult.observe(this) { result ->
+            when (result) {
+                is Result.Failure -> {
+                    // If user is offline, not error. So we write log to debug
+                    Timber.d(result.e)
+                    Snackbar.make(
+                            view,
+                            R.string.sponsors_fetch_failed,
+                            Snackbar.LENGTH_LONG).apply {
+                        setAction(R.string.sponsors_load_retry) {
+                            sponsorsViewModel.onRetrySponsors()
+                        }
+                    }.show()
+                }
+            }
         }
     }
 

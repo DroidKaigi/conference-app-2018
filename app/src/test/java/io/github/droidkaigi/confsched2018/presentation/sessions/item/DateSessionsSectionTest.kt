@@ -5,12 +5,12 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import io.github.droidkaigi.confsched2018.createDummySession
 import io.github.droidkaigi.confsched2018.createDummySpecialSession
-import io.github.droidkaigi.confsched2018.model.Date
 import org.junit.Before
 import org.junit.Test
 import org.junit.experimental.runners.Enclosed
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.util.Date
 
 @RunWith(Enclosed::class)
 class DateSessionsSectionTest {

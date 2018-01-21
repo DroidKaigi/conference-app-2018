@@ -2,26 +2,32 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
-import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
+import java.util.Date
 import java.util.SortedMap
 
 class DateSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
-            simplify: Boolean = false
+            isShowDayNumber: Boolean = false
     ) {
         val sessionItems = sessions.map {
             when (it) {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
                     SpeechSessionItem(
-                            it, onFavoriteClickListener, simplify) as SessionItem
+                            session = it,
+                            onFavoriteClickListener = onFavoriteClickListener,
+                            isShowDayNumber = isShowDayNumber
+                    ) as SessionItem
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")
-                    SpecialSessionItem(it) as SessionItem
+                    SpecialSessionItem(
+                            session = it,
+                            isShowDayNumber = isShowDayNumber
+                    ) as SessionItem
                 }
             }
         }
@@ -70,10 +76,7 @@ class DateSessionsSection : Section() {
 
             position = index
 
-            val time = date.getTime().toInt()
-            val sessionEndTime = item.endDateTime.getTime().toInt()
-
-            if (time <= sessionEndTime) return position
+            if (date.getTime() <= item.endDateTime.getTime()) return position
         }
 
         return position

@@ -16,7 +16,6 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
@@ -48,8 +47,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 FragmentSpeakerDetailBinding.inflate(
                         inflater,
                         container!!,
-                        false,
-                        FragmentDataBindingComponent(this)
+                        false
                 )
         return binding.root
     }

@@ -17,7 +17,6 @@ import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
-import io.github.droidkaigi.confsched2018.model.Date
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -34,6 +33,7 @@ import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
+import java.util.Date
 import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
@@ -73,7 +73,7 @@ class AllSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }
