@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
     <data>
         <!-- TODO: add header specific dataset-->
         <variable
@@ -86,7 +86,9 @@
             android:layout_marginTop="32dp"
             android:contentDescription="facebook link button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/about_this_app_name"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/about_this_app_twitter"
             app:layout_constraintTop_toBottomOf="@id/about_this_app_description"
             app:srcCompat="@drawable/ic_facebook_purple_24dp"
             />
@@ -99,7 +101,8 @@
             android:layout_marginStart="12dp"
             android:contentDescription="twitter link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_facebook"
-            app:layout_constraintStart_toEndOf="@id/about_this_app_facebook"
+            app:layout_constraintLeft_toRightOf="@+id/about_this_app_facebook"
+            app:layout_constraintRight_toLeftOf="@+id/about_this_app_github"
             app:layout_constraintTop_toTopOf="@id/about_this_app_facebook"
             app:srcCompat="@drawable/ic_twitter_blue_24dp"
             />
@@ -112,7 +115,8 @@
             android:layout_marginStart="12dp"
             android:contentDescription="github link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_twitter"
-            app:layout_constraintStart_toEndOf="@id/about_this_app_twitter"
+            app:layout_constraintLeft_toRightOf="@+id/about_this_app_twitter"
+            app:layout_constraintRight_toLeftOf="@+id/about_this_app_youtube"
             app:layout_constraintTop_toTopOf="@id/about_this_app_twitter"
             app:srcCompat="@drawable/ic_github_black_24dp"
             />
@@ -125,7 +129,8 @@
             android:layout_marginStart="12dp"
             android:contentDescription="youtube link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_github"
-            app:layout_constraintStart_toEndOf="@id/about_this_app_github"
+            app:layout_constraintLeft_toRightOf="@+id/about_this_app_github"
+            app:layout_constraintRight_toLeftOf="@+id/about_this_app_Medium"
             app:layout_constraintTop_toTopOf="@id/about_this_app_github"
             app:srcCompat="@drawable/ic_youtube_24dp"
             />
@@ -139,7 +144,8 @@
             android:layout_marginStart="12dp"
             android:contentDescription="medium link button"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_youtube"
-            app:layout_constraintStart_toEndOf="@id/about_this_app_youtube"
+            app:layout_constraintLeft_toRightOf="@+id/about_this_app_youtube"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/about_this_app_youtube"
             app:srcCompat="@drawable/ic_access_black_24dp"
             />
