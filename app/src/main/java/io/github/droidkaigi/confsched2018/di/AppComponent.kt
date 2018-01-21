@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2018.di.activitymodule.SessionDetailActivit
 import io.github.droidkaigi.confsched2018.di.activitymodule.SettingsActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SpeakerDetailActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SponsorsActivityBuilder
+import io.github.droidkaigi.confsched2018.di.activitymodule.StaffActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.TopicDetailActivityBuilder
 import io.github.droidkaigi.confsched2018.presentation.App
 import javax.inject.Singleton
@@ -26,6 +27,7 @@ import javax.inject.Singleton
     MapActivityBuilder::class,
     AboutThisAppActivityBuilder::class,
     ContributorsActivityBuilder::class,
+    StaffActivityBuilder::class,
     SettingsActivityBuilder::class,
     SponsorsActivityBuilder::class,
     SessionDetailActivityBuilder::class,
