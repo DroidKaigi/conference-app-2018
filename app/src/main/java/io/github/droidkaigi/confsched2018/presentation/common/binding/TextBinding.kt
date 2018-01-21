@@ -82,7 +82,7 @@ fun TextView.setVectorDrawableStart(drawable: Drawable) {
     val vectorDrawable = drawable.takeIf {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
     } ?: StateListDrawable().apply {
-        addState(intArrayOf(0), drawable)
+        addState(intArrayOf(), drawable)
     }
 
     val drawables = compoundDrawables
