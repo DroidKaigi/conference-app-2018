@@ -36,6 +36,11 @@
             android:icon="@drawable/ic_contributor_black_24dp"
             android:title="@string/nav_item_contributor"
             />
+        <item
+            android:id="@+id/nav_item_staff"
+            android:icon="@drawable/ic_contributor_black_24dp"
+            android:title="@string/nav_item_contributor"
+            />
     </group>
     <group
         android:id="@+id/menu_group_3"
