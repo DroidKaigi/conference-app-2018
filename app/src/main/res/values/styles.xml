@@ -77,4 +77,10 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
+
+    <style name="SocialMediaButton" parent="Theme.AppCompat.Light">
+        <item name="android:background">@drawable/shape_round_corner_48dp</item>
+        <item name="android:elevation" tools:targetApi="21">2dp</item>
+    </style>
+
 </resources>
