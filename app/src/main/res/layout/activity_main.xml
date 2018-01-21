@@ -27,7 +27,7 @@
                 android:theme="@style/AppTheme.AppBarOverlay"
                 />
 
-            <FrameLayout
+            <android.support.design.widget.CoordinatorLayout
                 android:id="@+id/content"
                 style="@style/ContentFrameLayout"
                 app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
