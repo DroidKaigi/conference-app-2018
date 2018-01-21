@@ -36,10 +36,11 @@
             android:icon="@drawable/ic_contributor_black_24dp"
             android:title="@string/nav_item_contributor"
             />
+        <!-- TODO: Replace contributor icon with staff icon -->
         <item
             android:id="@+id/nav_item_staff"
             android:icon="@drawable/ic_contributor_black_24dp"
-            android:title="@string/nav_item_contributor"
+            android:title="@string/nav_item_staff"
             />
     </group>
     <group
