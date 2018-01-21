@@ -102,10 +102,7 @@
     <!-- Staff -->
     <string name="staff">Staff</string>
     <string name="staff_avatar">staff avatar</string>
-    <plurals name="staff_header">
-        <item quantity="one">%d Staff</item>
-        <item quantity="other">%d Staffs</item>
-    </plurals>
+    <string name="staff_header">%d Staff</string>
 
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>

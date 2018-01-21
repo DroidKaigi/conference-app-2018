@@ -22,13 +22,13 @@
             android:layout_marginStart="72dp"
             android:layout_marginTop="36dp"
             android:gravity="center_horizontal"
-            android:text="@{@plurals/staff_header(staffCount, staffCount)}"
+            android:text="@{@string/staff_header(staffCount)}"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="1000 Staffs"
+            tools:text="1000 Staff"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>
