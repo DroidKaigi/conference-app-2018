@@ -75,7 +75,10 @@ class SponsorsFragment : Fragment(), Injectable {
                 is Result.Failure -> {
                     // If user is offline, not error. So we write log to debug
                     Timber.d(result.e)
-                    Snackbar.make(view, R.string.sponsors_fetch_failed, Snackbar.LENGTH_LONG).apply {
+                    Snackbar.make(
+                            view,
+                            R.string.sponsors_fetch_failed,
+                            Snackbar.LENGTH_LONG).apply {
                         setAction(R.string.sponsors_load_retry) {
                             sponsorsViewModel.onRetrySponsors()
                         }
@@ -83,8 +86,6 @@ class SponsorsFragment : Fragment(), Injectable {
                 }
             }
         }
-
-
     }
 
     override fun onDestroyView() {
