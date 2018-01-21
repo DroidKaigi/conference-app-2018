@@ -40,15 +40,13 @@ class StaffDataRepository @Inject constructor(
 
         val data = jsonObj.getJSONArray("staff")
 
-        (0 until data.length())
-                .map { data.getJSONObject(it) }
-                .mapTo(list) {
-                    Staff().apply {
-                        name = it.getString("name")
-                        avatarUrl = "https://github.com/$name.png?size=100"
-                        htmlUrl = "https://github.com/$name"
-                    }
-                }
+        (0 until data.length()).mapTo(list) {
+            Staff().apply {
+                name = data[it].toString()
+                htmlUrl = "https://github.com/$name"
+                avatarUrl = "$htmlUrl.png?size=100"
+            }
+        }
 
         return list
     }
