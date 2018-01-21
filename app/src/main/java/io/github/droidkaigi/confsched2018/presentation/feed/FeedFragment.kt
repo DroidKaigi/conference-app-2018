@@ -27,7 +27,6 @@ import javax.inject.Inject
 class FeedFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentFeedBinding
-    private lateinit var fireBaseAnalytics: FirebaseAnalytics
 
     private val postsSection = Section()
 
@@ -61,7 +60,6 @@ class FeedFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         postsViewModel.feeds.observe(this, { result ->
@@ -92,7 +90,7 @@ class FeedFragment : Fragment(), Injectable {
 
     override fun onResume() {
         super.onResume()
-        fireBaseAnalytics.setCurrentScreen(activity!!, null, this::class.java.simpleName)
+        postsViewModel.sendFeedPageView(activity!!, this::class.java.simpleName)
     }
 
     private fun setupRecyclerView() {

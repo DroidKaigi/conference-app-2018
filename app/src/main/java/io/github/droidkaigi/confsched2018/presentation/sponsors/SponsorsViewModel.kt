@@ -6,10 +6,12 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.VisibleForTesting
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.github.droidkaigi.confsched2018.data.repository.SponsorPlanRepository
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
+import io.github.droidkaigi.confsched2018.util.FirebaseEvent
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.map
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
@@ -21,7 +23,8 @@ import javax.inject.Inject
 
 class SponsorsViewModel @Inject constructor(
         private val sponsorPlanRepository: SponsorPlanRepository,
-        private val schedulerProvider: SchedulerProvider
+        private val schedulerProvider: SchedulerProvider,
+        private val firebaseEvent: FirebaseEvent
 ) : ViewModel(), LifecycleObserver {
     private val compositeDisposable = CompositeDisposable()
 
@@ -42,6 +45,14 @@ class SponsorsViewModel @Inject constructor(
                 .refreshSponsorPlans()
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
+    }
+
+    fun sendSponsorTappedEvent(itemName: String, contentType: String, groupId: String) {
+        val params = FirebaseEvent.Builder()
+                .put(FirebaseAnalytics.Param.ITEM_NAME, itemName)
+                .put(FirebaseAnalytics.Param.CONTENT_TYPE, contentType)
+                .put(FirebaseAnalytics.Param.GROUP_ID, groupId).build()
+        firebaseEvent.sendEvent(params)
     }
 
     override fun onCleared() {

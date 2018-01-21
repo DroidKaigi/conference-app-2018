@@ -1,11 +1,17 @@
 package io.github.droidkaigi.confsched2018.presentation.feed
 
+import android.app.Activity
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.FeedRepository
 import io.github.droidkaigi.confsched2018.model.Post
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
+import io.github.droidkaigi.confsched2018.util.FirebaseEvent
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -13,7 +19,8 @@ import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
         private val repository: FeedRepository,
-        private val schedulerProvider: SchedulerProvider
+        private val schedulerProvider: SchedulerProvider,
+        private val firebaseEvent: FirebaseEvent
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -26,5 +33,9 @@ class FeedViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
+    }
+
+    fun sendFeedPageView(activity: Activity, className: String) {
+        firebaseEvent.sendPageView(activity, className)
     }
 }
