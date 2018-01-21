@@ -33,7 +33,7 @@
                     android:lineSpacingExtra="7.2sp"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
-                    android:text="@string/place_name"
+                    android:text="@string/map_place_name"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="75dp"
-                    android:text="@string/meeting_rooms_name"
+                    android:text="@string/map_meeting_rooms_name"
                     android:textColor="#ffffff"
                     android:textSize="12sp"
                     />
@@ -78,7 +78,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="72dp"
                         android:lineSpacingExtra="9.6sp"
-                        android:text="@string/address"
+                        android:text="@string/map_address"
                         android:textSize="12sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +110,7 @@
                         android:layout_marginStart="72dp"
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="9.6sp"
-                        android:text="@string/nearby_stations"
+                        android:text="@string/map_nearby_stations"
                         android:textSize="12sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
