@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 class ShowDetailActivityTest {
 
-    @Rule
-    @JvmField
+    @Suppress("unused")
+    @get:Rule
     var activityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
