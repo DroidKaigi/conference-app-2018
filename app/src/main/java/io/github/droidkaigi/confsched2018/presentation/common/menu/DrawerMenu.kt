@@ -98,6 +98,9 @@ class DrawerMenu @Inject constructor(
         CONTRIBUTOR(R.id.nav_item_contributor, ContributorsActivity::class, {
             navigateToContributorActivity()
         }),
+        STAFF(R.id.nav_item_staff, ContributorsActivity::class, {
+            navigateToStaffActivity()
+        }),
         SETTINGS(R.id.nav_item_setting, SettingsActivity::class, {
             navigateToSettingsActivity()
         }),
