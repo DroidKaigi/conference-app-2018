@@ -141,6 +141,8 @@ dependencies {
     kapt depends.dagger.compiler
     kapt depends.dagger.androidProcessor
 
+    implementation depends.playService.map
+
     implementation depends.firebase.firestore
     implementation depends.firebase.auth
     implementation depends.firebase.core

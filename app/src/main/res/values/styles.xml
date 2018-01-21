@@ -77,4 +77,10 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
+
+    <style name="SocialMediaButton">
+        <item name="android:background">@drawable/bg_social_media_button</item>
+        <item name="android:elevation" tools:targetApi="21">2dp</item>
+    </style>
+
 </resources>

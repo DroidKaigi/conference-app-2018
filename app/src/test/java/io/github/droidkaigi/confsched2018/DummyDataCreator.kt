@@ -41,7 +41,7 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
             format = "30分",
             language = "JA",
             topic = Topic(2, "Development tool"),
-            level = Level(1, "Beginner"),
+            level = Level.of(3540, "Beginner"),
             isFavorited = true, speakers = listOf(
             createDummySpeaker(),
             createDummySpeaker()
@@ -114,7 +114,7 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     LocalDateTime.of(1, 1, 1, 1, 1),
                     "30分",
                     "日本語",
-                    LevelEntity(1, "ニッチ / Niche"),
+                    LevelEntity(3540, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
                     RoomEntity(1, "ホール")),
                     listOf("aaaa", "bbbb")),
@@ -125,7 +125,7 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     LocalDateTime.of(1, 1, 1, 1, 1),
                     "30分",
                     "日本語",
-                    LevelEntity(1, "ニッチ / Niche"),
+                    LevelEntity(3542, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
                     RoomEntity(1, "ホール")),
                     listOf("aaaa"))

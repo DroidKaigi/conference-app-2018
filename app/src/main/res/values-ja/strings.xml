@@ -86,6 +86,7 @@
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+    <string name="notification_channel_name_start_favorite_session">マイセッションの開始</string>
 
     <!-- AboutThisApp -->
     <string name="about_official_head_title">What is "DroidKaigi"?</string>
@@ -96,7 +97,7 @@
     <string name="about_licenses_description">このアプリでは、多くの素晴らしいライブラリを使用させていただいています。 </string>
     <string name="about_sponsors_title">スポンサー</string>
     <string name="about_sponsors_description">DroidKaigiは多くのスポンサーによってサポートされています。</string>
-    <string name="about_contributors_title">コントリビュータ</string>
+    <string name="about_contributors_title">コントリビューター</string>
     <string name="about_contributors_description">App制作に携わった人たちです。</string>
     <string name="about_version_title">開発情報</string>
     <string name="about_version_description">%1$s</string>

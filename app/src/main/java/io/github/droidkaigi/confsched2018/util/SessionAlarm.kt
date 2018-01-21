@@ -56,7 +56,7 @@ class SessionAlarm @Inject constructor(val context: Context) {
                 session.id,
                 title,
                 text,
-                NotificationUtil.FAVORITE_SESSION_START_CHANNEL_ID
+                NotificationUtil.ChannelType.FAVORITE_SESSION_START
         )
         return PendingIntent.getBroadcast(
                 context,
