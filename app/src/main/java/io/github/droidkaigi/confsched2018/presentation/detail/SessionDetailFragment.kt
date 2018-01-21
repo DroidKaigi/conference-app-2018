@@ -7,11 +7,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
+import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
+import io.github.droidkaigi.confsched2018.util.ext.context
+import io.github.droidkaigi.confsched2018.util.ext.drawable
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
@@ -78,6 +82,13 @@ class SessionDetailFragment : Fragment(), Injectable {
             sessionAlarm.toggleRegister(session)
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
+        val levelDrawable = binding.context.drawable(when (session.level) {
+            is Level.Beginner -> R.drawable.ic_beginner_lightgreen_20dp
+            is Level.IntermediateOrExpert -> R.drawable.ic_intermediate_senior_bluegray_20dp
+            is Level.Niche -> R.drawable.ic_niche_cyan_20dp
+        })
+        binding.level.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                levelDrawable, null, null, null)
     }
 
     private fun setSessionIndicator(prevSession: Session.SpeechSession?,
