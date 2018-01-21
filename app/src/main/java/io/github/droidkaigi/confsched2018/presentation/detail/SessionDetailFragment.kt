@@ -87,7 +87,8 @@ class SessionDetailFragment : Fragment(), Injectable {
             is Level.IntermediateOrExpert -> R.drawable.ic_intermediate_senior_bluegray_20dp
             is Level.Niche -> R.drawable.ic_niche_cyan_20dp
         })
-        binding.level.setCompoundDrawablesRelativeWithIntrinsicBounds(levelDrawable,null,null,null)
+        binding.level.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                levelDrawable, null, null, null)
     }
 
     private fun setSessionIndicator(prevSession: Session.SpeechSession?,
