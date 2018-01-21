@@ -79,7 +79,7 @@
     </style>
 
     <style name="SocialMediaButton">
-        <item name="android:background">@drawable/shape_round_corner_48dp</item>
+        <item name="android:background">@drawable/bg_social_media_button</item>
         <item name="android:elevation" tools:targetApi="21">2dp</item>
     </style>
 
