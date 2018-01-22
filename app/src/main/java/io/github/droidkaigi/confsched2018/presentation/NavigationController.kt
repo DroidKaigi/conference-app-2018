@@ -141,11 +141,6 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
-                .setExitAnimations(
-                        activity,
-                        android.R.anim.slide_in_left,
-                        android.R.anim.slide_out_right
-                )
                 .build()
                 .apply {
                     val appUri = Uri.parse("android-app://${activity.packageName}")
