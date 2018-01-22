@@ -24,6 +24,7 @@ import javax.inject.Inject
 
 class SearchSpeakersFragment : Fragment(), Injectable {
 
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchSpeakersBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -61,11 +62,15 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         })
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
+    }
+
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            searchSpeakersViewModel.sendSearchSpeakersPageView(activity!!,
-                    this::class.java.simpleName)
+            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
         }
     }
 

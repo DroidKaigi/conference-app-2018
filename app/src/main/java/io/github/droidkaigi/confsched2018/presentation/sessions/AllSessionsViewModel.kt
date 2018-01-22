@@ -1,13 +1,11 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
-import android.app.Activity
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
-import io.github.droidkaigi.confsched2018.util.FirebaseEvent
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.map
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
@@ -20,8 +18,7 @@ import javax.inject.Inject
 
 class AllSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
-        private val schedulerProvider: SchedulerProvider,
-        private val firebaseEvent: FirebaseEvent
+        private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -45,9 +42,5 @@ class AllSessionsViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
-    }
-
-    fun sendAllSessionsPageView(activity: Activity, className: String) {
-        firebaseEvent.sendPageView(activity, className)
     }
 }

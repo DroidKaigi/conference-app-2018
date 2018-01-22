@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.search
 
-import android.app.Activity
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -8,7 +7,6 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
-import io.github.droidkaigi.confsched2018.util.FirebaseEvent
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
@@ -20,8 +18,7 @@ import javax.inject.Inject
 
 class SearchSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
-        private val schedulerProvider: SchedulerProvider,
-        private val firebaseEvent: FirebaseEvent
+        private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     val levelSessions: LiveData<Result<Map<Level, List<Session.SpeechSession>>>> by lazy {
         repository.levelSessions
@@ -40,9 +37,5 @@ class SearchSessionsViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
-    }
-
-    fun sendSearchSessionsPageView(activity: Activity, className: String) {
-        firebaseEvent.sendPageView(activity, className)
     }
 }
