@@ -169,6 +169,7 @@
                 app:layout_constraintTop_toBottomOf="@id/topic"
                 app:layout_goneMarginTop="16dp"
                 app:speakers="@{session.speakers}"
+                app:textColor="@color/black"
                 />
 
             <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
