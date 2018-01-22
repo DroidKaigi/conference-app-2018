@@ -49,6 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
+                    android:layout_marginBottom="8dp"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:titleEnabled="false"
                     >
@@ -109,6 +110,9 @@
                             android:layout_marginTop="6dp"
                             android:paddingBottom="6dp"
                             android:paddingEnd="12dp"
+                            tools:drawableStart="@drawable/ic_beginner_lightgreen_20dp"
+                            android:drawablePadding="6dp"
+                            android:gravity="center_vertical"
                             android:text="@{session.level.name}"
                             android:textColor="?colorAccent"
                             app:layout_constraintStart_toStartOf="@id/level_background"

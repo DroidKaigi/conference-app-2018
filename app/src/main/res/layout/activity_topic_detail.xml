@@ -31,9 +31,7 @@
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        style="@style/DrawerLayout"
         tools:openDrawer="start"
         >
         <android.support.design.widget.CoordinatorLayout
@@ -55,41 +53,41 @@
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_marginTop="?android:attr/actionBarSize"
                         android:layout_height="wrap_content"
-                        android:minHeight="105dp"
-                        android:paddingStart="24dp"
-                        android:paddingEnd="24dp"
+                        android:layout_marginTop="?android:attr/actionBarSize"
                         android:alpha="@{1.0f - toolbarTextColorFactor}"
+                        android:minHeight="105dp"
+                        android:paddingEnd="24dp"
+                        android:paddingStart="24dp"
                         app:layout_collapseMode="parallax"
                         app:layout_scrollFlags="scroll|exitUntilCollapsed"
                         >
 
                         <TextView
                             android:id="@+id/topic_name"
+                            style="@style/TextStyle.App.Headline"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/TextStyle.App.Headline"
-                            android:textColor="@color/app_bar_text_color"
                             android:gravity="center_horizontal"
+                            android:text="@{name}"
+                            android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="@{name}"
                             tools:text="開発環境"
                             />
 
                         <TextView
                             android:id="@+id/topic_translation"
+                            style="@style/TextStyle.App.Subhead"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginTop="8dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="@{translation}"
-                            style="@style/TextStyle.App.Subhead"
-                            android:textColor="@color/app_bar_text_color"
                             android:gravity="center_horizontal"
+                            android:text="@{translation}"
+                            android:textColor="@color/app_bar_text_color"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -100,12 +98,12 @@
 
                         <TextView
                             android:id="@+id/total_session"
+                            style="@style/TextStyle.App.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:layout_marginTop="16dp"
                             android:text="@{total}"
-                            style="@style/TextStyle.App.Caption"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -119,9 +117,9 @@
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="pin"
                         app:title="@{name}"
                         app:titleTextColor="@{ColorCalculator.calculateColor(toolbarTextColorFactor, @color/app_bar_text_color)}"
-                        app:layout_collapseMode="pin"
                         />
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
@@ -136,8 +134,6 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/drawer"
             style="@style/DrawerNavigation"
-            app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/drawer"
             />
     </android.support.v4.widget.DrawerLayout>
 </layout>

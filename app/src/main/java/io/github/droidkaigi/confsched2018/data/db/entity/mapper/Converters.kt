@@ -4,7 +4,6 @@ import android.arch.persistence.room.TypeConverter
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
 
 object Converters {
     @JvmStatic
@@ -13,11 +12,12 @@ object Converters {
         if (value == null) {
             return null
         }
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond(value), ZoneId.systemDefault())
+        return LocalDateTime.ofInstant(
+                Instant.ofEpochSecond(value), ZoneId.of("JST", ZoneId.SHORT_IDS))
     }
 
     @JvmStatic
     @TypeConverter
     fun dateToTimestamp(date: LocalDateTime?): Long? =
-            date?.toEpochSecond(ZoneOffset.ofHours(9))
+            date?.atZone(ZoneId.of("JST", ZoneId.SHORT_IDS))?.toEpochSecond()
 }

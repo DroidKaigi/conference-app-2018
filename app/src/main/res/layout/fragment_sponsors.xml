@@ -11,6 +11,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sponsor_recycler"
+            style="@style/BaseRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,8 +23,8 @@
 
         <ProgressBar
             android:id="@+id/progress"
-            android:visibility="gone"
             style="@style/ProgressBar"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

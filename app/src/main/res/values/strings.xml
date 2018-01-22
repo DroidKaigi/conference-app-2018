@@ -8,11 +8,13 @@
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
 
     <!-- NavigationDrawer -->
+    <string name="nav_item_home">Home</string>
     <string name="nav_item_map">Map</string>
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
     <string name="nav_item_contributor">@string/contributors</string>
+    <string name="nav_item_staff">@string/staff</string>
     <string name="nav_item_all_survey">Conference survey</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
@@ -27,7 +29,7 @@
     <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
-    <string name="session_header_divider">" / "</string>
+    <string name="session_header_divider" translatable="false">" / "</string>
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
     <string name="session_go_to_questionnaire">Go To Questionnaire</string>
@@ -55,10 +57,16 @@
 
     <!-- Map -->
     <string name="map_title_activity">Map</string>
+    <string name="map_place_name">Bellesalle Shinjuku Grand Conference Center</string>
+    <string name="map_meeting_rooms_name">DroidKaigi 2018 Place</string>
+    <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-3 Nishi Shinjuku, Shinjuku City, Tokyo 160-0023</string>
+    <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1 Toei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4 Toei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4 JR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
 
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
     <string name="sponsors_logo_content_description">Sponsor logo image</string>
+    <string name="sponsors_fetch_failed">Failed to fetch sponsors</string>
+    <string name="sponsors_load_retry">Retry</string>
 
     <!-- About This App -->
     <string name="about_title_activity">About this app</string>
@@ -91,9 +99,15 @@
         <item quantity="other">%d Contributors</item>
     </plurals>
 
+    <!-- Staff -->
+    <string name="staff">Staff</string>
+    <string name="staff_avatar">staff avatar</string>
+    <string name="staff_header">%d Staff</string>
+
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+    <string name="notification_channel_name_start_favorite_session">start favorite session</string>
 
     <!-- AboutThisApp -->
     <!-- TODO check if these English are all natural to international ppl. -->
@@ -110,5 +124,4 @@
     <string name="about_contributors_description">Those who contribute to creation.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_description">%1$s</string>
-    
 </resources>

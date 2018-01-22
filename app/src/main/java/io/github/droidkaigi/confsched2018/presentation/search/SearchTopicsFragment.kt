@@ -16,7 +16,6 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSearchTopicsBindin
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicsGroup
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -34,8 +33,7 @@ class SearchTopicsFragment : Fragment(), Injectable {
         ViewModelProviders.of(this, viewModelFactory).get(SearchTopicsViewModel::class.java)
     }
 
-    private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
-    private val topicsGroup = TopicsGroup(fragmentDataBindingComponent)
+    private val topicsGroup = TopicsGroup()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

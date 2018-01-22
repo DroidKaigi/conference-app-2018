@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.detail.SessionDetailActivity"
     >
@@ -18,9 +17,7 @@
     </data>
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        style="@style/DrawerLayout"
         tools:openDrawer="start"
         >
         <android.support.constraint.ConstraintLayout
@@ -40,8 +37,6 @@
         <android.support.design.widget.NavigationView
             android:id="@+id/drawer"
             style="@style/DrawerNavigation"
-            app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/drawer"
             />
     </android.support.v4.widget.DrawerLayout>
 </layout>

@@ -8,16 +8,12 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemTopicBinding
 import io.github.droidkaigi.confsched2018.model.Lang
 import io.github.droidkaigi.confsched2018.model.Topic
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.util.lang
 
-data class TopicItem(
-        val topic: Topic,
-        private val dataBindingComponent: FragmentDataBindingComponent
-) : BindableItem<ItemTopicBinding>(topic.id.toLong()) {
+data class TopicItem(val topic: Topic) : BindableItem<ItemTopicBinding>(topic.id.toLong()) {
 
     override fun createViewHolder(itemView: View): ViewHolder<ItemTopicBinding> {
-        val viewDataBinding = DataBindingUtil.bind<ItemTopicBinding>(itemView, dataBindingComponent)
+        val viewDataBinding = DataBindingUtil.bind<ItemTopicBinding>(itemView)
         return ViewHolder(viewDataBinding)
     }
 

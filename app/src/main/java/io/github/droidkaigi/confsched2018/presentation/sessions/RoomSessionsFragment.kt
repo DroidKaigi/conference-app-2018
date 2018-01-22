@@ -32,7 +32,10 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import io.github.droidkaigi.confsched2018.util.ext.setVisible
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
+import java.util.Date
 import javax.inject.Inject
 
 class RoomSessionsFragment : Fragment(), Injectable {
@@ -80,7 +83,9 @@ class RoomSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, true)
+
+                    sessionsViewModel.onSuccessFetchSessions()
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -89,6 +94,13 @@ class RoomSessionsFragment : Fragment(), Injectable {
         })
         sessionsViewModel.isLoading.observe(this, { isLoading ->
             progressTimeLatch.loading = isLoading ?: false
+        })
+        sessionsViewModel.refreshFocusCurrentSession.observe(this, {
+            if (it != true) return@observe
+            val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
+                    .toInstant().toEpochMilli())
+            val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
+            binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
         })
     }
 

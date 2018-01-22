@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.presentation.contributor.item
+package io.github.droidkaigi.confsched2018.presentation.about.item
 
 import android.databinding.DataBindingUtil
 import android.view.View
@@ -8,16 +8,14 @@ import com.xwray.groupie.databinding.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemAboutThisAppHeaderBinding
 import io.github.droidkaigi.confsched2018.model.AboutThisApp
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 
 class AboutThisAppHeaderItem(
         private val headItem: AboutThisApp.HeadItem,
-        private val onAboutThisHeaderIconClickListener: (String) -> Unit?,
-        private val dataBindingComponent: FragmentDataBindingComponent
+        private val onAboutThisHeaderIconClickListener: (String) -> Unit?
 ) : BindableItem<ItemAboutThisAppHeaderBinding>() {
 
     override fun createViewHolder(itemView: View): ViewHolder<ItemAboutThisAppHeaderBinding> {
-        return ViewHolder(DataBindingUtil.bind(itemView, dataBindingComponent))
+        return ViewHolder(DataBindingUtil.bind(itemView))
     }
 
     override fun getLayout(): Int = R.layout.item_about_this_app_header
@@ -35,6 +33,9 @@ class AboutThisAppHeaderItem(
         }
         viewBinding.aboutThisAppYoutube.setOnClickListener {
             onAboutThisHeaderIconClickListener(headItem.youtubeUrl)
+        }
+        viewBinding.aboutThisAppMedium.setOnClickListener {
+            onAboutThisHeaderIconClickListener(headItem.mediumUrl)
         }
     }
 

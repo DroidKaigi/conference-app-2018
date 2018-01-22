@@ -18,7 +18,8 @@
         >
         <include
             android:id="@+id/search_content"
+            layout="@layout/item_speaker"
             app:searchQuery="@{searchQuery}"
-            layout="@layout/item_speaker" />
+            />
     </android.support.v7.widget.CardView>
 </layout>

@@ -18,6 +18,9 @@
     <!-- Contributors -->
     <dimen name="contributor_image_size">40dp</dimen>
 
+    <!-- Staff -->
+    <dimen name="staff_image_size">@dimen/contributor_image_size</dimen>
+
     <!-- Sticky label -->
     <dimen name="sticky_label_padding">20dp</dimen>
     <dimen name="sticky_label_font_size">24sp</dimen>

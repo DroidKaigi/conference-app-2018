@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2018.presentation.sponsors
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
 import android.support.annotation.VisibleForTesting
@@ -12,7 +13,6 @@ import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.FirebaseEvent
-import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.map
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
@@ -37,13 +37,26 @@ class SponsorsViewModel @Inject constructor(
     val isLoading: LiveData<Boolean> by lazy {
         sponsors.map { it.inProgress }
     }
+    private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
+    val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
 
     @VisibleForTesting
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        refreshSponsors()
+    }
+
+    fun onRetrySponsors() {
+        refreshSponsors()
+    }
+
+    private fun refreshSponsors() {
         sponsorPlanRepository
                 .refreshSponsorPlans()
-                .subscribeBy(onError = defaultErrorHandler())
+                .toResult<Unit>(schedulerProvider)
+                .subscribeBy(
+                        onNext = { mutableRefreshState.value = it }
+                )
                 .addTo(compositeDisposable)
     }
 
