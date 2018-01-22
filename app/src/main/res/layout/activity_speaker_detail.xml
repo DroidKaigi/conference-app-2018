@@ -18,6 +18,8 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
+                android:elevation="0dp"
+                tools:targetApi="lollipop"
                 />
 
             <FrameLayout
