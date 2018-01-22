@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
+        <import type="android.view.View" />
+
         <variable
             name="post"
             type="io.github.droidkaigi.confsched2018.model.Post"
+            />
+
+        <variable
+            name="expandable"
+            type="Boolean"
             />
     </data>
     <android.support.constraint.ConstraintLayout
@@ -66,6 +73,7 @@
             android:layout_marginEnd="8dp"
             android:contentDescription="@string/feed_content_description_expand_button"
             android:scaleType="center"
+            android:visibility="@{expandable ? View.VISIBLE: View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/content"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_expand_more_black_24dp"
