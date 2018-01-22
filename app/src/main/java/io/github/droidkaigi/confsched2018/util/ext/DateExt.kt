@@ -9,17 +9,17 @@ import java.util.TimeZone
 fun Date.toReadableDateTimeString() = "${toReadableDateString()} ${toReadableTimeString()}"
 
 fun Date.toReadableDateString() = SimpleDateFormat("MM/dd", Locale.US).apply {
-    timeZone = if (Prefs.enableLocalTime) {
-        TimeZone.getDefault()
-    } else {
-        TimeZone.getTimeZone("Asia/Tokyo")
-    }
+    timeZone = timeZone()
 }.format(this)
 
 fun Date.toReadableTimeString() = SimpleDateFormat("HH:mm", Locale.US).apply {
-    timeZone = if (Prefs.enableLocalTime) {
+    timeZone = timeZone()
+}.format(this)
+
+private fun timeZone(): TimeZone {
+    return if (Prefs.enableLocalTime) {
         TimeZone.getDefault()
     } else {
         TimeZone.getTimeZone("Asia/Tokyo")
     }
-}.format(this)
+}
