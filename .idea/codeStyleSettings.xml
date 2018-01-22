@@ -251,6 +251,7 @@
         </codeStyleSettings>
         <codeStyleSettings language="kotlin">
           <option name="METHOD_ANNOTATION_WRAP" value="1" />
+          <option name="FIELD_ANNOTATION_WRAP" value="1" />
         </codeStyleSettings>
       </value>
     </option>
