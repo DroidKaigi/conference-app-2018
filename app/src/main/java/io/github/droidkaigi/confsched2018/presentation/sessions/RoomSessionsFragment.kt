@@ -142,7 +142,7 @@ class RoomSessionsFragment : Fragment(), Injectable {
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)
                     })
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp,
+            setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
         }
     }
