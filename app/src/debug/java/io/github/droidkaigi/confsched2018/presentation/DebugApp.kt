@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2018.presentation
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import com.tomoima.debot.DebotConfigurator
+import com.tomoima.debot.DebotStrategyBuilder
 import timber.log.Timber
 
 class DebugApp : App() {
@@ -28,7 +29,11 @@ class DebugApp : App() {
     }
 
     private fun setupDebot() {
-        DebotConfigurator.configureWithDefault()
+        val builder = DebotStrategyBuilder.Builder()
+                .registerMenu("Send Notification", NotificationDebotStrategy())
+                .build()
+
+        DebotConfigurator.configureWithCustomizedMenu(builder.strategyList)
         registerActivityLifecycleCallbacks(DebotObserver())
     }
 }

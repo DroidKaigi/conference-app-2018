@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsView
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailViewModel
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsViewModel
+import io.github.droidkaigi.confsched2018.presentation.staff.StaffViewModel
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailViewModel
 
 @Module
@@ -82,6 +83,12 @@ interface ViewModelModule {
     @ViewModelKey(ContributorsViewModel::class)
     fun bindContributorsViewModel(
             contributorsViewModel: ContributorsViewModel
+    ): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(StaffViewModel::class)
+    fun bindStaffViewModel(
+            staffViewModel: StaffViewModel
     ): ViewModel
 
     @Binds @IntoMap
