@@ -52,7 +52,7 @@
             android:fontFamily="sans-serif-light"
             android:text=' " ?'
             android:textColor="#de000000"
-            android:textSize="23dp"
+            android:textSize="23sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="@id/conference_name"
             app:layout_constraintTop_toTopOf="parent"
