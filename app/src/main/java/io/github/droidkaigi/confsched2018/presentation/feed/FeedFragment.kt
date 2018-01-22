@@ -29,6 +29,7 @@ class FeedFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentFeedBinding
 
     private val postsSection = Section()
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
 
     private val feedItemCollapsed by lazy {
         ConstraintSet().apply {
@@ -60,6 +61,7 @@ class FeedFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         postsViewModel.feeds.observe(this, { result ->
@@ -90,7 +92,7 @@ class FeedFragment : Fragment(), Injectable {
 
     override fun onResume() {
         super.onResume()
-        postsViewModel.sendFeedPageView(activity!!, this::class.java.simpleName)
+        fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
     }
 
     private fun setupRecyclerView() {
