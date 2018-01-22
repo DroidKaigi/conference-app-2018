@@ -45,8 +45,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->
             val navigationItem = BottomNavigationItem
-                    .values()
-                    .first { it.menuId == item.itemId }
+                    .forId(item.itemId)
 
             setupToolbar(navigationItem)
 
@@ -113,11 +112,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
         companion object {
             fun forId(@IdRes id: Int): BottomNavigationItem {
-                values().forEach {
-                    if (id == it.menuId)
-                        return it
-                }
-                throw IllegalArgumentException("wtf!")
+                return values().first { it.menuId == id }
             }
         }
     }
