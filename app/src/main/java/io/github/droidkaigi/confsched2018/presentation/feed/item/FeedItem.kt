@@ -39,7 +39,11 @@ data class FeedItem(
                         viewBinding.root.setOnClickListener {
                             val parent = viewBinding.root.parent as RecyclerView
                             parent.setOnTouchListener(touchIgnorer)
-                            val transition = (if (expanded) collapseTransition else expandTransition).clone()
+
+                            val transition = when (expanded) {
+                                true -> collapseTransition
+                                false -> expandTransition
+                            }.clone()
 
                             transition.addListener(object : TransitionListenerAdapter() {
                                 override fun onTransitionEnd(transition: Transition) {
