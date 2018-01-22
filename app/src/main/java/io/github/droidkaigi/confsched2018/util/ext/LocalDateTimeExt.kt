@@ -4,9 +4,5 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 
 fun LocalDateTime.toUnixMills(): Long {
-    val timeZone = toZoneId("JST")
-    return atZone(timeZone).toInstant().toEpochMilli()
+    return atZone(ZoneId.of("JST", ZoneId.SHORT_IDS)).toInstant().toEpochMilli()
 }
-
-private fun toZoneId(id: String, shortIds: MutableMap<String, String> = ZoneId.SHORT_IDS) =
-        ZoneId.of(id, shortIds)
