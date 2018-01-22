@@ -20,8 +20,6 @@ import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
 import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLollipop
 import javax.inject.Inject
 
-
-
 class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
@@ -97,7 +95,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
             val isUseToolbarElevation: Boolean,
             val navigate: NavigationController.() -> Unit
     ) {
-        SESSION(R.id.navigation_sessions,null,  R.drawable.ic_logo_white, false, {
+        SESSION(R.id.navigation_sessions, null, R.drawable.ic_logo_white, false, {
             navigateToSessions()
         }),
         SEARCH(R.id.navigation_search, R.string.search_title, null, false, {
@@ -106,7 +104,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         FAVORITE(R.id.navigation_favorite_sessions, R.string.favorite_title, null, true, {
             navigateToFavoriteSessions()
         }),
-        FEED(R.id.navigation_feed, R.string.feed_title,null, true, {
+        FEED(R.id.navigation_feed, R.string.feed_title, null, true, {
             navigateToFeed()
         });
 
