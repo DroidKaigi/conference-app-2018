@@ -18,10 +18,6 @@ class FirebaseEvent @Inject constructor(val context: Context) : LifecycleObserve
         fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
     }
 
-    fun sendPageView(activity: Activity, className: String) {
-        fireBaseAnalytics?.setCurrentScreen(activity, null, className)
-    }
-
     fun sendEvent(params: Bundle) {
         fireBaseAnalytics?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, params)
     }
