@@ -15,7 +15,6 @@ import java.util.Date
 @RunWith(Enclosed::class)
 class DateSessionsSectionTest {
 
-    @RunWith(RobolectricTestRunner::class)
     abstract class BaseTest {
         lateinit var section: DateSessionsSection
 
@@ -40,6 +39,7 @@ class DateSessionsSectionTest {
         }
     }
 
+    @RunWith(RobolectricTestRunner::class)
     class UpdateSessionsTest : BaseTest() {
 
         @Test fun emptySessions() {
@@ -82,6 +82,7 @@ class DateSessionsSectionTest {
         }
     }
 
+    @RunWith(RobolectricTestRunner::class)
     class GateHeaderPositionByDateTest : BaseTest() {
 
         @Test fun emptySessions() {
@@ -122,6 +123,7 @@ class DateSessionsSectionTest {
         }
     }
 
+    @RunWith(RobolectricTestRunner::class)
     class GetDateNumberOrNullTest : BaseTest() {
 
         @Test fun emptySessions() {
