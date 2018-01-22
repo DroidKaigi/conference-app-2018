@@ -151,13 +151,24 @@
                 android:value=".presentation.MainActivity"
                 />
         </activity>
+        <activity
+            android:name=".presentation.staff.StaffActivity"
+            android:label="@string/staff"
+            android:parentActivityName=".presentation.MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.MainActivity"
+                />
+        </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDGetZ-L3B8oKXLHELbMsHmyPSyrQZW55s"
             />
+
         <receiver android:name=".presentation.common.broadcastreceiver.NotificationBroadcastReceiver" />
 
-        <activity android:name=".presentation.staff.StaffActivity"></activity>
         <receiver android:name=".presentation.common.broadcastreceiver.LocaleChangedBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
