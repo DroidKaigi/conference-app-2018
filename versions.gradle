@@ -24,6 +24,7 @@ ext {
             debot           : "2.0.3",
             ossLicenses     : "0.9.1",
             deploygate      : "1.1.4",
+            playPublisher   : "1.2.0",
             robolectric     : "3.5.1",
     ]
 
@@ -87,7 +88,7 @@ ext {
                     androidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
             ],
             playService            : [
-                    map      : "com.google.android.gms:play-services-maps:$versions.firebase"
+                    map: "com.google.android.gms:play-services-maps:$versions.firebase"
             ],
             firebase               : [
                     firestore: "com.google.firebase:firebase-firestore:$versions.firebase",
