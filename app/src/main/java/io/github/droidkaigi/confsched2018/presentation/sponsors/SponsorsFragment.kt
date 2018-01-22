@@ -98,8 +98,12 @@ class SponsorsFragment : Fragment(), Injectable {
             spanCount = SPONSOR_SCREEN_MAX_SPAN_SIZE
             add(sponsorPlansSection)
             setOnItemClickListener({ item, _ ->
-                val url = (item as? SponsorItem)?.sponsor?.link ?: return@setOnItemClickListener
+                val sponsor = (item as? SponsorItem)?.sponsor
+                val url = sponsor?.link ?: return@setOnItemClickListener
                 navigationController.navigateToExternalBrowser(url)
+                sponsorsViewModel.sendSponsorTappedEvent(sponsor.link,
+                        getString(R.string.firebase_analytics_event_sponsor),
+                        item.planType::class.java.simpleName.toLowerCase())
             })
         }
         val layoutManager = GridLayoutManager(context, SPONSOR_SCREEN_MAX_SPAN_SIZE).apply {

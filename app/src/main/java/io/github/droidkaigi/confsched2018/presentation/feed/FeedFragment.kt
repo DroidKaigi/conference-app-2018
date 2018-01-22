@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
@@ -28,6 +29,7 @@ class FeedFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentFeedBinding
 
     private val postsSection = Section()
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
 
     private val feedItemCollapsed by lazy {
         ConstraintSet().apply {
@@ -59,6 +61,7 @@ class FeedFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         postsViewModel.feeds.observe(this, { result ->
@@ -85,6 +88,11 @@ class FeedFragment : Fragment(), Injectable {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
     }
 
     private fun setupRecyclerView() {

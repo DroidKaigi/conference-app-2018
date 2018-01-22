@@ -12,6 +12,7 @@ import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -38,6 +39,7 @@ import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable {
 
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentAllSessionsBinding
 
     private val sessionsSection = DateSessionsSection()
@@ -64,6 +66,7 @@ class AllSessionsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         val progressTimeLatch = ProgressTimeLatch {
@@ -92,6 +95,13 @@ class AllSessionsFragment : Fragment(), Injectable {
             val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
             binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
         })
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
+        }
     }
 
     private fun setupRecyclerView() {
