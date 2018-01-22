@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.util
 
-import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
