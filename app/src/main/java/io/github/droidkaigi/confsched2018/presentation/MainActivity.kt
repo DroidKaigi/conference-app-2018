@@ -18,7 +18,6 @@ import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActiv
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
 import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
 import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLollipop
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -49,22 +48,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
                     .values()
                     .first { it.menuId == item.itemId }
 
-            binding.toolbar.elevationForPostLollipop = if (navigationItem.isUseToolbarElevation) {
-                resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
-            } else {
-                0F
-            }
-            supportActionBar?.apply {
-                title = if (navigationItem.imageRes != null) {
-                    setDisplayShowHomeEnabled(true)
-                    setIcon(navigationItem.imageRes)
-                    null
-                } else {
-                    setDisplayShowHomeEnabled(false)
-                    setIcon(null)
-                    item.title
-                }
-            }
+            setupToolbar(navigationItem)
 
             navigationItem.navigate(navigationController)
             true
@@ -75,25 +59,30 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         binding.bottomNavigation.setOnNavigationItemReselectedListener { }
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        if (savedInstanceState != null) {
-            val navigationItem: BottomNavigationItem =
-                    BottomNavigationItem.forId(binding.bottomNavigation.selectedItemId)
-            Timber.d("menu: %s", navigationItem)
-            supportActionBar?.apply {
-                title = if (navigationItem.imageRes != null) {
-                    setDisplayShowHomeEnabled(true)
-                    setIcon(navigationItem.imageRes)
-                    null
-                } else {
-                    setDisplayShowHomeEnabled(false)
-                    setIcon(null)
-                    getString(navigationItem.titleRes!!)
-                }
+    private fun setupToolbar(navigationItem: BottomNavigationItem) {
+        binding.toolbar.elevationForPostLollipop = if (navigationItem.isUseToolbarElevation) {
+            resources.getDimensionPixelSize(R.dimen.elevation_app_bar).toFloat()
+        } else {
+            0F
+        }
+        supportActionBar?.apply {
+            title = if (navigationItem.imageRes != null) {
+                setDisplayShowHomeEnabled(true)
+                setIcon(navigationItem.imageRes)
+                null
+            } else {
+                setDisplayShowHomeEnabled(false)
+                setIcon(null)
+                getString(navigationItem.titleRes!!)
             }
         }
     }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupToolbar(BottomNavigationItem.forId(binding.bottomNavigation.selectedItemId))
+    }
+
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     override fun onBackPressed() {
