@@ -2,6 +2,7 @@
     <!-- Session -->
     <dimen name="speaker_image">28dp</dimen>
     <dimen name="session_title_line_spacing">4sp</dimen>
+    <dimen name="session_recycler_bottom_padding">10dp</dimen>
 
     <!-- Feed -->
     <dimen name="feed_expand_button_size">48dp</dimen>
