@@ -6,6 +6,6 @@ import android.arch.persistence.room.Relation
 data class SponsorPlanWithSponsor(
     @Embedded
     var sponsorPlan: SponsorPlanEntity? = null,
-    @Relation(parentColumn = "id", entityColumn = "userId")
+    @Relation(parentColumn = "id", entityColumn = "plan_id")
     var sponsors: List<SponsorEntity> = emptyList()
 )

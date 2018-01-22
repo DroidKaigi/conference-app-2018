@@ -21,7 +21,7 @@ import io.reactivex.Flowable
     abstract fun deleteAll()
 
     @Transaction
-    fun clearAndInsert(plans: List<SponsorPlanEntity>, sponsors: List<SponsorEntity>) {
+    open fun clearAndInsert(plans: List<SponsorPlanEntity>, sponsors: List<SponsorEntity>) {
         deleteAll()
         insertSponsorPlan(plans)
         insertSponsor(sponsors)
@@ -29,5 +29,4 @@ import io.reactivex.Flowable
 
     @Query("SELECT * FROM sponsor_plan")
     abstract fun getAllSponsorPlan(): Flowable<List<SponsorPlanWithSponsor>>
-
 }

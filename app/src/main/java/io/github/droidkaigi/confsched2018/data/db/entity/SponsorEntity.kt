@@ -10,12 +10,13 @@ import android.arch.persistence.room.PrimaryKey
             ForeignKey(
                     entity = SponsorPlanEntity::class,
                     parentColumns = arrayOf("id"),
-                    childColumns = arrayOf("planId"),
+                    childColumns = arrayOf("plan_id"),
                     onDelete = ForeignKey.CASCADE
             )
         ])
 data class SponsorEntity(
         @PrimaryKey
+        @ColumnInfo(name = "plan_id", index = true)
         var planId: Int,
         var link: String,
         @ColumnInfo(name = "base64_img")
