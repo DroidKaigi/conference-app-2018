@@ -54,7 +54,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
         orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
 
-        LayoutInflater.from(context).inflate(R.layout.view_spearkers_summary_layout, this)
+        LayoutInflater.from(context).inflate(R.layout.view_speakers_summary_layout, this)
         speakerContainer = findViewById(R.id.speaker_container)
 
         speakerContainer.setLayoutManager(LinearLayoutManager(context))
@@ -77,10 +77,10 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
         speakerList.clear()
         speakerList.addAll(speakers)
 
-        updateSpearkers()
+        updateSpeakers()
     }
 
-    private fun updateSpearkers() {
+    private fun updateSpeakers() {
         if (speakerList.isEmpty()) {
         } else {
             var speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
