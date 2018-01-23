@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:loadImage="@{staff.avatarUrl}"
             app:placeHolder="@{@drawable/ic_person_black_24dp}"
-            tools:src="@drawable/ic_person_black_24dp"
+            tools:src="@tools:sample/avatars"
             />
         <TextView
             android:id="@+id/staff_name"
@@ -43,7 +43,7 @@
             app:layout_constraintStart_toEndOf="@id/staff_avatar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="First Family"
+            tools:text="@tools:sample/first_names"
             />
 
         <View

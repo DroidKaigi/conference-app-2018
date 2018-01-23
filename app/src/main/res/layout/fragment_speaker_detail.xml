@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:loadImage="@{speaker.imageUrl}"
             app:placeHolder="@{@drawable/ic_person_black_24dp}"
-            tools:src="@drawable/ic_person_black_24dp"
+            tools:src="@tools:sample/avatars"
             />
 
         <TextView
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/speaker_image"
-            tools:text="takahirom"
+            tools:text="@tools:sample/full_names"
             />
         <TextView
             android:id="@+id/speaker_tag_line"

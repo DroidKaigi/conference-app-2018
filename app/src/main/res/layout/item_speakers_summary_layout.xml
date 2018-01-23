@@ -38,7 +38,7 @@
             android:textAppearance="@style/TextAppearance.App.Body2"
             app:layout_constraintStart_toEndOf="@id/speaker_image"
             app:textColor="@color/app_bar_text_color"
-            tools:text="John Doe"
+            tools:text="@tools:sample/first_names"
             />
 
     </LinearLayout>

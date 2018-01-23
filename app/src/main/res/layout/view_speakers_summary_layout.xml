@@ -29,7 +29,7 @@
         android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
-        tools:text="John Doe"
+        tools:text="@tools:sample/full_names"
         />
 
 </LinearLayout>
