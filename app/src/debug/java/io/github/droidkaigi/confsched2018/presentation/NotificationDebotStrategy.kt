@@ -5,7 +5,6 @@ import android.content.Context
 import com.tomoima.debot.strategy.DebotStrategy
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.common.broadcastreceiver.NotificationBroadcastReceiver
-import io.github.droidkaigi.confsched2018.util.NotificationUtil
 import io.github.droidkaigi.confsched2018.util.ext.toReadableDateTimeString
 import java.util.Date
 
@@ -35,8 +34,7 @@ class NotificationDebotStrategy : DebotStrategy() {
                 context,
                 id,
                 title,
-                text,
-                NotificationUtil.ChannelType.FAVORITE_SESSION_START
+                text
         )
 
         context.sendBroadcast(intent)
