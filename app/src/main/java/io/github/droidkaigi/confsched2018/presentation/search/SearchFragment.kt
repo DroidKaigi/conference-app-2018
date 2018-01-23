@@ -138,7 +138,10 @@ class SearchFragment : Fragment(), Injectable {
         val searchView = menuSearchItem.actionView as SearchView
         searchView.maxWidth = Int.MAX_VALUE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return false
+            }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val query = newText.orEmpty()
