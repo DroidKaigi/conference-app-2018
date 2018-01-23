@@ -14,4 +14,8 @@ object Prefs : KotprefModel() {
             context.bool(R.bool.pref_default_value_enable_notification),
             R.string.pref_key_enable_notification
     )
+    var enableHideBottomNavigationBar: Boolean by booleanPref(
+            context.bool(R.bool.pref_default_value_enable_hide_bottom_navigation),
+            R.string.pref_key_enable_hide_bottom_navigation
+    )
 }
