@@ -50,13 +50,14 @@ object NotificationHelper {
             text: String,
             pendingIntent: PendingIntent?
     ) {
-        val notification = NotificationCompat.Builder(context, ChannelType.FAVORITE_SESSION_START.id)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setFullScreenIntent(pendingIntent, true)
-                .setAutoCancel(true)
-                .setColor(ContextCompat.getColor(context, R.color.primary))
-                .setSmallIcon(R.drawable.ic_notification).build()
+        val notification =
+                NotificationCompat.Builder(context, ChannelType.FAVORITE_SESSION_START.id)
+                        .setContentTitle(title)
+                        .setContentText(text)
+                        .setFullScreenIntent(pendingIntent, true)
+                        .setAutoCancel(true)
+                        .setColor(ContextCompat.getColor(context, R.color.primary))
+                        .setSmallIcon(R.drawable.ic_notification).build()
         val notificationManagerCompat = NotificationManagerCompat.from(context)
 
         notificationManagerCompat.notify(title.hashCode(), notification)
