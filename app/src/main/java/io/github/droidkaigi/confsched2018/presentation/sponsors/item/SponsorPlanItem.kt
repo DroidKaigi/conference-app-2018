@@ -16,4 +16,3 @@ data class SponsorPlanItem(
 
     override fun getLayout(): Int = R.layout.item_sponsor_plan
 }
-

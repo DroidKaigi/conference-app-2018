@@ -9,8 +9,7 @@ import io.github.droidkaigi.confsched2018.util.NotificationUtil
 import io.github.droidkaigi.confsched2018.util.ext.toReadableDateTimeString
 import java.util.Date
 
-class NotificationDebotStrategy: DebotStrategy() {
-
+class NotificationDebotStrategy : DebotStrategy() {
 
     override fun startAction(activity: Activity) {
         // lets send a notification!

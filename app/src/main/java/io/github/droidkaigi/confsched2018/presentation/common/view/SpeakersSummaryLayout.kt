@@ -13,7 +13,6 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity
 
-
 /**
  * A custom view for showing the avatar icons and names of speakers.
  *
