@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:gravity="center_vertical"
     tools:orientation="horizontal"
     tools:parentTag="android.widget.LinearLayout"
     >
-    <FrameLayout
-        android:id="@+id/speaker_image_container"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/speaker_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
+        app:textColor="@color/app_bar_text_color"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         />
@@ -28,4 +32,4 @@
         tools:text="John Doe"
         />
 
-</merge>
+</LinearLayout>
