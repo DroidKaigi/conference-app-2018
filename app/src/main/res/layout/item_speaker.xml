@@ -36,11 +36,11 @@
             />
         <TextView
             android:id="@+id/speaker_name"
+            style="@style/TextStyle.App.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@{speaker.name}"
-            style="@style/TextStyle.App.Body1"
             app:highlightText="@{searchQuery}"
             app:layout_constraintBottom_toTopOf="@+id/speaker_desc"
             app:layout_constraintStart_toEndOf="@id/speaker_image"
@@ -50,13 +50,13 @@
             />
         <TextView
             android:id="@+id/speaker_desc"
+            style="TextStyle.App.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{speaker.tagLine}"
-            style="TextStyle.App.Body2"
             app:highlightText="@{searchQuery}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

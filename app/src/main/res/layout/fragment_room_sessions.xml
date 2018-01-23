@@ -29,9 +29,13 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sessions_recycler"
+            style="@style/BaseRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clipToPadding="false"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/session_recycler_bottom_padding"
+            android:paddingTop="@dimen/session_recycler_top_padding"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +46,8 @@
 
         <ProgressBar
             android:id="@+id/progress"
-            android:visibility="gone"
             style="@style/ProgressBar"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

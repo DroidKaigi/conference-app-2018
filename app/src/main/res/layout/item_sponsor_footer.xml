@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="planType"
+            type="io.github.droidkaigi.confsched2018.model.SponsorPlan.Type"
+            />
+        <import type="io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItemExt" />
+    </data>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:background="@{SponsorItemExt.fromPlanType(context, planType)}"
+        />
+</layout>

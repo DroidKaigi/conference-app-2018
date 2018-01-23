@@ -27,8 +27,11 @@ import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActi
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
+import io.github.droidkaigi.confsched2018.presentation.staff.StaffActivity
+import io.github.droidkaigi.confsched2018.presentation.staff.StaffFragment
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
+import io.github.droidkaigi.confsched2018.util.CustomTabsHelper
 import javax.inject.Inject
 
 class NavigationController @Inject constructor(private val activity: AppCompatActivity) {
@@ -90,8 +93,20 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(ContributorsFragment.newInstance())
     }
 
+    fun navigateToStaff() {
+        replaceFragment(StaffFragment.newInstance())
+    }
+
+    fun navigateToMainActivity() {
+        MainActivity.start(activity)
+    }
+
     fun navigateToContributorActivity() {
         ContributorsActivity.start(activity)
+    }
+
+    fun navigateToStaffActivity() {
+        StaffActivity.start(activity)
     }
 
     fun navigateToSessionDetailActivity(session: Session) {
@@ -126,20 +141,29 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
-                .setExitAnimations(
-                        activity,
-                        android.R.anim.slide_in_left,
-                        android.R.anim.slide_out_right
-                )
                 .build()
                 .apply {
                     val appUri = Uri.parse("android-app://${activity.packageName}")
                     intent.putExtra(Intent.EXTRA_REFERRER, appUri)
                 }
 
-        // welcome contributions :)
-        // e.g. support in-app browser
+        val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+        packageName ?: run {
+            // Cannot use custom tabs.
+            activity.startActivity(customTabsIntent.intent.setData(Uri.parse(url)))
+            return
+        }
 
+        customTabsIntent.intent.`package` = packageName
         customTabsIntent.launchUrl(activity, Uri.parse(url))
+    }
+
+    fun navigateImplicitly(url: String?) {
+        url?.let {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            intent.resolveActivity(activity.packageManager)?.let {
+                activity.startActivity(intent)
+            }
+        }
     }
 }

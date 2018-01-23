@@ -20,10 +20,10 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
+import io.github.droidkaigi.confsched2018.presentation.sessions.item.FavoriteSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
-import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -37,7 +37,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
 
     private lateinit var binding: FragmentFavoriteSessionsBinding
 
-    private val sessionsSection = DateSessionsSection()
+    private val sessionsSection = FavoriteSessionsSection()
 
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
@@ -72,7 +72,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                     progressTimeLatch.loading = false
                     val sessions = result.data
                     sessionsSection.updateSessions(
-                            sessions, onFavoriteClickListener, simplify = true)
+                            sessions, onFavoriteClickListener)
                     binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
                     binding.sessionsRecycler.setVisible(sessions.isNotEmpty())
                 }
@@ -109,7 +109,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                         val dayTitle = getString(R.string.session_day_title, dayNumber)
                         binding.dayHeader.setTextIfChanged(dayTitle)
                     })
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp,
+            setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
         }
     }

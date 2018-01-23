@@ -9,13 +9,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchTopicsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicsGroup
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -23,6 +23,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SearchTopicsFragment : Fragment(), Injectable {
+
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchTopicsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -31,8 +33,7 @@ class SearchTopicsFragment : Fragment(), Injectable {
         ViewModelProviders.of(this, viewModelFactory).get(SearchTopicsViewModel::class.java)
     }
 
-    private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
-    private val topicsGroup = TopicsGroup(fragmentDataBindingComponent)
+    private val topicsGroup = TopicsGroup()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,18 @@ class SearchTopicsFragment : Fragment(), Injectable {
                 }
             }
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
+        }
     }
 
     private fun setupRecyclerView() {

@@ -27,9 +27,13 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sessions_recycler"
+            style="@style/BaseRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clipToPadding="false"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/session_recycler_bottom_padding"
+            android:paddingTop="@dimen/session_recycler_top_padding"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,11 +57,11 @@
             />
         <TextView
             android:id="@+id/mysession_inactive_title"
+            style="@style/TextStyle.App.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/favorite_not_found"
-            style="@style/TextStyle.App.Title"
             app:layout_constraintBottom_toTopOf="@+id/mysession_inactive_detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -66,12 +70,12 @@
             />
         <TextView
             android:id="@+id/mysession_inactive_detail"
+            style="@style/TextStyle.App.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="@string/favorite_not_found_detail"
-            style="@style/TextStyle.App.Caption"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -87,8 +91,8 @@
             />
         <ProgressBar
             android:id="@+id/progress"
-            android:visibility="gone"
             style="@style/ProgressBar"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

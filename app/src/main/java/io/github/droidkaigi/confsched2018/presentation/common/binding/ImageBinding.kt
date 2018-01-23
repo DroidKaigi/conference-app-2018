@@ -37,3 +37,22 @@ fun setImageFromImageUrl(imageView: ImageView, imageUrl: String) {
             .transform(CircleCrop())
             .into(imageView)
 }
+@BindingAdapter(
+        value = [
+            "loadImage",
+            "placeHolder",
+            "android:layout_width",
+            "android:layout_height"
+        ]
+)
+fun ImageView.loadImage(url: String?, placeHolder: Drawable, width: Float, height: Float) {
+    url ?: return
+    CustomGlideApp
+            .with(this)
+            .load(url)
+            .placeholder(placeHolder)
+            .override(width.toInt(), height.toInt())
+            .dontAnimate()
+            .transform(CircleCrop())
+            .into(this)
+}

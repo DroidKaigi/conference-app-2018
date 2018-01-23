@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.EmptySponsorItem
+import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorFooterItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.SponsorPlanItem
 import io.github.droidkaigi.confsched2018.presentation.sponsors.item.getSponsorItemSpanSize
@@ -28,6 +29,8 @@ class SponsorsSection : Section() {
                         add(EmptySponsorItem(plan.type))
                     }
                 }
+
+                setFooter(SponsorFooterItem(plan.type))
             }
         }
 

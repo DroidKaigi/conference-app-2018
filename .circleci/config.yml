@@ -70,6 +70,9 @@ jobs:
           command: |
               if [ $CIRCLE_BRANCH = 'master' ]; then
                   ./gradlew :app:uploadDeployGateRelease
+              elif [[ "${CIRCLE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                  echo "Deploy to Google Play"
+                  ./gradlew clean assembleRelease publishApkRelease
               fi
       - store_artifacts:
           path: app/build/reports
@@ -77,3 +80,11 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk
           destination: apk
+
+# workaround for tag trigger
+# because workflow git tag trigger does not work well
+deployment:
+  fake_for_deploy:
+    tag: /.*/
+    commands:
+      - echo "make tags run in 2.0"

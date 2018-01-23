@@ -88,28 +88,6 @@
                 tools:text=" / Room A"
                 />
 
-            <TextView
-                android:id="@+id/level"
-                style="@style/TextStyle.App.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/shape_round_corner_2dp"
-                android:gravity="center"
-                android:maxLines="3"
-                android:paddingBottom="4dp"
-                android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
-                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/period"
-                tools:text="for intermediate and/or expert"
-                />
-
             <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/title"
                 style="@style/TextStyle.App.Title"
@@ -122,7 +100,7 @@
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/level"
+                app:layout_constraintTop_toBottomOf="@id/period"
                 app:layout_goneMarginTop="12dp"
                 tools:text="テストセッション"
                 />
@@ -146,18 +124,29 @@
                 tools:text="Material is the metaphor A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic."
                 />
 
+            <ImageView
+                android:id="@+id/level"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
+                android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                />
+
             <TextView
                 android:id="@+id/topic"
                 style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
                 android:maxLines="2"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/level"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintStart_toEndOf="@id/level"
+                app:layout_constraintTop_toTopOf="@id/level"
                 />
 
             <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
@@ -167,7 +156,7 @@
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/topic"
-                app:layout_goneMarginTop="16dp"
+                app:layout_goneMarginTop="0dp"
                 app:speakers="@{session.speakers}"
                 app:textColor="@color/black"
                 />
@@ -205,7 +194,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:drawablePadding="4dp"
-                android:drawableStart="@drawable/ic_check_circle_black_24dp"
                 android:gravity="center_vertical"
                 android:text="@string/session_finished"
                 android:textColor="@android:color/black"
@@ -214,6 +202,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
+                app:vectorDrawableStart="@{@drawable/ic_check_circle_black_24dp}"
+                tools:drawableStart="@drawable/ic_check_circle_black_24dp"
                 />
 
             <TextView

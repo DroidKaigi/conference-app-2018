@@ -15,15 +15,17 @@ class SimpleSessionsSection : Section() {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
                     SpeechSessionItem(
-                            it,
-                            onFavoriteClickListener,
-                            true,
-                            searchQuery
+                            session = it,
+                            onFavoriteClickListener = onFavoriteClickListener,
+                            isShowDayNumber = true,
+                            searchQuery = searchQuery
                     ) as Item<*>
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")
-                    SpecialSessionItem(it) as Item<*>
+                    SpecialSessionItem(
+                            session = it
+                    ) as Item<*>
                 }
             }
         }

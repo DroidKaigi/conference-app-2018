@@ -8,12 +8,14 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsActivity
 import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
+import io.github.droidkaigi.confsched2018.presentation.staff.StaffActivity
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -82,6 +84,9 @@ class DrawerMenu @Inject constructor(
             val activityClass: KClass<*>,
             val navigate: NavigationController.() -> Unit
     ) {
+        HOME(R.id.nav_item_home, MainActivity::class, {
+            navigateToMainActivity()
+        }),
         ABOUT(R.id.nav_item_info, AboutThisAppActivity::class, {
             navigateToAboutThisAppActivity()
         }),
@@ -93,6 +98,9 @@ class DrawerMenu @Inject constructor(
         }),
         CONTRIBUTOR(R.id.nav_item_contributor, ContributorsActivity::class, {
             navigateToContributorActivity()
+        }),
+        STAFF(R.id.nav_item_staff, StaffActivity::class, {
+            navigateToStaffActivity()
         }),
         SETTINGS(R.id.nav_item_setting, SettingsActivity::class, {
             navigateToSettingsActivity()

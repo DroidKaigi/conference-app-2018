@@ -109,8 +109,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
                     e.onError(task.exception!!)
                     return@addOnCompleteListener
                 }
-                if (!task.result.isEmpty) {
-                    // FIXME: I want to create document without setting value
+                if (task.result.isEmpty) {
                     favorites.add(mapOf("initialized" to true)).addOnCompleteListener {
                         if (DEBUG) Timber.d("Firestore:create document for listing")
                         e.onSuccess(currentUser)

@@ -4,18 +4,17 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchSpeakersBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
+import io.github.droidkaigi.confsched2018.presentation.common.itemdecoration.StickyHeaderItemDecoration
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -23,6 +22,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SearchSpeakersFragment : Fragment(), Injectable {
+
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchSpeakersBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -31,8 +32,7 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         ViewModelProviders.of(this, viewModelFactory).get(SearchSpeakersViewModel::class.java)
     }
 
-    private val fragmentDataBindingComponent = FragmentDataBindingComponent(this)
-    private val speakersSection = SpeakersSection(fragmentDataBindingComponent)
+    private val speakersSection = SpeakersSection()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +60,18 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         })
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
+        }
+    }
+
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             setOnItemClickListener { item, _ ->
@@ -71,8 +83,19 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         binding.searchSessionRecycler.apply {
             adapter = groupAdapter
         }
-        binding.searchSessionRecycler.addItemDecoration(DividerItemDecoration(context,
-                LinearLayoutManager(activity).orientation))
+
+        binding.searchSessionRecycler.addItemDecoration(StickyHeaderItemDecoration(context,
+                object : StickyHeaderItemDecoration.Callback {
+                    override fun getGroupId(position: Int): Long {
+                        val initial = speakersSection.getSpeakerNameOrNull(position)?.get(0)
+                        initial ?: return -1
+                        return Character.toUpperCase(initial).toLong()
+                    }
+
+                    override fun getGroupFirstLine(position: Int): String? {
+                        return speakersSection.getSpeakerNameOrNull(position)?.get(0)?.toString()
+                    }
+                }))
     }
 
     companion object {
