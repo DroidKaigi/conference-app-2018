@@ -48,12 +48,22 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
     }
 
+    override fun onDestroy() {
+        currentSpeakerId = null
+        super.onDestroy()
+    }
+
     companion object {
         const val EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID"
+        private var currentSpeakerId: String? = null
         fun start(context: Context, speakerId: String) {
-            context.startActivity(Intent(context, SpeakerDetailActivity::class.java).apply {
-                putExtra(EXTRA_SPEAKER_ID, speakerId)
-            })
+            if (currentSpeakerId == null ||
+                    (currentSpeakerId != null && !currentSpeakerId.equals(speakerId))) {
+                currentSpeakerId = speakerId
+                context.startActivity(Intent(context, SpeakerDetailActivity::class.java).apply {
+                    putExtra(EXTRA_SPEAKER_ID, speakerId)
+                })
+            }
         }
     }
 }
