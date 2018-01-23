@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
 import android.support.annotation.MenuRes
 import android.support.annotation.StringRes
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.Fragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -16,6 +17,8 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
+import io.github.droidkaigi.confsched2018.presentation.common.view.BottomNavigationBehavior
 import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
 import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLollipop
 import javax.inject.Inject
@@ -39,6 +42,11 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
+        if (Prefs.enableHideBottomNavigationBar) {
+
+            (binding.bottomNavigation.layoutParams as CoordinatorLayout.LayoutParams).behavior =
+                    BottomNavigationBehavior()
+        }
         binding.bottomNavigation.disableShiftMode()
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->

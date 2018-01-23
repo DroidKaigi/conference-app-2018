@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.animation.Animator
 import android.content.Context
+import android.support.annotation.Keep
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
@@ -9,8 +10,10 @@ import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 
-class BottomNavigationBehavior(context: Context, attrs: AttributeSet) :
-        CoordinatorLayout.Behavior<BottomNavigationView>(context, attrs) {
+class BottomNavigationBehavior : CoordinatorLayout.Behavior<BottomNavigationView> {
+
+    @Keep constructor() : super()
+    @Keep constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     private var isAnimation: Boolean = false
     private var isSnackbarAppear: Boolean = false
