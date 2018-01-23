@@ -72,4 +72,3 @@ class SponsorsViewModel @Inject constructor(
         compositeDisposable.clear()
     }
 }
-

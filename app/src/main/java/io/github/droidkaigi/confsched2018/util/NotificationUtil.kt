@@ -41,4 +41,3 @@ private fun createNotificationChannel(context: Context, channelType: ChannelType
     val channel = NotificationChannel(channelType.id, channelName, channelType.importance)
     notificationManager.createNotificationChannel(channel)
 }
-
