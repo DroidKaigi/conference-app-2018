@@ -128,6 +128,7 @@
                 android:id="@+id/level"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@string/session_content_description_level"
                 android:layout_marginTop="16dp"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="@id/title"

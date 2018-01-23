@@ -24,6 +24,7 @@
     <string name="session_fetch_failed">セッションの取得に失敗しました</string>
     <string name="session_content_description_speaker">スピーカーの画像</string>
     <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
+    <string name="session_content_description_level">レベルの画像</string>
     <string name="session_load_retry">リトライ</string>
     <string name="session_finished">終了済みのセッション</string>
     <string name="session_go_to_questionnaire">アンケートへ</string>
@@ -55,6 +56,8 @@
     <string name="map_meeting_rooms_name">DroidKaigi 2018 会場</string>
     <string name="map_address">〒160–0023 東京都新宿区西新宿8丁目17 西新宿8–17–1 住友不動産新宿グランドタワー5F</string>
     <string name="map_nearby_stations">丸ノ内線「西新宿駅」 (1番出口徒歩3分) 大江戸線「都庁前駅」 (E4出口徒歩7分) 大江戸線「新宿西口駅」(D4出口徒歩11分) JR線・丸ノ内線･小田急線･京王線・新宿線・大江戸線「新宿駅」 (西口徒歩15分)</string>
+    <string name="map_place_icon_content_description">場所アイコン</string>
+    <string name="map_train_icon_content_description">電車アイコン</string>
 
     <!-- Sponsor -->
     <string name="sponsors_title_activity">スポンサー一覧</string>
