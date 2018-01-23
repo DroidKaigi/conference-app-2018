@@ -18,11 +18,16 @@ class ContributorDataRepository @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ContributorRepository {
     override fun loadContributors(): Completable {
+        // We want to implement paging logic,
+        // But The GitHub API does not return the total count of contributors in response data.
+        // And we want to show total count.
+        // So we fetch all contributors when first time.
         return (1..MAX_PAGE).map { page ->
             api.getContributors(OWNER, REPO, MAX_PER_PAGE, page)
         }.reduce { acc, single ->
                     acc.zipWith(single,
-                            BiFunction { page1: List<ContributorResponse>, page2: List<ContributorResponse> ->
+                            BiFunction { page1: List<ContributorResponse>,
+                                         page2: List<ContributorResponse> ->
                                 page1 + page2
                             })
                 }.doOnSuccess {
@@ -42,6 +47,8 @@ class ContributorDataRepository @Inject constructor(
         private const val OWNER = "DroidKaigi"
         private const val REPO = "conference-app-2018"
         private const val MAX_PER_PAGE = 100
+        // Max page num of github api for contributors.
+        // If the number of the contributors will be over 200, this number must be changed to 3.
         private const val MAX_PAGE = 2
         private const val DEBUG = false
     }
