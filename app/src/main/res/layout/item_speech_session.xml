@@ -158,6 +158,7 @@
                 app:layout_constraintTop_toBottomOf="@id/topic"
                 app:layout_goneMarginTop="0dp"
                 app:speakers="@{session.speakers}"
+                app:speakersApaterClickable="@{session.speakersAdapterClickable}"
                 app:textColor="@color/black"
                 />
 

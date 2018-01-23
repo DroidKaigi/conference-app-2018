@@ -61,7 +61,8 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val speaker = result.data.first
                     binding.speaker = speaker
-                    sessionsSection.updateSessions(result.data.second, onFavoriteClickListener)
+                    sessionsSection.updateSessions(result.data.second, onFavoriteClickListener,
+                            clickable = false)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
