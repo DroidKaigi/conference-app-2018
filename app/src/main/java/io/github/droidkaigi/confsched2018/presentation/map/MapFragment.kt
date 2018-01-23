@@ -1,6 +1,8 @@
 package io.github.droidkaigi.confsched2018.presentation.map
 
 import android.arch.lifecycle.ViewModelProvider
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentMapBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import javax.inject.Inject
@@ -36,9 +39,23 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.placeText.setOnClickListener {
+            val placeName = context?.getString(R.string.map_place_name)
+            val placeUri = Uri.parse("geo:0,0?q=$placeLat,$placeLang($placeName)")
+            val mapIntent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = placeUri
+            }
+            startActivity(mapIntent)
+        }
+    }
+
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
-            val latLng = LatLng(35.6957954, 139.69038920000003)
+            val latLng = LatLng(placeLat, placeLang)
             addMarker(MarkerOptions().position(latLng))
 
             val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16f)
@@ -83,5 +100,8 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     companion object {
         fun newInstance(): MapFragment = MapFragment()
+
+        private const val placeLat = 35.6957954
+        private const val placeLang = 139.69038920000003
     }
 }
