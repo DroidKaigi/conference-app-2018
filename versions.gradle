@@ -14,7 +14,8 @@ ext {
             supportLibrary  : "27.0.2",
             retrofit        : "2.3.0",
             kotshi          : "0.3.0",
-            arch            : "1.1.0",
+            archLifecycle   : "1.1.0",
+            archRoom        : "1.0.0",
             dagger          : "2.13",
             firebase        : "11.6.2", // Adjust version for emulator
             kotpref         : "2.3.0",
@@ -63,14 +64,14 @@ ext {
                     compiler: "se.ansman.kotshi:compiler:$versions.kotshi",
             ],
             lifecycle              : [
-                    runtime        : "android.arch.lifecycle:runtime:$versions.arch",
-                    extensions     : "android.arch.lifecycle:extensions:$versions.arch",
-                    reactivestreams: "android.arch.lifecycle:reactivestreams:$versions.arch",
+                    runtime        : "android.arch.lifecycle:runtime:$versions.archLifecycle",
+                    extensions     : "android.arch.lifecycle:extensions:$versions.archLifecycle",
+                    reactivestreams: "android.arch.lifecycle:reactivestreams:$versions.archLifecycle",
             ],
             room                   : [
-                    runtime : "android.arch.persistence.room:runtime:$versions.arch",
-                    rxjava2 : "android.arch.persistence.room:rxjava2:$versions.arch",
-                    compiler: "android.arch.persistence.room:compiler:$versions.arch",
+                    runtime : "android.arch.persistence.room:runtime:$versions.archRoom",
+                    rxjava2 : "android.arch.persistence.room:rxjava2:$versions.archRoom",
+                    compiler: "android.arch.persistence.room:compiler:$versions.archRoom",
             ],
             rxjava2                : [
                     core   : "io.reactivex.rxjava2:rxjava:2.1.8",
