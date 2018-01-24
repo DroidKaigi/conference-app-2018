@@ -13,7 +13,8 @@ data class SpeechSessionItem(
         private val onFavoriteClickListener: (Session.SpeechSession) -> Unit,
         private val isShowDayNumber: Boolean = false,
         private val searchQuery: String = "",
-        private val simplify: Boolean = false
+        private val simplify: Boolean = false,
+        private val userIdInDetail: String? = null
 ) : BindableItem<ItemSpeechSessionBinding>(
         session.id.toLong()
 ), SessionItem {
@@ -25,6 +26,7 @@ data class SpeechSessionItem(
         viewBinding.favorite.setOnClickListener {
             onFavoriteClickListener(session)
         }
+        viewBinding.speakerSummary.setSpeakerIdInDetail(userIdInDetail)
         viewBinding.isShowDayNumber = isShowDayNumber
         viewBinding.simplify = simplify
         viewBinding.goToQuestionnaire.setOnClickListener {
