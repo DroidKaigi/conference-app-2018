@@ -92,7 +92,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
 
             speakerAdapter.setOnItemClickListener(object : SpeakersAdapter.OnItemClickListener {
                 override fun onClick(view: View, speakerId: String) {
-                    if(speakersClickable) {
+                    if (speakersClickable) {
                         SpeakerDetailActivity.start(context, speakerId)
                     }
                 }
