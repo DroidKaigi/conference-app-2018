@@ -39,7 +39,8 @@ open class App : MultiDexApplication(), HasActivityInjector {
         if (FirebaseApp.getApps(this).isNotEmpty()) {
             val fireStore = FirebaseFirestore.getInstance()
             val settings = FirebaseFirestoreSettings.Builder()
-                    .setPersistenceEnabled(true)
+                    // https://github.com/DroidKaigi/conference-app-2018/issues/277#issuecomment-360171780
+                    // .setPersistenceEnabled(true)
                     .build()
             fireStore.firestoreSettings = settings
         }
