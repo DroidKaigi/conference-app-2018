@@ -6,6 +6,7 @@
     <!-- Preference Keys -->
     <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
+    <string name="pref_key_enable_hide_bottom_navigation" translatable="false">pref_key_enable_hide_bottom_navigation</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">Home</string>
@@ -29,6 +30,7 @@
     <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
+    <string name="session_content_description_level">Session Level image</string>
     <string name="session_header_divider" translatable="false">" / "</string>
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
@@ -59,8 +61,11 @@
     <string name="map_title_activity">Map</string>
     <string name="map_place_name">Bellesalle Shinjuku Grand Conference Center</string>
     <string name="map_meeting_rooms_name">DroidKaigi 2018 Place</string>
-    <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-3 Nishi Shinjuku, Shinjuku City, Tokyo 160-0023</string>
+    <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-1 Nishi Shinjuku,
+        Shinjuku City, Tokyo 160-0023</string>
     <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1 Toei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4 Toei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4 JR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
+    <string name="map_content_description_place_icon">Place icon</string>
+    <string name="map_content_description_train_icon">Train icon</string>
 
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
@@ -79,6 +84,9 @@
     <string name="settings_enable_notification_summary_preference">Choose whether to receive
         notification in this app.</string>
     <string name="settings_enable_notification_title_preference">Receive notification</string>
+    <string name="settings_enable_hide_bottom_navigation_title_preference">Hide BottomNavigation</string>
+    <string name="settings_enable_hide_bottom_navigation_summary_preference">Hide
+        BottomNavigationBar by scrolling or not.</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>

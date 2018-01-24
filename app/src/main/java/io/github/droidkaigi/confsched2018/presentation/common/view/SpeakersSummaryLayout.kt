@@ -13,7 +13,6 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity
 
-
 /**
  * A custom view for showing the avatar icons and names of speakers.
  *
@@ -57,7 +56,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.view_speakers_summary_layout, this)
         speakerContainer = findViewById(R.id.speaker_container)
 
-        speakerContainer.setLayoutManager(LinearLayoutManager(context))
+        speakerContainer.layoutManager = LinearLayoutManager(context)
         setSpeakers(speakerList)
     }
 
@@ -83,7 +82,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     private fun updateSpeakers() {
         if (speakerList.isEmpty()) {
         } else {
-            var speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
+            val speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
             speakerContainer.adapter = speakerAdapter
 
             speakerAdapter.setOnItemClickListener(object : SpeakersAdapter.OnItemClickListener {

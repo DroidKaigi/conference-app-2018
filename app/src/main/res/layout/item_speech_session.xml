@@ -22,10 +22,6 @@
             name="simplify"
             type="boolean"
             />
-        <variable
-            name="isFinished"
-            type="boolean"
-            />
     </data>
 
     <android.support.v7.widget.CardView
@@ -128,6 +124,7 @@
                 android:id="@+id/level"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@string/session_content_description_level"
                 android:layout_marginTop="16dp"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="@id/title"
@@ -180,14 +177,15 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:background="@color/divider_background"
-                android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
+                android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/favorite"
+                app:layout_constraintTop_toBottomOf="@id/speaker_summary"
                 />
 
             <TextView
                 android:id="@+id/finished_session_check"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -197,8 +195,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/session_finished"
                 android:textColor="@android:color/black"
-                android:textSize="10sp"
-                android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
+                android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
@@ -215,7 +212,7 @@
                 android:text="@string/session_go_to_questionnaire"
                 android:textColor="@color/primary_dark"
                 android:textSize="14sp"
-                android:visibility="@{isFinished ? View.VISIBLE : View.GONE}"
+                android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBaseline_toBaselineOf="@id/finished_session_check"
                 app:layout_constraintRight_toRightOf="parent"
                 />

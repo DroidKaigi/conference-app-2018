@@ -167,9 +167,9 @@
             android:value="AIzaSyDGetZ-L3B8oKXLHELbMsHmyPSyrQZW55s"
             />
 
-        <receiver android:name=".presentation.common.broadcastreceiver.NotificationBroadcastReceiver" />
+        <receiver android:name=".presentation.common.notification.NotificationBroadcastReceiver" />
 
-        <receiver android:name=".presentation.common.broadcastreceiver.LocaleChangedBroadcastReceiver">
+        <receiver android:name=".presentation.common.notification.LocaleChangedBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
