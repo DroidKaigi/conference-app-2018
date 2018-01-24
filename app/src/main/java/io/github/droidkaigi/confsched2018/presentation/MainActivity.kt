@@ -58,7 +58,14 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
                 else -> binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
             }
         }
-        binding.bottomNavigation.setOnNavigationItemReselectedListener { }
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { item ->
+            val navigationItem = BottomNavigationItem
+                    .forId(item.itemId)
+            val fragment = supportFragmentManager.findFragmentByTag(navigationItem.name)
+            if (fragment != null) {
+                // FIXME Scroll to current session
+            }
+        }
     }
 
     private fun setupToolbar(navigationItem: BottomNavigationItem) {

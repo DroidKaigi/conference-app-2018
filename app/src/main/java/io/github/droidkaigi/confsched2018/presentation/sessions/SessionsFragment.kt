@@ -14,13 +14,15 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class SessionsFragment : Fragment(), Injectable {
+class SessionsFragment : Fragment(), Injectable, Findable {
     private lateinit var binding: FragmentSessionsBinding
     private lateinit var sessionsViewPagerAdapter: SessionsViewPagerAdapter
     private lateinit var sessionsViewModel: SessionsViewModel
@@ -76,6 +78,8 @@ class SessionsFragment : Fragment(), Injectable {
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
     }
+
+    override val tagForFinding = MainActivity.BottomNavigationItem.SESSION.name
 
     companion object {
         fun newInstance(): SessionsFragment = SessionsFragment()
