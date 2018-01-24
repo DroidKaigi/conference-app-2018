@@ -86,7 +86,7 @@ class SessionDataRepository @Inject constructor(
                             sessionFeedback.toSessionFeedback().also {
                                 speechSessions.forEach { speechSession ->
                                     if (it.sessionId == speechSession.id) {
-                                        it.copy(sessionTitle = speechSession.title)
+                                        return@map it.copy(sessionTitle = speechSession.title)
                                     }
                                 }
                             }

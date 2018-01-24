@@ -125,7 +125,7 @@ class SessionsDataRepositoryTest {
                             sessionFeedback.toSessionFeedback().also {
                                 sessions.forEach { session ->
                                     if (it.sessionId == session.id) {
-                                        it.copy(sessionTitle = session.title)
+                                        return@map it.copy(sessionTitle = session.title)
                                     }
                                 }
                             }
