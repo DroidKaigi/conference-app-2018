@@ -58,6 +58,10 @@ class SearchFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -91,6 +95,7 @@ class SearchFragment : Fragment(), Injectable {
                     sessionsSection.updateSessions(
                             searchResult.sessions,
                             onFavoriteClickListener,
+                            onQuestionnaireListener,
                             searchViewModel.searchQuery
                     )
                     speakersSection.updateSpeakers(

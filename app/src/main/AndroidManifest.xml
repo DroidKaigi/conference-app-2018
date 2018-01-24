@@ -40,6 +40,15 @@
                 />
         </activity>
         <activity
+            android:name=".presentation.sessions.feedback.SessionsFeedbackActivity"
+            android:parentActivityName=".presentation.MainActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.sessions.feedback.SessionsFeedbackActivity"
+                />
+        </activity>
+        <activity
             android:name=".presentation.map.MapActivity"
             android:label="@string/map_title_activity"
             android:parentActivityName=".presentation.MainActivity"

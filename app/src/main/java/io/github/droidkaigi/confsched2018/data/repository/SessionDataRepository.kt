@@ -1,10 +1,12 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
+import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSessionFeedback
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
 import io.github.droidkaigi.confsched2018.data.db.fixeddata.SpecialSessions
@@ -12,6 +14,7 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
@@ -20,11 +23,13 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
 import io.reactivex.rxkotlin.Singles
+import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 
 class SessionDataRepository @Inject constructor(
         private val api: DroidKaigiApi,
+        private val sessionFeedbackApi: SessionFeedbackApi,
         private val sessionDatabase: SessionDatabase,
         private val favoriteDatabase: FavoriteDatabase,
         private val schedulerProvider: SchedulerProvider
@@ -67,6 +72,28 @@ class SessionDataRepository @Inject constructor(
     private val specialSessions: List<Session.SpecialSession> by lazy {
         SpecialSessions.getSessions()
     }
+
+    override val sessionFeedbacks: Flowable<List<SessionFeedback>> =
+            Flowables.zip(
+                    sessionDatabase.getAllSessions()
+                            .filter { it.isNotEmpty() }
+                            .doOnNext { if (DEBUG) Timber.d("getAllSessions") },
+                    sessionDatabase.getAllSessionFeedback()
+                            .map { if (it.isNotEmpty()) it else emptyList() }
+                            .doOnNext { if (DEBUG) Timber.d("getAllSessionFeedback") },
+                    { sessionEntities, sessionFeedbackEntities ->
+                        sessionFeedbackEntities.map { sessionFeedback ->
+                            sessionFeedback.toSessionFeedback().apply {
+                                sessionEntities.forEach { sessionWithSpeaker ->
+                                    if (sessionId == sessionWithSpeaker.session!!.id) {
+                                        sessionTitle = sessionWithSpeaker.session!!.title
+                                    }
+                                }
+                            }
+                        }
+                    }
+            )
+
 
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()
@@ -142,6 +169,23 @@ class SessionDataRepository @Inject constructor(
             { sessions: List<Session>, speakers: List<Speaker> ->
                 SearchResult(sessions, speakers)
             })
+
+    override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
+            Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
+                    .subscribeOn(schedulerProvider.computation())
+
+    override fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>> =
+            sessionFeedbackApi.submitSessionFeedback(
+                    sessionId = sessionFeedback.sessionId,
+                    sessionTitle = sessionFeedback.sessionTitle,
+                    totalEvaluation = sessionFeedback.totalEvaluation,
+                    relevancy = sessionFeedback.relevancy,
+                    asExpected = sessionFeedback.asExpected,
+                    difficulty = sessionFeedback.difficulty,
+                    knowledgeable = sessionFeedback.knowledgeable,
+                    comment = sessionFeedback.comment
+            ).subscribeOn(schedulerProvider.computation())
+
 
     companion object {
         const val DEBUG = false

@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2018.presentation.search.SearchViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
+import io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackViewModel
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailViewModel
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsViewModel
 import io.github.droidkaigi.confsched2018.presentation.staff.StaffViewModel
@@ -98,6 +99,10 @@ interface ViewModelModule {
     @Binds @IntoMap
     @ViewModelKey(SponsorsViewModel::class)
     fun bindSponsorsViewModel(sponsorsViewModel: SponsorsViewModel): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(SessionsFeedbackViewModel::class)
+    fun bindSessionFeedbackViewModel(sessionFeedbackViewModel: SessionsFeedbackViewModel): ViewModel
 
     @Binds fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

@@ -21,6 +21,8 @@ import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
 import io.github.droidkaigi.confsched2018.presentation.map.MapFragment
 import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
+import io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackActivity
+import io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackFragment
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsFragment
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity
@@ -56,6 +58,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateToDetail(sessionId: String) {
         replaceFragment(SessionDetailFragment.newInstance(sessionId))
+    }
+
+    fun navigateToFeedback(sessionId: String, sessionTitle: String) {
+        replaceFragment(SessionsFeedbackFragment.newInstance(sessionId, sessionTitle))
     }
 
     fun navigateToMap() {
@@ -111,6 +117,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateToSessionDetailActivity(session: Session) {
         SessionDetailActivity.start(activity, session)
+    }
+
+    fun navigateToSessionsFeedbackActivity(session: Session.SpeechSession) {
+        SessionsFeedbackActivity.start(activity, session)
     }
 
     fun navigateToMapActivity() {

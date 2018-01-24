@@ -15,13 +15,15 @@ import io.github.droidkaigi.confsched2018.presentation.search.SearchTopicsFragme
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
+import io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackFragment
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsFragment
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 import io.github.droidkaigi.confsched2018.presentation.staff.StaffFragment
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
 
-@Module interface FragmentBuildersModule {
+@Module
+interface FragmentBuildersModule {
     @ContributesAndroidInjector fun contributeSessionsFragment(): SessionsFragment
 
     @ContributesAndroidInjector fun contributeAllSessionsFragment(): AllSessionsFragment
@@ -61,4 +63,6 @@ import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
     @ContributesAndroidInjector fun contributeContributorFragment(): ContributorsFragment
 
     @ContributesAndroidInjector fun contributeStaffFragment(): StaffFragment
+
+    @ContributesAndroidInjector fun contributeSessionsFeedbackFragment(): SessionsFeedbackFragment
 }

@@ -57,6 +57,10 @@ class AllSessionsFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentAllSessionsBinding.inflate(inflater, container, false)
@@ -76,7 +80,8 @@ class AllSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, true)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener,
+                            onQuestionnaireListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }
