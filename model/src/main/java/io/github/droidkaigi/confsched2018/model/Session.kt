@@ -33,4 +33,6 @@ sealed class Session(
             val room: Room?
     ) : Session(id, dayNumber, startTime, endTime)
 
+    val isFinished: Boolean
+        get() = System.currentTimeMillis() > endTime.time
 }

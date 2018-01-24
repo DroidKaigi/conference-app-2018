@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:loadImage="@{speaker.imageUrl}"
             app:placeHolder="@{@drawable/ic_person_black_24dp}"
-            tools:src="@drawable/ic_person_black_24dp"
+            tools:src="@tools:sample/avatars"
             />
         <TextView
             android:id="@+id/speaker_name"
@@ -46,7 +46,7 @@
             app:layout_constraintStart_toEndOf="@id/speaker_image"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Example"
+            tools:text="@tools:sample/last_names"
             />
         <TextView
             android:id="@+id/speaker_desc"

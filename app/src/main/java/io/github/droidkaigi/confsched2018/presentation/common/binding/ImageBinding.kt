@@ -6,8 +6,10 @@ import android.databinding.BindingMethods
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.graphics.drawable.DrawableCompat
+import android.text.TextUtils
 import android.widget.ImageView
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.util.CustomGlideApp
 
 @BindingMethods(
@@ -22,7 +24,19 @@ fun ImageView.setColorTint(@ColorInt color: Int, drawable: Drawable) {
     DrawableCompat.setTint(wrappedDrawable, color)
     setImageDrawable(wrappedDrawable)
 }
-
+@BindingAdapter("image_url")
+fun setImageFromImageUrl(imageView: ImageView, imageUrl: String) {
+    if (TextUtils.isEmpty(imageUrl)) {
+        return
+    }
+    CustomGlideApp
+            .with(imageView.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.ic_person_black_24dp)
+            .dontAnimate()
+            .transform(CircleCrop())
+            .into(imageView)
+}
 @BindingAdapter(
         value = [
             "loadImage",

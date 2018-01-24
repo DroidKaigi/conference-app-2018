@@ -9,5 +9,6 @@ import retrofit2.http.Query
 interface GithubApi {
     @GET("/repos/{owner}/{repo}/contributors")
     fun getContributors(@Path("owner") owner: String, @Path("repo") repo: String,
-                        @Query("per_page") perPage: Int): Single<List<Contributor>>
+                        @Query("per_page") perPage: Int, @Query("page") next: Int? = null):
+            Single<List<Contributor>>
 }
