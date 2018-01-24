@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.util
+package io.github.droidkaigi.confsched2018.presentation.common.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

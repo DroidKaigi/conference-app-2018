@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Context
 import com.tomoima.debot.strategy.DebotStrategy
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.presentation.common.broadcastreceiver.NotificationBroadcastReceiver
-import io.github.droidkaigi.confsched2018.util.NotificationContent
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationBroadcastReceiver
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationContent
 import io.github.droidkaigi.confsched2018.util.ext.toReadableDateTimeString
 import java.util.Date
 

@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2018.util
+package io.github.droidkaigi.confsched2018.presentation.common.notification
 
 import android.app.PendingIntent
 import android.content.Context
@@ -71,11 +71,10 @@ sealed class NotificationContent(
         fun parse(intent: Intent): NotificationContent {
             return when (intent.getIntExtra(EXTRA_NOTIFICATION_ID, 0)) {
                 NotificationType.FAVORITE_SESSION_START_NOTIFICATION.ordinal -> {
-                    NotificationContent.FavoriteSessionStart.parse(intent)
+                    FavoriteSessionStart.parse(intent)
                 }
                 else -> throw NotImplementedError()
             }
         }
     }
 }
-

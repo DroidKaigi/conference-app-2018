@@ -15,7 +15,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.di.AppInjector
-import io.github.droidkaigi.confsched2018.util.NotificationHelper
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationHelper
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
