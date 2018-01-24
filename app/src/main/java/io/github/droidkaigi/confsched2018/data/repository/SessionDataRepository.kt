@@ -83,10 +83,10 @@ class SessionDataRepository @Inject constructor(
                             .doOnNext { if (DEBUG) Timber.d("getAllSessionFeedback") },
                     { sessionEntities, sessionFeedbackEntities ->
                         sessionFeedbackEntities.map { sessionFeedback ->
-                            sessionFeedback.toSessionFeedback().apply {
+                            sessionFeedback.toSessionFeedback().also {
                                 sessionEntities.forEach { sessionWithSpeaker ->
-                                    if (sessionId == sessionWithSpeaker.session!!.id) {
-                                        sessionTitle = sessionWithSpeaker.session!!.title
+                                    if (it.sessionId == sessionWithSpeaker.session!!.id) {
+                                        it.copy(sessionTitle = sessionWithSpeaker.session!!.title)
                                     }
                                 }
                             }

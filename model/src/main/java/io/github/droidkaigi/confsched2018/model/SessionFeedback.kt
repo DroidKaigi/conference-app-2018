@@ -2,12 +2,12 @@ package io.github.droidkaigi.confsched2018.model
 
 data class SessionFeedback(
         val sessionId: String,
-        var sessionTitle: String,
-        var totalEvaluation: Int,
-        var relevancy: Int,
-        var asExpected: Int,
-        var difficulty: Int,
-        var knowledgeable: Int,
-        var comment: String,
-        var submitted: Boolean
+        val sessionTitle: String,
+        val totalEvaluation: Int,
+        val relevancy: Int,
+        val asExpected: Int,
+        val difficulty: Int,
+        val knowledgeable: Int,
+        val comment: String,
+        val submitted: Boolean
 )
