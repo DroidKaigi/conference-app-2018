@@ -14,7 +14,7 @@ ext {
             supportLibrary  : "27.0.2",
             retrofit        : "2.3.0",
             kotshi          : "0.3.0",
-            arch            : "1.0.0",
+            arch            : "1.1.0",
             dagger          : "2.13",
             firebase        : "11.6.2", // Adjust version for emulator
             kotpref         : "2.3.0",
