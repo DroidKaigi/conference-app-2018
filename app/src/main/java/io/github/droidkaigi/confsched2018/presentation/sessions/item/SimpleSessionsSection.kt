@@ -9,18 +9,18 @@ class SimpleSessionsSection : Section() {
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
             searchQuery: String = "",
-            clickable: Boolean = true
+            userIdInDetail: String? = null
     ) {
         val sessionItems = sessions.map {
             when (it) {
                 is Session.SpeechSession -> {
-                    it.speakersAdapterClickable = clickable
                     @Suppress("USELESS_CAST")
                     SpeechSessionItem(
                             session = it,
                             onFavoriteClickListener = onFavoriteClickListener,
                             isShowDayNumber = true,
-                            searchQuery = searchQuery
+                            searchQuery = searchQuery,
+                            userIdInDetail = userIdInDetail
                     ) as Item<*>
                 }
                 is Session.SpecialSession -> {

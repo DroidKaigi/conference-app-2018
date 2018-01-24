@@ -21,8 +21,7 @@ sealed class Session(
             val topic: Topic,
             val level: Level,
             val isFavorited: Boolean,
-            val speakers: List<Speaker>,
-            var speakersAdapterClickable: Boolean = true
+            val speakers: List<Speaker>
     ) : Session(id, dayNumber, startTime, endTime)
 
     data class SpecialSession(
