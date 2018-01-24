@@ -63,7 +63,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_prace_orenge_24dp"
+                        android:src="@drawable/ic_place_orenge_24dp"
                         android:contentDescription="@string/map_content_description_place_icon"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
