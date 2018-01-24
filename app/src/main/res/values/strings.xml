@@ -6,6 +6,7 @@
     <!-- Preference Keys -->
     <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
+    <string name="pref_key_enable_hide_bottom_navigation" translatable="false">pref_key_enable_hide_bottom_navigation</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">Home</string>
@@ -83,6 +84,9 @@
     <string name="settings_enable_notification_summary_preference">Choose whether to receive
         notification in this app.</string>
     <string name="settings_enable_notification_title_preference">Receive notification</string>
+    <string name="settings_enable_hide_bottom_navigation_title_preference">Hide BottomNavigation</string>
+    <string name="settings_enable_hide_bottom_navigation_summary_preference">Hide
+        BottomNavigationBar by scrolling or not.</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
