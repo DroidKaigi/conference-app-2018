@@ -23,6 +23,7 @@ import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.CurrentSessionScroller
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
@@ -37,7 +38,7 @@ import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
 
-class AllSessionsFragment : Fragment(), Injectable {
+class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
 
     private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentAllSessionsBinding
@@ -90,10 +91,7 @@ class AllSessionsFragment : Fragment(), Injectable {
         })
         sessionsViewModel.refreshFocusCurrentSession.observe(this, {
             if (it != true) return@observe
-            val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
-                    .toInstant().toEpochMilli())
-            val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
-            binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
+            scrollToCurrentSession()
         })
     }
 
@@ -102,6 +100,13 @@ class AllSessionsFragment : Fragment(), Injectable {
         if (isVisibleToUser) {
             fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
         }
+    }
+
+    override fun scrollToCurrentSession() {
+        val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
+                .toInstant().toEpochMilli())
+        val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
+        binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
     }
 
     private fun setupRecyclerView() {
