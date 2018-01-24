@@ -2,7 +2,6 @@ package io.github.droidkaigi.confsched2018.util
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -16,7 +15,7 @@ import io.github.droidkaigi.confsched2018.R
  * Helper class for Notification.
  */
 object NotificationHelper {
-    private enum class ChannelType(
+    enum class ChannelType(
             val id: String,
             @StringRes val nameRes: Int,
             val importance: Int
@@ -24,7 +23,8 @@ object NotificationHelper {
         FAVORITE_SESSION_START(
                 "favorite_session_start_channel",
                 R.string.notification_channel_name_start_favorite_session,
-                NotificationManager.IMPORTANCE_HIGH);
+                NotificationManager.IMPORTANCE_HIGH
+        );
     }
 
     fun initNotificationChannel(context: Context) {
@@ -37,29 +37,26 @@ object NotificationHelper {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(context: Context, channelType: ChannelType) {
-        val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelName = context.getString(channelType.nameRes)
         val channel = NotificationChannel(channelType.id, channelName, channelType.importance)
-        notificationManager.createNotificationChannel(channel)
+        manager.createNotificationChannel(channel)
     }
 
-    fun showFavoriteSessionStart(
+    fun showNotification(
             context: Context,
-            title: String,
-            text: String,
-            pendingIntent: PendingIntent?
+            content: NotificationContent
     ) {
         val notification =
-                NotificationCompat.Builder(context, ChannelType.FAVORITE_SESSION_START.id)
-                        .setContentTitle(title)
-                        .setContentText(text)
-                        .setFullScreenIntent(pendingIntent, true)
+                NotificationCompat.Builder(context, content.channelType.id)
+                        .setContentTitle(content.title)
+                        .setContentText(content.text)
+                        .setFullScreenIntent(content.createPendingContentIntent(context), true)
                         .setAutoCancel(true)
                         .setColor(ContextCompat.getColor(context, R.color.primary))
                         .setSmallIcon(R.drawable.ic_notification).build()
-        val notificationManagerCompat = NotificationManagerCompat.from(context)
 
-        notificationManagerCompat.notify(title.hashCode(), notification)
+        val manager = NotificationManagerCompat.from(context)
+        manager.notify(content.text.hashCode(), notification)
     }
 }

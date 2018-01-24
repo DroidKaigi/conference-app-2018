@@ -51,11 +51,10 @@ class SessionAlarm @Inject constructor(val context: Context) {
                 displaySTime,
                 displayETime,
                 session.room.name)
+        val notificationContent = NotificationContent.FavoriteSessionStart(title, text, session.id)
         val intent = NotificationBroadcastReceiver.createIntent(
                 context,
-                session.id,
-                title,
-                text
+                notificationContent
         )
         return PendingIntent.getBroadcast(
                 context,
