@@ -29,6 +29,7 @@
     <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
+    <string name="session_content_description_level">Session Level image</string>
     <string name="session_header_divider" translatable="false">" / "</string>
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
@@ -62,6 +63,8 @@
     <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-1 Nishi Shinjuku,
         Shinjuku City, Tokyo 160-0023</string>
     <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1 Toei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4 Toei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4 JR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
+    <string name="map_content_description_place_icon">Place icon</string>
+    <string name="map_content_description_train_icon">Train icon</string>
 
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
