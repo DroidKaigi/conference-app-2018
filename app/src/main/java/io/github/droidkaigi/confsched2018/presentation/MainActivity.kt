@@ -62,8 +62,8 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
             val navigationItem = BottomNavigationItem
                     .forId(item.itemId)
             val fragment = supportFragmentManager.findFragmentByTag(navigationItem.name)
-            if (fragment != null) {
-                // FIXME Scroll to current session
+            if (fragment is BottomNavigationItem.OnReselectedListener) {
+                fragment.onReselected()
             }
         }
     }
@@ -119,6 +119,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         FEED(R.id.navigation_feed, R.string.feed_title, null, true, {
             navigateToFeed()
         });
+
+        interface OnReselectedListener {
+            fun onReselected()
+        }
 
         companion object {
             fun forId(@IdRes id: Int): BottomNavigationItem {
