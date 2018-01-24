@@ -82,7 +82,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 
     override fun onReselected() {
         val currentItem = binding.sessionsViewPager.currentItem
-        val fragment = sessionsViewPagerAdapter.instantiateItem(binding.sessionsViewPager, currentItem)
+        val fragment = sessionsViewPagerAdapter
+                .instantiateItem(binding.sessionsViewPager, currentItem)
         if (fragment is CurrentSessionScroller) {
             fragment.scrollToCurrentSession()
         }
