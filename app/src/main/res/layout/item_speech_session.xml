@@ -180,7 +180,7 @@
                 android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/favorite"
+                app:layout_constraintTop_toBottomOf="@id/speaker_summary"
                 />
 
             <TextView
