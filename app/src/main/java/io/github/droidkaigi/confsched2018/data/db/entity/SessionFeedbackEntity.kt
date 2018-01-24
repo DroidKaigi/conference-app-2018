@@ -12,8 +12,7 @@ import android.arch.persistence.room.PrimaryKey
                 childColumns = arrayOf("session_id"),
                 onDelete = ForeignKey.CASCADE))])
 data class SessionFeedbackEntity(
-        @PrimaryKey(autoGenerate = true) val id: Int?,
-        @ColumnInfo(name = "session_id", index = true) val sessionId: String,
+        @PrimaryKey @ColumnInfo(name = "session_id", index = true) val sessionId: String,
         @ColumnInfo(name = "total_evaluation") var totalEvaluation: Int,
         var relevancy: Int,
         var asExpected: Int,

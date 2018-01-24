@@ -54,7 +54,6 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
 fun createDummySessionFeedbackEntities(): List<SessionFeedbackEntity> {
     return listOf(
             SessionFeedbackEntity(
-                    id = 1,
                     sessionId = DUMMY_SESSION_ID1,
                     totalEvaluation = 1,
                     relevancy = 1,
@@ -64,7 +63,6 @@ fun createDummySessionFeedbackEntities(): List<SessionFeedbackEntity> {
                     comment = "comment",
                     submitted = false),
             SessionFeedbackEntity(
-                    id = 2,
                     sessionId = DUMMY_SESSION_ID2,
                     totalEvaluation = 3,
                     relevancy = 3,
