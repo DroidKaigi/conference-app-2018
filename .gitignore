@@ -6,6 +6,8 @@
 /build
 /captures
 .externalNativeBuild
+app/src/main/res/raw/third_party_license_metadata
+app/src/main/res/raw/third_party_licenses
 
 # not ignore
 !.idea/codeStyleSettings.xml
