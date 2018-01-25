@@ -69,6 +69,12 @@ data class FeedItem(
                                     null)
                             viewBinding.title.setTextColor(titleTextColor)
 
+                            viewBinding.expandIcon.setImageResource(if (expanded) {
+                                R.drawable.ic_expand_more_primary_24dp
+                            } else {
+                                R.drawable.ic_expand_more_black_24dp
+                            })
+
                             if (!expanded) {
                                 feedItemCollapsed.applyTo(viewBinding.feedItemConstraintLayout)
                             } else {
