@@ -146,8 +146,8 @@ class SearchFragment : Fragment(), Injectable {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val searchRecentSuggestions = SearchRecentSuggestions(context, SearchSuggestionProvider.AUTHORITY,
-                        SearchSuggestionProvider.MODE)
+                val searchRecentSuggestions = SearchRecentSuggestions(context,
+                        SearchSuggestionProvider.AUTHORITY, SearchSuggestionProvider.MODE)
                 searchRecentSuggestions.saveRecentQuery(searchViewModel.searchQuery, null)
                 searchView.clearFocus()
                 return false
