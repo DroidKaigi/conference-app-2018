@@ -68,7 +68,14 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
                 else -> binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
             }
         }
-        binding.bottomNavigation.setOnNavigationItemReselectedListener { }
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { item ->
+            val navigationItem = BottomNavigationItem
+                    .forId(item.itemId)
+            val fragment = supportFragmentManager.findFragmentByTag(navigationItem.name)
+            if (fragment is BottomNavigationItem.OnReselectedListener) {
+                fragment.onReselected()
+            }
+        }
     }
 
     private fun setupToolbar(navigationItem: BottomNavigationItem) {
@@ -122,6 +129,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         FEED(R.id.navigation_feed, R.string.feed_title, null, true, {
             navigateToFeed()
         });
+
+        interface OnReselectedListener {
+            fun onReselected()
+        }
 
         companion object {
             fun forId(@IdRes id: Int): BottomNavigationItem {

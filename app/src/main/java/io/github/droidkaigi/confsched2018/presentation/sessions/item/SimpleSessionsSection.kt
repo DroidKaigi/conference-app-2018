@@ -8,7 +8,8 @@ class SimpleSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
-            searchQuery: String = ""
+            searchQuery: String = "",
+            userIdInDetail: String? = null
     ) {
         val sessionItems = sessions.map {
             when (it) {
@@ -18,7 +19,8 @@ class SimpleSessionsSection : Section() {
                             session = it,
                             onFavoriteClickListener = onFavoriteClickListener,
                             isShowDayNumber = true,
-                            searchQuery = searchQuery
+                            searchQuery = searchQuery,
+                            userIdInDetail = userIdInDetail
                     ) as Item<*>
                 }
                 is Session.SpecialSession -> {
