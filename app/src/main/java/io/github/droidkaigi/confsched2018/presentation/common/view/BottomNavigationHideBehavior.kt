@@ -44,15 +44,17 @@ class BottomNavigationHideBehavior : BottomNavigationBehavior {
                                 target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int,
                                 dyUnconsumed: Int, type: Int) {
         when {
-            dyConsumed > THRESHOLD_PX -> showBottomNavigationView(child)
-            dyConsumed < THRESHOLD_PX -> hideBottomNavigationView(child)
+        // positive value: finger's move = touch -> move up (contents are scrolled downward)
+            dyConsumed > THRESHOLD_PX -> hideBottomNavigationView(child)
+        // negative value: finger's move = touch -> move down (contents are scrolled upward)
+            dyConsumed < THRESHOLD_PX -> showBottomNavigationView(child)
             else -> Unit
         }
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
                 dxUnconsumed, dyUnconsumed, type)
     }
 
-    private fun hideBottomNavigationView(view: BottomNavigationView) {
+    private fun showBottomNavigationView(view: BottomNavigationView) {
         if (isAnimation) return
         view.animate().apply {
             translationY(0f)
@@ -62,7 +64,7 @@ class BottomNavigationHideBehavior : BottomNavigationBehavior {
         }
     }
 
-    private fun showBottomNavigationView(view: BottomNavigationView) {
+    private fun hideBottomNavigationView(view: BottomNavigationView) {
         if (isAnimation) return
         view.animate().apply {
             translationY(view.height.toFloat())
