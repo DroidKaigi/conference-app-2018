@@ -90,7 +90,6 @@
             android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/black"
             />
 
     </android.support.constraint.ConstraintLayout>
