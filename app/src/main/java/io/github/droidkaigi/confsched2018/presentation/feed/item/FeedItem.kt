@@ -32,6 +32,14 @@ data class FeedItem(
                 override fun onPreDraw(): Boolean {
                     if (isAlive) removeOnPreDrawListener(this)
 
+                    viewBinding.feedIcon.setImageResource(when (post.type) {
+                        "tutorial" -> R.drawable.ic_feed_tutorial_pink_20dp
+                        "notification" -> R.drawable.ic_feed_notification_blue_20dp
+                        "alert" -> R.drawable.ic_feed_alert_amber_20dp
+                        "enquete" -> R.drawable.ic_feed_enquete_cyan_20dp
+                        else -> R.drawable.ic_feed_notification_blue_20dp
+                    })
+
                     val expandable = viewBinding.content.lineCount > 1
                     viewBinding.expandable = expandable
 
