@@ -1,9 +1,12 @@
 package io.github.droidkaigi.confsched2018.presentation.search
 
+import android.app.SearchManager
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.database.CrossProcessCursor
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -137,8 +140,15 @@ class SearchFragment : Fragment(), Injectable {
 
         val searchView = menuSearchItem.actionView as SearchView
         searchView.maxWidth = Int.MAX_VALUE
+
+        val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                val searchRecentSuggestions = SearchRecentSuggestions(context, SearchSuggestionProvider.AUTHORITY,
+                        SearchSuggestionProvider.MODE)
+                searchRecentSuggestions.saveRecentQuery(searchViewModel.searchQuery, null)
                 searchView.clearFocus()
                 return false
             }
@@ -156,6 +166,19 @@ class SearchFragment : Fragment(), Injectable {
                 return false
             }
         })
+
+        searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+            override fun onSuggestionSelect(position: Int): Boolean {
+                return false
+            }
+
+            override fun onSuggestionClick(position: Int): Boolean {
+                val item = searchView.suggestionsAdapter.getItem(position) as CrossProcessCursor
+                searchView.setQuery(item.getString(2), false)
+                return false
+            }
+        })
+
         changeSearchViewTextColor(searchView)
 
         searchView.setOnQueryTextFocusChangeListener { view, hasFocus ->
