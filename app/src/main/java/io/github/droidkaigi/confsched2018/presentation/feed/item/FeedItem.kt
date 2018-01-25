@@ -22,7 +22,7 @@ data class FeedItem(
 ) : BindableItem<ItemFeedBinding>(
         post.hashCode().toLong()
 ) {
-    private val touchIgnorer = View.OnTouchListener { _, _ -> true }
+    private val touchIgnore = View.OnTouchListener { _, _ -> true }
 
     override fun bind(viewBinding: ItemFeedBinding, position: Int) {
         viewBinding.post = post
@@ -46,7 +46,7 @@ data class FeedItem(
                     if (expandable) {
                         viewBinding.root.setOnClickListener {
                             val parent = viewBinding.root.parent as RecyclerView
-                            parent.setOnTouchListener(touchIgnorer)
+                            parent.setOnTouchListener(touchIgnore)
 
                             val transition = when (expanded) {
                                 true -> collapseTransition
