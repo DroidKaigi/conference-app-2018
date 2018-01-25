@@ -46,7 +46,8 @@ class BottomNavigationHideBehavior : BottomNavigationBehavior {
                                         child: BottomNavigationView, directTargetChild: View,
                                         target: View, axes: Int, type: Int) {
         isAcceptNestedScroll = true
-        super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild, target, axes, type)
+        super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild,
+                target, axes, type)
     }
 
     override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: BottomNavigationView,
