@@ -4,6 +4,7 @@ import android.support.constraint.ConstraintSet
 import android.support.transition.Transition
 import android.support.transition.TransitionListenerAdapter
 import android.support.transition.TransitionManager
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewTreeObserver
@@ -11,6 +12,7 @@ import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemFeedBinding
 import io.github.droidkaigi.confsched2018.model.Post
+import io.github.droidkaigi.confsched2018.util.ext.context
 
 data class FeedItem(
         val post: Post,
@@ -60,6 +62,13 @@ data class FeedItem(
                             })
                             TransitionManager.beginDelayedTransition(parent, transition)
                             expanded = !expanded
+
+                            val titleTextColor = ResourcesCompat.getColor(
+                                    viewBinding.context.resources,
+                                    if (expanded) R.color.primary else R.color.black,
+                                    null)
+                            viewBinding.title.setTextColor(titleTextColor)
+
                             if (!expanded) {
                                 feedItemCollapsed.applyTo(viewBinding.feedItemConstraintLayout)
                             } else {
