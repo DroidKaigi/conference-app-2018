@@ -47,40 +47,39 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
         Single.error(NotPreparedException())
     } else {
         getCurrentUser().flatMap { currentUser ->
-            return@flatMap Single.create<Boolean>({ e ->
+            return@flatMap Single.create<DocumentSnapshot>({ e ->
                 val database = FirebaseFirestore.getInstance()
                 val favorites = database.collection("users/${currentUser.uid}/favorites")
                         .document(session.id)
-                favorites.get().addOnCompleteListener({ task: Task<DocumentSnapshot> ->
+                val listener = favorites.addSnapshotListener { documentSnapshot, exception ->
                     if (DEBUG) Timber.d("Firestore:favorite get")
-                    if (task.isSuccessful) {
-                        val result = task.result
-                        val nowFavorite = result.exists() && (result.data[session.id] == true)
-                        val newFavorite = !nowFavorite
-
-                        val completeListener: (Task<Void>) -> Unit = {
-                            val exception = it.exception
-                            if (exception != null) {
-                                if (DEBUG) Timber.d(exception, "Firestore:favorite write fail")
-                                e.onError(exception)
-                            } else {
-                                if (DEBUG) Timber.d("Firestore:favorite write success")
-                                e.onSuccess(newFavorite)
-                            }
-                        }
-
-                        val sessionToFavoriteMap = mapOf("favorite" to newFavorite)
-                        if (result.exists()) {
-                            favorites.delete().addOnCompleteListener(completeListener)
-                        } else {
-                            val set = favorites.set(sessionToFavoriteMap)
-                            set.addOnCompleteListener(completeListener)
-                        }
+                    if (exception != null) {
+                        e.onError(exception)
                     } else {
-                        e.onError(task.exception!!)
+                        e.onSuccess(documentSnapshot)
                     }
-                })
-            })
+                }
+                e.setCancellable {
+                    if (DEBUG) Timber.d("Firestore:favorite dispose")
+                    listener.remove()
+                }
+
+            // To avoid get -> write -> get -> ... loop, split task.
+            }).flatMap<Boolean> { documentSnapshot ->
+                val nowFavorite = documentSnapshot.exists() && (documentSnapshot.data[session.id] == true)
+                val newFavorite = !nowFavorite
+
+                val sessionToFavoriteMap = mapOf("favorite" to newFavorite)
+                if (documentSnapshot.exists()) {
+                    documentSnapshot.reference.delete()
+                            .toSingle()
+                            .map { newFavorite }
+                } else {
+                    documentSnapshot.reference.set(sessionToFavoriteMap)
+                            .toSingle()
+                            .map { newFavorite }
+                }
+            }
         }
     }
 
