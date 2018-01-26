@@ -26,6 +26,8 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -134,11 +136,22 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     }
 
     override fun onReselected() {
-        val currentItem = binding.sessionsViewPager.currentItem
-        val fragment = sessionsViewPagerAdapter
-                .instantiateItem(binding.sessionsViewPager, currentItem)
-        if (fragment is CurrentSessionScroller) {
-            fragment.scrollToCurrentSession()
+        when (sessionsViewModel.tabMode) {
+            is SessionTabMode.RoomTabMode -> {
+                val currentItem = binding.sessionsViewPager.currentItem
+                val fragment = sessionsViewPagerAdapter
+                        .instantiateItem(binding.sessionsViewPager, currentItem)
+
+                if (fragment is CurrentSessionScroller) {
+                    fragment.scrollToCurrentSession()
+                }
+            }
+            is SessionTabMode.TimeTabMode -> {
+                val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
+                        .toInstant().toEpochMilli())
+                val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition(now)
+                binding.sessionsViewPager.currentItem = position
+            }
         }
     }
 
@@ -200,6 +213,14 @@ class SessionsViewPagerAdapter(
     }
 
     override fun getCount(): Int = tabs.size
+
+    fun getRecentScheduleTabPosition(time: Date): Int {
+        val position = schedulesTabs.withIndex().firstOrNull {
+            it.value.schedule.startTime > time
+        }?.index?.dec() ?: 0
+
+        return position + 1
+    }
 
     fun setTabStuffs(tabStuffs: List<Any>) {
         val sample = tabStuffs.firstOrNull()

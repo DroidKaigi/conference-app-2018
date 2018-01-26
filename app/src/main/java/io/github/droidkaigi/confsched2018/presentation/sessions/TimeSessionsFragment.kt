@@ -69,8 +69,6 @@ class TimeSessionsFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
-
-                    timeSessionsViewModel.onSuccessFetchSessions()
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

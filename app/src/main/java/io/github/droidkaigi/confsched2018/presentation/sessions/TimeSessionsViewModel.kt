@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
@@ -16,7 +15,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import java.util.Date
 import javax.inject.Inject
 
 class TimeSessionsViewModel @Inject constructor(
@@ -25,8 +23,6 @@ class TimeSessionsViewModel @Inject constructor(
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
-    val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
     lateinit var schedule: SessionSchedule
 
     val sessions: LiveData<Result<List<Session>>> by lazy {
@@ -46,16 +42,6 @@ class TimeSessionsViewModel @Inject constructor(
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
-    }
-
-    fun onSuccessFetchSessions() {
-        refreshFocusCurrentSession()
-    }
-
-    private fun refreshFocusCurrentSession() {
-        if (focusCurrentSession.value != true) {
-            focusCurrentSession.value = true
-        }
     }
 
     override fun onCleared() {
