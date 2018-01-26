@@ -64,7 +64,8 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
             val latLng = LatLng(placeLat, placeLang)
 
             // custom pin
-            val pin: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(getBitmap(R.drawable.ic_place_orange_36dp))
+            val pin: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(getBitmap(R.drawable
+                    .ic_place_orange_36dp))
 
             val marker = addMarker(MarkerOptions()
                     .position(latLng)
@@ -115,7 +116,8 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     private fun getBitmap(@DrawableRes resource: Int): Bitmap {
         val drawable = ContextCompat.getDrawable(context!!, resource)
         val canvas = Canvas()
-        val bitmap = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        val bitmap = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888)
         canvas.setBitmap(bitmap)
         drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
         drawable.draw(canvas)
