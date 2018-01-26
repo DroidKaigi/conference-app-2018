@@ -21,6 +21,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
+import java.util.Date
 import javax.inject.Inject
 
 class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener {
@@ -48,10 +49,10 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        sessionsViewModel.rooms.observe(this, { result ->
+        sessionsViewModel.startTimes.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsViewPagerAdapter.setRooms(result.data)
+                    sessionsViewPagerAdapter.setStartTimes(result.data)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -106,16 +107,18 @@ class SessionsViewPagerAdapter(
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
+    private var startTimeTabs = mutableListOf<Tab.TimeTab>()
 
     sealed class Tab(val title: String) {
         object All : Tab("All")
         data class RoomTab(val room: Room) : Tab(room.name)
+        data class TimeTab(val startTime: Date) : Tab("test")
     }
 
     private fun setupTabs() {
         tabs.clear()
         tabs.add(Tab.All)
-        tabs.addAll(roomTabs)
+        tabs.addAll(startTimeTabs)
         notifyDataSetChanged()
     }
 
@@ -130,6 +133,9 @@ class SessionsViewPagerAdapter(
             is Tab.RoomTab -> {
                 RoomSessionsFragment.newInstance(tab.room)
             }
+            is Tab.TimeTab -> {
+                TimeSessionsFragment.newInstance(tab.startTime)
+            }
         }
     }
 
@@ -141,6 +147,16 @@ class SessionsViewPagerAdapter(
         }
         roomTabs = rooms.map {
             Tab.RoomTab(it)
+        }.toMutableList()
+        setupTabs()
+    }
+
+    fun setStartTimes(startTimes: List<Date>) {
+        if (startTimes == startTimeTabs.map { it.startTime }) {
+            return
+        }
+        startTimeTabs = startTimes.map {
+            Tab.TimeTab(it)
         }.toMutableList()
         setupTabs()
     }

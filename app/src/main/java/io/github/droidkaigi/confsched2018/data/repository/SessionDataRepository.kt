@@ -21,6 +21,7 @@ import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
 import io.reactivex.rxkotlin.Singles
 import timber.log.Timber
+import java.util.Date
 import javax.inject.Inject
 
 class SessionDataRepository @Inject constructor(
@@ -63,6 +64,8 @@ class SessionDataRepository @Inject constructor(
                     .doOnNext {
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
+    override val startTimes: Flowable<List<Date>> =
+            sessions.map { it.map { it.startTime }.distinct().sorted() }
 
     private val specialSessions: List<Session.SpecialSession> by lazy {
         SpecialSessions.getSessions()

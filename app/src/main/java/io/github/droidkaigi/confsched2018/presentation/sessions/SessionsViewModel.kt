@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import java.util.Date
 import javax.inject.Inject
 
 class SessionsViewModel @Inject constructor(
@@ -25,6 +26,12 @@ class SessionsViewModel @Inject constructor(
 ) : ViewModel(), LifecycleObserver {
     val rooms: LiveData<Result<List<Room>>> by lazy {
         repository.rooms
+                .toResult(schedulerProvider)
+                .toLiveData()
+    }
+    // FIXME use switch map
+    val startTimes: LiveData<Result<List<Date>>> by lazy {
+        repository.startTimes
                 .toResult(schedulerProvider)
                 .toLiveData()
     }

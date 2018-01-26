@@ -10,12 +10,14 @@ import io.github.droidkaigi.confsched2018.model.Topic
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.Date
 
 interface SessionRepository {
     val sessions: Flowable<List<Session>>
     val speakers: Flowable<List<Speaker>>
     val roomSessions: Flowable<Map<Room, List<Session>>>
     val rooms: Flowable<List<Room>>
+    val startTimes: Flowable<List<Date>>
     val topics: Flowable<List<Topic>>
     val speakerSessions: Flowable<Map<Speaker, List<Session.SpeechSession>>>
     val topicSessions: Flowable<Map<Topic, List<Session.SpeechSession>>>
