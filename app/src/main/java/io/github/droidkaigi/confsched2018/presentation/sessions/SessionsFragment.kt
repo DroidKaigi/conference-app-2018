@@ -195,17 +195,27 @@ class SessionsViewPagerAdapter(
     override fun getCount(): Int = tabs.size
 
     fun setTabStuffs(tabStuffs: List<Any>) {
-        if (BuildConfig.DEBUG) {
-            if (tabStuffs.map { it::class }.distinct().size != 1) {
-                throw IllegalStateException("Tab stuffs contain two or more classes")
-            }
-        }
-
         val sample = tabStuffs.firstOrNull()
 
         when (sample) {
-            is Room -> setRooms(tabStuffs as List<Room>)
-            is Date -> setStartTimes(tabStuffs as List<Date>)
+            is Room -> {
+                if (BuildConfig.DEBUG) {
+                    if (!tabStuffs.all { it is Room }) {
+                        throw IllegalStateException("Tab stuffs contain non-Room class")
+                    }
+                }
+
+                setRooms(tabStuffs as List<Room>)
+            }
+            is Date -> {
+                if (BuildConfig.DEBUG) {
+                    if (!tabStuffs.all { it is Date }) {
+                        throw IllegalStateException("Tab stuffs contain non-Date class")
+                    }
+                }
+
+                setStartTimes(tabStuffs as List<Date>)
+            }
             null -> throw IllegalArgumentException("No tab stuff found")
             else -> throw IllegalStateException("Unknown tab stuff was passed : $sample")
         }

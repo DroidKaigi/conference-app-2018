@@ -37,20 +37,13 @@ class TimeBasedSessionsSection : Section() {
         update(sessionItems)
     }
 
-    private fun getItemOrNull(i: Int): Item<*>? {
-        if (itemCount <= i) {
-            return null
-        }
-        return getItem(i)
-    }
-
     private object SessionComparator : Comparator<Session> {
         override fun compare(o1: Session?, o2: Session?): Int {
             return when {
                 o1 == o2 -> 0
                 o1 == null -> Int.MIN_VALUE
                 o2 == null -> Int.MAX_VALUE
-                else -> o2.toOrder() - o1.toOrder()
+                else -> o1.toOrder() - o2.toOrder()
             }
         }
 
