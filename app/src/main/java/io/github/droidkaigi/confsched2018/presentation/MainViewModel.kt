@@ -15,9 +15,6 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
 import javax.inject.Inject
 
-/**
- * Copyright 2018 G-CREATE
- */
 @SuppressLint("StaticFieldLeak")
 class MainViewModel @Inject constructor(
         // this field is application context not activity context
