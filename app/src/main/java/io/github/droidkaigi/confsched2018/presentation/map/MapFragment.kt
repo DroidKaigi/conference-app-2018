@@ -56,7 +56,10 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
             val latLng = LatLng(placeLat, placeLang)
-            addMarker(MarkerOptions().position(latLng))
+            val marker = addMarker(MarkerOptions()
+                    .position(latLng)
+                    .title(context?.getString(R.string.map_place_name)))
+            marker.showInfoWindow()
 
             val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16f)
             moveCamera(cameraUpdate)
