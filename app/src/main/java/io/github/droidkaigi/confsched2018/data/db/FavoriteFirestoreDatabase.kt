@@ -169,3 +169,8 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
         private const val DEBUG: Boolean = false
     }
 }
+
+fun <R> Task<R>.toSingle() = Single.create<R> { emitter ->
+    this.addOnSuccessListener { emitter.onSuccess(it) }
+            .addOnFailureListener { emitter.onError(it) }
+}
