@@ -121,6 +121,11 @@ class SessionDataRepository @Inject constructor(
                         .groupBy { it.level }
             }
 
+    override val startTimeSessions: Flowable<Map<Date, List<Session>>> =
+        sessions.map {
+            it.groupBy { it.startTime }
+        }
+
     override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 

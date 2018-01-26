@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2018.presentation.search.SearchViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
+import io.github.droidkaigi.confsched2018.presentation.sessions.TimeSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailViewModel
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsViewModel
 import io.github.droidkaigi.confsched2018.presentation.staff.StaffViewModel
@@ -40,6 +41,10 @@ interface ViewModelModule {
     @Binds @IntoMap
     @ViewModelKey(RoomSessionsViewModel::class)
     fun bindRoomSessionsViewModel(roomSessionsViewModel: RoomSessionsViewModel): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(TimeSessionsViewModel::class)
+    fun bindTimeSessionsViewModel(timeSessionsViewModel: TimeSessionsViewModel): ViewModel
 
     @Binds @IntoMap
     @ViewModelKey(SearchSessionsViewModel::class)

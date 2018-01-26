@@ -37,8 +37,8 @@ class TimeSessionsFragment : Fragment(), Injectable {
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
 
-    private val sessionsViewModel: AllSessionsViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
+    private val sessionsViewModel: TimeSessionsViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(TimeSessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
@@ -64,7 +64,7 @@ class TimeSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data.filter { it.startTime ==
-                            arguments?.getSerializable("date") }
+                            arguments?.getSerializable(ARG_START_TIME) }
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
 
                     sessionsViewModel.onSuccessFetchSessions()
@@ -96,9 +96,11 @@ class TimeSessionsFragment : Fragment(), Injectable {
     }
 
     companion object {
+        private const val ARG_START_TIME = "start_time"
+
         fun newInstance(startTime: Date): TimeSessionsFragment = TimeSessionsFragment().apply {
             arguments = Bundle().apply {
-                putSerializable("date", startTime)
+                putSerializable(ARG_START_TIME, startTime)
             }
         }
     }

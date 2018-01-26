@@ -21,7 +21,9 @@ import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener {
@@ -104,6 +106,9 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 class SessionsViewPagerAdapter(
         fragmentManager: FragmentManager
 ) : FragmentStatePagerAdapter(fragmentManager) {
+    companion object {
+        private val startDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    }
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
@@ -112,7 +117,7 @@ class SessionsViewPagerAdapter(
     sealed class Tab(val title: String) {
         object All : Tab("All")
         data class RoomTab(val room: Room) : Tab(room.name)
-        data class TimeTab(val startTime: Date) : Tab("test")
+        data class TimeTab(val startTime: Date) : Tab(startDateFormat.format(startTime))
     }
 
     private fun setupTabs() {
