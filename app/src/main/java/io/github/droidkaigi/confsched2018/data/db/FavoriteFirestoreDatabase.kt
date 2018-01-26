@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.db
 
 import android.support.annotation.CheckResult
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
@@ -9,6 +8,7 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.util.ext.toSingle
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -177,9 +177,4 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
     companion object {
         private const val DEBUG: Boolean = false
     }
-}
-
-fun <R> Task<R>.toSingle() = Single.create<R> { emitter ->
-    this.addOnSuccessListener { emitter.onSuccess(it) }
-            .addOnFailureListener { emitter.onError(it) }
 }
