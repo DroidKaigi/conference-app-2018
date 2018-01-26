@@ -61,9 +61,6 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
-            // show zoom control on screen
-            uiSettings.isZoomControlsEnabled = true
-
             val latLng = LatLng(placeLat, placeLang)
 
             // custom pin
