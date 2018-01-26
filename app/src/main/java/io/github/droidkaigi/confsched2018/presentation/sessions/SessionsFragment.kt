@@ -8,6 +8,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.BuildConfig
@@ -33,6 +36,49 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     private lateinit var sessionsViewModel: SessionsViewModel
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.sessions, menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val roomTabMenu = menu.findItem(R.id.room_tab_mode)
+        val timeTabMenu = menu.findItem(R.id.time_tab_mode)
+
+        Timber.d("onPrepareOptionsMenu")
+
+        when (sessionsViewModel.tabMode) {
+            is SessionTabMode.TimeTabMode -> {
+                roomTabMenu.isVisible = false
+                timeTabMenu.isVisible = true
+                timeTabMenu.isEnabled = true
+            }
+            is SessionTabMode.RoomTabMode -> {
+                timeTabMenu.isVisible = false
+                roomTabMenu.isVisible = true
+                roomTabMenu.isEnabled = true
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.room_tab_mode -> true.apply {
+                item.isEnabled = false
+                sessionsViewModel.changeTabMode(SessionTabMode.TimeTabMode)
+            }
+            R.id.time_tab_mode -> true.apply {
+                item.isEnabled = false
+                sessionsViewModel.changeTabMode(SessionTabMode.RoomTabMode)
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentSessionsBinding.inflate(layoutInflater, container, false)
@@ -56,6 +102,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
             when (result) {
                 is Result.Success -> {
                     sessionsViewPagerAdapter.setTabStuffs(result.data)
+                    activity?.invalidateOptionsMenu()
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -82,8 +129,6 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
-        // FIXME
-        sessionsViewModel.mayChangeTabMode(SessionTabMode.RoomTabMode)
     }
 
     override fun onReselected() {

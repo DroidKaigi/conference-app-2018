@@ -15,6 +15,7 @@ class TimeBasedSessionsSection : Section() {
                 is Session.SpeechSession -> {
                     SpeechSessionItem(
                             session = it,
+                            simplify = true,
                             onFavoriteClickListener = onFavoriteClickListener
                     )
                 }

@@ -26,18 +26,24 @@ class SessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
-    private val tabMode: MutableLiveData<SessionTabMode> = MutableLiveData()
+    private val tabModeLiveData = MutableLiveData<SessionTabMode>().apply {
+        postValue(SessionTabMode.RoomTabMode)
+    }
     private val rooms: LiveData<Result<List<Room>>> by lazy {
         repository.rooms
-                .toResult(schedulerProvider)
-                .toLiveData()
+            .toResult(schedulerProvider)
+            .toLiveData()
     }
     private val startTimes: LiveData<Result<List<Date>>> by lazy {
         repository.startTimes
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
-    val tabStuffs: LiveData<Result<List<Any>>> = Transformations.switchMap(tabMode) {
+
+    val tabMode: SessionTabMode
+        get() = tabModeLiveData.value ?: throw IllegalStateException("null is not allowed")
+
+    val tabStuffs: LiveData<Result<List<Any>>> = Transformations.switchMap(tabModeLiveData) {
         when(it) {
             is SessionTabMode.RoomTabMode -> rooms as LiveData<Result<List<Any>>>
             is SessionTabMode.TimeTabMode -> startTimes as LiveData<Result<List<Any>>>
@@ -60,10 +66,8 @@ class SessionsViewModel @Inject constructor(
         refreshSessions()
     }
 
-    fun mayChangeTabMode(newTabMode: SessionTabMode) {
-        if (tabMode != newTabMode) {
-            tabMode.postValue(newTabMode)
-        }
+    fun changeTabMode(newTabMode: SessionTabMode) {
+        tabModeLiveData.postValue(newTabMode)
     }
 
     private fun refreshSessions() {
