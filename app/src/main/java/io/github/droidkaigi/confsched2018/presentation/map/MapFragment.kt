@@ -2,9 +2,13 @@ package io.github.droidkaigi.confsched2018.presentation.map
 
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.DrawableRes
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import io.github.droidkaigi.confsched2018.R
@@ -55,9 +61,17 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
+            // show zoom control on screen
+            uiSettings.isZoomControlsEnabled = true
+
             val latLng = LatLng(placeLat, placeLang)
+
+            // custom pin
+            val pin: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(getBitmap(R.drawable.ic_place_orange_48dp))
+
             val marker = addMarker(MarkerOptions()
                     .position(latLng)
+                    .icon(pin)
                     .title(context?.getString(R.string.map_place_name)))
             marker.showInfoWindow()
 
@@ -99,6 +113,16 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+    }
+
+    private fun getBitmap(@DrawableRes resource: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context!!, resource)
+        val canvas = Canvas()
+        val bitmap = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+        canvas.setBitmap(bitmap)
+        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        drawable.draw(canvas)
+        return bitmap
     }
 
     companion object {
