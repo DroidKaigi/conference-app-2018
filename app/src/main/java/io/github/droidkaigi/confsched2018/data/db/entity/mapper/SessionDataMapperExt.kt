@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.ext.toUnixMills
@@ -44,6 +45,13 @@ fun SessionWithSpeakers.toSession(
             level = Level.of(sessionEntity.level.id, sessionEntity.level.name),
             isFavorited = favList!!.map { it.toString() }.contains(sessionEntity.id),
             speakers = speakers
+    )
+}
+
+fun Session.toSchedule(): SessionSchedule {
+    return SessionSchedule(
+            dayNumber = dayNumber,
+            startTime = startTime
     )
 }
 

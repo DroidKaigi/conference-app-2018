@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
@@ -26,12 +27,12 @@ class TimeSessionsViewModel @Inject constructor(
 
     private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
     val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
-    lateinit var startTime: Date
+    lateinit var schedule: SessionSchedule
 
     val sessions: LiveData<Result<List<Session>>> by lazy {
-        repository.startTimeSessions
-                .map { t: Map<Date, List<Session>> ->
-                    t[startTime] ?: emptyList()
+        repository.scheduleSessions
+                .map { t: Map<SessionSchedule, List<Session>> ->
+                    t[schedule] ?: emptyList()
                 }
                 .toResult(schedulerProvider)
                 .toLiveData()

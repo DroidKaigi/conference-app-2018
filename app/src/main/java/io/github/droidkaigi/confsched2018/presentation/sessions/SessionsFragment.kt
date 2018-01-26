@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -18,6 +19,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -160,12 +162,13 @@ class SessionsViewPagerAdapter(
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
-    private var startTimeTabs = mutableListOf<Tab.TimeTab>()
+    private var schedulesTabs = mutableListOf<Tab.TimeTab>()
 
     sealed class Tab(val title: String) {
         object All : Tab("All")
         data class RoomTab(val room: Room) : Tab(room.name)
-        data class TimeTab(val startTime: Date) : Tab(startDateFormat.format(startTime))
+        data class TimeTab(val schedule: SessionSchedule) :
+                Tab("Day${schedule.dayNumber} / ${startDateFormat.format(schedule.startTime)}")
     }
 
     private fun setupTabs(otherTabs: List<Tab>) {
@@ -187,9 +190,13 @@ class SessionsViewPagerAdapter(
                 RoomSessionsFragment.newInstance(tab.room)
             }
             is Tab.TimeTab -> {
-                TimeSessionsFragment.newInstance(tab.startTime)
+                TimeSessionsFragment.newInstance(tab.schedule)
             }
         }
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
     }
 
     override fun getCount(): Int = tabs.size
@@ -207,14 +214,14 @@ class SessionsViewPagerAdapter(
 
                 setRooms(tabStuffs as List<Room>)
             }
-            is Date -> {
+            is SessionSchedule -> {
                 if (BuildConfig.DEBUG) {
-                    if (!tabStuffs.all { it is Date }) {
-                        throw IllegalStateException("Tab stuffs contain non-Date class")
+                    if (!tabStuffs.all { it is SessionSchedule }) {
+                        throw IllegalStateException("Tab stuffs contain non-SessionSchedule class")
                     }
                 }
 
-                setStartTimes(tabStuffs as List<Date>)
+                setSchedules(tabStuffs as List<SessionSchedule>)
             }
             null -> throw IllegalArgumentException("No tab stuff found")
             else -> throw IllegalStateException("Unknown tab stuff was passed : $sample")
@@ -231,13 +238,13 @@ class SessionsViewPagerAdapter(
         setupTabs(roomTabs)
     }
 
-    private fun setStartTimes(startTimes: List<Date>) {
-        if (startTimes != startTimeTabs.map { it.startTime }) {
-            startTimeTabs = startTimes.map {
+    private fun setSchedules(schedules: List<SessionSchedule>) {
+        if (schedules != schedulesTabs.map { it.schedule }) {
+            schedulesTabs = schedules.map {
                 Tab.TimeTab(it)
             }.toMutableList()
         }
 
-        setupTabs(startTimeTabs)
+        setupTabs(schedulesTabs)
     }
 }

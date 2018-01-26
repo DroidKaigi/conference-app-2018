@@ -10,6 +10,7 @@ import android.arch.lifecycle.ViewModel
 import android.support.annotation.MainThread
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
@@ -34,8 +35,8 @@ class SessionsViewModel @Inject constructor(
             .toResult(schedulerProvider)
             .toLiveData()
     }
-    private val startTimes: LiveData<Result<List<Date>>> by lazy {
-        repository.startTimes
+    private val startTimes: LiveData<Result<List<SessionSchedule>>> by lazy {
+        repository.schedules
                 .toResult(schedulerProvider)
                 .toLiveData()
     }

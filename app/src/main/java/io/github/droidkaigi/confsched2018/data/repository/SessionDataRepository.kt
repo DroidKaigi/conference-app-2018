@@ -4,6 +4,7 @@ import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSchedule
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
@@ -12,6 +13,7 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
@@ -21,7 +23,6 @@ import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
 import io.reactivex.rxkotlin.Singles
 import timber.log.Timber
-import java.util.Date
 import javax.inject.Inject
 
 class SessionDataRepository @Inject constructor(
@@ -64,8 +65,10 @@ class SessionDataRepository @Inject constructor(
                     .doOnNext {
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
-    override val startTimes: Flowable<List<Date>> =
-            sessions.map { it.map { it.startTime }.distinct().sorted() }
+    override val schedules: Flowable<List<SessionSchedule>> =
+            sessions.map {
+                it.map { it.toSchedule() }.distinct().sorted()
+            }
 
     private val specialSessions: List<Session.SpecialSession> by lazy {
         SpecialSessions.getSessions()
@@ -121,9 +124,9 @@ class SessionDataRepository @Inject constructor(
                         .groupBy { it.level }
             }
 
-    override val startTimeSessions: Flowable<Map<Date, List<Session>>> =
+    override val scheduleSessions: Flowable<Map<SessionSchedule, List<Session>>> =
         sessions.map {
-            it.groupBy { it.startTime }
+            it.groupBy { it.toSchedule() }
         }
 
     override fun favorite(session: Session.SpeechSession): Single<Boolean> =

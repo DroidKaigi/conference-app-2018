@@ -15,6 +15,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentTimeSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.TimeBasedSessionsSection
@@ -24,7 +25,6 @@ import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
-import java.util.Date
 import javax.inject.Inject
 
 class TimeSessionsFragment : Fragment(), Injectable {
@@ -55,7 +55,7 @@ class TimeSessionsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        timeSessionsViewModel.startTime = arguments?.getSerializable(ARG_START_TIME) as? Date ?: run {
+        timeSessionsViewModel.schedule = arguments?.getSerializable(ARG_SCHEDULE) as? SessionSchedule ?: run {
             throw IllegalStateException("Start time must be given")
         }
 
@@ -99,12 +99,13 @@ class TimeSessionsFragment : Fragment(), Injectable {
     }
 
     companion object {
-        private const val ARG_START_TIME = "start_time"
+        private const val ARG_SCHEDULE = "schedule"
 
-        fun newInstance(startTime: Date): TimeSessionsFragment = TimeSessionsFragment().apply {
-            arguments = Bundle().apply {
-                putSerializable(ARG_START_TIME, startTime)
+        fun newInstance(schedule: SessionSchedule): TimeSessionsFragment =
+                TimeSessionsFragment().apply {
+                    arguments = Bundle().apply {
+                    putSerializable(ARG_SCHEDULE, schedule)
+                }
             }
-        }
     }
 }
