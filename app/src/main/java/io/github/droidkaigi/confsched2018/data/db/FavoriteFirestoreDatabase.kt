@@ -98,18 +98,29 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
 
     @CheckResult
     private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
-        return Single.create({ e: SingleEmitter<FirebaseUser> ->
+        val database = FirebaseFirestore.getInstance()
+        val favorites = database.collection("users/" + currentUser.uid + "/favorites")
+
+        return Single.create({ e: SingleEmitter<QuerySnapshot> ->
             if (DEBUG) Timber.d("Firestore:setupFavoritesDocument")
-            val database = FirebaseFirestore.getInstance()
-            val favorites = database.collection("users/" + currentUser.uid + "/favorites")
-            favorites.get().addOnCompleteListener { task ->
+            val listener = favorites.addSnapshotListener { querySnapshot, exception ->
                 if (DEBUG) Timber.d("Firestore:setupFavoritesDocument onComplete")
-                if (!task.isSuccessful) {
-                    Timber.e(task.exception!!, "Firestore:setupFavoritesDocument onComplete fail ")
-                    e.onError(task.exception!!)
-                    return@addOnCompleteListener
+                if (exception != null) {
+                    Timber.e(exception, "Firestore:setupFavoritesDocument onComplete fail ")
+                    e.onError(exception)
+                } else {
+                    e.onSuccess(querySnapshot)
                 }
-                if (task.result.isEmpty) {
+            }
+            e.setCancellable {
+                if (DEBUG) Timber.d("Firestore:setupFavoritesDocument dispose")
+                listener.remove()
+            }
+
+        // To avoid get -> write -> get -> ... loop, split task.
+        }).flatMap { querySnapshot ->
+            Single.create<FirebaseUser> { e ->
+                if (querySnapshot.isEmpty) {
                     favorites.add(mapOf("initialized" to true)).addOnCompleteListener {
                         if (DEBUG) Timber.d("Firestore:create document for listing")
                         e.onSuccess(currentUser)
@@ -119,8 +130,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
                     e.onSuccess(currentUser)
                 }
             }
-            return@create
-        })
+        }
     }
 
     @CheckResult
