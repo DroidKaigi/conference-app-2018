@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.droidkaigi.confsched2018.BuildConfig
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
@@ -51,10 +52,10 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        sessionsViewModel.startTimes.observe(this, { result ->
+        sessionsViewModel.tabStuffs.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsViewPagerAdapter.setStartTimes(result.data)
+                    sessionsViewPagerAdapter.setTabStuffs(result.data)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -81,6 +82,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
+        // FIXME
+        sessionsViewModel.mayChangeTabMode(SessionTabMode.RoomTabMode)
     }
 
     override fun onReselected() {
@@ -120,10 +123,10 @@ class SessionsViewPagerAdapter(
         data class TimeTab(val startTime: Date) : Tab(startDateFormat.format(startTime))
     }
 
-    private fun setupTabs() {
+    private fun setupTabs(otherTabs: List<Tab>) {
         tabs.clear()
         tabs.add(Tab.All)
-        tabs.addAll(startTimeTabs)
+        tabs.addAll(otherTabs)
         notifyDataSetChanged()
     }
 
@@ -146,23 +149,40 @@ class SessionsViewPagerAdapter(
 
     override fun getCount(): Int = tabs.size
 
-    fun setRooms(rooms: List<Room>) {
-        if (rooms == roomTabs.map { it.room }) {
-            return
+    fun setTabStuffs(tabStuffs: List<Any>) {
+        if (BuildConfig.DEBUG) {
+            if (tabStuffs.map { it::class }.distinct().size != 1) {
+                throw IllegalStateException("Tab stuffs contain two or more classes")
+            }
         }
-        roomTabs = rooms.map {
-            Tab.RoomTab(it)
-        }.toMutableList()
-        setupTabs()
+
+        val sample = tabStuffs.firstOrNull()
+
+        when (sample) {
+            is Room -> setRooms(tabStuffs as List<Room>)
+            is Date -> setStartTimes(tabStuffs as List<Date>)
+            null -> throw IllegalArgumentException("No tab stuff found")
+            else -> throw IllegalStateException("Unknown tab stuff was passed : $sample")
+        }
     }
 
-    fun setStartTimes(startTimes: List<Date>) {
-        if (startTimes == startTimeTabs.map { it.startTime }) {
-            return
+    private fun setRooms(rooms: List<Room>) {
+        if (rooms != roomTabs.map { it.room }) {
+            roomTabs = rooms.map {
+                Tab.RoomTab(it)
+            }.toMutableList()
         }
-        startTimeTabs = startTimes.map {
-            Tab.TimeTab(it)
-        }.toMutableList()
-        setupTabs()
+
+        setupTabs(roomTabs)
+    }
+
+    private fun setStartTimes(startTimes: List<Date>) {
+        if (startTimes != startTimeTabs.map { it.startTime }) {
+            startTimeTabs = startTimes.map {
+                Tab.TimeTab(it)
+            }.toMutableList()
+        }
+
+        setupTabs(startTimeTabs)
     }
 }

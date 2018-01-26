@@ -5,7 +5,9 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
+import android.support.annotation.MainThread
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -24,19 +26,25 @@ class SessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
-    val rooms: LiveData<Result<List<Room>>> by lazy {
+    private val tabMode: MutableLiveData<SessionTabMode> = MutableLiveData()
+    private val rooms: LiveData<Result<List<Room>>> by lazy {
         repository.rooms
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
-    // FIXME use switch map
-    val startTimes: LiveData<Result<List<Date>>> by lazy {
+    private val startTimes: LiveData<Result<List<Date>>> by lazy {
         repository.startTimes
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
+    val tabStuffs: LiveData<Result<List<Any>>> = Transformations.switchMap(tabMode) {
+        when(it) {
+            is SessionTabMode.RoomTabMode -> rooms as LiveData<Result<List<Any>>>
+            is SessionTabMode.TimeTabMode -> startTimes as LiveData<Result<List<Any>>>
+        }
+    }
     val isLoading: LiveData<Boolean> by lazy {
-        rooms.map { it.inProgress }
+        tabStuffs.map { it.inProgress }
     }
     private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
     val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
@@ -50,6 +58,12 @@ class SessionsViewModel @Inject constructor(
 
     fun onRetrySessions() {
         refreshSessions()
+    }
+
+    fun mayChangeTabMode(newTabMode: SessionTabMode) {
+        if (tabMode != newTabMode) {
+            tabMode.postValue(newTabMode)
+        }
     }
 
     private fun refreshSessions() {

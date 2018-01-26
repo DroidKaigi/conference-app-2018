@@ -37,12 +37,12 @@ class TimeSessionsFragment : Fragment(), Injectable {
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
 
-    private val sessionsViewModel: TimeSessionsViewModel by lazy {
+    private val timeSessionsViewModel: TimeSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(TimeSessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        sessionsViewModel.onFavoriteClick(session)
+        timeSessionsViewModel.onFavoriteClick(session)
         sessionAlarm.toggleRegister(session)
     }
 
@@ -55,26 +55,29 @@ class TimeSessionsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        timeSessionsViewModel.startTime = arguments?.getSerializable(ARG_START_TIME) as? Date ?: run {
+            throw IllegalStateException("Start time must be given")
+        }
+
         setupRecyclerView()
 
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        sessionsViewModel.sessions.observe(this, { result ->
+        timeSessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    val sessions = result.data.filter { it.startTime ==
-                            arguments?.getSerializable(ARG_START_TIME) }
+                    val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener)
 
-                    sessionsViewModel.onSuccessFetchSessions()
+                    timeSessionsViewModel.onSuccessFetchSessions()
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
                 }
             }
         })
-        sessionsViewModel.isLoading.observe(this, { isLoading ->
+        timeSessionsViewModel.isLoading.observe(this, { isLoading ->
             progressTimeLatch.loading = isLoading ?: false
         })
     }
