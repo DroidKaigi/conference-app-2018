@@ -1,9 +1,10 @@
 package io.github.droidkaigi.confsched2018.presentation.search.item
 
+import android.text.TextUtils
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Speaker
-import io.github.droidkaigi.confsched2018.util.ext.toGroupId
+import io.github.droidkaigi.confsched2018.util.ext.toSortKey
 
 class SpeakersSection : Section() {
 
@@ -12,7 +13,7 @@ class SpeakersSection : Section() {
 
     fun updateSpeakers(speakers: List<Speaker>) {
         val list = mutableListOf<Item<*>>()
-        speakers.sortedBy { it.toGroupId(*groupIgnorePrefixes) }
+        speakers.sortedBy { it.toSortKey(*groupIgnorePrefixes) }
                 .mapTo(list) { speaker -> SpeakerItem(speaker) }
         update(list)
     }
@@ -20,7 +21,8 @@ class SpeakersSection : Section() {
     fun getGroupId(position: Int): Char? {
         return getItemOrNull(position)
                 ?.let { it as? SpeakerItem }
-                ?.speaker?.toGroupId(*groupIgnorePrefixes)
+                ?.speaker?.toSortKey(*groupIgnorePrefixes)
+                ?.firstOrNull() ?: '*'
     }
 
     private fun getItemOrNull(i: Int): Item<*>? {
