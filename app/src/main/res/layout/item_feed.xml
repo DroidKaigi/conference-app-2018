@@ -43,7 +43,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:ellipsize="end"
-            android:maxLines="1"
             android:text="@{post.title}"
             app:layout_constraintEnd_toStartOf="@+id/expand_icon"
             app:layout_constraintStart_toStartOf="parent"

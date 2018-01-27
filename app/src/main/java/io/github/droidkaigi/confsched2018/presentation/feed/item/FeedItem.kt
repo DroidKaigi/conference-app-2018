@@ -47,6 +47,7 @@ data class FeedItem(
 
                     if (!initialized) {
                         initialized = true
+                        viewBinding.title.maxLines = 1
                         viewBinding.content.maxLines = 1
 
                         expandable = viewBinding.content.lineCount > 1
@@ -73,7 +74,14 @@ data class FeedItem(
                             TransitionManager.beginDelayedTransition(parent, transition)
                             expanded = !expanded
 
-                            viewBinding.content.maxLines = if (expanded) Integer.MAX_VALUE else 1
+                            if (expanded) {
+                                Integer.MAX_VALUE
+                            } else {
+                                1
+                            }.also {
+                                viewBinding.title.maxLines = it
+                                viewBinding.content.maxLines = it
+                            }
 
                             val titleTextColor = ResourcesCompat.getColor(
                                     viewBinding.context.resources,
