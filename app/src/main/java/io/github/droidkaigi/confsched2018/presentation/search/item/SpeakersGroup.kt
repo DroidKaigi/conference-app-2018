@@ -17,7 +17,7 @@ class SpeakersSection : Section() {
         update(list)
     }
 
-    fun getGroupId(position: Int) : Char? {
+    fun getGroupId(position: Int): Char? {
         return getItemOrNull(position)
                 ?.let { it as? SpeakerItem }
                 ?.speaker?.toGroupId(*groupIgnorePrefixes)
