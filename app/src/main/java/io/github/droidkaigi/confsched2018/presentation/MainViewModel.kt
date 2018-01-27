@@ -1,37 +1,51 @@
 package io.github.droidkaigi.confsched2018.presentation
 
-import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
+import android.content.Context
 import android.content.Intent
-import io.github.droidkaigi.confsched2018.presentation.common.pref.PrefsKeyChangedListener
-import io.github.droidkaigi.confsched2018.presentation.common.pref.TimeZoneChangedListener
+import android.content.IntentFilter
+import com.cantrowitz.rxbroadcast.RxBroadcast
+import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
+import io.github.droidkaigi.confsched2018.util.ext.asFlowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
-        private val prefsKeyChangedListener: PrefsKeyChangedListener,
-        private val timeZoneChangedListener: TimeZoneChangedListener
-) : ViewModel(), LifecycleObserver {
+class MainViewModel @Inject constructor(context: Context) : ViewModel(), LifecycleObserver {
 
-    val configChangeEvent: MutableLiveData<String> = MutableLiveData()
-    val timeZoneChangedEvent: MutableLiveData<Intent> = MutableLiveData()
+    private val mutableLocalTimeConfig: MutableLiveData<Boolean> = MutableLiveData()
+    val localTimeConfig: LiveData<Boolean> = mutableLocalTimeConfig
+    private val mutableBottomNavigationBarConfig: MutableLiveData<Boolean> = MutableLiveData()
+    val bottomNavigationBarConfig: LiveData<Boolean> = mutableBottomNavigationBarConfig
+    private val mutableLastTimeZoneChangeIntent: MutableLiveData<Intent> = MutableLiveData()
+    val lastTimeZoneChangeIntent: LiveData<Intent> = mutableLastTimeZoneChangeIntent
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
-        prefsKeyChangedListener.listener
-                .subscribeBy(
-                        onNext = { configChangeEvent.value = it }
-                )
+    init {
+        Prefs
+                .asFlowable(
+                        Prefs::enableHideBottomNavigationBar,
+                        R.string.pref_key_enable_hide_bottom_navigation
+                ).subscribeBy(
+                onNext = { mutableBottomNavigationBarConfig.value = it }
+        )
                 .addTo(compositeDisposable)
-        timeZoneChangedListener.listener
+        Prefs
+                .asFlowable(
+                        Prefs::enableLocalTime,
+                        R.string.pref_key_enable_local_time
+                ).subscribeBy(
+                onNext = { mutableLocalTimeConfig.value = it }
+        )
+                .addTo(compositeDisposable)
+        RxBroadcast.fromBroadcast(context, IntentFilter(Intent.ACTION_TIMEZONE_CHANGED))
                 .subscribeBy(
-                        onNext = { timeZoneChangedEvent.value = it }
+                        onNext = { mutableLastTimeZoneChangeIntent.value = it }
                 )
                 .addTo(compositeDisposable)
     }

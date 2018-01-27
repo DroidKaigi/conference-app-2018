@@ -146,6 +146,7 @@ dependencies {
     implementation depends.rxjava2.core
     implementation depends.rxjava2.android
     implementation depends.rxjava2.kotlin
+    implementation depends.rxbroadcast
 
     kapt depends.binding.compiler
 
