@@ -28,6 +28,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     private val speakerList: ArrayList<Speaker> = ArrayList()
     private val speakerContainer: RecyclerView
     private val customAttributes: CustomAttributes
+    private var speakerIdInDetail: String? = null
 
     private fun customAttributesFrom(context: Context, attrs: AttributeSet?): CustomAttributes {
         val res = context.resources
@@ -79,6 +80,10 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
         updateSpeakers()
     }
 
+    fun setSpeakerIdInDetail(speakerId: String?) {
+        speakerIdInDetail = speakerId
+    }
+
     private fun updateSpeakers() {
         if (speakerList.isEmpty()) {
         } else {
@@ -87,7 +92,10 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
 
             speakerAdapter.setOnItemClickListener(object : SpeakersAdapter.OnItemClickListener {
                 override fun onClick(view: View, speakerId: String) {
-                    SpeakerDetailActivity.start(context, speakerId)
+                    if (speakerIdInDetail == null ||
+                            (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
+                        SpeakerDetailActivity.start(context, speakerId)
+                    }
                 }
             })
         }

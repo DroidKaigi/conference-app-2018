@@ -15,7 +15,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.di.AppInjector
-import io.github.droidkaigi.confsched2018.util.initNotificationChannel
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationHelper
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
@@ -39,7 +39,8 @@ open class App : MultiDexApplication(), HasActivityInjector {
         if (FirebaseApp.getApps(this).isNotEmpty()) {
             val fireStore = FirebaseFirestore.getInstance()
             val settings = FirebaseFirestoreSettings.Builder()
-                    .setPersistenceEnabled(true)
+                    // https://github.com/DroidKaigi/conference-app-2018/issues/277#issuecomment-360171780
+                    .setPersistenceEnabled(false)
                     .build()
             fireStore.firestoreSettings = settings
         }
@@ -86,7 +87,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
     }
 
     private fun setupNotification() {
-        initNotificationChannel(this)
+        NotificationHelper.initNotificationChannel(this)
     }
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> =
