@@ -20,6 +20,7 @@ data class FeedItem(
         private val feedItemExpanded: ConstraintSet,
         private val expandTransition: Transition,
         private val collapseTransition: Transition,
+        private var initialized: Boolean = false,
         private var expanded: Boolean = false
 ) : BindableItem<ItemFeedBinding>(
         post.hashCode().toLong()
@@ -42,8 +43,17 @@ data class FeedItem(
                 override fun onPreDraw(): Boolean {
                     if (isAlive) removeOnPreDrawListener(this)
 
-                    val expandable = viewBinding.content.lineCount > 1
-                    viewBinding.expandable = expandable
+                    val expandable: Boolean
+
+                    if (!initialized) {
+                        initialized = true
+                        viewBinding.content.maxLines = 1
+
+                        expandable = viewBinding.content.lineCount > 1
+                        viewBinding.expandable = expandable
+                    } else {
+                        expandable = viewBinding.expandable!!
+                    }
 
                     if (expandable) {
                         viewBinding.root.setOnClickListener {
@@ -62,6 +72,8 @@ data class FeedItem(
                             })
                             TransitionManager.beginDelayedTransition(parent, transition)
                             expanded = !expanded
+
+                            viewBinding.content.maxLines = if (expanded) Integer.MAX_VALUE else 1
 
                             val titleTextColor = ResourcesCompat.getColor(
                                     viewBinding.context.resources,
