@@ -6,23 +6,17 @@
     <data>
 
     </data>
-    <android.support.constraint.ConstraintLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_sessions_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false"
-        >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_sessions_recycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:orientation="horizontal"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_horizontal_session"
-            />
-    </android.support.constraint.ConstraintLayout>
+        android:orientation="horizontal"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_horizontal_session"
+        />
 </layout>
