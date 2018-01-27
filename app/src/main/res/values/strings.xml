@@ -56,6 +56,7 @@
     <!-- Feed -->
     <string name="feed_title">Information</string>
     <string name="feed_content_description_expand_button">Expand button</string>
+    <string name="feed_content_description_feed_icon">Feed Icon</string>
     <string name="feed_not_found">Feed does not exist</string>
     <string name="feed_content_description_not_found">Feed does not exist image</string>
 

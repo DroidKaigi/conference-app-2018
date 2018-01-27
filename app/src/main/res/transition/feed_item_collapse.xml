@@ -22,12 +22,22 @@
         </targets>
     </changeBounds>
 
-
     <transition class="io.github.droidkaigi.confsched2018.presentation.common.transition.Rotate">
         <targets>
             <target android:targetId="@id/expand_icon" />
         </targets>
     </transition>
+
+    <changeBounds
+        android:duration="170"
+        android:startDelay="30"
+        >
+        <targets>
+            <target android:targetId="@id/title" />
+        </targets>
+        <arcMotion />
+    </changeBounds>
+
     <changeBounds
         android:duration="170"
         android:startDelay="30"
@@ -37,8 +47,6 @@
         </targets>
         <arcMotion />
     </changeBounds>
-
-    <changeBounds />
 
     <fade
         android:duration="50"

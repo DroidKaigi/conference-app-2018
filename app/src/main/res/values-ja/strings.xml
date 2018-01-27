@@ -49,6 +49,7 @@
 
     <!-- Feed -->
     <string name="feed_title">お知らせ</string>
+    <string name="feed_content_description_feed_icon">お知らせアイコン</string>
     <string name="feed_not_found">お知らせがありません</string>
     <string name="feed_content_description_not_found">お知らせが無い画像</string>
 
