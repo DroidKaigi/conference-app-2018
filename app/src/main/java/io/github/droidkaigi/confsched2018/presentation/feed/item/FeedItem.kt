@@ -35,7 +35,6 @@ data class FeedItem(
             Post.Type.Notification -> R.drawable.ic_feed_notification_blue_20dp
             Post.Type.Alert -> R.drawable.ic_feed_alert_amber_20dp
             Post.Type.Enquete -> R.drawable.ic_feed_enquete_cyan_20dp
-            else -> R.drawable.ic_feed_notification_blue_20dp
         })
 
         viewBinding.content.viewTreeObserver.apply {
