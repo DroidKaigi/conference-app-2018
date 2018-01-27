@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.db
 
 import android.support.annotation.CheckResult
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
@@ -9,6 +8,7 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.util.ext.toSingle
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -47,40 +47,39 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
         Single.error(NotPreparedException())
     } else {
         getCurrentUser().flatMap { currentUser ->
-            return@flatMap Single.create<Boolean>({ e ->
+            return@flatMap Single.create<DocumentSnapshot>({ e ->
                 val database = FirebaseFirestore.getInstance()
                 val favorites = database.collection("users/${currentUser.uid}/favorites")
                         .document(session.id)
-                favorites.get().addOnCompleteListener({ task: Task<DocumentSnapshot> ->
+                val listener = favorites.addSnapshotListener { documentSnapshot, exception ->
                     if (DEBUG) Timber.d("Firestore:favorite get")
-                    if (task.isSuccessful) {
-                        val result = task.result
-                        val nowFavorite = result.exists() && (result.data[session.id] == true)
-                        val newFavorite = !nowFavorite
-
-                        val completeListener: (Task<Void>) -> Unit = {
-                            val exception = it.exception
-                            if (exception != null) {
-                                if (DEBUG) Timber.d(exception, "Firestore:favorite write fail")
-                                e.onError(exception)
-                            } else {
-                                if (DEBUG) Timber.d("Firestore:favorite write success")
-                                e.onSuccess(newFavorite)
-                            }
-                        }
-
-                        val sessionToFavoriteMap = mapOf("favorite" to newFavorite)
-                        if (result.exists()) {
-                            favorites.delete().addOnCompleteListener(completeListener)
-                        } else {
-                            val set = favorites.set(sessionToFavoriteMap)
-                            set.addOnCompleteListener(completeListener)
-                        }
+                    if (exception != null) {
+                        e.onError(exception)
                     } else {
-                        e.onError(task.exception!!)
+                        e.onSuccess(documentSnapshot)
                     }
-                })
-            })
+                }
+                e.setCancellable {
+                    if (DEBUG) Timber.d("Firestore:favorite dispose")
+                    listener.remove()
+                }
+
+            // To avoid get -> write -> get -> ... loop, split task.
+            }).flatMap<Boolean> { documentSnapshot ->
+                val nowFavorite = documentSnapshot.exists() && (documentSnapshot.data[session.id] == true)
+                val newFavorite = !nowFavorite
+
+                val sessionToFavoriteMap = mapOf("favorite" to newFavorite)
+                if (documentSnapshot.exists()) {
+                    documentSnapshot.reference.delete()
+                            .toSingle()
+                            .map { newFavorite }
+                } else {
+                    documentSnapshot.reference.set(sessionToFavoriteMap)
+                            .toSingle()
+                            .map { newFavorite }
+                }
+            }
         }
     }
 
@@ -98,18 +97,29 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
 
     @CheckResult
     private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
-        return Single.create({ e: SingleEmitter<FirebaseUser> ->
+        val database = FirebaseFirestore.getInstance()
+        val favorites = database.collection("users/" + currentUser.uid + "/favorites")
+
+        return Single.create({ e: SingleEmitter<QuerySnapshot> ->
             if (DEBUG) Timber.d("Firestore:setupFavoritesDocument")
-            val database = FirebaseFirestore.getInstance()
-            val favorites = database.collection("users/" + currentUser.uid + "/favorites")
-            favorites.get().addOnCompleteListener { task ->
+            val listener = favorites.addSnapshotListener { querySnapshot, exception ->
                 if (DEBUG) Timber.d("Firestore:setupFavoritesDocument onComplete")
-                if (!task.isSuccessful) {
-                    Timber.e(task.exception!!, "Firestore:setupFavoritesDocument onComplete fail ")
-                    e.onError(task.exception!!)
-                    return@addOnCompleteListener
+                if (exception != null) {
+                    Timber.e(exception, "Firestore:setupFavoritesDocument onComplete fail ")
+                    e.onError(exception)
+                } else {
+                    e.onSuccess(querySnapshot)
                 }
-                if (task.result.isEmpty) {
+            }
+            e.setCancellable {
+                if (DEBUG) Timber.d("Firestore:setupFavoritesDocument dispose")
+                listener.remove()
+            }
+
+        // To avoid get -> write -> get -> ... loop, split task.
+        }).flatMap { querySnapshot ->
+            Single.create<FirebaseUser> { e ->
+                if (querySnapshot.isEmpty) {
                     favorites.add(mapOf("initialized" to true)).addOnCompleteListener {
                         if (DEBUG) Timber.d("Firestore:create document for listing")
                         e.onSuccess(currentUser)
@@ -119,8 +129,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
                     e.onSuccess(currentUser)
                 }
             }
-            return@create
-        })
+        }
     }
 
     @CheckResult

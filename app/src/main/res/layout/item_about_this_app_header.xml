@@ -124,7 +124,6 @@
             app:srcCompat="@drawable/ic_youtube_24dp"
             />
 
-        <!-- TODO Replace the icon from access to Medium.-->
         <ImageButton
             android:id="@+id/about_this_app_Medium"
             style="@style/SocialMediaButton"
@@ -133,7 +132,7 @@
             app:layout_constraintLeft_toRightOf="@+id/about_this_app_youtube"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/about_this_app_youtube"
-            app:srcCompat="@drawable/ic_access_black_24dp"
+            app:srcCompat="@drawable/ic_medium_24dp"
             />
 
     </android.support.constraint.ConstraintLayout>

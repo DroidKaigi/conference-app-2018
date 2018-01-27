@@ -50,6 +50,8 @@
     <!-- Feed -->
     <string name="feed_title">お知らせ</string>
     <string name="feed_content_description_feed_icon">お知らせアイコン</string>
+    <string name="feed_not_found">お知らせがありません</string>
+    <string name="feed_content_description_not_found">お知らせが無い画像</string>
 
     <!-- Map -->
     <string name="map_title_activity">地図</string>
@@ -97,7 +99,9 @@
     <!-- Staff -->
     <string name="staff">スタッフ</string>
     <string name="staff_avatar">スタッフのプロフィール画像</string>
-    <string name="staff_header">%d 人のスタッフ</string>
+    <plurals name="staff_header">
+        <item quantity="other">%d 人のスタッフ</item>
+    </plurals>
 
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>

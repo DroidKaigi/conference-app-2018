@@ -178,12 +178,10 @@
                         />
                     <Button
                         android:id="@+id/go_to_questionnaire"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/GoToQuestionnaire"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@string/session_go_to_questionnaire"
-                        android:textColor="@color/app_bar_text_color"
                         android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/finished_session_check"
