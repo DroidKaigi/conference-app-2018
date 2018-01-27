@@ -1,66 +1,43 @@
 package io.github.droidkaigi.confsched2018.presentation
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.content.SharedPreferences
-import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
+import io.github.droidkaigi.confsched2018.presentation.common.pref.PrefsKeyChangedListener
+import io.github.droidkaigi.confsched2018.presentation.common.pref.TimeZoneChangedListener
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-@SuppressLint("StaticFieldLeak")
 class MainViewModel @Inject constructor(
-        // this field is application context not activity context
-        private val applicationContext: Context
+        private val prefsKeyChangedListener: PrefsKeyChangedListener,
+        private val timeZoneChangedListener: TimeZoneChangedListener
 ) : ViewModel(), LifecycleObserver {
 
-    val configChangeEvent: MutableLiveData<Boolean> = MutableLiveData()
-    private val timezoneFilter = IntentFilter(Intent.ACTION_TIMEZONE_CHANGED)
-    private val timezoneReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            intent?.let {
-                when (it.action) {
-                    Intent.ACTION_TIMEZONE_CHANGED -> {
-                        onConfigChanged()
-                    }
-                    else -> Unit
-                }
-            }
-        }
-    }
-    private val preferenceChangedListener =
-            SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-                // if you want to send configuration change event to activity, add key in when
-                // expression
-                when (key) {
-                    applicationContext.getString(R.string.pref_key_enable_local_time) ->
-                        onConfigChanged()
-                    applicationContext.getString(R.string.pref_key_enable_hide_bottom_navigation) ->
-                        onConfigChanged()
-                    else -> Unit
-                }
-            }
+    val configChangeEvent: MutableLiveData<String> = MutableLiveData()
+    val timeZoneChangedEvent: MutableLiveData<Intent> = MutableLiveData()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        applicationContext.registerReceiver(timezoneReceiver, timezoneFilter)
-        Prefs.preferences.registerOnSharedPreferenceChangeListener(preferenceChangedListener)
+        prefsKeyChangedListener.listener
+                .subscribeBy(
+                        onNext = { configChangeEvent.value = it }
+                )
+                .addTo(compositeDisposable)
+        timeZoneChangedListener.listener
+                .subscribeBy(
+                        onNext = { timeZoneChangedEvent.value = it }
+                )
+                .addTo(compositeDisposable)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
-        applicationContext.unregisterReceiver(timezoneReceiver)
-        Prefs.preferences.unregisterOnSharedPreferenceChangeListener(preferenceChangedListener)
-    }
-
-    private fun onConfigChanged() {
-        configChangeEvent.postValue(true)
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

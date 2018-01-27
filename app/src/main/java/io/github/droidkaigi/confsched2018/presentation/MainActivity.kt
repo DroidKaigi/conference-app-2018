@@ -48,8 +48,15 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
         lifecycle.addObserver(mainViewModel)
         mainViewModel.configChangeEvent.observe(this, {
+            when (it) {
+                getString(R.string.pref_key_enable_local_time) -> forceReloadCurrentFragment()
+                getString(R.string.pref_key_enable_hide_bottom_navigation) ->
+                    setBottomNavigationBehavior()
+                else -> Unit
+            }
+        })
+        mainViewModel.timeZoneChangedEvent.observe(this, {
             forceReloadCurrentFragment()
-            setBottomNavigationBehavior()
         })
 
         setupBottomNavigation(savedInstanceState)
