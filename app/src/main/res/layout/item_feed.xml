@@ -46,7 +46,7 @@
             android:text="@{post.title}"
             app:layout_constraintEnd_toStartOf="@+id/expand_icon"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feed_icon"
+            app:layout_constraintTop_toBottomOf="@+id/date"
             tools:text="マイセッションを見つけよう!"
             />
         <android.support.text.emoji.widget.EmojiTextView
@@ -54,12 +54,12 @@
             style="@style/TextStyle.App.Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/feed_collapse_content_size"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
+            android:paddingBottom="16dp"
             android:text="@{post.content}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/expand_icon"
@@ -77,7 +77,7 @@
             android:scaleType="center"
             android:visibility="@{expandable ? View.VISIBLE: View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feed_icon"
+            app:layout_constraintTop_toBottomOf="@+id/date"
             app:srcCompat="@drawable/ic_expand_more_black_24dp"
             />
         <ImageView

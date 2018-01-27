@@ -8,8 +8,6 @@
     <!-- Feed -->
     <dimen name="feed_expand_button_size">20dp</dimen>
     <dimen name="feed_feed_icon_size">20dp</dimen>
-    <dimen name="feed_collapse_content_size">32dp</dimen>
-    <dimen name="feed_expand_content_size">256dp</dimen>
 
     <!-- Search -->
     <dimen name="search_speaker_image_size">40dp</dimen>
