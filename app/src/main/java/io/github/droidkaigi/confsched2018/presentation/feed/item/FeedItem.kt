@@ -19,13 +19,13 @@ data class FeedItem(
         private val feedItemCollapsed: ConstraintSet,
         private val feedItemExpanded: ConstraintSet,
         private val expandTransition: Transition,
-        private val collapseTransition: Transition,
-        private var initialized: Boolean = false,
-        private var expanded: Boolean = false
+        private val collapseTransition: Transition
 ) : BindableItem<ItemFeedBinding>(
         post.hashCode().toLong()
 ) {
     private val touchIgnore = View.OnTouchListener { _, _ -> true }
+    private var initialized: Boolean = false
+    private var expanded: Boolean = false
 
     override fun bind(viewBinding: ItemFeedBinding, position: Int) {
         viewBinding.post = post
@@ -58,47 +58,14 @@ data class FeedItem(
 
                     if (expandable) {
                         viewBinding.root.setOnClickListener {
-                            val parent = viewBinding.root.parent as RecyclerView
-                            parent.setOnTouchListener(touchIgnore)
-
-                            val transition = when (expanded) {
-                                true -> collapseTransition
-                                false -> expandTransition
-                            }.clone()
-
-                            transition.addListener(object : TransitionListenerAdapter() {
-                                override fun onTransitionEnd(transition: Transition) {
-                                    parent.setOnTouchListener(null)
-                                }
-                            })
-                            TransitionManager.beginDelayedTransition(parent, transition)
                             expanded = !expanded
 
                             if (expanded) {
-                                Integer.MAX_VALUE
+                                prepareAnimation(expandTransition.clone(), viewBinding)
+                                startExpandAnimation(viewBinding)
                             } else {
-                                1
-                            }.also {
-                                viewBinding.title.maxLines = it
-                                viewBinding.content.maxLines = it
-                            }
-
-                            val titleTextColor = ResourcesCompat.getColor(
-                                    viewBinding.context.resources,
-                                    if (expanded) R.color.primary else R.color.black,
-                                    null)
-                            viewBinding.title.setTextColor(titleTextColor)
-
-                            viewBinding.expandIcon.setImageResource(if (expanded) {
-                                R.drawable.ic_expand_more_primary_24dp
-                            } else {
-                                R.drawable.ic_expand_more_black_24dp
-                            })
-
-                            if (!expanded) {
-                                feedItemCollapsed.applyTo(viewBinding.feedItemConstraintLayout)
-                            } else {
-                                feedItemExpanded.applyTo(viewBinding.feedItemConstraintLayout)
+                                prepareAnimation(collapseTransition.clone(), viewBinding)
+                                startCollapseAnimation(viewBinding)
                             }
                         }
                     } else {
@@ -109,6 +76,38 @@ data class FeedItem(
                 }
             })
         }
+    }
+
+    private fun prepareAnimation(transition: Transition, viewBinding: ItemFeedBinding) {
+        val parent = viewBinding.root.parent as RecyclerView
+        parent.setOnTouchListener(touchIgnore)
+
+        transition.addListener(object : TransitionListenerAdapter() {
+            override fun onTransitionEnd(transition: Transition) {
+                parent.setOnTouchListener(null)
+            }
+        })
+        TransitionManager.beginDelayedTransition(parent, transition)
+    }
+
+    private fun startExpandAnimation(viewBinding: ItemFeedBinding) {
+        viewBinding.title.maxLines = Integer.MAX_VALUE
+        viewBinding.content.maxLines = Integer.MAX_VALUE
+        viewBinding.title.setTextColor(ResourcesCompat.getColor(
+                viewBinding.context.resources, R.color.primary, null))
+        viewBinding.expandIcon.setImageResource(R.drawable.ic_expand_more_primary_24dp)
+
+        feedItemExpanded.applyTo(viewBinding.feedItemConstraintLayout)
+    }
+
+    private fun startCollapseAnimation(viewBinding: ItemFeedBinding) {
+        viewBinding.title.maxLines = 1
+        viewBinding.content.maxLines = 1
+        viewBinding.title.setTextColor(ResourcesCompat.getColor(
+                viewBinding.context.resources, R.color.black, null))
+        viewBinding.expandIcon.setImageResource(R.drawable.ic_expand_more_black_24dp)
+
+        feedItemCollapsed.applyTo(viewBinding.feedItemConstraintLayout)
     }
 
     override fun getLayout(): Int = R.layout.item_feed
