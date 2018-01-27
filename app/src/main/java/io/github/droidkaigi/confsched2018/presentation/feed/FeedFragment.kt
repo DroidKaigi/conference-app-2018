@@ -21,6 +21,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.feed.item.FeedItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -82,6 +83,8 @@ class FeedFragment : Fragment(), Injectable {
                                         collapseTransition
                                 )
                             })
+                    binding.feedInactiveGroup.setVisible(posts.isEmpty())
+                    binding.feedRecycler.setVisible(posts.isNotEmpty())
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
