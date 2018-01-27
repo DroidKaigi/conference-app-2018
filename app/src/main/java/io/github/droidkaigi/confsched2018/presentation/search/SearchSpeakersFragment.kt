@@ -87,13 +87,13 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         binding.searchSessionRecycler.addItemDecoration(StickyHeaderItemDecoration(context,
                 object : StickyHeaderItemDecoration.Callback {
                     override fun getGroupId(position: Int): Long {
-                        val initial = speakersSection.getSpeakerNameOrNull(position)?.get(0)
+                        val initial = speakersSection.getGroupId(position)
                         initial ?: return -1
                         return Character.toUpperCase(initial).toLong()
                     }
 
                     override fun getGroupFirstLine(position: Int): String? {
-                        return speakersSection.getSpeakerNameOrNull(position)?.get(0)?.toString()
+                        return speakersSection.getGroupId(position)?.toString()
                     }
                 }))
     }
