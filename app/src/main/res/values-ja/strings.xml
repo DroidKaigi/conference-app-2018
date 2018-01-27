@@ -96,7 +96,9 @@
     <!-- Staff -->
     <string name="staff">スタッフ</string>
     <string name="staff_avatar">スタッフのプロフィール画像</string>
-    <string name="staff_header">%d 人のスタッフ</string>
+    <plurals name="staff_header">
+        <item quantity="other">%d 人のスタッフ</item>
+    </plurals>
 
     <!-- Notification -->
     <string name="notification_title">%1$s がもうすぐ始まります。</string>
