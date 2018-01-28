@@ -69,6 +69,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:textIsSelectable="true"
                             android:text="@{session.title}"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
