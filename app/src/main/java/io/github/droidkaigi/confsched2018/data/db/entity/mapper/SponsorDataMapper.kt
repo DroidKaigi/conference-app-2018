@@ -1,13 +1,10 @@
 package io.github.droidkaigi.confsched2018.data.db.entity.mapper
 
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanWithSponsor
 import io.github.droidkaigi.confsched2018.model.Sponsor as ModelSponsor
 import io.github.droidkaigi.confsched2018.model.SponsorGroup as ModelSponsorGroup
 import io.github.droidkaigi.confsched2018.model.SponsorPlan as ModelSponsorPlan
-
-fun SponsorPlanWithSponsor.toSponsorPlanModel(): ModelSponsorPlan {
+/*
+fun SponsorPlanWithSponsorGroup.toSponsorPlanModel(): ModelSponsorPlan {
     val plan = sponsorPlan!!
     return ModelSponsorPlan(
             name = plan.name,
@@ -36,4 +33,4 @@ private fun SponsorEntity.toSponsor(): ModelSponsor {
     }
     return ModelSponsor(link, imageUri)
 }
-
+*/

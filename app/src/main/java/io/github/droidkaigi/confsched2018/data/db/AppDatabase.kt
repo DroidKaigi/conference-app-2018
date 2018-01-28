@@ -15,6 +15,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionSpeakerJoinEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SponsorGroupEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
 
@@ -26,6 +27,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
             (SessionSpeakerJoinEntity::class),
             (SessionFeedbackEntity::class),
             (SponsorPlanEntity::class),
+            (SponsorGroupEntity::class),
             (SponsorEntity::class)
         ],
         version = 6

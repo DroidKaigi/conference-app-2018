@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "d2f8131e51c4c89c35b976cc1afb6498",
+    "identityHash": "818d66c14437bef10606ff481f88a9f3",
     "entities": [
       {
         "tableName": "contributor",
@@ -383,12 +383,65 @@
         "foreignKeys": []
       },
       {
-        "tableName": "sponsor",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`plan_id` INTEGER NOT NULL, `link` TEXT NOT NULL, `base64_img` TEXT, `img_url` TEXT, PRIMARY KEY(`plan_id`), FOREIGN KEY(`plan_id`) REFERENCES `sponsor_plan`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "tableName": "sponsor_group",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `plan_id` INTEGER NOT NULL, FOREIGN KEY(`plan_id`) REFERENCES `sponsor_plan`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "planId",
             "columnName": "plan_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_sponsor_group_plan_id",
+            "unique": false,
+            "columnNames": [
+              "plan_id"
+            ],
+            "createSql": "CREATE  INDEX `index_sponsor_group_plan_id` ON `${TABLE_NAME}` (`plan_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "sponsor_plan",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "plan_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "sponsor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `group_id` INTEGER NOT NULL, `link` TEXT NOT NULL, `base64_img` TEXT, `img_url` TEXT, FOREIGN KEY(`group_id`) REFERENCES `sponsor_group`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupId",
+            "columnName": "group_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -413,27 +466,27 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "plan_id"
+            "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [
           {
-            "name": "index_sponsor_plan_id",
+            "name": "index_sponsor_group_id",
             "unique": false,
             "columnNames": [
-              "plan_id"
+              "group_id"
             ],
-            "createSql": "CREATE  INDEX `index_sponsor_plan_id` ON `${TABLE_NAME}` (`plan_id`)"
+            "createSql": "CREATE  INDEX `index_sponsor_group_id` ON `${TABLE_NAME}` (`group_id`)"
           }
         ],
         "foreignKeys": [
           {
-            "table": "sponsor_plan",
+            "table": "sponsor_group",
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "plan_id"
+              "group_id"
             ],
             "referencedColumns": [
               "id"
@@ -444,7 +497,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"d2f8131e51c4c89c35b976cc1afb6498\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"818d66c14437bef10606ff481f88a9f3\")"
     ]
   }
 }

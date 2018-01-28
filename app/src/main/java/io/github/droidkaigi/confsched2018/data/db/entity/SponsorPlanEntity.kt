@@ -5,8 +5,8 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "sponsor_plan")
 data class SponsorPlanEntity(
-        @PrimaryKey
-        var id: Int,
+        @PrimaryKey(autoGenerate = true)
+        var id: Int = 0,
         var name: String,
         var type: Type
 

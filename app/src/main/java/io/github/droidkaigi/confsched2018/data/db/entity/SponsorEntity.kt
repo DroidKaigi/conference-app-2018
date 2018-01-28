@@ -8,16 +8,17 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "sponsor",
         foreignKeys = [
             ForeignKey(
-                    entity = SponsorPlanEntity::class,
+                    entity = SponsorGroupEntity::class,
                     parentColumns = arrayOf("id"),
-                    childColumns = arrayOf("plan_id"),
+                    childColumns = arrayOf("group_id"),
                     onDelete = ForeignKey.CASCADE
             )
         ])
 data class SponsorEntity(
-        @PrimaryKey
-        @ColumnInfo(name = "plan_id", index = true)
-        var planId: Int,
+        @PrimaryKey(autoGenerate = true)
+        var id: Int = 0,
+        @ColumnInfo(name = "group_id", index = true)
+        var groupId: Int,
         var link: String,
         @ColumnInfo(name = "base64_img")
         var base64Img: String?,
