@@ -43,6 +43,7 @@ import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class SearchFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSearchBinding
@@ -211,8 +212,12 @@ class SearchBeforeViewPagerAdapter(
         fragmentManager: FragmentManager
 ) : FragmentStateNullablePagerAdapter(fragmentManager) {
 
-    private var currentFragment: Fragment? = null
     private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
+    private var currentFragment by Delegates.observable<Fragment?>(null) { _, old, new ->
+        if (old != new && new != null) {
+            fireBaseAnalytics.setCurrentScreen(activity, null, new::class.java.simpleName)
+        }
+    }
 
     enum class Tab(@StringRes val title: Int) {
         Session(R.string.search_before_tab_session),
@@ -236,9 +241,6 @@ class SearchBeforeViewPagerAdapter(
 
     override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
         super.setPrimaryItem(container, position, o)
-        (o as? Fragment)?.takeIf { currentFragment != it }?.let { newFragment ->
-            fireBaseAnalytics.setCurrentScreen(activity, null, newFragment::class.java.simpleName)
-            currentFragment = newFragment
-        }
+        currentFragment = o as? Fragment
     }
 }

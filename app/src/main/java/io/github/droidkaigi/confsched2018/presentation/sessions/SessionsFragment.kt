@@ -24,6 +24,7 @@ import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener {
     private lateinit var binding: FragmentSessionsBinding
@@ -107,8 +108,16 @@ class SessionsViewPagerAdapter(
         private val activity: Activity
 ) : FragmentStateNullablePagerAdapter(fragmentManager) {
 
-    private var currentFragment: Fragment? = null
     private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
+    private var currentTab by Delegates.observable<Tab?>(null) { _, old, new ->
+        if (old != new && new != null) {
+            val key = when (new) {
+                Tab.All -> AllSessionsFragment::class.java.simpleName
+                is Tab.RoomTab -> RoomSessionsFragment::class.java.simpleName + new.room.name
+            }
+            fireBaseAnalytics.setCurrentScreen(activity, null, key)
+        }
+    }
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
@@ -143,17 +152,7 @@ class SessionsViewPagerAdapter(
 
     override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
         super.setPrimaryItem(container, position, o)
-        (o as? Fragment)?.takeIf { currentFragment != it }?.let { newFragment ->
-            val key = when (newFragment) {
-                is RoomSessionsFragment -> {
-                    val tab = tabs[position] as Tab.RoomTab
-                    newFragment::class.java.simpleName + tab.room
-                }
-                else -> newFragment::class.java.simpleName
-            }
-            fireBaseAnalytics.setCurrentScreen(activity, null, key)
-            currentFragment = newFragment
-        }
+        currentTab = tabs.getOrNull(position)
     }
 
     fun setRooms(rooms: List<Room>) {
