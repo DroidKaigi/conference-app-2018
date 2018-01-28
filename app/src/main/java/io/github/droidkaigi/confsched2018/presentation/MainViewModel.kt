@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation
 
-import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -16,7 +15,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(context: Context) : ViewModel(), LifecycleObserver {
+class MainViewModel @Inject constructor(context: Context) : ViewModel() {
 
     private val mutableLocalTimeConfig: MutableLiveData<Boolean> = MutableLiveData()
     val localTimeConfig: LiveData<Boolean> = mutableLocalTimeConfig

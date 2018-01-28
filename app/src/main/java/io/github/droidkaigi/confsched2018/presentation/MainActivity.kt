@@ -46,7 +46,6 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
 
-        lifecycle.addObserver(mainViewModel)
         mainViewModel.localTimeConfig.observe(this, {
             forceReloadCurrentFragment()
         })
