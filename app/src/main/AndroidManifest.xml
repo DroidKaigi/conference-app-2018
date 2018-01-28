@@ -183,7 +183,7 @@
 
         <provider
             android:name=".presentation.search.SearchSuggestionProvider"
-            android:authorities="io.github.droidkaigi.confsched2018.presentation.search.SearchSuggestionProvider"
+            android:authorities="${applicationId}.presentation.search.SearchSuggestionProvider"
             android:exported="false"
             />
     </application>
