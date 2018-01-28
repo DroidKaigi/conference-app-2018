@@ -6,7 +6,12 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.RxFirebaseAuth
-import io.github.droidkaigi.confsched2018.util.ext.rx
+import io.github.droidkaigi.confsched2018.util.ext.adds
+import io.github.droidkaigi.confsched2018.util.ext.deletes
+import io.github.droidkaigi.confsched2018.util.ext.getsSnapshot
+import io.github.droidkaigi.confsched2018.util.ext.isEmpty
+import io.github.droidkaigi.confsched2018.util.ext.observesSnapshot
+import io.github.droidkaigi.confsched2018.util.ext.sets
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -21,18 +26,18 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
             return Single.error(NotPreparedException())
         }
         return RxFirebaseAuth.getCurrentUser()
-                .flatMap { favoritesRef(it).document(session.id).rx.get() }
+                .flatMap { favoritesRef(it).document(session.id).getsSnapshot() }
                 .flatMap { document ->
                     val nowFavorite = document.exists() && (document.data[session.id] == true)
                     val newFavorite = !nowFavorite
 
                     if (document.exists()) {
-                        document.reference.rx
-                                .delete()
+                        document.reference
+                                .deletes()
                                 .toSingle { newFavorite }
                     } else {
-                        document.reference.rx
-                                .set(mapOf("favorite" to newFavorite))
+                        document.reference
+                                .sets(mapOf("favorite" to newFavorite))
                                 .toSingle { newFavorite }
                     }
                 }
@@ -53,10 +58,9 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
     @CheckResult
     private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
         val favorites = favoritesRef(currentUser)
-        return favorites.rx.isEmpty().flatMap { isEmpty ->
+        return favorites.isEmpty().flatMap { isEmpty ->
             if (isEmpty) {
-                favorites.rx
-                        .add(mapOf("initialized" to true))
+                favorites.adds(mapOf("initialized" to true))
                         .onErrorComplete()
                         .toSingle { currentUser }
             } else {
@@ -68,8 +72,8 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
     @CheckResult
     private fun getFavorites(currentUser: FirebaseUser): Observable<List<Int>> {
         return favoritesRef(currentUser)
-                .whereEqualTo("favorite", true).rx
-                .observe()
+                .whereEqualTo("favorite", true)
+                .observesSnapshot()
                 .map { it.documents.mapNotNull { doc -> doc.id.toIntOrNull() } }
     }
 

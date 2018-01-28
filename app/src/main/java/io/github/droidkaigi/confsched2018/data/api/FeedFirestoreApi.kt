@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2018.data.api
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import io.github.droidkaigi.confsched2018.data.api.response.Post
-import io.github.droidkaigi.confsched2018.util.ext.rx
+import io.github.droidkaigi.confsched2018.util.ext.observesSnapshot
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import timber.log.Timber
@@ -15,8 +15,8 @@ class FeedFirestoreApi : FeedApi {
         FirebaseFirestore.getInstance()
                 .collection("posts")
                 .whereEqualTo("published", true)
-                .orderBy("date", Query.Direction.DESCENDING).rx
-                .observe()
+                .orderBy("date", Query.Direction.DESCENDING)
+                .observesSnapshot()
                 .map { it.map { it.toObject(Post::class.java) } }
                 .toFlowable(BackpressureStrategy.DROP)
     }
