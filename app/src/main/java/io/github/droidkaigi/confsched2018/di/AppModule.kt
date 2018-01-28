@@ -24,7 +24,7 @@ import io.github.droidkaigi.confsched2018.util.rx.AppSchedulerProvider
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import javax.inject.Singleton
 
-@Module(includes = [(ViewModelModule::class)])
+@Module
 internal object AppModule {
     @Singleton @Provides @JvmStatic
     fun provideContext(application: Application): Context = application

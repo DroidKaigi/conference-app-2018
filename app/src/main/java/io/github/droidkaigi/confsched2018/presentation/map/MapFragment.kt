@@ -28,8 +28,6 @@ import javax.inject.Inject
 class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private lateinit var binding: FragmentMapBinding
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var mapView: MapView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
