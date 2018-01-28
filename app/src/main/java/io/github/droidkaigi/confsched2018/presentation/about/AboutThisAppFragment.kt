@@ -1,8 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.about
 
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.SimpleItemAnimator
@@ -25,13 +22,7 @@ class AboutThisAppFragment : Fragment(), Injectable {
     private val aboutThisAppSection = AboutThisAppsSection()
 
     private val onAboutThisHeaderIconClickListener = { navUrl: String ->
-        val intent = Intent(Intent.ACTION_VIEW)
-        if (navUrl.contains("facebook") && hasFacebookApp()) {
-            intent.data = Uri.parse(FACEBOOK_SCHEME + navUrl)
-        } else {
-            intent.data = Uri.parse(navUrl)
-        }
-        startActivity(intent)
+        navigationController.navigateToExternalBrowser(navUrl)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -64,17 +55,7 @@ class AboutThisAppFragment : Fragment(), Injectable {
         )
     }
 
-    private fun hasFacebookApp(): Boolean {
-        return try {
-            activity?.packageManager?.getPackageInfo("com.facebook.katana", 0)
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
-
     companion object {
         fun newInstance(): AboutThisAppFragment = AboutThisAppFragment()
-        private const val FACEBOOK_SCHEME = "fb://facewebmodal/f?href="
     }
 }
