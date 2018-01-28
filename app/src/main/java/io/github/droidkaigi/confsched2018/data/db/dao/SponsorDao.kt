@@ -29,5 +29,5 @@ abstract class SponsorDao {
     abstract fun getAllSponsorPlan(): Flowable<List<SponsorPlanEntity>>
 
     @Query("SELECT * FROM sponsor_group WHERE plan_id = :planId")
-    abstract fun getSponsors(planId: Int): Flowable<List<SponsorGroupWithSponsor>>
+    abstract fun getSponsors(planId: Int): List<SponsorGroupWithSponsor>
 }

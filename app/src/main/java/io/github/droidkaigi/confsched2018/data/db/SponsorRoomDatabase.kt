@@ -16,17 +16,17 @@ class SponsorRoomDatabase @Inject constructor(
         private val sponsorDao: SponsorDao
 ) : SponsorDatabase {
 
-    override fun getAllSponsorPlans(): Flowable<List<SponsorPlanEntity>> {
+    override fun getAllSponsorPlan(): Flowable<List<Pair<SponsorPlanEntity, List<SponsorGroupWithSponsor>>>> {
         return sponsorDao.getAllSponsorPlan()
-    }
-
-    override fun getSponsors(planId: Int): Flowable<List<SponsorGroupWithSponsor>> {
-        return sponsorDao.getSponsors(planId)
+                .map { sponsorPlans ->
+                   sponsorPlans.map { it to sponsorDao.getSponsors(it.id) }
+                }
     }
 
 
     override fun save(plans: List<SponsorPlan>) {
         database.runInTransaction {
+            sponsorDao.deleteAll()
             val planIds = sponsorDao.insertSponsorPlan(plans.toSponsorPlanEntities())
             plans.map { it.groups }.zip(planIds)
                     .forEach { (groups, planId) ->

@@ -7,9 +7,7 @@ import io.reactivex.Flowable
 
 interface SponsorDatabase {
 
-    fun getAllSponsorPlans(): Flowable<List<SponsorPlanEntity>>
-
-    fun getSponsors(planId: Int): Flowable<List<SponsorGroupWithSponsor>>
+    fun getAllSponsorPlan(): Flowable<List<Pair<SponsorPlanEntity, List<SponsorGroupWithSponsor>>>>
 
     fun save(plans: List<SponsorPlan>)
 }
