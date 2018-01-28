@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.search
 
+import android.app.Activity
 import android.app.SearchManager
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -10,7 +11,6 @@ import android.provider.SearchRecentSuggestions
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.SimpleItemAnimator
@@ -22,12 +22,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultSpeakerItem
@@ -43,6 +45,7 @@ import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class SearchFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSearchBinding
@@ -82,7 +85,7 @@ class SearchFragment : Fragment(), Injectable {
 
     private fun setupSearchBeforeTabs() {
         binding.sessionsViewPager.adapter =
-                SearchBeforeViewPagerAdapter(context!!, childFragmentManager)
+                SearchBeforeViewPagerAdapter(activity!!, childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
     }
 
@@ -213,9 +216,16 @@ class SearchFragment : Fragment(), Injectable {
 }
 
 class SearchBeforeViewPagerAdapter(
-        val context: Context,
+        private val activity: Activity,
         fragmentManager: FragmentManager
-) : FragmentStatePagerAdapter(fragmentManager) {
+) : FragmentStateNullablePagerAdapter(fragmentManager) {
+
+    private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
+    private var currentFragment by Delegates.observable<Fragment?>(null) { _, old, new ->
+        if (old != new && new != null) {
+            fireBaseAnalytics.setCurrentScreen(activity, null, new::class.java.simpleName)
+        }
+    }
 
     enum class Tab(@StringRes val title: Int) {
         Session(R.string.search_before_tab_session),
@@ -224,7 +234,7 @@ class SearchBeforeViewPagerAdapter(
     }
 
     override fun getPageTitle(position: Int): CharSequence =
-            context.getString(Tab.values()[position].title)
+            activity.getString(Tab.values()[position].title)
 
     override fun getItem(position: Int): Fragment {
         val tab = Tab.values()[position]
@@ -236,4 +246,9 @@ class SearchBeforeViewPagerAdapter(
     }
 
     override fun getCount(): Int = Tab.values().size
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
+        super.setPrimaryItem(container, position, o)
+        currentFragment = o as? Fragment
+    }
 }
