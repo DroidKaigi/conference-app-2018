@@ -54,7 +54,7 @@
     <string name="feed_content_description_not_found">お知らせが無い画像</string>
 
     <!-- Map -->
-    <string name="map_title_activity">地図</string>
+    <string name="map_title_activity">アクセス</string>
     <string name="map_place_name">ベルサール新宿グランドコンファレンスセンター</string>
     <string name="map_meeting_rooms_name">DroidKaigi 2018 会場</string>
     <string name="map_address">〒160–0023 東京都新宿区西新宿8丁目17 西新宿8–17–1 住友不動産新宿グランドタワー5F</string>

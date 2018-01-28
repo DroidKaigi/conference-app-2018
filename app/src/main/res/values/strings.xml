@@ -10,7 +10,7 @@
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_map">Map</string>
+    <string name="nav_item_map">Access</string>
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
@@ -61,7 +61,7 @@
     <string name="feed_content_description_not_found">Feed does not exist image</string>
 
     <!-- Map -->
-    <string name="map_title_activity">Map</string>
+    <string name="map_title_activity">Access</string>
     <string name="map_place_name">Bellesalle Shinjuku Grand Conference Center</string>
     <string name="map_meeting_rooms_name">DroidKaigi 2018 Place</string>
     <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-1 Nishi Shinjuku,
