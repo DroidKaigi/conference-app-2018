@@ -7,5 +7,12 @@ data class Post(
         val content: String,
         val date: Date,
         val published: Boolean,
-        val type: String
-)
+        val type: Type
+) {
+    enum class Type {
+        Tutorial,
+        Notification,
+        Alert,
+        Enquete,
+    }
+}

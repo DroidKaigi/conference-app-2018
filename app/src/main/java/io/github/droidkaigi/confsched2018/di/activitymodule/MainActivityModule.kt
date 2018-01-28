@@ -8,6 +8,7 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import io.github.droidkaigi.confsched2018.di.ViewModelKey
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
+import io.github.droidkaigi.confsched2018.presentation.MainViewModel
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.favorite.FavoriteSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.feed.FeedFragment
@@ -66,6 +67,12 @@ interface MainActivityModule {
     @ViewModelKey(FeedViewModel::class)
     fun bindFeedViewModel(
             feedViewModel: FeedViewModel
+    ): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    fun bindMainViewModel(
+            mainViewModel: MainViewModel
     ): ViewModel
 
     @Binds @IntoMap
