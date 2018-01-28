@@ -7,7 +7,7 @@
         android:shortcutLongLabel="@string/favorite_title">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.droidkaigi.confsched2018.debug"
+            android:targetPackage="io.github.droidkaigi.confsched2018"
             android:targetClass="io.github.droidkaigi.confsched2018.presentation.MainActivity">
             <extra android:name="shortcut" android:value="favorite" />
         </intent>
