@@ -50,7 +50,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
         binding.placeText.setOnClickListener {
             val placeName = context?.getString(R.string.map_place_name)
-            val placeUri = Uri.parse("geo:0,0?q=$placeLat,$placeLang($placeName)")
+            val placeUri = Uri.parse("geo:0,0?q=$placeLat,$placeLng($placeName)")
             val mapIntent = Intent().apply {
                 action = Intent.ACTION_VIEW
                 data = placeUri
@@ -61,7 +61,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
-            val latLng = LatLng(placeLat, placeLang)
+            val latLng = LatLng(placeLat, placeLng)
 
             // custom pin
             val pin: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(getBitmap(R.drawable
@@ -128,6 +128,6 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         fun newInstance(): MapFragment = MapFragment()
 
         private const val placeLat = 35.6957954
-        private const val placeLang = 139.69038920000003
+        private const val placeLng = 139.69038920000003
     }
 }
