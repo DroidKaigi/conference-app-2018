@@ -54,6 +54,6 @@ class StaffViewModelTest {
 
         // then
         verify(repository).staff
-        verify(result).onChanged(Result.failure(exception.message!!, exception))
+        verify(result).onChanged(Result.failure(exception.message.toString(), exception))
     }
 }
