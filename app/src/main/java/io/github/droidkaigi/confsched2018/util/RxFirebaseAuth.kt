@@ -8,7 +8,6 @@ import io.reactivex.Single
 import timber.log.Timber
 
 object RxFirebaseAuth {
-
     @CheckResult
     fun getCurrentUser(): Single<FirebaseUser> = Single.defer {
         val auth = FirebaseAuth.getInstance()
@@ -25,5 +24,4 @@ object RxFirebaseAuth {
     }
 
     private const val DEBUG: Boolean = false
-
 }

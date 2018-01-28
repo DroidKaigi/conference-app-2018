@@ -33,7 +33,7 @@ interface RxQuery {
 val DocumentReference.rx: RxDocumentReference
     get() {
         val ref = this // hack to access outer class
-        return object: RxDocumentReference {
+        return object : RxDocumentReference {
             override fun observe(): Observable<DocumentSnapshot> {
                 return Observable.create<DocumentSnapshot> { emitter ->
                     val listener = addSnapshotListener { snapshot, error ->
@@ -68,7 +68,7 @@ val DocumentReference.rx: RxDocumentReference
 val CollectionReference.rx: RxCollectionReference
     get() {
         val ref = this // hack to access outer class
-        return object: RxCollectionReference {
+        return object : RxCollectionReference {
             override fun observe(): Observable<QuerySnapshot> {
                 return (ref as Query).rx.observe()
             }
@@ -89,7 +89,7 @@ val CollectionReference.rx: RxCollectionReference
 
 val Query.rx: RxQuery
     get() {
-        return object: RxQuery {
+        return object : RxQuery {
             override fun observe(): Observable<QuerySnapshot> {
                 return Observable.create { emitter ->
                     val listener = addSnapshotListener { snapshot, error ->
