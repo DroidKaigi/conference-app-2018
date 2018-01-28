@@ -11,8 +11,7 @@ import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsA
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsFragment
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsViewModel
 
-@Module
-interface ContributorsActivityModule {
+@Module interface ContributorsActivityModule {
     @Binds fun providesAppCompatActivity(activity: ContributorsActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeContributorFragment(): ContributorsFragment

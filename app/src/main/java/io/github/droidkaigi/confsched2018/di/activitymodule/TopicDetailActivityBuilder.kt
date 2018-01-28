@@ -4,8 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailActivity
 
-@Module
-interface TopicDetailActivityBuilder {
+@Module interface TopicDetailActivityBuilder {
     @ContributesAndroidInjector(modules = [TopicDetailActivityModule::class])
     fun contributeTopicDetailActivity(): TopicDetailActivity
 }

@@ -11,8 +11,7 @@ import io.github.droidkaigi.confsched2018.presentation.staff.StaffActivity
 import io.github.droidkaigi.confsched2018.presentation.staff.StaffFragment
 import io.github.droidkaigi.confsched2018.presentation.staff.StaffViewModel
 
-@Module
-interface StaffActivityModule {
+@Module interface StaffActivityModule {
     @Binds fun providesAppCompatActivity(activity: StaffActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeStaffFragment(): StaffFragment

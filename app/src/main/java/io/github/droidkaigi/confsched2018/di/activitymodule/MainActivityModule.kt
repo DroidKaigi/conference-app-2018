@@ -28,8 +28,7 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsView
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
 
-@Module
-interface MainActivityModule {
+@Module interface MainActivityModule {
     @Binds fun providesAppCompatActivity(mainActivity: MainActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeAllSessionsFragment(): AllSessionsFragment
@@ -49,7 +48,6 @@ interface MainActivityModule {
     @ContributesAndroidInjector fun contributeSearchTopicsFragment(): SearchTopicsFragment
 
     @ContributesAndroidInjector fun contributeSessionsFragment(): SessionsFragment
-
 
     @Binds @IntoMap
     @ViewModelKey(AllSessionsViewModel::class)

@@ -4,8 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
 
-@Module
-interface AboutThisAppActivityBuilder {
+@Module interface AboutThisAppActivityBuilder {
     @ContributesAndroidInjector(modules = [AboutThisAppActivityModule::class])
     fun contributeAboutThisAppActivity(): AboutThisAppActivity
 }

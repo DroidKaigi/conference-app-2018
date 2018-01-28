@@ -11,8 +11,7 @@ import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActi
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailViewModel
 
-@Module
-interface SpeakerDetailActivityModule {
+@Module interface SpeakerDetailActivityModule {
     @Binds fun providesAppCompatActivity(activity: SpeakerDetailActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeSpeakerDetailFragment(): SpeakerDetailFragment

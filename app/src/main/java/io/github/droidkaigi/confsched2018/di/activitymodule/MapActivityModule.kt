@@ -7,8 +7,7 @@ import dagger.android.ContributesAndroidInjector
 import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
 import io.github.droidkaigi.confsched2018.presentation.map.MapFragment
 
-@Module
-interface MapActivityModule {
+@Module interface MapActivityModule {
     @Binds fun providesAppCompatActivity(activity: MapActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeMapFragment(): MapFragment

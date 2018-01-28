@@ -11,8 +11,7 @@ import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActiv
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailViewModel
 
-@Module
-interface SessionDetailActivityModule {
+@Module interface SessionDetailActivityModule {
     @Binds fun providesAppCompatActivity(activity: SessionDetailActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeDetailFragment(): SessionDetailFragment

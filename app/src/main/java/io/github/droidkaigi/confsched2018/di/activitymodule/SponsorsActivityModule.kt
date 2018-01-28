@@ -11,8 +11,7 @@ import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsFragment
 import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsViewModel
 
-@Module
-interface SponsorsActivityModule {
+@Module interface SponsorsActivityModule {
     @Binds fun providesAppCompatActivity(activity: SponsorsActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeSponsorsFragment(): SponsorsFragment

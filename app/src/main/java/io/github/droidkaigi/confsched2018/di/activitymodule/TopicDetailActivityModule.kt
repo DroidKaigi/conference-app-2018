@@ -11,8 +11,7 @@ import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailActivity
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailFragment
 import io.github.droidkaigi.confsched2018.presentation.topic.TopicDetailViewModel
 
-@Module
-interface TopicDetailActivityModule {
+@Module interface TopicDetailActivityModule {
     @Binds fun providesAppCompatActivity(activity: TopicDetailActivity): AppCompatActivity
 
     @ContributesAndroidInjector fun contributeTopicDetailFragment(): TopicDetailFragment
