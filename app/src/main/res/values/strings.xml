@@ -66,7 +66,7 @@
     <string name="map_meeting_rooms_name">DroidKaigi 2018 Place</string>
     <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-1 Nishi Shinjuku,
         Shinjuku City, Tokyo 160-0023</string>
-    <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1 Toei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4 Toei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4 JR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
+    <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1\nToei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4\nToei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4\nJR lines,Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
     <string name="map_content_description_place_icon">Place icon</string>
     <string name="map_content_description_train_icon">Train icon</string>
 
