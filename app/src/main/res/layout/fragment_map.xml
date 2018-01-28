@@ -33,6 +33,7 @@
                     android:layout_margin="16dp"
                     android:lineSpacingExtra="7.2sp"
                     android:textColor="#ffffff"
+                    android:textIsSelectable="true"
                     android:textSize="18sp"
                     android:text="@string/map_place_name"
                     />
@@ -81,6 +82,7 @@
                         android:layout_marginStart="72dp"
                         android:lineSpacingExtra="9.6sp"
                         android:text="@string/map_address"
+                        android:textIsSelectable="true"
                         android:textSize="12sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +116,7 @@
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="9.6sp"
                         android:text="@string/map_nearby_stations"
+                        android:textIsSelectable="true"
                         android:textSize="12sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
