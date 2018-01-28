@@ -2,8 +2,10 @@ package io.github.droidkaigi.confsched2018.presentation.detail
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,6 +80,7 @@ class SessionDetailFragment : Fragment(), Injectable {
     private fun bindSession(session: Session.SpeechSession) {
         binding.session = session
         binding.fab.setOnClickListener {
+            updateDrawable()
             sessionDetailViewModel.onFavoriteClick(session)
             sessionAlarm.toggleRegister(session)
         }
@@ -89,6 +92,12 @@ class SessionDetailFragment : Fragment(), Injectable {
         })
         binding.level.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 levelDrawable, null, null, null)
+    }
+
+    private fun updateDrawable() {
+        val img = if (binding.fab.isActivated) R.drawable.ic_anim_favorite_unchecking else R.drawable.ic_anim_favorite_checking
+        binding.fab.setImageResource(img)
+        (binding.fab.drawable as? Animatable)?.start()
     }
 
     private fun setSessionIndicator(prevSession: Session.SpeechSession?,

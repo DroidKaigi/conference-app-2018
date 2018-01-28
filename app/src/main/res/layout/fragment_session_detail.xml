@@ -361,7 +361,7 @@
                 app:layout_anchorGravity="bottom|end"
                 app:srcCompat="@drawable/state_favorite_icon"
                 app:tintCompat="@{@colorStateList/state_favorite_color}"
-                />
+                android:scaleType="center"/>
 
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>
