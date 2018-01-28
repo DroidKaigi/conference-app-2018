@@ -1,48 +1,26 @@
 package io.github.droidkaigi.confsched2018.data.db
 
 import android.support.annotation.CheckResult
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.util.RxFirebaseAuth
 import io.github.droidkaigi.confsched2018.util.ext.rx
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
-import timber.log.Timber
 
 class FavoriteFirestoreDatabase : FavoriteDatabase {
 
     private var isInitialized = false
 
-    @CheckResult
-    private fun getCurrentUser(): Single<FirebaseUser> = Single.create({ e ->
-        val auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            if (DEBUG) Timber.d("Firestore:Get cached user")
-            e.onSuccess(currentUser)
-            return@create
-        }
-        auth.signInAnonymously()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        if (DEBUG) Timber.d("Firestore:Sign in Anonymously")
-                        e.onSuccess(auth.currentUser!!)
-                    } else {
-                        if (DEBUG) Timber.d("Firestore:Sign in error")
-                        e.onError(task.exception!!)
-                    }
-                }
-    })
-
     override fun favorite(session: Session): Single<Boolean> {
         if (!isInitialized) {
             return Single.error(NotPreparedException())
         }
-        return getCurrentUser()
+        return RxFirebaseAuth.getCurrentUser()
                 .flatMap { favoritesRef(it).document(session.id).rx.get() }
                 .flatMap { document ->
                     val nowFavorite = document.exists() && (document.data[session.id] == true)
@@ -61,7 +39,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
     }
 
     @get:CheckResult
-    override val favorites: Flowable<List<Int>> = getCurrentUser()
+    override val favorites: Flowable<List<Int>> = RxFirebaseAuth.getCurrentUser()
             .flatMap { user: FirebaseUser ->
                 return@flatMap setupFavoritesDocument(user)
             }
