@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.common.menu
 
-import android.content.Context
 import android.support.annotation.IdRes
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -44,14 +42,11 @@ class DrawerMenu @Inject constructor(
                     toolbar,
                     R.string.nav_content_description_drawer_open,
                     R.string.nav_content_description_drawer_close
-            ){
-                override fun onDrawerOpened(drawerView: View) {
-                    super.onDrawerOpened(drawerView)
-                    val temp = activity.currentFocus
-                    if(temp is SearchView.SearchAutoComplete ) {
-                        val imm = drawerView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as
-                                InputMethodManager
-                        imm.hideSoftInputFromWindow(drawerView.windowToken, 0)
+            ) {
+                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                    super.onDrawerSlide(drawerView, slideOffset)
+                    if (activity.currentFocus is SearchView.SearchAutoComplete) {
+                        drawerView.requestFocus()
                     }
                 }
             }.also {
@@ -82,7 +77,6 @@ class DrawerMenu @Inject constructor(
                     navigationView.setCheckedItem(it.menuId)
                 }
                 ?: DrawerNavigationItem.OTHER
-
     }
 
     fun closeDrawerIfNeeded(): Boolean {

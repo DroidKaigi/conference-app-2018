@@ -16,7 +16,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -157,9 +156,7 @@ class SearchFragment : Fragment(), Injectable {
 
         searchView.setOnQueryTextFocusChangeListener { view, hasFocus ->
             if (!hasFocus) {
-                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as
-                        InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                searchView.isIconified = true
             }
         }
     }
