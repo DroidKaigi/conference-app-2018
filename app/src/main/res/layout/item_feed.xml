@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/date"
             tools:text="マイセッションを見つけよう!"
             />
-        <android.support.text.emoji.widget.EmojiTextView
+        <io.github.droidkaigi.confsched2018.presentation.common.view.FeedContentTextView
             android:id="@+id/content"
             style="@style/TextStyle.App.Caption"
             android:layout_width="0dp"
@@ -61,6 +61,7 @@
             android:ellipsize="end"
             android:paddingBottom="16dp"
             android:text="@{post.content}"
+            android:autoLink="web"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/expand_icon"
             app:layout_constraintStart_toStartOf="parent"
