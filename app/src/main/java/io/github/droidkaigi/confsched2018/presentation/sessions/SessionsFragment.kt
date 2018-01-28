@@ -40,10 +40,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionsViewPagerAdapter = SessionsViewPagerAdapter(
-                childFragmentManager,
-                FirebaseAnalytics.getInstance(context)
-        )
+        sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager, activity!!)
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
         sessionsViewModel = ViewModelProviders
@@ -107,10 +104,11 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 
 class SessionsViewPagerAdapter(
         fragmentManager: FragmentManager,
-        private val fireBaseAnalytics: FirebaseAnalytics
+        private val activity: Activity
 ) : FragmentStateNullablePagerAdapter(fragmentManager) {
 
     private var currentFragment: Fragment? = null
+    private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
@@ -146,17 +144,14 @@ class SessionsViewPagerAdapter(
     override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
         super.setPrimaryItem(container, position, o)
         (o as? Fragment)?.takeIf { currentFragment != it }?.let { newFragment ->
-            val activity = container.context as Activity
-            when (newFragment) {
-                is AllSessionsFragment -> {
-                    fireBaseAnalytics.setCurrentScreen(activity, null, newFragment::class.java.simpleName)
-                }
+            val key = when (newFragment) {
                 is RoomSessionsFragment -> {
                     val tab = tabs[position] as Tab.RoomTab
-                    fireBaseAnalytics.setCurrentScreen(activity,
-                            null, newFragment::class.java.simpleName + tab.room)
+                    newFragment::class.java.simpleName + tab.room
                 }
+                else -> newFragment::class.java.simpleName
             }
+            fireBaseAnalytics.setCurrentScreen(activity, null, key)
             currentFragment = newFragment
         }
     }
