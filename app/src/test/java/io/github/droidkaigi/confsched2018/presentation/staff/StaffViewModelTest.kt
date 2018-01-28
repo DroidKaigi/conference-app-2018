@@ -42,5 +42,18 @@ class StaffViewModelTest {
         verify(result).onChanged(Result.success(staff))
     }
 
-    // TODO: implement error pattern
+    @Test fun changeFailureWhenExceptionOccurred() {
+        // given
+        val exception = RuntimeException("test")
+        val result: Observer<Result<List<Staff>>> = mock()
+        viewModel = StaffViewModel(repository, TestSchedulerProvider())
+
+        // when
+        whenever(repository.staff).doReturn(Flowable.error(exception))
+        viewModel.staff.observeForever(result)
+
+        // then
+        verify(repository).staff
+        verify(result).onChanged(Result.failure(exception.message!!, exception))
+    }
 }
