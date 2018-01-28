@@ -1,19 +1,21 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -38,7 +40,10 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager)
+        sessionsViewPagerAdapter = SessionsViewPagerAdapter(
+                childFragmentManager,
+                FirebaseAnalytics.getInstance(context)
+        )
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
         sessionsViewModel = ViewModelProviders
@@ -101,8 +106,11 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 }
 
 class SessionsViewPagerAdapter(
-        fragmentManager: FragmentManager
-) : FragmentStatePagerAdapter(fragmentManager) {
+        fragmentManager: FragmentManager,
+        private val fireBaseAnalytics: FirebaseAnalytics
+) : FragmentStateNullablePagerAdapter(fragmentManager) {
+
+    private var currentFragment: Fragment? = null
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
@@ -134,6 +142,24 @@ class SessionsViewPagerAdapter(
     }
 
     override fun getCount(): Int = tabs.size
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
+        super.setPrimaryItem(container, position, o)
+        (o as? Fragment)?.takeIf { currentFragment != it }?.let { newFragment ->
+            val activity = container.context as Activity
+            when (newFragment) {
+                is AllSessionsFragment -> {
+                    fireBaseAnalytics.setCurrentScreen(activity, null, newFragment::class.java.simpleName)
+                }
+                is RoomSessionsFragment -> {
+                    val tab = tabs[position] as Tab.RoomTab
+                    fireBaseAnalytics.setCurrentScreen(activity,
+                            null, newFragment::class.java.simpleName + tab.room)
+                }
+            }
+            currentFragment = newFragment
+        }
+    }
 
     fun setRooms(rooms: List<Room>) {
         if (rooms == roomTabs.map { it.room }) {
