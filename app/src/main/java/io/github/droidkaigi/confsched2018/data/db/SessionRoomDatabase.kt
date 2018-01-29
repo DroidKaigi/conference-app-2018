@@ -33,7 +33,8 @@ class SessionRoomDatabase @Inject constructor(
     @CheckResult override fun getAllSessionFeedback(): Flowable<List<SessionFeedbackEntity>> =
             sessionFeedbackDao.getAllSessionFeedback()
 
-    @CheckResult override fun getAllSpeaker(): Flowable<List<SpeakerEntity>> = speakerDao.getAllSpeaker()
+    @CheckResult
+    override fun getAllSpeaker(): Flowable<List<SpeakerEntity>> = speakerDao.getAllSpeaker()
 
     @CheckResult override fun getAllRoom(): Flowable<List<RoomEntity>> = sessionDao.getAllRoom()
 

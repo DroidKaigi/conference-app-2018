@@ -55,7 +55,8 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
             .toFlowable(BackpressureStrategy.DROP)
             .cache()
 
-    @CheckResult private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
+    @CheckResult
+    private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
         val favorites = favoritesRef(currentUser)
         return favorites.isEmpty().flatMap { isEmpty ->
             if (isEmpty) {

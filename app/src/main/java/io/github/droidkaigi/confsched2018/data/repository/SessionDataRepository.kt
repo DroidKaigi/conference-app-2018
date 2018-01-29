@@ -159,7 +159,8 @@ class SessionDataRepository @Inject constructor(
             Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
                     .subscribeOn(schedulerProvider.computation())
 
-    @CheckResult override fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>> =
+    @CheckResult
+    override fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>> =
             sessionFeedbackApi.submitSessionFeedback(
                     sessionId = sessionFeedback.sessionId,
                     sessionTitle = sessionFeedback.sessionTitle,
