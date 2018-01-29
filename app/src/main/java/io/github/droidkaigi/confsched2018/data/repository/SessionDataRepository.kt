@@ -23,7 +23,6 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
 import io.reactivex.rxkotlin.Singles
-import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -158,9 +157,8 @@ class SessionDataRepository @Inject constructor(
     override fun submitSessionFeedback(
             session: Session.SpeechSession,
             sessionFeedback: SessionFeedback
-    ):
-            Single<Response<Void>> =
-            sessionFeedbackApi.submitSessionFeedback(
+    ): Completable = sessionFeedbackApi
+            .submitSessionFeedback(
                     sessionId = session.id,
                     sessionTitle = session.title,
                     totalEvaluation = sessionFeedback.totalEvaluation,
@@ -169,7 +167,11 @@ class SessionDataRepository @Inject constructor(
                     difficulty = sessionFeedback.difficulty,
                     knowledgeable = sessionFeedback.knowledgeable,
                     comment = sessionFeedback.comment
-            ).subscribeOn(schedulerProvider.computation())
+            )
+            .flatMapCompletable {
+                return@flatMapCompletable saveSessionFeedback(sessionFeedback)
+            }
+            .subscribeOn(schedulerProvider.computation())
 
     companion object {
         const val DEBUG = false

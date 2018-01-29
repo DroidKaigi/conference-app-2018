@@ -29,7 +29,7 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val onSubmitListener = { sessionFeedback: SessionFeedback ->
-        sessionsFeedbackViewModel.onSubmit(sessionFeedback)
+        sessionsFeedbackViewModel.onSubmit(sessionFeedback.copy(submitted = true))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

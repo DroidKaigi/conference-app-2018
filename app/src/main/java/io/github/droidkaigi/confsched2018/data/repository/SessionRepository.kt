@@ -11,7 +11,6 @@ import io.github.droidkaigi.confsched2018.model.Topic
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import retrofit2.Response
 
 interface SessionRepository {
     val sessions: Flowable<List<Session>>
@@ -30,5 +29,5 @@ interface SessionRepository {
     @CheckResult fun submitSessionFeedback(
             session: Session.SpeechSession,
             sessionFeedback: SessionFeedback
-    ): Single<Response<Void>>
+    ): Completable
 }

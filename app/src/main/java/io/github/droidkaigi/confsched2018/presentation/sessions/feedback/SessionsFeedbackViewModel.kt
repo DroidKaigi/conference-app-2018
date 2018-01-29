@@ -7,10 +7,12 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
+import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 class SessionsFeedbackViewModel @Inject constructor(
@@ -45,15 +47,14 @@ class SessionsFeedbackViewModel @Inject constructor(
 
     fun onSessionFeedbackChanged(sessionFeedback: SessionFeedback) {
         repository.saveSessionFeedback(sessionFeedback)
-                .subscribe()
+                .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
     }
 
     fun onSubmit(sessionFeedback: SessionFeedback) {
         (session.value as? Result.Success)?.data?.also {
-            // TODO: if submit success, add to save local DB change sessionFeedback.submitted = ture
             repository.submitSessionFeedback(it, sessionFeedback)
-                    .subscribe()
+                    .subscribeBy(onError = defaultErrorHandler())
                     .addTo(compositeDisposable)
         }
     }
