@@ -1,12 +1,22 @@
 package io.github.droidkaigi.confsched2018.presentation.speaker
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.annotation.TargetApi
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.transition.Transition
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
+import android.view.View.VISIBLE
+import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -29,12 +39,15 @@ class SpeakerDetailFragment : Fragment(), Injectable {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val sessionsSection = SimpleSessionsSection()
+    private var isEnterTransitionCanceled: Boolean = false
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
 
     private val speakerDetailViewModel: SpeakerDetailViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SpeakerDetailViewModel::class.java)
     }
+
+    private val revealViewRunnable = Runnable { reveal() }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
         speakerDetailViewModel.onFavoriteClick(session)
@@ -43,17 +56,18 @@ class SpeakerDetailFragment : Fragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding =
-                FragmentSpeakerDetailBinding.inflate(
-                        inflater,
-                        container!!,
-                        false
-                )
+        binding = FragmentSpeakerDetailBinding.inflate(
+                inflater,
+                container!!,
+                false
+        )
+        activity?.supportStartPostponedEnterTransition()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         setupRecyclerView()
         speakerDetailViewModel.speakerId = arguments!!.getString(EXTRA_SPEAKER_ID)
         speakerDetailViewModel.speakerSessions.observe(this, { result ->
@@ -70,6 +84,8 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 }
             }
         })
+
+        initViewTransition(view, savedInstanceState)
     }
 
     private fun setupRecyclerView() {
@@ -87,11 +103,126 @@ class SpeakerDetailFragment : Fragment(), Injectable {
         }
     }
 
+    private fun initViewTransition(view: View, savedInstanceState: Bundle?) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return
+        }
+
+        ViewCompat.setTransitionName(
+                view.findViewById<View>(R.id.speaker_image),
+                arguments!!.getString(EXTRA_TRANSITION_NAME))
+
+        val transitionInflater = TransitionInflater.from(activity)
+
+        if (savedInstanceState == null) {
+            val enterTransition = transitionInflater.inflateTransition(R.transition.shared_element_arc)
+            enterTransition.duration = 400
+
+            enterTransition.addListener(object : Transition.TransitionListener {
+                override fun onTransitionEnd(p0: android.transition.Transition?) {
+                    enterTransition.removeListener(this)
+                    // No need to start reveal anim if user pressed back button during shared element transition
+                    if (!isEnterTransitionCanceled) {
+                        view.post(revealViewRunnable)
+                    }
+                }
+
+                override fun onTransitionResume(p0: android.transition.Transition?) {
+                }
+
+                override fun onTransitionPause(p0: android.transition.Transition?) {
+                    isEnterTransitionCanceled = true
+                }
+
+                override fun onTransitionCancel(p0: android.transition.Transition?) {
+                    isEnterTransitionCanceled = true
+                }
+
+                override fun onTransitionStart(p0: android.transition.Transition?) {
+                }
+            })
+            activity?.window?.sharedElementEnterTransition = enterTransition
+        } else {
+            view.findViewById<View>(R.id.app_bar_background).visibility = VISIBLE
+        }
+
+        val exitTransition = transitionInflater.inflateTransition(R.transition.shared_element_arc)
+        exitTransition.duration = 400
+
+        exitTransition.addListener(object: Transition.TransitionListener {
+            override fun onTransitionEnd(p0: android.transition.Transition?) {
+            }
+
+            override fun onTransitionResume(p0: android.transition.Transition?) {
+            }
+
+            override fun onTransitionPause(p0: android.transition.Transition?) {
+            }
+
+            override fun onTransitionCancel(p0: android.transition.Transition?) {
+            }
+
+            override fun onTransitionStart(p0: android.transition.Transition?) {
+                exitTransition.removeListener(this)
+                hideReveal()
+            }
+        })
+        activity?.window?.sharedElementReturnTransition = exitTransition
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun reveal() {
+        val revealView = view?.findViewById<View>(R.id.app_bar_background) ?: return
+        val speakerImage = view?.findViewById<View>(R.id.speaker_image) ?: return
+        val cx = (speakerImage.x + speakerImage.width / 2).toInt()
+        val cy = (speakerImage.y + speakerImage.height / 2).toInt()
+        ViewAnimationUtils.createCircularReveal(revealView, cx, cy, 0F, revealView.width.toFloat())
+                .apply {
+                    duration = 400
+                    revealView.visibility = View.VISIBLE
+                    start()
+                }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    fun hideReveal() {
+        val revealView = view?.findViewById<View>(R.id.app_bar_background) ?: return
+        val speakerImage = view?.findViewById<View>(R.id.speaker_image) ?: return
+        val cx = (speakerImage.x + speakerImage.width / 2).toInt()
+        val cy = (speakerImage.y + speakerImage.height / 2).toInt()
+        ViewAnimationUtils.createCircularReveal(revealView, cx, cy, revealView.width.toFloat(), 0F)
+                .apply {
+                    duration = 300
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            super.onAnimationEnd(animation)
+                            view?.visibility = View.INVISIBLE
+                        }})
+                    start()
+                }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            activity?.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroyView() {
+        view?.removeCallbacks(revealViewRunnable)
+        super.onDestroyView()
+    }
+
     companion object {
         const val EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID"
-        fun newInstance(speakerId: String): SpeakerDetailFragment = SpeakerDetailFragment().apply {
+        const val EXTRA_TRANSITION_NAME = "EXTRA_TRANSITION_NAME"
+        fun newInstance(speakerId: String, transitionName: String): SpeakerDetailFragment = SpeakerDetailFragment()
+                .apply {
             arguments = Bundle().apply {
                 putString(EXTRA_SPEAKER_ID, speakerId)
+                putString(EXTRA_TRANSITION_NAME, transitionName)
             }
         }
     }

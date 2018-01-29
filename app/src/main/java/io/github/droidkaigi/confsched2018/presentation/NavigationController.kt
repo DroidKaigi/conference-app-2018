@@ -6,7 +6,9 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
+import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
@@ -75,8 +77,8 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(AboutThisAppFragment.newInstance())
     }
 
-    fun navigateToSpeakerDetail(speakerId: String) {
-        replaceFragment(SpeakerDetailFragment.newInstance(speakerId))
+    fun navigateToSpeakerDetail(speakerId: String, transitionName: String) {
+        replaceFragment(SpeakerDetailFragment.newInstance(speakerId, transitionName))
     }
 
     fun navigateToTopicDetail(topicId: Int) {
@@ -132,6 +134,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateToSpeakerDetailActivity(speakerId: String) {
         SpeakerDetailActivity.start(activity, speakerId)
+    }
+
+    fun navigateToSpeakerDetailActivity(speakerId: String, sharedElement: Pair<View, String>) {
+        SpeakerDetailActivity.start(activity, sharedElement, speakerId)
     }
 
     fun navigateToTopicDetailActivity(topicId: Int) {
