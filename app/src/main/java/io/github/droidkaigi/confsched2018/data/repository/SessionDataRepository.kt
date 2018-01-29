@@ -170,7 +170,6 @@ class SessionDataRepository @Inject constructor(
                     comment = sessionFeedback.comment
             ).subscribeOn(schedulerProvider.computation())
 
-
     companion object {
         const val DEBUG = false
     }

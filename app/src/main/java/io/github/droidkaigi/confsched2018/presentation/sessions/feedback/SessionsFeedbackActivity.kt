@@ -23,7 +23,8 @@ class SessionsFeedbackActivity : BaseActivity(), HasSupportFragmentInjector {
     @Inject lateinit var drawerMenu: DrawerMenu
 
     private val binding: ActivitySessionsFeedbackBinding by lazy {
-        DataBindingUtil.setContentView<ActivitySessionsFeedbackBinding>(this, R.layout.activity_sessions_feedback)
+        DataBindingUtil.setContentView<ActivitySessionsFeedbackBinding>(this,
+                R.layout.activity_sessions_feedback)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

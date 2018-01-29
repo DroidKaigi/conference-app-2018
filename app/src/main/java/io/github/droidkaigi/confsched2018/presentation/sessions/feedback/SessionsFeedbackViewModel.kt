@@ -37,7 +37,6 @@ class SessionsFeedbackViewModel @Inject constructor(
                     mutableSessionFeedback.value = it
                 }
                 .addTo(compositeDisposable)
-
     }
 
     fun onSessionFeedbackChanged(sessionFeedback: SessionFeedback) {

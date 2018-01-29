@@ -63,7 +63,9 @@ class TopicDetailFragment : Fragment(), Injectable {
         topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsSection.updateSessions(result.data.second, onFavoriteClickListener, onQuestionnaireListener)
+                    sessionsSection.updateSessions(result.data.second,
+                            onFavoriteClickListener,
+                            onQuestionnaireListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
