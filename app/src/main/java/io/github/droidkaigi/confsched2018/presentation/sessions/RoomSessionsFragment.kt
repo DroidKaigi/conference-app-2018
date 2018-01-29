@@ -59,6 +59,10 @@ class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         roomName = arguments!!.getString(ARG_ROOM_NAME)
@@ -83,7 +87,8 @@ class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, true)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener,
+                            onQuestionnaireListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }

@@ -9,5 +9,5 @@ data class SessionFeedback(
         val difficulty: Int,
         val knowledgeable: Int,
         val comment: String,
-        var submitted: Boolean
+        val submitted: Boolean
 )

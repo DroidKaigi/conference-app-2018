@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.map
 
-import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentMapBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
-import javax.inject.Inject
 
 class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 

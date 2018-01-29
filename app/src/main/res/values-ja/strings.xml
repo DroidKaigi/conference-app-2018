@@ -121,4 +121,7 @@
     <string name="about_contributors_description">App制作に携わった人たちです。</string>
     <string name="about_version_title">開発情報</string>
     <string name="about_version_description">%1$s</string>
+
+    <!-- Session Feedback -->
+    <string name="submit_feedback">フィードバックを送る</string>
 </resources>

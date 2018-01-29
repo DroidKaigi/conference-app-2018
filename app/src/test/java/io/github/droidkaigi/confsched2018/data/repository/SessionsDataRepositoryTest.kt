@@ -5,6 +5,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.github.droidkaigi.confsched2018.DUMMY_SESSION_TITLE1
+import io.github.droidkaigi.confsched2018.createDummySessionFeedbackEntities
 import io.github.droidkaigi.confsched2018.createDummySessionWithSpeakersEntities
 import io.github.droidkaigi.confsched2018.createDummySpeakerEntities
 import io.github.droidkaigi.confsched2018.createDummySpeakerEntry1
@@ -15,6 +16,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSessionFeedback
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
 import io.github.droidkaigi.confsched2018.data.db.fixeddata.SpecialSessions
@@ -37,6 +39,7 @@ class SessionsDataRepositoryTest {
         whenever(sessionDatabase.getAllTopic()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(mock()))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(mock()))
+        whenever(sessionDatabase.getAllSessionFeedback()).doReturn(Flowable.just(mock()))
         whenever(favoriteDatabase.favorites).doReturn(Flowable.just(emptyList()))
     }
 
@@ -44,6 +47,7 @@ class SessionsDataRepositoryTest {
         val rooms = listOf(RoomEntity(1, "A"), RoomEntity(2, "B"))
         whenever(sessionDatabase.getAllRoom()).doReturn(Flowable.just(rooms))
         val sessionDataRepository = SessionDataRepository(mock(),
+                mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())
@@ -60,6 +64,7 @@ class SessionsDataRepositoryTest {
         val topics = listOf(TopicEntity(1, "topic_a"), TopicEntity(2, "topic_b"))
         whenever(sessionDatabase.getAllTopic()).doReturn(Flowable.just(topics))
         val sessionDataRepository = SessionDataRepository(mock(),
+                mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())
@@ -79,6 +84,7 @@ class SessionsDataRepositoryTest {
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessions))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
         val sessionDataRepository = SessionDataRepository(mock(),
+                mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())
@@ -94,12 +100,38 @@ class SessionsDataRepositoryTest {
         verify(sessionDatabase).getAllSessions()
     }
 
+    @Test fun sessionFeedbacks() {
+        val sessionEntities = createDummySessionWithSpeakersEntities()
+        val speakers = createDummySpeakerEntities()
+        val sessionFeedbacks = createDummySessionFeedbackEntities()
+
+        whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessionEntities))
+        whenever(sessionDatabase.getAllSessionFeedback()).doReturn(Flowable.just(sessionFeedbacks))
+        whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
+        val sessionDataRepository = SessionDataRepository(mock(),
+                mock(),
+                sessionDatabase,
+                favoriteDatabase,
+                TestSchedulerProvider())
+
+        sessionDataRepository.sessionFeedbacks
+                .test()
+                .assertNoErrors()
+                .assertValue(
+                        sessionFeedbacks.map { sessionFeedback ->
+                            sessionFeedback.toSessionFeedback()
+                        })
+
+        verify(sessionDatabase).getAllSessionFeedback()
+    }
+
     @Test fun search() {
         val sessions = createDummySessionWithSpeakersEntities()
         val speakers = createDummySpeakerEntities()
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessions))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
         val sessionDataRepository = SessionDataRepository(mock(),
+                mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())
@@ -118,6 +150,7 @@ class SessionsDataRepositoryTest {
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessionEntities))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
         val sessionDataRepository = SessionDataRepository(mock(),
+                mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())
@@ -145,6 +178,7 @@ class SessionsDataRepositoryTest {
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessionEntities))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
         val sessionDataRepository = SessionDataRepository(mock(),
+                mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())

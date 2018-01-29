@@ -41,6 +41,10 @@ class SpeakerDetailFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding =
@@ -63,6 +67,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                     binding.speaker = speaker
                     sessionsSection.updateSessions(result.data.second,
                             onFavoriteClickListener,
+                            onQuestionnaireListener,
                             userIdInDetail = speaker.id)
                 }
                 is Result.Failure -> {

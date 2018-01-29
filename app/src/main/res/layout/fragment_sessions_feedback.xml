@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="sessionFeedback"
+            type="io.github.droidkaigi.confsched2018.model.SessionFeedback"
+            />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackActivity"
+        tools:showIn="@layout/activity_sessions_feedback"
+        >
+
+        <!-- TODO: apply session feedback rating view -->
+        <TextView
+            android:id="@+id/label_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SessionId:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{sessionFeedback.sessionId}"
+            app:layout_constraintStart_toEndOf="@id/label_id"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="123456"
+            />
+
+        <TextView
+            android:id="@+id/label_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SessionTitle:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{sessionFeedback.sessionTitle}"
+            app:layout_constraintStart_toEndOf="@id/label_title"
+            app:layout_constraintTop_toBottomOf="@id/id"
+            tools:text="title"
+            />
+
+        <TextView
+            android:id="@+id/label_total_evaluation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TotalEvaluation:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            />
+
+        <TextView
+            android:id="@+id/total_evaluation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{Integer.toString(sessionFeedback.totalEvaluation)}"
+            app:layout_constraintStart_toEndOf="@id/label_total_evaluation"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="totalEvaluation"
+            />
+
+        <TextView
+            android:id="@+id/label_relevancy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relevancy:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/total_evaluation"
+            />
+
+        <TextView
+            android:id="@+id/relevancy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{Integer.toString(sessionFeedback.relevancy)}"
+            app:layout_constraintStart_toEndOf="@id/label_relevancy"
+            app:layout_constraintTop_toBottomOf="@id/total_evaluation"
+            tools:text="relevancy"
+            />
+
+        <TextView
+            android:id="@+id/label_as_expected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AsExpected:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/relevancy"
+            />
+
+        <TextView
+            android:id="@+id/as_expected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{Integer.toString(sessionFeedback.asExpected)}"
+            app:layout_constraintStart_toEndOf="@id/label_as_expected"
+            app:layout_constraintTop_toBottomOf="@id/relevancy"
+            tools:text="asExpected"
+            />
+
+        <TextView
+            android:id="@+id/label_difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Difficulty:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/as_expected"
+            />
+
+        <TextView
+            android:id="@+id/difficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{Integer.toString(sessionFeedback.difficulty)}"
+            app:layout_constraintStart_toEndOf="@id/label_difficulty"
+            app:layout_constraintTop_toBottomOf="@id/as_expected"
+            tools:text="difficulty"
+            />
+
+        <TextView
+            android:id="@+id/label_knowledgeable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Knowledgeable:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/difficulty"
+            />
+
+        <TextView
+            android:id="@+id/knowledgeable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{Integer.toString(sessionFeedback.difficulty)}"
+            app:layout_constraintStart_toEndOf="@id/label_knowledgeable"
+            app:layout_constraintTop_toBottomOf="@id/difficulty"
+            tools:text="knowledgeable"
+            />
+
+        <TextView
+            android:id="@+id/label_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comment:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/knowledgeable"
+            />
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{sessionFeedback.comment}"
+            app:layout_constraintStart_toEndOf="@id/label_comment"
+            app:layout_constraintTop_toBottomOf="@id/knowledgeable"
+            tools:text="comment"
+            />
+
+        <TextView
+            android:id="@+id/label_submitted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submitted:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/comment"
+            />
+
+        <TextView
+            android:id="@+id/submitted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{String.valueOf(sessionFeedback.submitted)}"
+            app:layout_constraintStart_toEndOf="@id/label_submitted"
+            app:layout_constraintTop_toBottomOf="@id/comment"
+            tools:text="submitted"
+            />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/knowledgeable"
+            />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/submit_feedback"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editText"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/ProgressBar"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
