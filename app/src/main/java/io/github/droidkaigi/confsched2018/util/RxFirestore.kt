@@ -13,8 +13,7 @@ import io.reactivex.Single
 
 object RxFirestore {
 
-    @CheckResult
-    fun observeDocumentSnapshot(ref: DocumentReference): Observable<DocumentSnapshot> {
+    @CheckResult fun observeDocumentSnapshot(ref: DocumentReference): Observable<DocumentSnapshot> {
         return Observable.create<DocumentSnapshot> { emitter ->
             val listener = ref.addSnapshotListener { snapshot, error ->
                 if (error != null) {
@@ -27,28 +26,23 @@ object RxFirestore {
         }
     }
 
-    @CheckResult
-    fun getDocumentSnapshot(ref: DocumentReference): Single<DocumentSnapshot> {
+    @CheckResult fun getDocumentSnapshot(ref: DocumentReference): Single<DocumentSnapshot> {
         return observeDocumentSnapshot(ref).take(1).singleOrError()
     }
 
-    @CheckResult
-    fun setDocument(ref: DocumentReference, value: Any): Completable {
+    @CheckResult fun setDocument(ref: DocumentReference, value: Any): Completable {
         return Completable.defer { ref.set(value).toCompletable() }
     }
 
-    @CheckResult
-    fun deleteDocument(ref: DocumentReference): Completable {
+    @CheckResult fun deleteDocument(ref: DocumentReference): Completable {
         return Completable.defer { ref.delete().toCompletable() }
     }
 
-    @CheckResult
-    fun addDocumentToCollection(ref: CollectionReference, value: Any): Completable {
+    @CheckResult fun addDocumentToCollection(ref: CollectionReference, value: Any): Completable {
         return Completable.defer { ref.add(value).toCompletable() }
     }
 
-    @CheckResult
-    fun observeQuerySnapshot(ref: Query): Observable<QuerySnapshot> {
+    @CheckResult fun observeQuerySnapshot(ref: Query): Observable<QuerySnapshot> {
         return Observable.create { emitter ->
             val listener = ref.addSnapshotListener { snapshot, error ->
                 if (error != null) {
@@ -61,13 +55,11 @@ object RxFirestore {
         }
     }
 
-    @CheckResult
-    fun getQuerySnapshot(ref: Query): Single<QuerySnapshot> {
+    @CheckResult fun getQuerySnapshot(ref: Query): Single<QuerySnapshot> {
         return observeQuerySnapshot(ref).take(1).singleOrError()
     }
 
-    @CheckResult
-    fun isQuerySnapshotEmpty(ref: Query): Single<Boolean> {
+    @CheckResult fun isQuerySnapshotEmpty(ref: Query): Single<Boolean> {
         return getQuerySnapshot(ref).map { it.isEmpty }
     }
 }

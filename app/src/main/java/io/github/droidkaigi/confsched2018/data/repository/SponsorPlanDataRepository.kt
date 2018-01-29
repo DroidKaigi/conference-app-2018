@@ -18,8 +18,7 @@ class SponsorPlanDataRepository @Inject constructor(
 
     override fun sponsorPlans(): Flowable<List<SponsorPlan>> = processor.toSerialized()
 
-    @CheckResult
-    override fun refreshSponsorPlans(ln: Lang): Completable =
+    @CheckResult override fun refreshSponsorPlans(ln: Lang): Completable =
             when (ln) {
                 Lang.JA -> droidKaigiApi.sponsorPlansJa()
                 Lang.EN -> droidKaigiApi.sponsorPlansEn()

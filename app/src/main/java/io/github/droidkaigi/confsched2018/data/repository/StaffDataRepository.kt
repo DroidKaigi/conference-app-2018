@@ -16,16 +16,14 @@ class StaffDataRepository @Inject constructor(
         private val context: Context,
         private val schedulerProvider: SchedulerProvider
 ) : StaffRepository {
-    @CheckResult
-    override fun loadStaff(): Completable = getStaff()
+    @CheckResult override fun loadStaff(): Completable = getStaff()
             .subscribeOn(schedulerProvider.computation())
             .toCompletable()
 
     override val staff: Flowable<List<Staff>>
         get() = getStaff().toFlowable().subscribeOn(schedulerProvider.computation())
 
-    @CheckResult
-    private fun getStaff(): Single<List<Staff>> {
+    @CheckResult private fun getStaff(): Single<List<Staff>> {
         return Single.create { emitter ->
             try {
                 val asset = LocalJsonParser.loadJsonFromAsset(context, "staff.json")

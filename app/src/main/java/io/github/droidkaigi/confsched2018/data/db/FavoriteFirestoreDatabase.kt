@@ -21,8 +21,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
 
     private var isInitialized = false
 
-    @CheckResult
-    override fun favorite(session: Session): Single<Boolean> {
+    @CheckResult override fun favorite(session: Session): Single<Boolean> {
         if (!isInitialized) {
             return Single.error(NotPreparedException())
         }
@@ -56,8 +55,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
             .toFlowable(BackpressureStrategy.DROP)
             .cache()
 
-    @CheckResult
-    private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
+    @CheckResult private fun setupFavoritesDocument(currentUser: FirebaseUser): Single<FirebaseUser> {
         val favorites = favoritesRef(currentUser)
         return favorites.isEmpty().flatMap { isEmpty ->
             if (isEmpty) {
@@ -70,8 +68,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
         }
     }
 
-    @CheckResult
-    private fun getFavorites(currentUser: FirebaseUser): Observable<List<Int>> {
+    @CheckResult private fun getFavorites(currentUser: FirebaseUser): Observable<List<Int>> {
         return favoritesRef(currentUser)
                 .whereEqualTo("favorite", true)
                 .observesSnapshot()

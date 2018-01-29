@@ -8,8 +8,8 @@ import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 
-@CheckResult
-fun <T> Flowable<T>.toResult(schedulerProvider: SchedulerProvider): Flowable<Result<T>> {
+@CheckResult fun <T> Flowable<T>.toResult(schedulerProvider: SchedulerProvider):
+        Flowable<Result<T>> {
     return compose { item ->
         item
                 .map { Result.success(it) }
@@ -19,8 +19,8 @@ fun <T> Flowable<T>.toResult(schedulerProvider: SchedulerProvider): Flowable<Res
     }
 }
 
-@CheckResult
-fun <T> Observable<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> {
+@CheckResult fun <T> Observable<T>.toResult(schedulerProvider: SchedulerProvider):
+        Observable<Result<T>> {
     return compose { item ->
         item
                 .map { Result.success(it) }
@@ -30,12 +30,12 @@ fun <T> Observable<T>.toResult(schedulerProvider: SchedulerProvider): Observable
     }
 }
 
-@CheckResult
-fun <T> Single<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> {
+@CheckResult fun <T> Single<T>.toResult(schedulerProvider: SchedulerProvider):
+        Observable<Result<T>> {
     return toObservable().toResult(schedulerProvider)
 }
 
-@CheckResult
-fun <T> Completable.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> {
+@CheckResult fun <T> Completable.toResult(schedulerProvider: SchedulerProvider):
+        Observable<Result<T>> {
     return toObservable<T>().toResult(schedulerProvider)
 }

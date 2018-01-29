@@ -9,13 +9,13 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import kotlin.reflect.KProperty0
 
-@CheckResult
-fun <T> KotprefModel.asFlowable(property: KProperty0<T>, @StringRes key: Int): Flowable<T> {
+@CheckResult fun <T> KotprefModel.asFlowable(property: KProperty0<T>, @StringRes key: Int):
+        Flowable<T> {
     return asFlowable(property, context.getString(key))
 }
 
-@CheckResult
-fun <T> KotprefModel.asFlowable(property: KProperty0<T>, key: String? = null): Flowable<T> {
+@CheckResult fun <T> KotprefModel.asFlowable(property: KProperty0<T>, key: String? = null):
+        Flowable<T> {
     return Flowable.create<T>({ emitter ->
         val listenKey = key ?: property.name
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, changeKey ->

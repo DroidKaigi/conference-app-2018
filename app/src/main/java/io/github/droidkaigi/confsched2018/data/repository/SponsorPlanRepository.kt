@@ -8,9 +8,7 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 
 interface SponsorPlanRepository {
-    @CheckResult
-    fun sponsorPlans(): Flowable<List<SponsorPlan>>
+    @CheckResult fun sponsorPlans(): Flowable<List<SponsorPlan>>
 
-    @CheckResult
-    fun refreshSponsorPlans(ln: Lang = lang()): Completable
+    @CheckResult fun refreshSponsorPlans(ln: Lang = lang()): Completable
 }

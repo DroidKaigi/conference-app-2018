@@ -11,8 +11,7 @@ import io.reactivex.Single
 import org.threeten.bp.LocalDateTime
 
 class StubDroidKaigiApi : DroidKaigiApi {
-    @CheckResult
-    override fun getSessions(): Single<Response> = Single.create { emitter ->
+    @CheckResult override fun getSessions(): Single<Response> = Single.create { emitter ->
         val json = StubDroidKaigiApi::class.java.classLoader.getResourceAsStream("all.json")
                 .bufferedReader().use { it.readText() }
         val moshi = Moshi.Builder()
@@ -24,13 +23,11 @@ class StubDroidKaigiApi : DroidKaigiApi {
         emitter.onSuccess(response!!)
     }
 
-    @CheckResult
-    override fun sponsorPlansJa(): Single<List<SponsorPlan>> {
+    @CheckResult override fun sponsorPlansJa(): Single<List<SponsorPlan>> {
         throw NotImplementedError()
     }
 
-    @CheckResult
-    override fun sponsorPlansEn(): Single<List<SponsorPlan>> {
+    @CheckResult override fun sponsorPlansEn(): Single<List<SponsorPlan>> {
         throw NotImplementedError()
     }
 }

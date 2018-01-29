@@ -18,8 +18,7 @@ class ContributorDataRepository @Inject constructor(
         private val contributorDatabase: ContributorDatabase,
         private val schedulerProvider: SchedulerProvider
 ) : ContributorRepository {
-    @CheckResult
-    override fun loadContributors(): Completable {
+    @CheckResult override fun loadContributors(): Completable {
         // We want to implement paging logic,
         // But The GitHub API does not return the total count of contributors in response data.
         // And we want to show total count.

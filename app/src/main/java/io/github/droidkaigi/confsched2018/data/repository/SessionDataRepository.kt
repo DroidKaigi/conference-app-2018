@@ -130,12 +130,10 @@ class SessionDataRepository @Inject constructor(
                         .groupBy { it.level }
             }
 
-    @CheckResult
-    override fun favorite(session: Session.SpeechSession): Single<Boolean> =
+    @CheckResult override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 
-    @CheckResult
-    override fun refreshSessions(): Completable {
+    @CheckResult override fun refreshSessions(): Completable {
         return api.getSessions()
                 .doOnSuccess { response ->
                     sessionDatabase.save(response)
@@ -144,8 +142,7 @@ class SessionDataRepository @Inject constructor(
                 .toCompletable()
     }
 
-    @CheckResult
-    override fun search(query: String): Single<SearchResult> = Singles.zip(
+    @CheckResult override fun search(query: String): Single<SearchResult> = Singles.zip(
             sessions.map {
                 it
                         .filterIsInstance<Session.SpeechSession>()
@@ -158,13 +155,11 @@ class SessionDataRepository @Inject constructor(
                 SearchResult(sessions, speakers)
             })
 
-    @CheckResult
-    override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
+    @CheckResult override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
             Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
                     .subscribeOn(schedulerProvider.computation())
 
-    @CheckResult
-    override fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>> =
+    @CheckResult override fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>> =
             sessionFeedbackApi.submitSessionFeedback(
                     sessionId = sessionFeedback.sessionId,
                     sessionTitle = sessionFeedback.sessionTitle,
