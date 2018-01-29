@@ -46,7 +46,7 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         sessionsFeedbackViewModel.sessionId = arguments!!.getString(EXTRA_SESSION_ID)
         sessionsFeedbackViewModel.sessionTitle = arguments!!.getString(EXTRA_SESSION_TITLE)
 
-        sessionsFeedbackViewModel.mutableSessionFeedback.observe(this, { result ->
+        sessionsFeedbackViewModel.sessionFeedback.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
                     binding.sessionFeedback = result.data
@@ -69,13 +69,16 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
                     return
                 }
 
-                sessionsFeedbackViewModel.onSessionFeedbackChanged(sessionsFeedbackViewModel
-                        .sessionFeedback.copy(totalEvaluation = Integer.parseInt(p0.toString())))
+                sessionsFeedbackViewModel.onSessionFeedbackChanged(
+                        (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)
+                                ?.data!!.copy(totalEvaluation = Integer.parseInt(p0.toString()))
+                )
             }
         })
 
         binding.submit.setOnClickListener {
-            onSubmitListener(sessionsFeedbackViewModel.sessionFeedback)
+            onSubmitListener(
+                    (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)?.data!!)
         }
 
         sessionsFeedbackViewModel.init()

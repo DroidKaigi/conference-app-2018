@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.feedback
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
@@ -20,17 +21,16 @@ class SessionsFeedbackViewModel @Inject constructor(
     var sessionId: String = ""
     var sessionTitle: String = ""
 
-    lateinit var sessionFeedback: SessionFeedback
-    var mutableSessionFeedback = MutableLiveData<Result<SessionFeedback>>()
+    private var mutableSessionFeedback = MutableLiveData<Result<SessionFeedback>>()
+    var sessionFeedback: LiveData<Result<SessionFeedback>> = mutableSessionFeedback
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun init() {
         repository.sessionFeedbacks
                 .map { sessionFeedbacks ->
-                    sessionFeedback = sessionFeedbacks.firstOrNull { it.sessionId == sessionId }
+                    sessionFeedbacks.firstOrNull { it.sessionId == sessionId }
                             ?: SessionFeedback(sessionId, sessionTitle, 0, 0, 0, 0, 0, "", false)
-                    sessionFeedback
                 }
                 .toResult(schedulerProvider)
                 .subscribe {
@@ -41,8 +41,7 @@ class SessionsFeedbackViewModel @Inject constructor(
     }
 
     fun onSessionFeedbackChanged(sessionFeedback: SessionFeedback) {
-        this.sessionFeedback = sessionFeedback
-        Observable.just(this.sessionFeedback)
+        Observable.just(sessionFeedback)
                 .toResult(schedulerProvider)
                 .subscribe {
                     mutableSessionFeedback.value = it
@@ -51,9 +50,11 @@ class SessionsFeedbackViewModel @Inject constructor(
     }
 
     fun save() {
-        repository.saveSessionFeedback(sessionFeedback)
-                .subscribe()
-                .addTo(compositeDisposable)
+        (sessionFeedback.value as? Result.Success)?.data.also {
+            repository.saveSessionFeedback(it!!)
+                    .subscribe()
+                    .addTo(compositeDisposable)
+        }
     }
 
     fun onSubmit(sessionFeedback: SessionFeedback) {

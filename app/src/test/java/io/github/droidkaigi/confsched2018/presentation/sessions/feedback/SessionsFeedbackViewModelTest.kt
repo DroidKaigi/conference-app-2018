@@ -39,7 +39,7 @@ class SessionsFeedbackViewModelTest {
         whenever(repository.sessionFeedbacks).doReturn(Flowable.just(sessionFeedbackResults))
         viewModel = SessionsFeedbackViewModel(repository, TestSchedulerProvider())
         val result: Observer<Result<SessionFeedback>> = mock()
-        viewModel.mutableSessionFeedback.observeForever(result)
+        viewModel.sessionFeedback.observeForever(result)
 
         viewModel.sessionId = sessionFeedback_1.sessionId
         viewModel.sessionTitle = sessionFeedback_1.sessionTitle
