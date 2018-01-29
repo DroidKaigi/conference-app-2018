@@ -1,6 +1,7 @@
 <resources>
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
+    <string name="web_search">ウェブ検索</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">ホーム</string>

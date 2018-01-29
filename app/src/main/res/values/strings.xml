@@ -2,6 +2,7 @@
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
     <string name="room_format" translatable="false">%1$s%2$s</string>
+    <string name="web_search">Web Search</string>
 
     <!-- Preference Keys -->
     <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
