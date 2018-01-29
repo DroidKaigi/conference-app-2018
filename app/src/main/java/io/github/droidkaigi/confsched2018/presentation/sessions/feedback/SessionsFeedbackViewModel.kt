@@ -43,11 +43,6 @@ class SessionsFeedbackViewModel @Inject constructor(
                         .first { it.id == sessionId }
             }.share()
 
-    init {
-
-
-    }
-
     fun onSessionFeedbackChanged(sessionFeedback: SessionFeedback) {
         repository.saveSessionFeedback(sessionFeedback)
                 .subscribe()
