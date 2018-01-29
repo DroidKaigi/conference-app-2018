@@ -6,7 +6,13 @@
 [<img src="https://dply.me/xt08ja/button/large" alt="Try it on your device via DeployGate">](https://dply.me/xt08ja#install)
 
 # Features
-TBD
+<img src="art/screenshot_sessions.png" width="200" /> <img src="art/screenshot_search.png" width="200" /> <img src="art/screenshot_session_detail.png" width="200" />
+
+* View conference schedule and details of each session
+* Set notification for upcoming sessions on your preference
+* Search sessions and speakers and topics
+* Show Information Feed
+
 
 # Contributing
 We are always welcome your contribution!
@@ -290,6 +296,8 @@ This project uses some modern Android libraries and source codes.
 * [Stetho](http://facebook.github.io/stetho/) - Facebook
 * [Kotshi](https://github.com/ansman/kotshi) - ansman
 * [DownloadableCalligraphy](https://github.com/takahirom/DownloadableCalligraphy) - takahirom
+* [Kotpref](https://github.com/chibatching/Kotpref) - chibatching
+* [RxBroadcast](https://github.com/cantrowitz/RxBroadcast) - cantrowitz
 * [ProgressTimeLatch](https://github.com/chrisbanes/tivi/blob/96e7cae7560ffd358b8c58c47267ed1024df53f6/app/src/main/java/me/banes/chris/tivi/ui/ProgressTimeLatch.kt) - chrisbanes
 * [Google I/O 2017](https://github.com/google/iosched)
 

@@ -14,6 +14,9 @@ buildscript {
         classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$versions.ktlintGradle"
         classpath "io.fabric.tools:gradle:$versions.fabricGradleTool"
         classpath "com.github.ben-manes:gradle-versions-plugin:$versions.gradleVersions"
+        classpath "com.google.gms:oss-licenses:$versions.ossLicenses"
+        classpath "com.deploygate:gradle:$versions.deploygate"
+        classpath "com.github.triplet.gradle:play-publisher:$versions.playPublisher"
     }
 }
 

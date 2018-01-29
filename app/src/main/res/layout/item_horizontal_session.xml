@@ -23,10 +23,6 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@animator/card_state_list_anim"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop"
         >
 
@@ -37,12 +33,12 @@
 
             <TextView
                 android:id="@+id/day"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
-                style="@style/TextStyle.App.Caption"
                 app:dayNumber="@{session.dayNumber}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -51,19 +47,19 @@
 
             <TextView
                 android:id="@+id/divider_day_and_period"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/session_header_divider"
-                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/day"
                 app:layout_constraintTop_toTopOf="@id/day"
                 />
 
             <TextView
                 android:id="@+id/period"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextStyle.App.Caption"
                 app:endDate="@{session.endTime}"
                 app:layout_constraintStart_toEndOf="@id/divider_day_and_period"
                 app:layout_constraintTop_toTopOf="@id/divider_day_and_period"
@@ -73,10 +69,10 @@
 
             <TextView
                 android:id="@+id/room"
+                style="@style/TextStyle.App.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:maxLines="3"
-                style="@style/TextStyle.App.Caption"
                 app:layout_constraintStart_toEndOf="@id/period"
                 app:layout_constraintTop_toTopOf="@+id/period"
                 app:prefix='@{" / "}'
@@ -86,6 +82,7 @@
 
             <TextView
                 android:id="@+id/title"
+                style="@style/TextStyle.App.Title"
                 android:layout_width="0dp"
                 android:layout_height="62dp"
                 android:layout_marginEnd="16dp"
@@ -95,7 +92,6 @@
                 android:lineSpacingExtra="@dimen/session_title_line_spacing"
                 android:maxLines="2"
                 android:text="@{session.title}"
-                style="@style/TextStyle.App.Title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/period"
@@ -105,22 +101,22 @@
             <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:speakers="@{session.speakers}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
+                app:speakers="@{session.speakers}"
                 />
 
-            <ImageView
+            <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
                 android:id="@+id/favorite"
                 style="@style/FavoriteButton"
-                app:colorTint="@{session.isFavorited ? @color/accent : @color/sub_icon_color}"
+                android:checked="@{session.isFavorited}"
+                app:checkedColorTint="@color/accent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
-                app:srcCompat="@{session.isFavorited ? @drawable/ic_favorite_black_24dp : @drawable/ic_favorite_border_black_24dp}"
-                tools:src="@drawable/ic_favorite_black_24dp"
+                app:uncheckedColorTint="@color/sub_icon_color"
                 />
 
         </android.support.constraint.ConstraintLayout>

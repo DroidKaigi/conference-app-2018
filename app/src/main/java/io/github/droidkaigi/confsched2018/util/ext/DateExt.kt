@@ -1,11 +1,25 @@
 package io.github.droidkaigi.confsched2018.util.ext
 
-import io.github.droidkaigi.confsched2018.model.Date
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
-fun Date.toLocalDateTime(): LocalDateTime =
-        LocalDateTime.of(getFullYear(), getMonth(), getDate(), getHours(), getMinutes())
+fun Date.toReadableDateTimeString() = "${toReadableDateString()} ${toReadableTimeString()}"
 
-fun Date.toLocalDate(): LocalDate =
-        LocalDate.of(getFullYear(), getMonth(), getDate())
+fun Date.toReadableDateString() = SimpleDateFormat("MM/dd", Locale.US).apply {
+    timeZone = timeZone()
+}.format(this)
+
+fun Date.toReadableTimeString() = SimpleDateFormat("HH:mm", Locale.US).apply {
+    timeZone = timeZone()
+}.format(this)
+
+private fun timeZone(): TimeZone {
+    return if (Prefs.enableLocalTime) {
+        TimeZone.getDefault()
+    } else {
+        TimeZone.getTimeZone("Asia/Tokyo")
+    }
+}

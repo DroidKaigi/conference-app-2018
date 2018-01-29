@@ -3,7 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'deploygate'
+apply plugin: 'com.github.triplet.play'
 
 // Manifest version
 def versionMajor = 0
@@ -12,7 +15,17 @@ def versionPatch = 0
 
 android {
     compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     dataBinding.enabled = true
+
+    // Play publisher
+    playAccountConfigs {
+        defaultAccountConfig {
+            // TODO Replace json file to the one which is generated in the API console.
+            // https://github.com/Triple-T/gradle-play-publisher#authentication
+            jsonFile = file('publisher-keys.json')
+        }
+    }
 
     defaultConfig {
         applicationId "io.github.droidkaigi.confsched2018"
@@ -20,16 +33,20 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "$versionMajor.$versionMinor.$versionPatch"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "io.github.droidkaigi.confsched2018.test.TestAppRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         resConfigs "en", "ja"
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
 
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+    }
+    applicationVariants.all { variant ->
+        variant.resValue "string", "versionInfo", variant.versionName
     }
     signingConfigs {
         debug {
@@ -47,12 +64,14 @@ android {
     }
     buildTypes {
         debug {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp.debug"]
             resValue "string", "app_name", "DroidKaigi 2018 Dev"
             signingConfig signingConfigs.debug
             applicationIdSuffix '.debug'
             versionNameSuffix "-debug"
         }
         release {
+            manifestPlaceholders = [scheme: "conference", host: "droidkaigi.co.jp"]
             resValue "string", "app_name", "DroidKaigi 2018"
             signingConfig signingConfigs.release
             debuggable false
@@ -71,13 +90,20 @@ android {
         }
     }
     testOptions {
-        unitTests.returnDefaultValues = true
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
     }
     lintOptions {
         lintConfig file('lint.xml')
         textReport true
         textOutput 'stdout'
     }
+}
+
+kapt {
+    useBuildCache = true
 }
 
 // See versions.gradle
@@ -95,6 +121,9 @@ dependencies {
     implementation depends.support.customtabs
     implementation depends.support.constraint
     implementation depends.support.multidex
+    implementation depends.support.emoji
+    implementation depends.support.preference
+    implementation depends.support.preferenceV14
 
     //==================== Network ====================
     implementation depends.okhttp3.loggingIntercepter
@@ -117,6 +146,7 @@ dependencies {
     implementation depends.rxjava2.core
     implementation depends.rxjava2.android
     implementation depends.rxjava2.kotlin
+    implementation depends.rxbroadcast
 
     kapt depends.binding.compiler
 
@@ -126,11 +156,16 @@ dependencies {
     kapt depends.dagger.compiler
     kapt depends.dagger.androidProcessor
 
+    implementation depends.playService.map
+
     implementation depends.firebase.firestore
     implementation depends.firebase.auth
     implementation depends.firebase.core
 
     implementation depends.threetenabp
+
+    implementation depends.kotpref.kotpref
+    implementation depends.kotpref.initializer
 
     //==================== UI ====================
     implementation depends.glide.core
@@ -141,6 +176,7 @@ dependencies {
     implementation depends.groupie.binding
 
     implementation depends.downloadableCalligraphy
+    implementation depends.gms
 
     //==================== Debug ====================
     debugImplementation depends.stetho.core
@@ -162,17 +198,24 @@ dependencies {
     testImplementation depends.mockitoKotlin
 
     testImplementation depends.robolectric.core
+    testImplementation depends.robolectric.multidex
     testImplementation depends.assertk
 
     testImplementation depends.threetenbp
 
     androidTestImplementation depends.supporttest.runner
     androidTestImplementation depends.supporttest.espresso
-
+    androidTestImplementation depends.supporttest.contrib
+    androidTestImplementation depends.assertk
 }
 
 repositories {
     mavenCentral()
+}
+
+play {
+    track = 'beta' // 'production' or 'rollout' or 'beta' or 'alpha'
+    // userFraction = 0.1
 }
 
 ktlint {
@@ -183,3 +226,18 @@ ktlint {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+deploygate {
+    userName = "takahirom"
+    token = System.getenv("DEPLOY_GATE_API_KEY")
+
+    apks {
+        release {
+            def hash = 'git rev-parse --short HEAD'.execute([], project.rootDir).in.text.trim()
+            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
+
+            distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
+            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
+        }
+    }
+}

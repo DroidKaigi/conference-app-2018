@@ -3,14 +3,15 @@ package io.github.droidkaigi.confsched2018.presentation.sessions.item
 import com.xwray.groupie.Item
 import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.model.toReadableDateString
-import io.github.droidkaigi.confsched2018.model.toReadableTimeString
+import java.util.Date
 import java.util.SortedMap
 
 class DateSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
+            onQuestionnaireListener: (Session.SpeechSession) -> Unit,
+            isShowDayNumber: Boolean = false,
             simplify: Boolean = false
     ) {
         val sessionItems = sessions.map {
@@ -18,30 +19,32 @@ class DateSessionsSection : Section() {
                 is Session.SpeechSession -> {
                     @Suppress("USELESS_CAST")
                     SpeechSessionItem(
-                            it, onFavoriteClickListener, simplify) as SessionItem
+                            session = it,
+                            onFavoriteClickListener = onFavoriteClickListener,
+                            onQuestionnaireListener = onQuestionnaireListener,
+                            isShowDayNumber = isShowDayNumber
+                    ) as SessionItem
                 }
                 is Session.SpecialSession -> {
                     @Suppress("USELESS_CAST")
-                    SpecialSessionItem(it) as SessionItem
+                    SpecialSessionItem(
+                            session = it,
+                            isShowDayNumber = isShowDayNumber
+                    ) as SessionItem
                 }
             }
         }
 
-        val dateSpeechSessionItemsMap: SortedMap<ReadableDateTimePair, List<SessionItem>> =
-                sessionItems.groupBy {
-                    ReadableDateTimePair(it.session.startTime.toReadableDateString(),
-                            it.session.startTime.toReadableTimeString())
-                }.toSortedMap()
+        val dateSpeechSessionItemsMap: SortedMap<Date, List<SessionItem>> =
+                sessionItems.groupBy { it.session.startTime }.toSortedMap()
 
         val dateSessions = arrayListOf<Item<*>>()
-        dateSpeechSessionItemsMap.keys.forEach { key ->
-            key ?: return@forEach
-            val list = dateSpeechSessionItemsMap[key]
+        dateSpeechSessionItemsMap.keys.forEach { startTime ->
+            startTime ?: return@forEach
+            val list = dateSpeechSessionItemsMap[startTime]
 
             val endTime = list!![0].session.endTime
-            val endDateTimePair = ReadableDateTimePair(endTime.toReadableDateString(),
-                    endTime.toReadableTimeString())
-            dateSessions.add(DateHeaderItem(key, endDateTimePair))
+            dateSessions.add(DateHeaderItem(startTime, endTime))
             @Suppress("UNCHECKED_CAST")
             dateSessions.addAll(list.toMutableList() as List<Item<*>>)
         }
@@ -62,6 +65,24 @@ class DateSessionsSection : Section() {
             }
             else -> null
         }
+    }
+
+    fun getDateHeaderPositionByDate(date: Date): Int {
+        var position = 0
+        if (itemCount == 0) return position
+
+        val items = 0.until(itemCount).map { getItem(it) }
+        if (items.isEmpty()) return position
+
+        items.forEachIndexed { index, item ->
+            if (item !is DateHeaderItem) return@forEachIndexed
+
+            position = index
+
+            if (date.getTime() <= item.endDateTime.getTime()) return position
+        }
+
+        return position
     }
 
     private fun getItemOrNull(i: Int): Item<*>? {

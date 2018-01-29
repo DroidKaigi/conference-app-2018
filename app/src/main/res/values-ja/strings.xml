@@ -1,16 +1,20 @@
 <resources>
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
+    <string name="web_search">ウェブ検索</string>
 
     <!-- NavigationDrawer -->
+    <string name="nav_item_home">ホーム</string>
     <string name="nav_item_map">アクセス</string>
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>
+    <string name="nav_item_staff">@string/staff</string>
     <string name="nav_item_all_survey">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
     <string name="nav_content_description_drawer_open">ナビゲーションドロワーを開く</string>
     <string name="nav_content_description_drawer_close">ナビゲーションドロワーを閉じる</string>
+    <string name="nav_content_description_drawer_header">DroidKaigi 2018</string>
 
     <!-- Session -->
     <string name="session_title">セッション</string>
@@ -21,10 +25,15 @@
     <string name="session_fetch_failed">セッションの取得に失敗しました</string>
     <string name="session_content_description_speaker">スピーカーの画像</string>
     <string name="session_content_description_favorite_button">マイセッション追加ボタン</string>
+    <string name="session_content_description_level">レベルの画像</string>
     <string name="session_load_retry">リトライ</string>
+    <string name="session_finished">終了済みのセッション</string>
+    <string name="session_go_to_questionnaire">アンケートへ</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
+    <string name="detail_sessions_content_description_prev">前へ</string>
+    <string name="detail_sessions_content_description_next">次へ</string>
 
     <!-- Search-->
     <string name="search_title">検索</string>
@@ -41,21 +50,40 @@
 
     <!-- Feed -->
     <string name="feed_title">お知らせ</string>
+    <string name="feed_content_description_feed_icon">お知らせアイコン</string>
+    <string name="feed_not_found">お知らせがありません</string>
+    <string name="feed_content_description_not_found">お知らせが無い画像</string>
 
     <!-- Map -->
-    <string name="map_title_activity">地図</string>
+    <string name="map_title_activity">アクセス</string>
+    <string name="map_place_name">ベルサール新宿グランドコンファレンスセンター</string>
+    <string name="map_meeting_rooms_name">DroidKaigi 2018 会場</string>
+    <string name="map_address">〒160–0023 東京都新宿区西新宿8丁目17 西新宿8–17–1 住友不動産新宿グランドタワー5F</string>
+    <string name="map_nearby_stations">丸ノ内線「西新宿駅」 (1番出口徒歩3分)\n大江戸線「都庁前駅」 (E4出口徒歩7分)\n大江戸線「新宿西口駅」(D4出口徒歩11分)\nJR線・丸ノ内線･小田急線･京王線・新宿線・大江戸線「新宿駅」 (西口徒歩15分)</string>
+    <string name="map_content_description_place_icon">場所アイコン</string>
+    <string name="map_content_description_train_icon">電車アイコン</string>
 
     <!-- Sponsor -->
-    <string name="sponsors_title_activity">スポンサー</string>
+    <string name="sponsors_title_activity">スポンサー一覧</string>
+    <string name="sponsors_logo_content_description">スポンサーロゴ画像</string>
+    <string name="sponsors_fetch_failed">スポンサーの取得に失敗しました</string>
+    <string name="sponsors_load_retry">リトライ</string>
 
     <!-- About This App -->
     <string name="about_title_activity">このアプリについて</string>
 
     <!-- Settings -->
     <string name="settings_title_activity">設定</string>
+    <string name="settings_enable_local_time_title_preference">現在地の時間を使用する</string>
+    <string name="settings_enable_local_time_summary_preference">DroidKaigiの現地時間の代わりに現在地の時間を使用します。</string>
+    <string name="settings_enable_notification_title_preference">通知を受信する</string>
+    <string name="settings_enable_notification_summary_preference">このアプリで通知を受信するかどうかを選択できます。</string>
+    <string name="settings_enable_hide_bottom_navigation_title_preference">BottomNavigationを隠す</string>
+    <string name="settings_enable_hide_bottom_navigation_summary_preference">BottomNavigationBarをスクロールにあわせて隠すかどうかを選択できます。</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
+    <string name="speaker_content_description">スピーカー画像</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -64,6 +92,37 @@
 
     <!-- Contributors -->
     <string name="contributors">コントリビューター</string>
-    <string name="contributors_header">%d 人のコントリビューター</string>
     <string name="contributors_avatar">コントリビューターのプロフィール画像</string>
+    <plurals name="contributors_header">
+        <item quantity="other">%d 人のコントリビューター</item>
+    </plurals>
+
+    <!-- Staff -->
+    <string name="staff">スタッフ</string>
+    <string name="staff_avatar">スタッフのプロフィール画像</string>
+    <plurals name="staff_header">
+        <item quantity="other">%d 人のスタッフ</item>
+    </plurals>
+
+    <!-- Notification -->
+    <string name="notification_title">%1$s がもうすぐ始まります。</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+    <string name="notification_channel_name_start_favorite_session">マイセッションの開始</string>
+
+    <!-- AboutThisApp -->
+    <string name="about_official_head_title">What is "DroidKaigi"?</string>
+    <string name="about_official_head_description">DroidKaigiは、エンジニアがAndroid技術情報の共有とコミュニケーションを目的としたカンファレンスです。</string>
+    <string name="about_official_site_title">DroidKaigi2018 ホームページ</string>
+    <string name="about_official_site_description">DroidKaigi2018の公式ホームページです。</string>
+    <string name="about_licenses_title">ライセンス</string>
+    <string name="about_licenses_description">このアプリでは、多くの素晴らしいライブラリを使用させていただいています。 </string>
+    <string name="about_sponsors_title">スポンサー</string>
+    <string name="about_sponsors_description">DroidKaigiは多くのスポンサーによってサポートされています。</string>
+    <string name="about_contributors_title">コントリビューター</string>
+    <string name="about_contributors_description">App制作に携わった人たちです。</string>
+    <string name="about_version_title">開発情報</string>
+    <string name="about_version_description">%1$s</string>
+
+    <!-- Session Feedback -->
+    <string name="submit_feedback">フィードバックを送る</string>
 </resources>

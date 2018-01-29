@@ -14,8 +14,10 @@
         >
         <android.support.v7.widget.RecyclerView
             android:id="@+id/search_session_recycler"
+            style="@style/BaseRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clipChildren="false"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

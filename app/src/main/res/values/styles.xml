@@ -34,10 +34,69 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">start</item>
         <item name="android:fitsSystemWindows">true</item>
+        <item name="headerLayout">@layout/drawer_header</item>
+        <item name="itemIconTint">@color/drawer_item_icon_tint</item>
+        <item name="itemTextColor">@color/drawer_item_text_color</item>
+        <item name="menu">@menu/drawer</item>
     </style>
 
     <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="BaseRecyclerView">
+        <item name="fastScrollEnabled">true</item>
+        <item name="fastScrollHorizontalThumbDrawable">@drawable/state_fast_scroll_thumb</item>
+        <item name="fastScrollHorizontalTrackDrawable">@drawable/state_fast_scroll_track</item>
+        <item name="fastScrollVerticalThumbDrawable">@drawable/state_fast_scroll_thumb</item>
+        <item name="fastScrollVerticalTrackDrawable">@drawable/state_fast_scroll_track</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="titleTextColor">@color/app_bar_text_color</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+    </style>
+
+    <style name="ContentFrameLayout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@id/toolbar</item>
+    </style>
+
+    <style name="DrawerLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="SocialMediaButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_social_media_button</item>
+        <item name="android:elevation" tools:targetApi="21">2dp</item>
+    </style>
+
+    <style name="GoToQuestionnaire">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/app_bar_text_color</item>
+        <item name="android:background">@drawable/bg_go_to_questionnaire</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">11dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">11dp</item>
+        <item name="android:stateListAnimator" tools:targetApi="21">@null</item>
+        <item name="android:elevation" tools:targetApi="21">2dp</item>
     </style>
 </resources>

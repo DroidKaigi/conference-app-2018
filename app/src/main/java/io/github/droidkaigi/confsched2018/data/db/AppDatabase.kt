@@ -5,10 +5,12 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import io.github.droidkaigi.confsched2018.data.db.dao.ContributorDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
+import io.github.droidkaigi.confsched2018.data.db.dao.SessionFeedbackDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import io.github.droidkaigi.confsched2018.data.db.entity.ContributorEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionSpeakerJoinEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
@@ -18,9 +20,10 @@ import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
             (ContributorEntity::class),
             (SessionEntity::class),
             (SpeakerEntity::class),
-            (SessionSpeakerJoinEntity::class)
+            (SessionSpeakerJoinEntity::class),
+            (SessionFeedbackEntity::class)
         ],
-        version = 3
+        version = 6
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -28,4 +31,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
     abstract fun speakerDao(): SpeakerDao
     abstract fun sessionSpeakerDao(): SessionSpeakerJoinDao
+    abstract fun sessionFeedbackDao(): SessionFeedbackDao
 }

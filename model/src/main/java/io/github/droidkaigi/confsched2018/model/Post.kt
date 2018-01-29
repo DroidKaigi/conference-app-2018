@@ -1,9 +1,18 @@
 package io.github.droidkaigi.confsched2018.model
 
+import java.util.Date
+
 data class Post(
         val title: String,
         val content: String,
         val date: Date,
         val published: Boolean,
-        val type: String
-)
+        val type: Type
+) {
+    enum class Type {
+        Tutorial,
+        Notification,
+        Alert,
+        Enquete,
+    }
+}

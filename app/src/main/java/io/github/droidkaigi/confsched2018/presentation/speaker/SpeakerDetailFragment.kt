@@ -16,9 +16,9 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.binding.FragmentDataBindingComponent
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
+import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
@@ -30,17 +30,19 @@ class SpeakerDetailFragment : Fragment(), Injectable {
 
     private val sessionsSection = SimpleSessionsSection()
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var sessionAlarm: SessionAlarm
 
     private val speakerDetailViewModel: SpeakerDetailViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SpeakerDetailViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        // Since it takes time to change the favorite state, change only the state of View first
-        session.isFavorited = !session.isFavorited
-        binding.sessionsRecycler.adapter.notifyDataSetChanged()
-
         speakerDetailViewModel.onFavoriteClick(session)
+        sessionAlarm.toggleRegister(session)
+    }
+
+    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +51,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 FragmentSpeakerDetailBinding.inflate(
                         inflater,
                         container!!,
-                        false,
-                        FragmentDataBindingComponent(this)
+                        false
                 )
         return binding.root
     }
@@ -64,7 +65,10 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val speaker = result.data.first
                     binding.speaker = speaker
-                    sessionsSection.updateSessions(result.data.second, onFavoriteClickListener)
+                    sessionsSection.updateSessions(result.data.second,
+                            onFavoriteClickListener,
+                            onQuestionnaireListener,
+                            userIdInDetail = speaker.id)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

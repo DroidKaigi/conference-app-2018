@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:gravity="center_vertical"
+    tools:orientation="horizontal"
+    tools:parentTag="android.widget.LinearLayout"
+    >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/speaker_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:textColor="@color/app_bar_text_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        />
+
+    <TextView
+        android:id="@+id/speakers"
+        style="@style/TextStyle.App.Body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="@tools:sample/full_names"
+        />
+
+</LinearLayout>

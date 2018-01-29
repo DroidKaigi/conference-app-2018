@@ -1,0 +1,46 @@
+<layout>
+    <data>
+
+        <variable
+            name="speaker"
+            type="io.github.droidkaigi.confsched2018.model.Speaker"
+            />
+
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/speaker_image"
+            android:layout_width="@dimen/speaker_image"
+            android:layout_height="@dimen/speaker_image"
+            android:contentDescription="@string/speaker_content_description"
+            android:layout_margin="4dp"
+            app:image_url="@{speaker.imageUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/speaker_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{speaker.name}"
+            android:textAppearance="@style/TextAppearance.App.Body2"
+            app:layout_constraintStart_toEndOf="@id/speaker_image"
+            app:textColor="@color/app_bar_text_color"
+            tools:text="@tools:sample/first_names"
+            />
+
+    </LinearLayout>
+</layout>

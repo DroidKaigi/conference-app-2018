@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
 import android.support.v4.app.Fragment
+import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
@@ -20,6 +23,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.feed.item.FeedItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -28,6 +32,7 @@ class FeedFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentFeedBinding
 
     private val postsSection = Section()
+    private var fireBaseAnalytics: FirebaseAnalytics? = null
 
     private val feedItemCollapsed by lazy {
         ConstraintSet().apply {
@@ -59,6 +64,7 @@ class FeedFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         postsViewModel.feeds.observe(this, { result ->
@@ -66,22 +72,32 @@ class FeedFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val posts = result.data
                     val inflater = TransitionInflater.from(context)
-                    val expandTransition = inflater.inflateTransition(R.transition.expand_toggle)
+                    val expandTransition = inflater.inflateTransition(R.transition.feed_item_expand)
+                    val collapseTransition =
+                            inflater.inflateTransition(R.transition.feed_item_collapse)
                     postsSection.update(posts
                             .map {
                                 FeedItem(
                                         it,
                                         feedItemCollapsed,
                                         feedItemExpanded,
-                                        expandTransition
+                                        expandTransition,
+                                        collapseTransition
                                 )
                             })
+                    binding.feedInactiveGroup.setVisible(posts.isEmpty())
+                    binding.feedRecycler.setVisible(posts.isNotEmpty())
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
     }
 
     private fun setupRecyclerView() {
@@ -91,10 +107,13 @@ class FeedFragment : Fragment(), Injectable {
                 //TODO
             })
         }
-        val linearLayoutManager = LinearLayoutManager(context)
         binding.feedRecycler.apply {
             adapter = groupAdapter
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
+            val dividerDrawable = ResourcesCompat.getDrawable(
+                    context.resources, R.drawable.shape_divider_1dp, null)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+                dividerDrawable?.let { setDrawable(it) }
+            })
         }
     }
 

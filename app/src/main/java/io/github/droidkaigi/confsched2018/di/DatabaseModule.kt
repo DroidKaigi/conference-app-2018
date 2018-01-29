@@ -13,45 +13,55 @@ import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionRoomDatabase
 import io.github.droidkaigi.confsched2018.data.db.dao.ContributorDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionDao
+import io.github.droidkaigi.confsched2018.data.db.dao.SessionFeedbackDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SessionSpeakerJoinDao
 import io.github.droidkaigi.confsched2018.data.db.dao.SpeakerDao
 import javax.inject.Singleton
 
-@Module internal object DatabaseModule {
+@Module open class DatabaseModule {
 
-    @Singleton @Provides @JvmStatic
+    companion object {
+        val instance = DatabaseModule()
+    }
+
+    @Singleton @Provides
     fun provideSessionDatabase(
             appDatabase: AppDatabase,
             sessionDbDao: SessionDao,
             speakerDao: SpeakerDao,
-            sessionSpeakerJoinDao: SessionSpeakerJoinDao
+            sessionSpeakerJoinDao: SessionSpeakerJoinDao,
+            sessionFeedbackDao: SessionFeedbackDao
     ): SessionDatabase =
-            SessionRoomDatabase(appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao)
+            SessionRoomDatabase(appDatabase, sessionDbDao, speakerDao, sessionSpeakerJoinDao,
+                    sessionFeedbackDao)
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideFavoriteDatabase(): FavoriteDatabase =
             FavoriteFirestoreDatabase()
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideContributorsDatabase(db: AppDatabase, dao: ContributorDao): ContributorDatabase =
             ContributorRoomDatabase(db, dao)
 
-    @Singleton @Provides @JvmStatic
-    fun provideDb(app: Application): AppDatabase =
+    @Singleton @Provides
+    open fun provideDb(app: Application): AppDatabase =
             Room.databaseBuilder(app, AppDatabase::class.java, "droidkaigi.db")
                     .fallbackToDestructiveMigration()
                     .build()
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideSessionsDao(db: AppDatabase): SessionDao = db.sessionDao()
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideSpeakerDao(db: AppDatabase): SpeakerDao = db.speakerDao()
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideSessionSpeakerJoinDao(db: AppDatabase): SessionSpeakerJoinDao =
             db.sessionSpeakerDao()
 
-    @Singleton @Provides @JvmStatic
+    @Singleton @Provides
     fun provideContributorDao(db: AppDatabase): ContributorDao = db.contributorDao()
+
+    @Singleton @Provides
+    fun provideSessionFeedbackDao(db: AppDatabase): SessionFeedbackDao = db.sessionFeedbackDao()
 }

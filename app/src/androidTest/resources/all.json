@@ -1,0 +1,571 @@
+{
+  "sessions": [
+    {
+      "id": "16969",
+      "title": "Kotlinアンチパターン",
+      "description": "　KotlinはJavaよりもシンプルで安全なコードを書くことができます。また、同じ処理を書く場合も、いくつかのやり方があります。文法に関する説明は、公式ドキュメントを見れば分かりますが、使いどころ、特にAndroidアプリ開発における使いどころについては、まだそれぞれ模索している段階といってよいのではないでしょうか。\r\n　このセッションでは、私がフルKotlinのアプリをチームで開発した経験の中で分かった、Kotlinの各種文法の適切な使いどころや、バグを生みやすいコードのパターンなどを紹介してみたいと思います。\r\n　例えば、lateinitとnull初期化の使い分け、interfaceのデフォルト実装とabstractクラスの使い分け、引数なしの関数とcustom getterの使い分け、定数とlazyとcustom getterの使い分けなどがあります。また、property delegationの使いどころ、スコープ関数の使いどころ、レシーバー付き関数型の使いどころなど、Kotlinの基本文法を紹介しつつ、Androidアプリ開発をした経験からActivityライフサイクルやFragmentライフサイクルに合わせた使いどころ・注意点などについて解説してみたいと思います。",
+      "startsAt": "2018-02-08T10:20:00",
+      "endsAt": "2018-02-08T10:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "3fe8f4be-5700-44f5-ba97-1a4b4f831ec8"
+      ],
+      "categoryItems": [
+        3480,
+        3483,
+        3488,
+        3541
+      ],
+      "questionAnswers": [],
+      "roomId": 513
+    },
+    {
+      "id": "15575",
+      "title": "Android アプリの中を覗いてみよう",
+      "description": "Android アプリを使っていて「この機能どうやって作っているんだろう？」と思ったことはありませんか？また、数十MBのアプリに「いったい何が入っているんだろう？」と疑問に思ったことはありませんか？\r\n\r\nAndroid アプリの中身はわりと簡単に覗き見することができます。\r\nこのセッションではAndroid アプリのAPK の中身を覗き見する方法を紹介し、実際に中身を見てみます。面白い発見があるかもしれませんよ？",
+      "startsAt": "2018-02-08T11:20:00",
+      "endsAt": "2018-02-08T11:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "2f50ba75-0356-4d2e-8b2b-7343fd3e4377"
+      ],
+      "categoryItems": [
+        3480,
+        3483,
+        3500,
+        3540
+      ],
+      "questionAnswers": [],
+      "roomId": 515
+    },
+    {
+      "id": "15904",
+      "title": "How to improve your MVP architecture and tests",
+      "description": "■対象者\r\n・流行りにのってMVPっぽい設計にしたがあまりメリットが感じられていない人\r\n・MVPやCleanArchitectureを採用したがテストが書けていない人\r\n・設計やテストについて他社の事例や知見が知りたいと思っている人\r\n\r\n■概要\r\nCleanArchitectureを採用し、なんとなくPresenterを作ってみたけれど、Activityとの役割が曖昧で、コードが二箇所に分散しただけでかえってメンテしにくくなってしまった...。そんなプロジェクトに心当たりのある方も多いのではないでしょうか？\r\nこのセッションでは話者が数年間試行錯誤した経験を元に、Model-View-Presenterアーキテクチャを採用したアプリをどのように改善し、よりよい設計にしていくかについての知見を紹介します。\r\nまた、Presenterに対してMockitoなどを使ったテストを有効に書くための手法やTipsなども紹介したいと思います。\r\n\r\n■アジェンダ(仮)\r\n・MVPアンチパターンと改善例\r\n・MVPでテストを書く\r\n　・Presenterのテストの書き方\r\n　・テストライブラリを活用する\r\n　・テストのリファクタリング\r\n　・テストのガイドラインを定める\r\n・Presenterを整理する\r\n　・ドメインモデルを厚くする\r\n　・テンプレートクラスを自動生成する",
+      "startsAt": "2018-02-08T11:20:00",
+      "endsAt": "2018-02-08T11:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "1de1a2e2-e88d-4aa1-8d85-58c5466da05d"
+      ],
+      "categoryItems": [
+        3480,
+        3483,
+        3488,
+        3541
+      ],
+      "questionAnswers": [],
+      "roomId": 514
+    },
+    {
+      "id": "16633",
+      "title": "Inside Android Architecture Components",
+      "description": "#概要\r\nAndroid Architecture Componentsは、Android特有のUIコンポーネントの複雑さに対処するために産まれたライブラリです。\r\nGoogle I/O 2017で発表されたとたん、話題の的となったArchitecture Componentsですが、\r\nいったいどのようにして、ライフサイクルイベントを拾い、各コンポーネントはどのように反応しているのでしょうか。\r\nLifecycle, LiveData, ViewModel, Roomの内を覗いて、それらがどう動いているのか、探ってみましょう。\r\n\r\n#対象者\r\n- Android Architecture Componentsを使っている人\r\n- ライブラリの中を覗くのが好きな人\r\n\r\n#話す内容\r\n- Android Architecture Componentsの中身\r\n- Android Architecture Componentsを使うときの注意点など",
+      "startsAt": "2018-02-08T11:20:00",
+      "endsAt": "2018-02-08T11:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "299d3761-e25a-4df7-bea1-fe6e391938bd"
+      ],
+      "categoryItems": [
+        3480,
+        3483,
+        3488,
+        3540
+      ],
+      "questionAnswers": [],
+      "roomId": 513
+    },
+    {
+      "id": "16997",
+      "title": "Deep dive into LayoutManager for RecyclerView",
+      "description": "RecyclerView is now a de facto standard for representing a large data set into a limited window as a scrollable view.\r\n\r\nOne of the advantages of using it compared to ListView is that RecyclerView can change how the data set is presented in addition to a simple linear list (such as Grid, StaggeredGrid) by changing the LayoutManager attached to it.\r\n\r\nBut it's not well known that you can provide your own LayoutManager to achieve even more flexibility in addition to the three (Linear, Grid, StaggeredGrid) default LayoutManagers provided by the library.\r\n\r\nIn this talk I'm going to explain how you can create your own LayoutManager in details based on the experience that the presenter created a Flexbox implementation as a LayoutManager.",
+      "startsAt": "2018-02-08T11:20:00",
+      "endsAt": "2018-02-08T11:50:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "e3267cf5-b1a7-4ce7-a4b3-223925f21316"
+      ],
+      "categoryItems": [
+        3480,
+        3482,
+        3487,
+        3542
+      ],
+      "questionAnswers": [],
+      "roomId": 516
+    },
+    {
+      "id": "15897",
+      "title": "How to Kontribute",
+      "description": "Do you want to send patches to Kotlin? Do you want to know what the best practise of Kotlin development? Do you want JetBrains to list your name in Kotlin blog? This is the talk for you!\r\n\r\nThis talk will explain how to send patches to Kotlin (mainly Kotlin plugin) repository as an external contributor.\r\n\r\nThe expected audience should know the followings:\r\n\r\n* Git/GitHub\r\n* Kotlin syntax\r\n\r\nThe expected outlines are followings:\r\n\r\n* Setup development environment\r\n* Communicating with other developers\r\n* Developing one of Kotlin plugin features\r\n* Implementing unit tests\r\n* Sending a pull request\r\n\r\nAfter this talk, you will be ready to send pull requests to one of the best computer languages in the world!",
+      "startsAt": "2018-02-08T12:50:00",
+      "endsAt": "2018-02-08T13:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "892d6f3c-816b-4a97-a135-c315e1ed6471"
+      ],
+      "categoryItems": [
+        3481,
+        3482,
+        3496,
+        3541
+      ],
+      "questionAnswers": [],
+      "roomId": 519
+    },
+    {
+      "id": "15984",
+      "title": "今から始めるAndroidアプリ開発",
+      "description": "このセッションでは、今からAndroidアプリ開発を始めるに当たり、2018年において必要となる基礎的な知識や学習のコツを網羅的に紹介します。\r\n\r\n対象者はまだAndroidアプリ開発をした事がない初学者や、久しぶりにAndroidやってみようかなという人です。\r\n\r\n簡単なサンプルアプリを題材にして、以下のようなトピックに触れます\r\n\r\n* Android アプリの基礎知識 & 用語解説\r\n* レイアウト\r\n* 非同期処理\r\n* ネットワーク通信\r\n* 通知\r\n* 主要なアーキテクチャ\r\n* テストとその自動化\r\n* デバッグ方法\r\n* 最低限必要となる各種便利ライブラリ\r\n* トレンドのキャッチアップ\r\n* etc...\r\n\r\nこのセッションを通じて、スラスラとAndroidアプリが実装できるようなるわけではありませんが、Androidアプリ開発の学習を開始するに当たって必要となる最新の基礎知識を獲得することができます。",
+      "startsAt": "2018-02-08T12:50:00",
+      "endsAt": "2018-02-08T13:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "a7714db6-05d1-4976-af00-160e59ca0e17",
+        "33bb4b3b-898e-43e5-99d0-be8e0f02865e"
+      ],
+      "categoryItems": [
+        3481,
+        3483,
+        3495,
+        3540
+      ],
+      "questionAnswers": [],
+      "roomId": 520
+    },
+    {
+      "id": "16498",
+      "title": "Android における Model-View-Intent アーキテクチャ",
+      "description": "Android上の開発は非同期の扱いを避ける事はできないです。ネットワーク、フレームワーク、ユーザの操作などから非同期処理が発生してます。油断してしまうとアプリが複雑化してメンテナンスが難しくなります。皆様はネットワークからレスポンスを待っている途中、ユーザが画面をローテーションしても問題ないですか？並行してユーザがいろんな操作しても大丈夫でしょうか？\r\n\r\nModel-View-Intent アーキテクチャは非同期処理が発生する前提で考えられたため、すべてがストリームとして扱ってデータの流れを一方通行にするかつ不変オブジェクトを使うのが MVI アーキテクチャの方針です。マルチスレッディングやAndroidのライフサイクルの対応から生じる問題がアーキテクチャによって解決されるおかげでアプリのロジックに集中できるようになり、コードが書きやすく、今後の保守も楽になります！\r\n\r\n皆様が MVI アーキテクチャの強みを理解し自分で実現できるようにする目標で Kotlin と RxJava を使って並行処理、画面ローテーション、スナックバーを含んだ画面をどうやって作っていくかを語るつもりです！",
+      "startsAt": "2018-02-08T12:50:00",
+      "endsAt": "2018-02-08T13:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "449b4215-55cc-444f-8ff4-b0c434a96019"
+      ],
+      "categoryItems": [
+        3481,
+        3483,
+        3488,
+        3541
+      ],
+      "questionAnswers": [],
+      "roomId": 516
+    },
+    {
+      "id": "16888",
+      "title": "Androidで動画コンテンツを扱うTips",
+      "description": "▶対象\r\n・Androidで動画を扱うアプリに携わっている人\r\n・Androidの動画周りに興味がある人\r\n\r\n▶概要\r\n画像やテキストが主流だった時代から動画の時代へと移り変わってきました。そこで、今回はAndroidで動画を扱うために必要なTipsなどをお話できればと思います。\r\n動画Player周りでは、Androidで主流になっているExoPlayerを使って説明していく予定です。\r\n最後にインスタのライブ配信やFacebookライブの様なライブ配信をAndroidでどう実現するかや実際にそのデモを行います。\r\n\r\n▶内容\r\n・動画の配信Protocolと概要 (MPEG-DASH, HLS)\r\n・Androidでの動画再生 with ExoPlayer\r\n・ExoPlayerでできることとその内部実装\r\n・Androidで動画配信\r\n・Androidでライブ配信 (デモ) ",
+      "startsAt": "2018-02-08T12:50:00",
+      "endsAt": "2018-02-08T13:40:00",
+      "isServiceSession": false,
+      "isPlenumSession": false,
+      "speakers": [
+        "fbb08aa9-7aa1-4b70-b676-32905f5fd8d9"
+      ],
+      "categoryItems": [
+        3481,
+        3483,
+        3500,
+        3541
+      ],
+      "questionAnswers": [],
+      "roomId": 514
+    }
+  ],
+  "speakers": [
+    {
+      "id": "449b4215-55cc-444f-8ff4-b0c434a96019",
+      "firstName": "",
+      "lastName": "",
+      "bio": "Benoît is an Android developer at Cybozu, based in Japan. He focuses on providing the best Android experience possible, both to customers and fellow developers.",
+      "tagLine": "Android Engineer @ Cybozu",
+      "profilePicture": "https://sessionize.com/image?f=785a3f42fa4308f84d70886b2f25f56a,200,200,True,False,15-55cc-444f-8ff4-b0c434a96019.0cde7eba-d569-4f65-85b6-7a08c64ed67a.png",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "benoitquenaudon.com",
+          "url": "https://benoitquenaudon.com/",
+          "linkType": "Other"
+        }
+      ],
+      "sessions": [
+        16498
+      ],
+      "fullName": "Benoit Quenaudon"
+    },
+    {
+      "id": "33bb4b3b-898e-43e5-99d0-be8e0f02865e",
+      "firstName": "",
+      "lastName": "",
+      "bio": "システム開発会社を経て2010年mixi入社\r\n2012年よりAndroidアプリ開発チームにjoin\r\n2015年よりモンストクライアント開発チームを経て、2017年4月よりminimo開発チームでAndroid版の開発を担当",
+      "tagLine": "Android dev at mixi, inc",
+      "profilePicture": "https://sessionize.com/image?f=f9a35187cc002a37966997770db7fb6c,200,200,True,False,3b-898e-43e5-99d0-be8e0f02865e.cd24835f-81e3-40c4-9266-7186045afc4a.png",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "Twitter",
+          "url": "https://twitter.com/hidey",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Company Website",
+          "url": "https://mixi.co.jp/",
+          "linkType": "Company_Website"
+        }
+      ],
+      "sessions": [
+        15984
+      ],
+      "fullName": "HideyukiKikuma"
+    },
+    {
+      "id": "2f50ba75-0356-4d2e-8b2b-7343fd3e4377",
+      "firstName": "",
+      "lastName": "",
+      "bio": "Web 系企業の Android 開発者です。",
+      "tagLine": "Android app developer",
+      "profilePicture": "https://sessionize.com/image?f=aea2b5bd785eecb5f25bac810474531c,200,200,True,False,75-0356-4d2e-8b2b-7343fd3e4377.90a7142e-3384-49f9-ba39-cbde0acc88da.jpg",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "Twitter",
+          "url": "https://twitter.com/toastkidjp",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Blog",
+          "url": "https://qiita.com/toastkidjp",
+          "linkType": "Blog"
+        },
+        {
+          "title": "Sub Blog",
+          "url": "https://reminiscencesoftoastkid.tumblr.com/",
+          "linkType": "Other"
+        }
+      ],
+      "sessions": [
+        15575
+      ],
+      "fullName": "toastkidjp"
+    },
+    {
+      "id": "299d3761-e25a-4df7-bea1-fe6e391938bd",
+      "firstName": "",
+      "lastName": "",
+      "bio": "Yahoo! JAPANのAndroid黒帯として、社内のAndroidアプリ開発者育成や、社外との技術連携などを行っています。",
+      "tagLine": "Yahoo! JAPAN, Android黒帯",
+      "profilePicture": "https://sessionize.com/image?f=7b6f370e0c7c3722fe3f66730b482679,200,200,True,False,9eb78b14-b9d2-4eec-832d-50155ad7d879.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        16633
+      ],
+      "fullName": "Hiroyuki Mori"
+    },
+    {
+      "id": "3fe8f4be-5700-44f5-ba97-1a4b4f831ec8",
+      "firstName": "",
+      "lastName": "",
+      "bio": "Android Developer. 2017年6月よりリクルートライフスタイルにてHOT PEPPER BeautyアプリのフルKotlinリニューアルに従事",
+      "tagLine": "Android Developer, Recruit Lifestyle",
+      "profilePicture": "https://sessionize.com/image?f=6f258c127bde2ff43ae84d2164e2d4b7,200,200,True,False,db7440c9-9763-459e-bfe7-687079885ccd.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        16969
+      ],
+      "fullName": "Naoto Nakazato"
+    },
+    {
+      "id": "1de1a2e2-e88d-4aa1-8d85-58c5466da05d",
+      "firstName": "",
+      "lastName": "",
+      "bio": "Kotlinがすきな女子小学生(2年生)。アプリをつくってる。I'm a 2nd grade girl loving Kotlin. 我是小学二年级的小女孩。",
+      "tagLine": "youjo",
+      "profilePicture": "https://sessionize.com/image?f=e4c36f69e3f129a87040132a065cf60c,200,200,True,False,e2-e88d-4aa1-8d85-58c5466da05d.6ac4dbfa-f972-479c-bc5a-9ba7626b7bf6.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        15904
+      ],
+      "fullName": "kirimin"
+    },
+    {
+      "id": "a7714db6-05d1-4976-af00-160e59ca0e17",
+      "firstName": "",
+      "lastName": "",
+      "bio": "Web制作会社勤務を経てiOSアプリエンジニアとして、2011年ミクシィ入社。\r\n2012年よりAndroidアプリ開発チームに異動するも、翌月にマネージャー昇格。\r\n2016年6月までSNS mixiのアプリ開発マネジメントを担当。\r\n2016年7月より現在に至るまで、ふつうのエンジニアとして家族アルバム みてねの開発全般を担当しています。",
+      "tagLine": "Android dev at mixi, inc",
+      "profilePicture": "https://sessionize.com/image?f=9854a58c3026a846db62bf065a006b3e,200,200,True,False,b6-05d1-4976-af00-160e59ca0e17.10dda5e6-e19b-4bed-8352-a4c6c4a2530f.png",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "Twitter",
+          "url": "http://twitter.com/punchdrunker",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Company Website",
+          "url": "http://mixi.co.jp",
+          "linkType": "Company_Website"
+        }
+      ],
+      "sessions": [
+        15984
+      ],
+      "fullName": "punchdrunker"
+    },
+    {
+      "id": "e3267cf5-b1a7-4ce7-a4b3-223925f21316",
+      "firstName": "",
+      "lastName": "",
+      "bio": "Takeshi is an Android engineer working for Google. He worked on various apps such as Google Authenticator, developer samples on GitHub and open source libraries such as flexbox-layout.\r\n",
+      "tagLine": "Google, Developer Programs Engineer",
+      "profilePicture": "https://sessionize.com/image?f=bd17e600b3d72338aefec16926ae33c8,200,200,True,False,42e7f8d8-a20a-4433-8023-f02a76d24429.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        16997,
+        16988
+      ],
+      "fullName": "thagikura"
+    },
+    {
+      "id": "fbb08aa9-7aa1-4b70-b676-32905f5fd8d9",
+      "firstName": "",
+      "lastName": "",
+      "bio": "2012 - 2016 Kobe University\r\n2014 - 2015 University of Washington\r\n2015 - 2016 eureka\r\n2017 - abemaTV (currently working)",
+      "tagLine": "AbemaTV",
+      "profilePicture": "https://sessionize.com/image?f=d0814ea85b8671c8f6ae9206dd9abb64,200,200,True,False,6d444b65-e8d6-4396-b3a1-d6f58c56ca23.jpg",
+      "isTopSpeaker": false,
+      "links": [],
+      "sessions": [
+        16888
+      ],
+      "fullName": "takusemba"
+    },
+    {
+      "id": "892d6f3c-816b-4a97-a135-c315e1ed6471",
+      "firstName": "",
+      "lastName": "",
+      "bio": "I (shiraji @ GitHub) started my career as a Java developer in 2007.",
+      "tagLine": "8000 yen Android developer + Kotlin contributor (shiraji) @ ASICS",
+      "profilePicture": "https://sessionize.com/image?f=a529cbd965a7dd1c8b23c88a04aca933,200,200,True,False,3c-816b-4a97-a135-c315e1ed6471.012fbc65-7fe8-4c8d-b972-9e223ca8c7ee.png",
+      "isTopSpeaker": false,
+      "links": [
+        {
+          "title": "Twitter",
+          "url": "https://twitter.com/shiraj_i",
+          "linkType": "Twitter"
+        },
+        {
+          "title": "Blog",
+          "url": "http://shiraji.github.io/",
+          "linkType": "Blog"
+        }
+      ],
+      "sessions": [
+        15897
+      ],
+      "fullName": "Yoshinori Isogai"
+    }
+  ],
+  "questions": [],
+  "categories": [
+    {
+      "id": 808,
+      "title": "Session format",
+      "items": [
+        {
+          "id": 3480,
+          "name": "30minutes",
+          "sort": 1
+        },
+        {
+          "id": 3481,
+          "name": "50minutes",
+          "sort": 2
+        }
+      ],
+      "sort": 0
+    },
+    {
+      "id": 809,
+      "title": "Language",
+      "items": [
+        {
+          "id": 3483,
+          "name": "日本語",
+          "sort": 1
+        },
+        {
+          "id": 3482,
+          "name": "English",
+          "sort": 2
+        },
+        {
+          "id": 5379,
+          "name": "Mixed",
+          "sort": 3
+        }
+      ],
+      "sort": 1
+    },
+    {
+      "id": 811,
+      "title": "トピック / Topic",
+      "items": [
+        {
+          "id": 3487,
+          "name": "UI・トピック / UI and Design",
+          "sort": 1
+        },
+        {
+          "id": 3488,
+          "name": "ソフトウェアアーキテクチャ / Designing App Architecture",
+          "sort": 2
+        },
+        {
+          "id": 3489,
+          "name": "開発プロセス / Development Process and Methodology",
+          "sort": 3
+        },
+        {
+          "id": 3490,
+          "name": "チームビルディング・開発規約 / Team Building and Development Conventions",
+          "sort": 4
+        },
+        {
+          "id": 3491,
+          "name": "Continuous Integration (CI)",
+          "sort": 5
+        },
+        {
+          "id": 3492,
+          "name": "ハードウェア・IoT / Hardware and IoT",
+          "sort": 6
+        },
+        {
+          "id": 3493,
+          "name": "ソフトウェア保守・テスト / Quality and Sustainability",
+          "sort": 7
+        },
+        {
+          "id": 3494,
+          "name": "Android O",
+          "sort": 8
+        },
+        {
+          "id": 3495,
+          "name": "Android FrameworkとSupport Library / Android Framework and Support Library",
+          "sort": 9
+        },
+        {
+          "id": 3496,
+          "name": "OSS開発と運営 / OSS Development and Management",
+          "sort": 10
+        },
+        {
+          "id": 3497,
+          "name": "ハンズオン・コードラボ / Hands-on Codelabs",
+          "sort": 11
+        },
+        {
+          "id": 3498,
+          "name": "開発環境 / Productivity and Tools",
+          "sort": 12
+        },
+        {
+          "id": 3499,
+          "name": "マルチプラットフォーム / Platforms",
+          "sort": 13
+        },
+        {
+          "id": 3500,
+          "name": "その他 / Other",
+          "sort": 14
+        }
+      ],
+      "sort": 2
+    },
+    {
+      "id": 824,
+      "title": "Level",
+      "items": [
+        {
+          "id": 3540,
+          "name": "初心者向け / for beginners",
+          "sort": 1
+        },
+        {
+          "id": 3541,
+          "name": "中・上級者向け / for intermediate and/or expert",
+          "sort": 2
+        },
+        {
+          "id": 3542,
+          "name": "ニッチ / Niche topic",
+          "sort": 3
+        }
+      ],
+      "sort": 3
+    }
+  ],
+  "rooms": [
+    {
+      "id": 513,
+      "name": "Hall",
+      "sort": 0
+    },
+    {
+      "id": 514,
+      "name": "Room 1",
+      "sort": 1
+    },
+    {
+      "id": 515,
+      "name": "Room 2",
+      "sort": 2
+    },
+    {
+      "id": 516,
+      "name": "Room 3",
+      "sort": 3
+    },
+    {
+      "id": 517,
+      "name": "Room 4",
+      "sort": 4
+    },
+    {
+      "id": 518,
+      "name": "Room 5",
+      "sort": 5
+    },
+    {
+      "id": 519,
+      "name": "Room 6",
+      "sort": 6
+    },
+    {
+      "id": 520,
+      "name": "Room 7",
+      "sort": 7
+    },
+    {
+      "id": 521,
+      "name": "Room Sponsor",
+      "sort": 8
+    }
+  ]
+}

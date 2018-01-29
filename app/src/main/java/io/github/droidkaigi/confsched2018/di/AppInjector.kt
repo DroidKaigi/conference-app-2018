@@ -14,7 +14,10 @@ import io.github.droidkaigi.confsched2018.presentation.App
 class AppInjector {
     companion object {
         fun init(app: App) {
-            DaggerAppComponent.builder().application(app)
+            DaggerAppComponent.builder()
+                    .application(app)
+                    .networkModule(NetworkModule.instance)
+                    .databaseModule(DatabaseModule.instance)
                     .build().inject(app)
             app.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

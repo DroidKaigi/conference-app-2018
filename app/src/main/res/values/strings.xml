@@ -2,16 +2,25 @@
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
     <string name="room_format" translatable="false">%1$s%2$s</string>
+    <string name="web_search">Web Search</string>
+
+    <!-- Preference Keys -->
+    <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
+    <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
+    <string name="pref_key_enable_hide_bottom_navigation" translatable="false">pref_key_enable_hide_bottom_navigation</string>
 
     <!-- NavigationDrawer -->
-    <string name="nav_item_map">Map</string>
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_map">Access</string>
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
     <string name="nav_item_contributor">@string/contributors</string>
+    <string name="nav_item_staff">@string/staff</string>
     <string name="nav_item_all_survey">Conference survey</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
+    <string name="nav_content_description_drawer_header">DroidKaigi 2018</string>
 
     <!-- Session -->
     <string name="session_title">Session</string>
@@ -22,11 +31,16 @@
     <string name="session_fetch_failed">Failed to fetch session</string>
     <string name="session_content_description_speaker">Speaker image</string>
     <string name="session_content_description_favorite_button">Favorite button</string>
-    <string name="session_header_divider">" / "</string>
+    <string name="session_content_description_level">Session Level image</string>
+    <string name="session_header_divider" translatable="false">" / "</string>
     <string name="session_load_retry">Retry</string>
+    <string name="session_finished">Finished Session</string>
+    <string name="session_go_to_questionnaire">Go To Questionnaire</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
+    <string name="detail_sessions_content_description_prev">Previous</string>
+    <string name="detail_sessions_content_description_next">Next</string>
 
     <!-- Search-->
     <string name="search_title">Search</string>
@@ -43,21 +57,44 @@
     <!-- Feed -->
     <string name="feed_title">Information</string>
     <string name="feed_content_description_expand_button">Expand button</string>
+    <string name="feed_content_description_feed_icon">Feed Icon</string>
+    <string name="feed_not_found">Feed does not exist</string>
+    <string name="feed_content_description_not_found">Feed does not exist image</string>
 
     <!-- Map -->
-    <string name="map_title_activity">Map</string>
+    <string name="map_title_activity">Access</string>
+    <string name="map_place_name">Bellesalle Shinjuku Grand Conference Center</string>
+    <string name="map_meeting_rooms_name">DroidKaigi 2018 Place</string>
+    <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-1 Nishi Shinjuku,
+        Shinjuku City, Tokyo 160-0023</string>
+    <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1\nToei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4\nToei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4\nJR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
+    <string name="map_content_description_place_icon">Place icon</string>
+    <string name="map_content_description_train_icon">Train icon</string>
 
     <!-- Sponsor -->
     <string name="sponsors_title_activity">Sponsor</string>
+    <string name="sponsors_logo_content_description">Sponsor logo image</string>
+    <string name="sponsors_fetch_failed">Failed to fetch sponsors</string>
+    <string name="sponsors_load_retry">Retry</string>
 
     <!-- About This App -->
     <string name="about_title_activity">About this app</string>
 
     <!-- Settings -->
     <string name="settings_title_activity">Settings</string>
+    <string name="settings_enable_local_time_title_preference">Use local time</string>
+    <string name="settings_enable_local_time_summary_preference">Use your local time
+        instead of the conference\'s local time.</string>
+    <string name="settings_enable_notification_summary_preference">Choose whether to receive
+        notification in this app.</string>
+    <string name="settings_enable_notification_title_preference">Receive notification</string>
+    <string name="settings_enable_hide_bottom_navigation_title_preference">Hide BottomNavigation</string>
+    <string name="settings_enable_hide_bottom_navigation_summary_preference">Hide
+        BottomNavigationBar by scrolling or not.</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
+    <string name="speaker_content_description">Speaker image</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -68,6 +105,41 @@
 
     <!-- Contributors -->
     <string name="contributors">Contributors</string>
-    <string name="contributors_header">%d Contributors</string>
     <string name="contributors_avatar">contributors avatar</string>
+    <plurals name="contributors_header">
+        <item quantity="one">%d Contributor</item>
+        <item quantity="other">%d Contributors</item>
+    </plurals>
+
+    <!-- Staff -->
+    <string name="staff">Staff</string>
+    <string name="staff_avatar">staff avatar</string>
+    <plurals name="staff_header">
+        <item quantity="one">%d Staff</item>
+        <item quantity="other">%d Staffs</item>
+    </plurals>
+
+    <!-- Notification -->
+    <string name="notification_title">%1$s will start soon</string>
+    <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
+    <string name="notification_channel_name_start_favorite_session">start favorite session</string>
+
+    <!-- AboutThisApp -->
+    <!-- TODO check if these English are all natural to international ppl. -->
+    <string name="about_official_head_title">What is "DroidKaigi"?</string>
+    <string name="about_official_head_description">DroidKaigi is the conference where
+        Engineers can share and communicate about Android.</string>
+    <string name="about_official_site_title">DroidKaigi2018 Homepage</string>
+    <string name="about_official_site_description">This is DroidKaigi2018 Official Site</string>
+    <string name="about_licenses_title">Licenses</string>
+    <string name="about_licenses_description">This app introduces many wonderful libraries.</string>
+    <string name="about_sponsors_title">Sponsors</string>
+    <string name="about_sponsors_description">DroidKaigi is supported by many sponsors.</string>
+    <string name="about_contributors_title">Contributors</string>
+    <string name="about_contributors_description">Those who contribute to creation.</string>
+    <string name="about_version_title">Version</string>
+    <string name="about_version_description">%1$s</string>
+
+    <!-- Session Feedback -->
+    <string name="submit_feedback">Submit feedback</string>
 </resources>

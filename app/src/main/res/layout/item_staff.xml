@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils" />
+        <variable
+            name="staff"
+            type="io.github.droidkaigi.confsched2018.model.Staff"
+            />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        >
+
+        <ImageView
+            android:id="@+id/staff_avatar"
+            android:layout_width="@{@dimen/staff_image_size, default=@dimen/staff_image_size}"
+            android:layout_height="@{@dimen/staff_image_size, default=@dimen/staff_image_size}"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/staff_avatar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImage="@{staff.avatarUrl}"
+            app:placeHolder="@{@drawable/ic_person_black_24dp}"
+            tools:src="@tools:sample/avatars"
+            />
+        <TextView
+            android:id="@+id/staff_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@{staff.name}"
+            android:textAppearance="@style/TextAppearance.App.Body2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/staff_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@tools:sample/first_names"
+            />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginStart="72dp"
+            android:background="#eaeaea"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/staff_name"
+            />
+    </android.support.constraint.ConstraintLayout>
+</layout>

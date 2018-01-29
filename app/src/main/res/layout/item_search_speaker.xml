@@ -15,12 +15,11 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
         >
         <include
             android:id="@+id/search_content"
+            layout="@layout/item_speaker"
             app:searchQuery="@{searchQuery}"
-            layout="@layout/item_speaker" />
+            />
     </android.support.v7.widget.CardView>
 </layout>
