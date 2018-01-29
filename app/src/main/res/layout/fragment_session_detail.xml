@@ -69,6 +69,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:textIsSelectable="true"
                             android:text="@{session.title}"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -178,12 +179,10 @@
                         />
                     <Button
                         android:id="@+id/go_to_questionnaire"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/GoToQuestionnaire"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@string/session_go_to_questionnaire"
-                        android:textColor="@color/app_bar_text_color"
                         android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/finished_session_check"
@@ -247,6 +246,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        android:textIsSelectable="true"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
@@ -363,7 +363,7 @@
                 app:layout_anchorGravity="bottom|end"
                 app:srcCompat="@drawable/state_favorite_icon"
                 app:tintCompat="@{@colorStateList/state_favorite_color}"
-                />
+                android:scaleType="center"/>
 
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>

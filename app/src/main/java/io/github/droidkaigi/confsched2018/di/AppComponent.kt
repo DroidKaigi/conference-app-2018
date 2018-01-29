@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2018.di.activitymodule.ContributorsActivity
 import io.github.droidkaigi.confsched2018.di.activitymodule.MainActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.MapActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SessionDetailActivityBuilder
+import io.github.droidkaigi.confsched2018.di.activitymodule.SessionsFeedbackActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SettingsActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SpeakerDetailActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SponsorsActivityBuilder
@@ -23,6 +24,7 @@ import javax.inject.Singleton
     AppModule::class,
     NetworkModule::class,
     DatabaseModule::class,
+    ViewModelModule::class,
     MainActivityBuilder::class,
     MapActivityBuilder::class,
     AboutThisAppActivityBuilder::class,

@@ -23,7 +23,6 @@ import javax.inject.Inject
 
 class SearchSpeakersFragment : Fragment(), Injectable {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchSpeakersBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -60,18 +59,6 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
-        }
-    }
-
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             setOnItemClickListener { item, _ ->
@@ -87,13 +74,13 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         binding.searchSessionRecycler.addItemDecoration(StickyHeaderItemDecoration(context,
                 object : StickyHeaderItemDecoration.Callback {
                     override fun getGroupId(position: Int): Long {
-                        val initial = speakersSection.getSpeakerNameOrNull(position)?.get(0)
+                        val initial = speakersSection.getGroupId(position)
                         initial ?: return -1
                         return Character.toUpperCase(initial).toLong()
                     }
 
                     override fun getGroupFirstLine(position: Int): String? {
-                        return speakersSection.getSpeakerNameOrNull(position)?.get(0)?.toString()
+                        return speakersSection.getGroupId(position)?.toString()
                     }
                 }))
     }

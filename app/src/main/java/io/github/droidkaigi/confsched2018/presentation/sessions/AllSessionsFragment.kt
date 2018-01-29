@@ -12,7 +12,6 @@ import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -21,6 +20,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.CurrentSessionScroller
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
@@ -37,9 +37,8 @@ import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
 
-class AllSessionsFragment : Fragment(), Injectable {
+class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentAllSessionsBinding
 
     private val sessionsSection = DateSessionsSection()
@@ -70,7 +69,6 @@ class AllSessionsFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         val progressTimeLatch = ProgressTimeLatch {
@@ -95,18 +93,15 @@ class AllSessionsFragment : Fragment(), Injectable {
         })
         sessionsViewModel.refreshFocusCurrentSession.observe(this, {
             if (it != true) return@observe
-            val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
-                    .toInstant().toEpochMilli())
-            val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
-            binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
+            scrollToCurrentSession()
         })
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
-        }
+    override fun scrollToCurrentSession() {
+        val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
+                .toInstant().toEpochMilli())
+        val currentSessionPosition = sessionsSection.getDateHeaderPositionByDate(now)
+        binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
     }
 
     private fun setupRecyclerView() {

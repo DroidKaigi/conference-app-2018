@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.presentation
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppFragment
+import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsActivity
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsFragment
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
@@ -91,7 +93,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     private fun replaceFragment(fragment: Fragment) {
         fragmentManager
                 .beginTransaction()
-                .replace(containerId, fragment)
+                .replace(containerId, fragment, (fragment as? Findable)?.tagForFinding)
                 .commitAllowingStateLoss()
     }
 
@@ -148,6 +150,20 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     }
 
     fun navigateToExternalBrowser(url: String) {
+        val uri = run {
+            val uri = Uri.parse(url)
+            if (uri.host.contains("facebook")) {
+                return@run Uri.parse(FACEBOOK_SCHEME + url)
+            }
+            uri
+        }
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        val intentResolveInfo = activity.packageManager.resolveActivity(
+                intent,
+                PackageManager.MATCH_DEFAULT_ONLY
+        )
+        val resolvePackageName = intentResolveInfo.activityInfo.packageName
+
         val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
@@ -158,14 +174,19 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 }
 
         val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+        if (resolvePackageName != null && resolvePackageName != packageName) {
+            // Open specific app
+            activity.startActivity(intent)
+            return
+        }
         packageName ?: run {
             // Cannot use custom tabs.
-            activity.startActivity(customTabsIntent.intent.setData(Uri.parse(url)))
+            activity.startActivity(customTabsIntent.intent.setData(uri))
             return
         }
 
         customTabsIntent.intent.`package` = packageName
-        customTabsIntent.launchUrl(activity, Uri.parse(url))
+        customTabsIntent.launchUrl(activity, uri)
     }
 
     fun navigateImplicitly(url: String?) {
@@ -175,5 +196,9 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 activity.startActivity(intent)
             }
         }
+    }
+
+    companion object {
+        private const val FACEBOOK_SCHEME = "fb://facewebmodal/f?href="
     }
 }

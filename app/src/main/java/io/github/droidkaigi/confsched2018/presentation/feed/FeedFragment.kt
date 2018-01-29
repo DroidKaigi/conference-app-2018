@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
 import android.support.v4.app.Fragment
+import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +23,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.feed.item.FeedItem
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -82,6 +85,8 @@ class FeedFragment : Fragment(), Injectable {
                                         collapseTransition
                                 )
                             })
+                    binding.feedInactiveGroup.setVisible(posts.isEmpty())
+                    binding.feedRecycler.setVisible(posts.isNotEmpty())
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -102,10 +107,13 @@ class FeedFragment : Fragment(), Injectable {
                 //TODO
             })
         }
-        val linearLayoutManager = LinearLayoutManager(context)
         binding.feedRecycler.apply {
             adapter = groupAdapter
-            setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
+            val dividerDrawable = ResourcesCompat.getDrawable(
+                    context.resources, R.drawable.shape_divider_1dp, null)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+                dividerDrawable?.let { setDrawable(it) }
+            })
         }
     }
 

@@ -5,7 +5,7 @@ ext {
             minSdk          : 19,
             targetSdk       : 27,
             gradleBuildTool : "3.0.1",
-            kotlin          : "1.2.20",
+            kotlin          : "1.2.21",
             googleServices  : "3.1.1",
             ktlint          : "0.14.0",
             ktlintGradle    : "3.0.0",
@@ -78,6 +78,7 @@ ext {
                     android: "io.reactivex.rxjava2:rxandroid:2.0.1",
                     kotlin : "io.reactivex.rxjava2:rxkotlin:2.2.0",
             ],
+            rxbroadcast : "com.cantrowitz:rxbroadcast:2.0.0",
             binding                : [
                     compiler: "com.android.databinding:compiler:3.0.1",
             ],
