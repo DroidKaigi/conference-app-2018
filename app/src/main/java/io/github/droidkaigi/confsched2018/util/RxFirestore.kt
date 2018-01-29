@@ -27,6 +27,7 @@ object RxFirestore {
         }
     }
 
+    @CheckResult
     fun getDocumentSnapshot(ref: DocumentReference): Single<DocumentSnapshot> {
         return observeDocumentSnapshot(ref).take(1).singleOrError()
     }
@@ -57,10 +58,12 @@ object RxFirestore {
         }
     }
 
+    @CheckResult
     fun getQuerySnapshot(ref: Query): Single<QuerySnapshot> {
         return observeQuerySnapshot(ref).take(1).singleOrError()
     }
 
+    @CheckResult
     fun isQuerySnapshotEmpty(ref: Query): Single<Boolean> {
         return getQuerySnapshot(ref).map { it.isEmpty }
     }

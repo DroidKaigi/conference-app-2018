@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
@@ -129,6 +130,7 @@ class SessionDataRepository @Inject constructor(
                         .groupBy { it.level }
             }
 
+    @CheckResult
     override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 
@@ -141,6 +143,7 @@ class SessionDataRepository @Inject constructor(
                 .toCompletable()
     }
 
+    @CheckResult
     override fun search(query: String): Single<SearchResult> = Singles.zip(
             sessions.map {
                 it
@@ -158,6 +161,7 @@ class SessionDataRepository @Inject constructor(
             Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
                     .subscribeOn(schedulerProvider.computation())
 
+    @CheckResult
     override fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>> =
             sessionFeedbackApi.submitSessionFeedback(
                     sessionId = sessionFeedback.sessionId,

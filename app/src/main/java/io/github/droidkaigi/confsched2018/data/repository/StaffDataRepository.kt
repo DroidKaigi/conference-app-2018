@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
 import android.content.Context
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.local.LocalJsonParser
 import io.github.droidkaigi.confsched2018.data.local.StaffJsonMapper
 import io.github.droidkaigi.confsched2018.model.Staff
@@ -22,6 +23,7 @@ class StaffDataRepository @Inject constructor(
     override val staff: Flowable<List<Staff>>
         get() = getStaff().toFlowable().subscribeOn(schedulerProvider.computation())
 
+    @CheckResult
     private fun getStaff(): Single<List<Staff>> {
         return Single.create { emitter ->
             try {

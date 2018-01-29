@@ -21,6 +21,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
 
     private var isInitialized = false
 
+    @CheckResult
     override fun favorite(session: Session): Single<Boolean> {
         if (!isInitialized) {
             return Single.error(NotPreparedException())
