@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.common.mapper
 
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
@@ -17,6 +18,7 @@ fun <T> Flowable<T>.toResult(schedulerProvider: SchedulerProvider): Flowable<Res
     }
 }
 
+@CheckResult
 fun <T> Observable<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> {
     return compose { item ->
         item
@@ -27,10 +29,12 @@ fun <T> Observable<T>.toResult(schedulerProvider: SchedulerProvider): Observable
     }
 }
 
+@CheckResult
 fun <T> Single<T>.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> {
     return toObservable().toResult(schedulerProvider)
 }
 
+@CheckResult
 fun <T> Completable.toResult(schedulerProvider: SchedulerProvider): Observable<Result<T>> {
     return toObservable<T>().toResult(schedulerProvider)
 }

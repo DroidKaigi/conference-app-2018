@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.util
 
+import android.support.annotation.CheckResult
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
@@ -12,6 +13,7 @@ import io.reactivex.Single
 
 object RxFirestore {
 
+    @CheckResult
     fun observeDocumentSnapshot(ref: DocumentReference): Observable<DocumentSnapshot> {
         return Observable.create<DocumentSnapshot> { emitter ->
             val listener = ref.addSnapshotListener { snapshot, error ->
@@ -41,6 +43,7 @@ object RxFirestore {
         return Completable.defer { ref.add(value).toCompletable() }
     }
 
+    @CheckResult
     fun observeQuerySnapshot(ref: Query): Observable<QuerySnapshot> {
         return Observable.create { emitter ->
             val listener = ref.addSnapshotListener { snapshot, error ->
