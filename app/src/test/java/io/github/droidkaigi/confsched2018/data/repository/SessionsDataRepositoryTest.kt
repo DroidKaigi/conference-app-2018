@@ -114,21 +114,12 @@ class SessionsDataRepositoryTest {
                 favoriteDatabase,
                 TestSchedulerProvider())
 
-        val sessions = listOf(
-                sessionEntities[0].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1)),
-                sessionEntities[1].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1)))
         sessionDataRepository.sessionFeedbacks
                 .test()
                 .assertNoErrors()
                 .assertValue(
                         sessionFeedbacks.map { sessionFeedback ->
-                            sessionFeedback.toSessionFeedback().also {
-                                sessions.forEach { session ->
-                                    if (it.sessionId == session.id) {
-                                        return@map it.copy(sessionTitle = session.title)
-                                    }
-                                }
-                            }
+                            sessionFeedback.toSessionFeedback()
                         })
 
         verify(sessionDatabase).getAllSessionFeedback()

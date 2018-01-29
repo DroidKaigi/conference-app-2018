@@ -51,7 +51,7 @@ fun SessionWithSpeakers.toSession(
 
 fun SessionFeedbackEntity.toSessionFeedback(): SessionFeedback = SessionFeedback(
         sessionId = sessionId,
-        sessionTitle = "",
+        sessionTitle = sessionTitle,
         totalEvaluation = totalEvaluation,
         relevancy = relevancy,
         asExpected = asExpected,

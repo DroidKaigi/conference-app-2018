@@ -74,26 +74,10 @@ class SessionDataRepository @Inject constructor(
     }
 
     override val sessionFeedbacks: Flowable<List<SessionFeedback>> =
-            Flowables.zip(
-                    sessions.map { sessionList ->
-                        sessionList.filterIsInstance<Session.SpeechSession>()
-                    },
-                    sessionDatabase.getAllSessionFeedback()
-                            .map { if (it.isNotEmpty()) it else emptyList() }
-                            .doOnNext { if (DEBUG) Timber.d("getAllSessionFeedback") },
-                    { speechSessions, sessionFeedbackEntities ->
-                        sessionFeedbackEntities.map { sessionFeedback ->
-                            sessionFeedback.toSessionFeedback().also {
-                                speechSessions.forEach { speechSession ->
-                                    if (it.sessionId == speechSession.id) {
-                                        return@map it.copy(sessionTitle = speechSession.title)
-                                    }
-                                }
-                            }
-                        }
+            sessionDatabase.getAllSessionFeedback()
+                    .map {
+                        it.map { it.toSessionFeedback() }
                     }
-            )
-
 
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()

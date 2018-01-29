@@ -55,6 +55,7 @@ fun createDummySessionFeedbackEntities(): List<SessionFeedbackEntity> {
     return listOf(
             SessionFeedbackEntity(
                     sessionId = DUMMY_SESSION_ID1,
+                    sessionTitle = DUMMY_SESSION_TITLE1,
                     totalEvaluation = 1,
                     relevancy = 1,
                     asExpected = 1,
@@ -64,6 +65,7 @@ fun createDummySessionFeedbackEntities(): List<SessionFeedbackEntity> {
                     submitted = false),
             SessionFeedbackEntity(
                     sessionId = DUMMY_SESSION_ID2,
+                    sessionTitle = DUMMY_SESSION_TITLE2,
                     totalEvaluation = 3,
                     relevancy = 3,
                     asExpected = 3,
