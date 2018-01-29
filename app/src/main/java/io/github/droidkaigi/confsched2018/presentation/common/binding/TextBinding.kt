@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2018.presentation.common.binding
 
+import android.app.SearchManager
+import android.content.Intent
 import android.databinding.BindingAdapter
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -10,8 +12,12 @@ import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.BackgroundColorSpan
 import android.text.style.StyleSpan
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.util.ext.selectedText
 import io.github.droidkaigi.confsched2018.util.ext.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
 import java.util.Date
@@ -92,4 +98,44 @@ fun TextView.setVectorDrawableStart(drawable: Drawable) {
             drawables[2],
             drawables[3]
     )
+}
+
+@BindingAdapter(value = ["android:textIsSelectable", "menuWebSearchEnabled"])
+fun TextView.setTextIsSelectable(selectable: Boolean, menuWebSearchEnabled: Boolean) {
+    setTextIsSelectable(selectable)
+
+    if (selectable) {
+        customSelectionActionModeCallback = object : ActionMode.Callback {
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                return when {
+                    menuWebSearchEnabled && item?.itemId == R.id.text_view_menu_web_search -> {
+                        Intent(Intent.ACTION_WEB_SEARCH).apply {
+                            putExtra(SearchManager.QUERY, selectedText.toString())
+                            context.startActivity(this)
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                if (menuWebSearchEnabled) {
+                    menu?.add(Menu.NONE, R.id.text_view_menu_web_search,
+                            Menu.NONE, R.string.web_search)
+                }
+
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                return false
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode?) {
+            }
+        }
+    } else {
+        customSelectionActionModeCallback = null
+    }
 }

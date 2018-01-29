@@ -21,7 +21,6 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
 import javax.inject.Inject
-import io.github.droidkaigi.confsched2018.util.ext.setTextIsSelectable
 
 class SessionDetailFragment : Fragment(), Injectable {
     // TODO create layout
@@ -61,8 +60,6 @@ class SessionDetailFragment : Fragment(), Injectable {
                 }
             }
         }
-
-        binding.sessionText.setTextIsSelectable(true, withWebSearch = true)
 
         binding.detailSessionsPrevSession.setOnClickListener {
             (activity as? OnClickBottomAreaListener)?.onClickPrevSession()
