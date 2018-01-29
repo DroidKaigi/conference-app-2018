@@ -24,7 +24,6 @@ import javax.inject.Inject
 
 class SearchTopicsFragment : Fragment(), Injectable {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentSearchTopicsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -59,18 +58,6 @@ class SearchTopicsFragment : Fragment(), Injectable {
                 }
             }
         })
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
-        }
     }
 
     private fun setupRecyclerView() {

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "818d66c14437bef10606ff481f88a9f3",
+    "identityHash": "0a5f68c7db582871e77d067060b90ea6",
     "entities": [
       {
         "tableName": "contributor",
@@ -263,14 +263,8 @@
       },
       {
         "tableName": "session_feedback",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `session_id` TEXT NOT NULL, `total_evaluation` INTEGER NOT NULL, `relevancy` INTEGER NOT NULL, `asExpected` INTEGER NOT NULL, `difficulty` INTEGER NOT NULL, `knowledgeable` INTEGER NOT NULL, `comment` TEXT NOT NULL, `submitted` INTEGER NOT NULL, FOREIGN KEY(`session_id`) REFERENCES `session`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`session_id` TEXT NOT NULL, `total_evaluation` INTEGER NOT NULL, `relevancy` INTEGER NOT NULL, `asExpected` INTEGER NOT NULL, `difficulty` INTEGER NOT NULL, `knowledgeable` INTEGER NOT NULL, `comment` TEXT NOT NULL, `submitted` INTEGER NOT NULL, PRIMARY KEY(`session_id`), FOREIGN KEY(`session_id`) REFERENCES `session`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
           {
             "fieldPath": "sessionId",
             "columnName": "session_id",
@@ -322,9 +316,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "session_id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [
           {
@@ -497,7 +491,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"818d66c14437bef10606ff481f88a9f3\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0a5f68c7db582871e77d067060b90ea6\")"
     ]
   }
 }

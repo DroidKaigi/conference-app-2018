@@ -41,7 +41,6 @@ import javax.inject.Inject
 
 class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentRoomSessionsBinding
     private lateinit var roomName: String
 
@@ -58,6 +57,10 @@ class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
         sessionsViewModel.onFavoriteClick(session)
         sessionAlarm.toggleRegister(session)
+    }
+
+    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +87,8 @@ class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, true)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener,
+                            onQuestionnaireListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }
@@ -100,19 +104,6 @@ class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
             if (it != true) return@observe
             scrollToCurrentSession()
         })
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java
-                    .simpleName + sessionsViewModel.roomName)
-        }
     }
 
     override fun scrollToCurrentSession() {

@@ -69,6 +69,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:textIsSelectable="true"
                             android:text="@{session.title}"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -245,6 +246,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        android:textIsSelectable="@{true}"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
@@ -255,6 +257,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/session_room"
                         app:layout_constraintVertical_bias="0.0"
+                        app:menuWebSearchEnabled="@{true}"
                         tools:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic"
                         />
 
@@ -361,7 +364,7 @@
                 app:layout_anchorGravity="bottom|end"
                 app:srcCompat="@drawable/state_favorite_icon"
                 app:tintCompat="@{@colorStateList/state_favorite_color}"
-                />
+                android:scaleType="center"/>
 
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>
