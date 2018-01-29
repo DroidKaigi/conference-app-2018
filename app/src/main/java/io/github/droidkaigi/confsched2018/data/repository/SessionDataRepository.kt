@@ -1,12 +1,12 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
-import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSessionFeedback
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
 import io.github.droidkaigi.confsched2018.data.db.fixeddata.SpecialSessions
@@ -23,7 +23,6 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
 import io.reactivex.rxkotlin.Singles
-import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -53,10 +52,12 @@ class SessionDataRepository @Inject constructor(
                             favoriteDatabase.favorites.onErrorReturn { listOf() }
                     )
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
-                    { sessionEntities, speakerEntities, favList ->
+                    sessionDatabase.getAllSessionFeedback()
+                            .doOnNext { if (DEBUG) Timber.d("feedback") },
+                    { sessionEntities, speakerEntities, favList, feedbacks ->
                         val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
                         val speakerSessions = sessionEntities
-                                .map { it.toSession(speakerEntities, favList, firstDay) }
+                                .map { it.toSession(speakerEntities, favList, feedbacks, firstDay) }
                                 .sortedWith(compareBy(
                                         { it.startTime.getTime() },
                                         { it.room.id }
@@ -69,15 +70,10 @@ class SessionDataRepository @Inject constructor(
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
 
-    private val specialSessions: List<Session.SpecialSession> by lazy {
+    @VisibleForTesting
+    val specialSessions: List<Session.SpecialSession> by lazy {
         SpecialSessions.getSessions()
     }
-
-    override val sessionFeedbacks: Flowable<List<SessionFeedback>> =
-            sessionDatabase.getAllSessionFeedback()
-                    .map {
-                        it.map { it.toSessionFeedback() }
-                    }
 
     override val speakers: Flowable<List<Speaker>> =
             sessionDatabase.getAllSpeaker()
@@ -158,17 +154,24 @@ class SessionDataRepository @Inject constructor(
             Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
                     .subscribeOn(schedulerProvider.computation())
 
-    override fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>> =
-            sessionFeedbackApi.submitSessionFeedback(
-                    sessionId = sessionFeedback.sessionId,
-                    sessionTitle = sessionFeedback.sessionTitle,
+    override fun submitSessionFeedback(
+            session: Session.SpeechSession,
+            sessionFeedback: SessionFeedback
+    ): Completable = sessionFeedbackApi
+            .submitSessionFeedback(
+                    sessionId = session.id,
+                    sessionTitle = session.title,
                     totalEvaluation = sessionFeedback.totalEvaluation,
                     relevancy = sessionFeedback.relevancy,
                     asExpected = sessionFeedback.asExpected,
                     difficulty = sessionFeedback.difficulty,
                     knowledgeable = sessionFeedback.knowledgeable,
                     comment = sessionFeedback.comment
-            ).subscribeOn(schedulerProvider.computation())
+            )
+            .flatMapCompletable {
+                return@flatMapCompletable saveSessionFeedback(sessionFeedback)
+            }
+            .subscribeOn(schedulerProvider.computation())
 
     companion object {
         const val DEBUG = false

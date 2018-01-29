@@ -19,16 +19,17 @@ import javax.inject.Inject
 
 class SessionsFeedbackFragment : Fragment(), Injectable {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var binding: FragmentSessionsFeedbackBinding
 
     private val sessionsFeedbackViewModel: SessionsFeedbackViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(SessionsFeedbackViewModel::class.java)
+        ViewModelProviders.of(activity!!, viewModelFactory)
+                .get(SessionsFeedbackViewModel::class.java)
     }
 
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val onSubmitListener = { sessionFeedback: SessionFeedback ->
-        sessionsFeedbackViewModel.onSubmit(sessionFeedback)
+        sessionsFeedbackViewModel.onSubmit(sessionFeedback.copy(submitted = true))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +44,6 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sessionsFeedbackViewModel.sessionId = arguments!!.getString(EXTRA_SESSION_ID)
-        sessionsFeedbackViewModel.sessionTitle = arguments!!.getString(EXTRA_SESSION_TITLE)
 
         sessionsFeedbackViewModel.sessionFeedback.observe(this, { result ->
             when (result) {
@@ -80,24 +79,10 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
             onSubmitListener(
                     (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)?.data!!)
         }
-
-        sessionsFeedbackViewModel.init()
-    }
-
-    override fun onDetach() {
-        sessionsFeedbackViewModel.save()
-        super.onDetach()
     }
 
     companion object {
-        const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
-        const val EXTRA_SESSION_TITLE = "EXTRA_SESSION_TITLE"
-        fun newInstance(sessionId: String, sessionTitle: String): SessionsFeedbackFragment =
-                SessionsFeedbackFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(EXTRA_SESSION_ID, sessionId)
-                        putString(EXTRA_SESSION_TITLE, sessionTitle)
-                    }
-                }
+        fun newInstance(): SessionsFeedbackFragment =
+                SessionsFeedbackFragment()
     }
 }
