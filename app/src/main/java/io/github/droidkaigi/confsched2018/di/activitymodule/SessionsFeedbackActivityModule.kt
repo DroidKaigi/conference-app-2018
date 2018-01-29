@@ -19,5 +19,7 @@ interface SessionsFeedbackActivityModule {
 
     @Binds @IntoMap
     @ViewModelKey(SessionsFeedbackViewModel::class)
-    fun bindSessionsFeedbackViewModel(sessionsFeedbackViewModel: SessionsFeedbackViewModel): ViewModel
+    fun bindSessionsFeedbackViewModel(
+            sessionsFeedbackViewModel: SessionsFeedbackViewModel
+    ): ViewModel
 }
