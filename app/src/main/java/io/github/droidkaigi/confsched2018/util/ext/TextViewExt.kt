@@ -15,14 +15,14 @@ fun TextView.setTextIfChanged(newText: String) {
     }
 }
 
-val TextView.selectedText : CharSequence
+val TextView.selectedText: CharSequence
     get() = text.subSequence(selectionStart, selectionEnd)
 
 fun TextView.setTextIsSelectable(selectable: Boolean, withWebSearch: Boolean = false) {
     setTextIsSelectable(selectable)
 
     if (selectable) {
-        customSelectionActionModeCallback = object: ActionMode.Callback {
+        customSelectionActionModeCallback = object : ActionMode.Callback {
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                 return when {
                     withWebSearch && item?.itemId == R.id.text_view_menu_web_search -> {
