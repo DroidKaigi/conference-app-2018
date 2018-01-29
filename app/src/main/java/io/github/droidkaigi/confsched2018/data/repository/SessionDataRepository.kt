@@ -134,6 +134,7 @@ class SessionDataRepository @Inject constructor(
     override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 
+    @CheckResult
     override fun refreshSessions(): Completable {
         return api.getSessions()
                 .doOnSuccess { response ->
@@ -157,6 +158,7 @@ class SessionDataRepository @Inject constructor(
                 SearchResult(sessions, speakers)
             })
 
+    @CheckResult
     override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
             Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
                     .subscribeOn(schedulerProvider.computation())

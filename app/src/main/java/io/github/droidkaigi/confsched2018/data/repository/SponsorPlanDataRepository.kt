@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSponsorPlan
 import io.github.droidkaigi.confsched2018.model.Lang
@@ -17,6 +18,7 @@ class SponsorPlanDataRepository @Inject constructor(
 
     override fun sponsorPlans(): Flowable<List<SponsorPlan>> = processor.toSerialized()
 
+    @CheckResult
     override fun refreshSponsorPlans(ln: Lang): Completable =
             when (ln) {
                 Lang.JA -> droidKaigiApi.sponsorPlansJa()

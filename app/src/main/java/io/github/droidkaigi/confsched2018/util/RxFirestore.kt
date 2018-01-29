@@ -32,14 +32,17 @@ object RxFirestore {
         return observeDocumentSnapshot(ref).take(1).singleOrError()
     }
 
+    @CheckResult
     fun setDocument(ref: DocumentReference, value: Any): Completable {
         return Completable.defer { ref.set(value).toCompletable() }
     }
 
+    @CheckResult
     fun deleteDocument(ref: DocumentReference): Completable {
         return Completable.defer { ref.delete().toCompletable() }
     }
 
+    @CheckResult
     fun addDocumentToCollection(ref: CollectionReference, value: Any): Completable {
         return Completable.defer { ref.add(value).toCompletable() }
     }

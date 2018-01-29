@@ -16,6 +16,7 @@ class StaffDataRepository @Inject constructor(
         private val context: Context,
         private val schedulerProvider: SchedulerProvider
 ) : StaffRepository {
+    @CheckResult
     override fun loadStaff(): Completable = getStaff()
             .subscribeOn(schedulerProvider.computation())
             .toCompletable()
