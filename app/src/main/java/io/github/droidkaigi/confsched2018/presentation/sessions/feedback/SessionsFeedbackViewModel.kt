@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
+import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
@@ -19,19 +20,31 @@ class SessionsFeedbackViewModel @Inject constructor(
 ) : ViewModel() {
 
     var sessionId: String = ""
-    var sessionTitle: String = ""
 
     private var mutableSessionFeedback = MutableLiveData<Result<SessionFeedback>>()
     var sessionFeedback: LiveData<Result<SessionFeedback>> = mutableSessionFeedback
 
+    private var mutableSession = MutableLiveData<Result<Session.SpeechSession>>()
+    var session: LiveData<Result<Session.SpeechSession>> = mutableSession
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    fun init() {
-        repository.sessionFeedbacks
-                .map { sessionFeedbacks ->
-                    sessionFeedbacks.firstOrNull { it.sessionId == sessionId }
-                            ?: SessionFeedback(sessionId, sessionTitle, 0, 0, 0, 0, 0, "", false)
+    init {
+        val sessionFlowable = repository.sessions
+                .map { sessions ->
+                    sessions
+                            .filterIsInstance<Session.SpeechSession>()
+                            .first { it.id == sessionId }
+                }.share()
+        sessionFlowable.toResult(schedulerProvider)
+                .subscribe {
+                    mutableSession.value = it
                 }
+                .addTo(compositeDisposable)
+        sessionFlowable.map { session ->
+            session.feedback
+
+        }
                 .toResult(schedulerProvider)
                 .subscribe {
                     mutableSessionFeedback.value = it
@@ -49,18 +62,20 @@ class SessionsFeedbackViewModel @Inject constructor(
     }
 
     fun save() {
-        (sessionFeedback.value as? Result.Success)?.data.also {
-            repository.saveSessionFeedback(it!!)
+        (sessionFeedback.value as? Result.Success)?.data?.also {
+            repository.saveSessionFeedback(it)
                     .subscribe()
                     .addTo(compositeDisposable)
         }
     }
 
     fun onSubmit(sessionFeedback: SessionFeedback) {
-        // TODO: if submit success, add to save local DB change sessionFeedback.submitted = ture
-        repository.submitSessionFeedback(sessionFeedback)
-                .subscribe()
-                .addTo(compositeDisposable)
+        (session.value as? Result.Success)?.data?.also {
+            // TODO: if submit success, add to save local DB change sessionFeedback.submitted = ture
+            repository.submitSessionFeedback(it, sessionFeedback)
+                    .subscribe()
+                    .addTo(compositeDisposable)
+        }
     }
 
     override fun onCleared() {
