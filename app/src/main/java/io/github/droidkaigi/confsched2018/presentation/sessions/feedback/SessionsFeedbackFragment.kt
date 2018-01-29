@@ -81,11 +81,6 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         }
     }
 
-    override fun onDetach() {
-        sessionsFeedbackViewModel.save()
-        super.onDetach()
-    }
-
     companion object {
         fun newInstance(): SessionsFeedbackFragment =
                 SessionsFeedbackFragment()

@@ -5,12 +5,10 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import io.github.droidkaigi.confsched2018.DUMMY_SESSION_ID1
-import io.github.droidkaigi.confsched2018.DUMMY_SESSION_ID2
-import io.github.droidkaigi.confsched2018.DUMMY_SESSION_TITLE1
-import io.github.droidkaigi.confsched2018.DUMMY_SESSION_TITLE2
 import io.github.droidkaigi.confsched2018.createDummySessionFeedback
+import io.github.droidkaigi.confsched2018.createDummySessions
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
+import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.rx.TestSchedulerProvider
@@ -33,19 +31,21 @@ class SessionsFeedbackViewModelTest {
     }
 
     @Test fun init_Basic() {
-        val sessionFeedback_1 = createDummySessionFeedback(DUMMY_SESSION_ID1, DUMMY_SESSION_TITLE1)
-        val sessionFeedback_2 = createDummySessionFeedback(DUMMY_SESSION_ID2, DUMMY_SESSION_TITLE2)
-        val sessionFeedbackResults = listOf(sessionFeedback_1, sessionFeedback_2)
-        whenever(repository.sessionFeedbacks).doReturn(Flowable.just(sessionFeedbackResults))
+        val sessions = createDummySessions()
+        whenever(repository.sessions).doReturn(Flowable.just(sessions))
         viewModel = SessionsFeedbackViewModel(repository, TestSchedulerProvider())
+        viewModel.sessionId = sessions[0].id
         val result: Observer<Result<SessionFeedback>> = mock()
         viewModel.sessionFeedback.observeForever(result)
 
-        viewModel.sessionId = sessionFeedback_1.sessionId
-        viewModel.sessionTitle = sessionFeedback_1.sessionTitle
-        viewModel.init()
 
-        verify(repository).sessionFeedbacks
-        verify(result).onChanged(Result.success(sessionFeedback_1))
+        verify(repository).sessions
+        verify(result).onChanged(Result.inProgress())
+        verify(result).onChanged(Result.success(
+                createDummySessionFeedback(
+                        sessions[0].id,
+                        (sessions[0] as Session.SpeechSession).title
+                )
+        ))
     }
 }

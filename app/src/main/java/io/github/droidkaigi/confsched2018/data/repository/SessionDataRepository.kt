@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
@@ -70,7 +71,8 @@ class SessionDataRepository @Inject constructor(
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
 
-    private val specialSessions: List<Session.SpecialSession> by lazy {
+    @VisibleForTesting
+    val specialSessions: List<Session.SpecialSession> by lazy {
         SpecialSessions.getSessions()
     }
 

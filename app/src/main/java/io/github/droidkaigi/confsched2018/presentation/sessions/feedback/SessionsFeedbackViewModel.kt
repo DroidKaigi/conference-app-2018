@@ -1,15 +1,14 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.feedback
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
+import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
@@ -19,54 +18,40 @@ class SessionsFeedbackViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
 
-    var sessionId: String = ""
+    lateinit var sessionId: String
 
-    private var mutableSessionFeedback = MutableLiveData<Result<SessionFeedback>>()
-    var sessionFeedback: LiveData<Result<SessionFeedback>> = mutableSessionFeedback
+    val sessionFeedback: LiveData<Result<SessionFeedback>> by lazy {
+        sessionFlowable
+                .map { session ->
+                    session.feedback
+                }
+                .toResult(schedulerProvider)
+                .toLiveData()
+    }
 
-    private var mutableSession = MutableLiveData<Result<Session.SpeechSession>>()
-    var session: LiveData<Result<Session.SpeechSession>> = mutableSession
+    val session: LiveData<Result<Session.SpeechSession>> by lazy {
+        sessionFlowable.toResult(schedulerProvider)
+                .toLiveData()
+    }
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    init {
-        val sessionFlowable = repository.sessions
-                .map { sessions ->
-                    sessions
-                            .filterIsInstance<Session.SpeechSession>()
-                            .first { it.id == sessionId }
-                }.share()
-        sessionFlowable.toResult(schedulerProvider)
-                .subscribe {
-                    mutableSession.value = it
-                }
-                .addTo(compositeDisposable)
-        sessionFlowable.map { session ->
-            session.feedback
+    private val sessionFlowable = repository.sessions
+            .map { sessions ->
+                sessions
+                        .filterIsInstance<Session.SpeechSession>()
+                        .first { it.id == sessionId }
+            }.share()
 
-        }
-                .toResult(schedulerProvider)
-                .subscribe {
-                    mutableSessionFeedback.value = it
-                }
-                .addTo(compositeDisposable)
+    init {
+
+
     }
 
     fun onSessionFeedbackChanged(sessionFeedback: SessionFeedback) {
-        Observable.just(sessionFeedback)
-                .toResult(schedulerProvider)
-                .subscribe {
-                    mutableSessionFeedback.value = it
-                }
+        repository.saveSessionFeedback(sessionFeedback)
+                .subscribe()
                 .addTo(compositeDisposable)
-    }
-
-    fun save() {
-        (sessionFeedback.value as? Result.Success)?.data?.also {
-            repository.saveSessionFeedback(it)
-                    .subscribe()
-                    .addTo(compositeDisposable)
-        }
     }
 
     fun onSubmit(sessionFeedback: SessionFeedback) {
