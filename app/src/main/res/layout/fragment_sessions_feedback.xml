@@ -49,17 +49,6 @@
             />
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@{sessionFeedback.sessionTitle}"
-            app:layout_constraintStart_toEndOf="@id/label_title"
-            app:layout_constraintTop_toBottomOf="@id/id"
-            tools:text="title"
-            />
-
-        <TextView
             android:id="@+id/label_total_evaluation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -204,8 +193,10 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/knowledgeable"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
         <Button

@@ -13,6 +13,7 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBindi
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.context
@@ -23,8 +24,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SessionDetailFragment : Fragment(), Injectable {
-    // TODO create layout
     private lateinit var binding: FragmentSessionDetailBinding
+    @Inject lateinit var navigationController: NavigationController
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var sessionAlarm: SessionAlarm
@@ -91,6 +92,10 @@ class SessionDetailFragment : Fragment(), Injectable {
         })
         binding.level.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 levelDrawable, null, null, null)
+
+        binding.goToQuestionnaire.setOnClickListener {
+            navigationController.navigateToSessionsFeedbackActivity(session)
+        }
     }
 
     private fun updateDrawable() {
