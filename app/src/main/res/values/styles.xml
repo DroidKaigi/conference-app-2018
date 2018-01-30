@@ -86,6 +86,13 @@
         <item name="android:elevation" tools:targetApi="21">2dp</item>
     </style>
 
+    <style name="SNSLinkButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_sns_link_button</item>
+        <item name="android:elevation" tools:targetApi="21">2dp</item>
+    </style>
+
     <style name="GoToQuestionnaire">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
