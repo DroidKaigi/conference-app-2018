@@ -1,6 +1,7 @@
 import com.android.build.gradle.api.ApplicationVariant
 import de.triplet.gradle.play.PlayAccountConfig
 import groovy.lang.Closure
+import org.apache.tools.ant.types.optional.depend.DependScanner
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
@@ -13,52 +14,26 @@ import org.jlleitschuh.gradle.ktlint.ReporterType
 val versionMajor = 0
 val versionMinor = 1
 val versionPatch = 0
-val compileSdk: Int by extra
-val buildTools: String by extra
-val minSdk: Int by extra
-val targetSdk: Int by extra
-val gradleBuildTool: String by extra
-val kotlin: String by extra
-//val googleServices   :String by extra
-//val ktlint           :String by extra
-//val ktlintGradle     :String by extra
-//val fabricGradleTool :String by extra
-//val gradleVersions   :String by extra
-val supportLibrary: String by extra
-val retrofit: String by extra
-val kotshi: String by extra
-val arch: String by extra
-val dagger: String by extra
-val firebase: String by extra
-val kotpref: String by extra
-val glide: String by extra
-val groupie: String by extra
-val stetho: String by extra
-val debot: String by extra
-//val ossLicenses      :String by extra
-//val deploygate       :String by extra
-//val playPublisher    :String by extra
-val robolectric: String by extra
+
+//apply { from(rootProject.file("versions.gradle.kts")) }
 
 plugins {
-    id("com.android.application") version "3.0.1"
-    kotlin("android") version "1.2.20"
-    kotlin("kapt") version "1.2.20"
-    id("org.jlleitschuh.gradle.ktlint") version "3.0.0"
-    id("io.fabric") version "1.25.1"
-    id("com.google.gms.oss.licenses.plugin") version "0.9.1"
-    id("com.github.ben-manes.versions") version "0.17.0"
-    id("deploygate") version "1.1.4"
-    id("com.github.triplet.play") version "1.2.0"
-    id("com.google.gms.google-services") version "3.1.1" apply false
+    id("com.android.application") version Versions.gradleBuildTool
+    kotlin("android") version Versions.kotlin
+    kotlin("kapt") version Versions.kotlin
+    id("org.jlleitschuh.gradle.ktlint") version Versions.ktlintGradle
+    id("io.fabric") version Versions.fabricGradleTool
+    id("com.google.gms.oss.licenses.plugin") version Versions.ossLicenses
+    id("com.github.ben-manes.versions") version Versions.gradleVersions
+    id("deploygate") version Versions.deploygate
+    id("com.github.triplet.play") version Versions.playPublisher
+    id("com.google.gms.google-services") version Versions.googleServices apply false
 }
 
 android {
-    compileSdkVersion(compileSdk)
-    buildToolsVersion(buildTools)
-    dataBinding {
-        isEnabled = true
-    }
+    compileSdkVersion(Versions.compileSdk)
+    buildToolsVersion(Versions.buildTools)
+    dataBinding.isEnabled = true
 
     // Play publisher
     //TODO playAccountConfigs を直接かけないので追加する必要がある
@@ -73,8 +48,8 @@ android {
 
     defaultConfig {
         applicationId = "io.github.droidkaigi.confsched2018"
-        minSdkVersion(minSdk)
-        targetSdkVersion(targetSdk)
+        minSdkVersion(Versions.minSdk)
+        targetSdkVersion(Versions.targetSdk)
         versionCode = versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName = "$versionMajor.$versionMinor.$versionPatch"
         testInstrumentationRunner = "io.github.droidkaigi.confsched2018.test.TestAppRunner"
@@ -89,8 +64,8 @@ android {
             }
         }
     }
-    applicationVariants.all(object:Action<ApplicationVariant>{
-        override fun execute(variant:ApplicationVariant){
+    applicationVariants.all(object : Action<ApplicationVariant> {
+        override fun execute(variant: ApplicationVariant) {
             variant.resValue("string", "versionInfo", variant.versionName)
         }
 
@@ -153,101 +128,102 @@ kapt {
 dependencies {
 
     implementation(project(":model"))
-    implementation(kotlin("stdlib-jre7", kotlin))
+//    implementation(kotlin("stdlib-jre7", Versions.kotlin))
+    implementation(Depends.Kotlin.stdlib)
 
 //    //==================== Support Library ====================
-    implementation("com.android.support:support-v4:$supportLibrary")
-    implementation("com.android.support:appcompat-v7:$supportLibrary")
-    implementation("com.android.support:design:$supportLibrary")
-    implementation("com.android.support:cardview-v7:$supportLibrary")
-    implementation("com.android.support:customtabs:$supportLibrary")
-    implementation("com.android.support.constraint:constraint-layout:1.1.0-beta4")
-    implementation("com.android.support:multidex:1.0.2")
-    implementation("com.android.support:support-emoji-appcompat:$supportLibrary")
-    implementation("com.android.support:preference-v7:$supportLibrary")
-    implementation("com.android.support:preference-v14:$supportLibrary")
+    implementation(Depends.Support.support_v4)
+    implementation(Depends.Support.appcompat_v7)
+    implementation(Depends.Support.design)
+    implementation(Depends.Support.cardview_v7)
+    implementation(Depends.Support.customtabs)
+    implementation(Depends.Support.constraint)
+    implementation(Depends.Support.multidex)
+    implementation(Depends.Support.support_emoji)
+    implementation(Depends.Support.preference_v7)
+    implementation(Depends.Support.preference_v14)
 
 //==================== Network ====================
-    implementation("com.squareup.okhttp3:logging-interceptor:3.9.1")
+    implementation(Depends.OkHttp3.loggingIntercepter)
 
-    implementation("com.squareup.retrofit2:retrofit:$retrofit")
-    implementation("com.squareup.retrofit2:converter-moshi:$retrofit")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofit")
+    implementation(Depends.Retrofit.core)
+    implementation(Depends.Retrofit.converterMoshi)
+    implementation(Depends.Retrofit.adapterRxJava2)
 
 //==================== Structure ====================
-    implementation("se.ansman.kotshi:api:$kotshi")
-    kapt("se.ansman.kotshi:compiler:$kotshi")
+    implementation(Depends.Kotshi.api)
+    kapt(Depends.Kotshi.compiler)
 
-    implementation("android.arch.lifecycle:runtime:$arch")
-    implementation("android.arch.lifecycle:extensions:$arch")
-    implementation("android.arch.lifecycle:reactivestreams:$arch")
-    implementation("android.arch.persistence.room:runtime:$arch")
-    implementation("android.arch.persistence.room:rxjava2:$arch")
-    kapt("android.arch.persistence.room:compiler:$arch")
+    implementation(Depends.LifeCycle.runtime)
+    implementation(Depends.LifeCycle.extensions)
+    implementation(Depends.LifeCycle.reactivestreams)
+    implementation(Depends.Room.runtime)
+    implementation(Depends.Room.rxjava2)
+    kapt(Depends.Room.compiler)
 
-    implementation("io.reactivex.rxjava2:rxjava:2.1.8")
-    implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
-    implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
+    implementation(Depends.RxJava2.core)
+    implementation(Depends.RxJava2.android)
+    implementation(Depends.RxJava2.kotlin)
 
-    kapt("com.android.databinding:compiler:3.0.1")
+    kapt(Depends.Binding.compiler)
 
-    implementation("com.google.dagger:dagger:$dagger")
-    implementation("com.google.dagger:dagger-android:$dagger")
-    implementation("com.google.dagger:dagger-android-support:$dagger")
-    kapt("com.google.dagger:dagger-compiler:$dagger")
-    kapt("com.google.dagger:dagger-android-processor:$dagger")
+    implementation(Depends.Dagger.core)
+    implementation(Depends.Dagger.compiler)
+    implementation(Depends.Dagger.android)
+    kapt(Depends.Dagger.androidSupport)
+    kapt(Depends.Dagger.androidProcessor)
 
-    implementation("com.google.android.gms:play-services-maps:$firebase")
+    implementation(Depends.PlayService.map)
 
-    implementation("com.google.firebase:firebase-firestore:$firebase")
-    implementation("com.google.firebase:firebase-auth:$firebase")
-    implementation("com.google.firebase:firebase-core:$firebase")
+    implementation(Depends.Firebase.firestore)
+    implementation(Depends.Firebase.auth)
+    implementation(Depends.Firebase.core)
 
-    implementation("com.jakewharton.threetenabp:threetenabp:1.0.5")
+    implementation(Depends.threetenabp)
 
-    implementation("com.chibatching.kotpref:kotpref:$kotpref")
-    implementation("com.chibatching.kotpref:initializer:$kotpref")
+    implementation(Depends.Kotpref.kotpref)
+    implementation(Depends.Kotpref.initializer)
 
 //==================== UI ====================
-    implementation("com.github.bumptech.glide:glide:$glide")
-    implementation("com.github.bumptech.glide:okhttp3-integration:$glide")
-    kapt("com.github.bumptech.glide:compiler:$glide")
+    implementation(Depends.Glide.core)
+    implementation(Depends.Glide.okhttp3)
+    kapt(Depends.Glide.compiler)
 
-    implementation("com.xwray:groupie:$groupie")
-    implementation("com.xwray:groupie-databinding:$groupie")
+    implementation(Depends.Groupie.core)
+    implementation(Depends.Groupie.binding)
 
-    implementation("com.github.takahirom.downloadable.calligraphy:downloadable-calligraphy:0.1.2")
-    implementation("com.google.android.gms:play-services-oss-licenses:11.6.2")
+    implementation(Depends.downloadableCalligraphy)
+    implementation(Depends.gms)
 
 //==================== Debug ====================
-    debugImplementation("com.facebook.stetho:stetho:$stetho")
-    debugImplementation("com.facebook.stetho:stetho-okhttp3:$stetho")
+    debugImplementation(Depends.Stetho.core)
+    debugImplementation(Depends.Stetho.okhttp3)
 
-    implementation("com.crashlytics.sdk.android:crashlytics:2.7.1@aar") {
+    implementation(Depends.crashlytics) {
         isTransitive = true
     }
 
-    implementation("com.jakewharton.timber:timber:4.6.0")
+    implementation(Depends.timber)
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:1.5.4")
+    debugImplementation(Depends.leakcanary)
 
-    debugImplementation("com.tomoima.debot:debot:$debot")
-    releaseImplementation("com.tomoima.debot:debot-no-op:$debot")
+    debugImplementation(Depends.Debot.core)
+    releaseImplementation(Depends.Debot.noop)
 
 //==================== Test ====================
-    testImplementation("junit:junit:4.12")
-    testImplementation("com.nhaarman:mockito-kotlin:1.5.0")
+    testImplementation(Depends.junit)
+    testImplementation(Depends.mockitoKotlin)
 
-    testImplementation("org.robolectric:robolectric:$robolectric")
-    testImplementation("org.robolectric:shadows-multidex:$robolectric")
+    testImplementation(Depends.Robolectric.core)
+    testImplementation(Depends.Robolectric.multidex)
 
-    testImplementation("com.willowtreeapps.assertk:assertk:0.9")
-    testImplementation("org.threeten:threetenbp:1.3.3")
+    testImplementation(Depends.assertk)
+    testImplementation(Depends.threetenbp)
 
-    androidTestImplementation("com.android.support.test:runner:1.0.1")
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.1")
-    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:2.2.2")
-    androidTestImplementation("com.willowtreeapps.assertk:assertk:0.9")
+    androidTestImplementation(Depends.SupportTest.runner)
+    androidTestImplementation(Depends.SupportTest.espresso)
+    androidTestImplementation(Depends.SupportTest.contrib)
+    androidTestImplementation(Depends.assertk)
 }
 
 repositories {
