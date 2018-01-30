@@ -10,7 +10,7 @@ class DateSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
-            onQuestionnaireListener: (Session.SpeechSession) -> Unit,
+            onFeedbackListener: (Session.SpeechSession) -> Unit,
             isShowDayNumber: Boolean = false,
             simplify: Boolean = false
     ) {
@@ -21,7 +21,7 @@ class DateSessionsSection : Section() {
                     SpeechSessionItem(
                             session = it,
                             onFavoriteClickListener = onFavoriteClickListener,
-                            onQuestionnaireListener = onQuestionnaireListener,
+                            onFeedbackListener = onFeedbackListener,
                             isShowDayNumber = isShowDayNumber
                     ) as SessionItem
                 }
