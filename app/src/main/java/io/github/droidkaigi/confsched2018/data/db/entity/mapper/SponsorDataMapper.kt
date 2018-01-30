@@ -1,7 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.db.entity.mapper
 
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorGroupWithSponsor
+import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanWithSponsor
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
 import io.github.droidkaigi.confsched2018.model.Sponsor as ModelSponsor
 import io.github.droidkaigi.confsched2018.model.SponsorGroup as ModelSponsorGroup
@@ -15,7 +15,7 @@ fun SponsorPlanEntity.toSponsorPlanModel(groups: List<ModelSponsorGroup>): Model
     )
 }
 
-fun List<SponsorGroupWithSponsor>.toSponsorGroupModels(): List<ModelSponsorGroup> =
+fun List<SponsorPlanWithSponsor>.toSponsorGroupModels(): List<ModelSponsorGroup> =
         map { ModelSponsorGroup(it.sponsors.toSponsorModels()) }
 
 private fun List<SponsorEntity>.toSponsorModels(): List<ModelSponsor> =

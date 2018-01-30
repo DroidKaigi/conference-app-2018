@@ -5,8 +5,7 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorGroupEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorGroupWithSponsor
+import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanWithSponsor
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
 import io.reactivex.Flowable
 
@@ -29,5 +28,5 @@ abstract class SponsorDao {
     abstract fun getAllSponsorPlan(): Flowable<List<SponsorPlanEntity>>
 
     @Query("SELECT * FROM sponsor_group WHERE plan_id = :planId")
-    abstract fun getSponsors(planId: Int): List<SponsorGroupWithSponsor>
+    abstract fun getSponsors(planId: Int): List<SponsorPlanWithSponsor>
 }

@@ -3,9 +3,9 @@ package io.github.droidkaigi.confsched2018.data.db.entity
 import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Relation
 
-data class SponsorGroupWithSponsor(
+data class SponsorPlanWithSponsor(
         @Embedded
-        var sponsorGroup: SponsorGroupEntity? = null,
-        @Relation(parentColumn = "id", entityColumn = "group_id", entity = SponsorEntity::class)
+        var sponsorGroup: SponsorPlanEntity? = null,
+        @Relation(parentColumn = "id", entityColumn = "plan_id")
         var sponsors: List<SponsorEntity> = emptyList()
 )

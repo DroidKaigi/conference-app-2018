@@ -6,7 +6,7 @@ import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSponsorEnti
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSponsorGroupEntities
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSponsorPlanEntities
 import io.github.droidkaigi.confsched2018.data.db.dao.SponsorDao
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorGroupWithSponsor
+import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanWithSponsor
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
 import io.reactivex.Flowable
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class SponsorRoomDatabase @Inject constructor(
 ) : SponsorDatabase {
 
     override fun getAllSponsorPlan():
-            Flowable<List<Pair<SponsorPlanEntity, List<SponsorGroupWithSponsor>>>> {
+            Flowable<List<Pair<SponsorPlanEntity, List<SponsorPlanWithSponsor>>>> {
         return sponsorDao.getAllSponsorPlan()
                 .map { sponsorPlans ->
                     sponsorPlans.map { it to sponsorDao.getSponsors(it.id) }

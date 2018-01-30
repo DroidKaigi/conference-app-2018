@@ -4,7 +4,6 @@ import io.github.droidkaigi.confsched2018.data.api.response.Sponsor
 import io.github.droidkaigi.confsched2018.data.api.response.SponsorGroup
 import io.github.droidkaigi.confsched2018.data.api.response.SponsorPlan
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorGroupEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
 
 
