@@ -14,7 +14,6 @@ import android.view.ViewGroup
 class ContentWithBottomNavigationBehavior(context: Context, attrs: AttributeSet) :
         CoordinatorLayout.Behavior<ViewGroup>(context, attrs) {
     private var previousHeight: Float = 0f
-    private var requestResetBnv: Boolean = false
 
     override fun onMeasureChild(parent: CoordinatorLayout, child: ViewGroup,
                                 parentWidthMeasureSpec: Int, widthUsed: Int,

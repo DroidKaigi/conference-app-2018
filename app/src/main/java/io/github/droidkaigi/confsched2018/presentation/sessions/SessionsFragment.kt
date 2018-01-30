@@ -1,19 +1,21 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -22,6 +24,7 @@ import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener {
     private lateinit var binding: FragmentSessionsBinding
@@ -38,7 +41,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager)
+        sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager, activity!!)
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
         sessionsViewModel = ViewModelProviders
@@ -101,8 +104,20 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 }
 
 class SessionsViewPagerAdapter(
-        fragmentManager: FragmentManager
-) : FragmentStatePagerAdapter(fragmentManager) {
+        fragmentManager: FragmentManager,
+        private val activity: Activity
+) : FragmentStateNullablePagerAdapter(fragmentManager) {
+
+    private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
+    private var currentTab by Delegates.observable<Tab?>(null) { _, old, new ->
+        if (old != new && new != null) {
+            val key = when (new) {
+                Tab.All -> AllSessionsFragment::class.java.simpleName
+                is Tab.RoomTab -> RoomSessionsFragment::class.java.simpleName + new.room.name
+            }
+            fireBaseAnalytics.setCurrentScreen(activity, null, key)
+        }
+    }
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
@@ -134,6 +149,11 @@ class SessionsViewPagerAdapter(
     }
 
     override fun getCount(): Int = tabs.size
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
+        super.setPrimaryItem(container, position, o)
+        currentTab = tabs.getOrNull(position)
+    }
 
     fun setRooms(rooms: List<Room>) {
         if (rooms == roomTabs.map { it.room }) {
