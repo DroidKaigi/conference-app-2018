@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -31,9 +32,8 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     private var speakerIdInDetail: String? = null
 
     private fun customAttributesFrom(context: Context, attrs: AttributeSet?): CustomAttributes {
-        val res = context.resources
         val defaultAttributes = CustomAttributes(
-                textColor = 0
+                textColor = Color.BLACK
         )
 
         return attrs?.let {
