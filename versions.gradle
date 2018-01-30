@@ -7,7 +7,7 @@ ext {
             gradleBuildTool : "3.0.1",
             kotlin          : "1.2.21",
             googleServices  : "3.1.1",
-            ktlint          : "0.14.0",
+            ktlint          : "0.15.0",
             ktlintGradle    : "3.0.0",
             fabricGradleTool: "1.25.1",
             gradleVersions  : "0.17.0",
