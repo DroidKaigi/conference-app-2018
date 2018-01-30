@@ -17,7 +17,7 @@ ext {
             archLifecycle   : "1.1.0",
             archRoom        : "1.0.0",
             dagger          : "2.14.1",
-            firebase        : "11.6.2", // Adjust version for emulator
+            firebase        : "11.8.0", // Adjust version for emulator
             kotpref         : "2.3.0",
             glide           : "4.5.0",
             groupie         : "2.0.3",
@@ -114,7 +114,7 @@ ext {
                     binding: "com.xwray:groupie-databinding:$versions.groupie",
             ],
             downloadableCalligraphy: "com.github.takahirom.downloadable.calligraphy:downloadable-calligraphy:0.1.2",
-            gms                    : "com.google.android.gms:play-services-oss-licenses:11.6.2",
+            gms                    : "com.google.android.gms:play-services-oss-licenses:$versions.firebase",
 
             //==================== Debug ====================
             stetho                 : [
