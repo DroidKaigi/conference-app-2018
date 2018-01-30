@@ -4,12 +4,13 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchSpeakersBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -61,9 +62,14 @@ class SearchSpeakersFragment : Fragment(), Injectable {
 
     private fun setupRecyclerView() {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
-            setOnItemClickListener { item, _ ->
-                val speakerItem = item as? SpeakerItem ?: return@setOnItemClickListener
-                navigationController.navigateToSpeakerDetailActivity(speakerItem.speaker.id)
+            setOnItemClickListener { item, v ->
+                val speakerId = (item as? SpeakerItem)?.speaker?.id ?: return@setOnItemClickListener
+                val sharedElement = Pair(
+                        v.findViewById<View>(R.id.speaker_image),
+                        speakerId)
+                navigationController.navigateToSpeakerDetailActivity(
+                        speakerId = speakerId,
+                        sharedElement = sharedElement)
             }
             add(speakersSection)
         }

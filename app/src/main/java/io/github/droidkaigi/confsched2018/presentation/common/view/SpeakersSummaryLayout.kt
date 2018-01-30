@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.support.v4.util.Pair
+import android.support.v7.app.AppCompatActivity
 import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -95,7 +97,13 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
                 override fun onClick(view: View, speakerId: String) {
                     if (speakerIdInDetail == null ||
                             (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
-                        SpeakerDetailActivity.start(context, speakerId)
+                        val sharedElement = Pair(
+                                view.findViewById<View>(R.id.speaker_image),
+                                speakerId)
+                        SpeakerDetailActivity.start(
+                                activity = context as AppCompatActivity,
+                                sharedElement = sharedElement,
+                                speakerId = speakerId)
                     }
                 }
             })
