@@ -19,7 +19,7 @@ ext {
             dagger          : "2.13",
             firebase        : "11.6.2", // Adjust version for emulator
             kotpref         : "2.3.0",
-            glide           : "4.4.0",
+            glide           : "4.5.0",
             groupie         : "2.0.3",
             stetho          : "1.5.0",
             debot           : "2.0.3",
