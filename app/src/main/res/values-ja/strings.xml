@@ -28,7 +28,7 @@
     <string name="session_content_description_level">レベルの画像</string>
     <string name="session_load_retry">リトライ</string>
     <string name="session_finished">終了済みのセッション</string>
-    <string name="session_go_to_questionnaire">アンケートへ</string>
+    <string name="session_go_to_feedback">アンケートへ</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
