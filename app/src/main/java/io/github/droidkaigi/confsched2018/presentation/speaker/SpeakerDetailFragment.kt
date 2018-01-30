@@ -10,11 +10,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.transition.Transition
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
@@ -85,7 +87,80 @@ class SpeakerDetailFragment : Fragment(), Injectable {
             }
         })
 
-        initViewTransition(view, savedInstanceState)
+        if (!TextUtils.isEmpty(arguments!!.getString(EXTRA_TRANSITION_NAME))
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            initViewTransition(view, savedInstanceState)
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun initViewTransition(view: View, savedInstanceState: Bundle?) {
+        view.findViewById<View>(R.id.app_bar_background).visibility = INVISIBLE
+
+        ViewCompat.setTransitionName(
+                view.findViewById<View>(R.id.speaker_image),
+                arguments!!.getString(EXTRA_TRANSITION_NAME))
+
+        val transitionInflater = TransitionInflater.from(activity)
+
+        if (savedInstanceState == null) {
+            activity?.window?.sharedElementEnterTransition = transitionInflater
+                    .inflateTransition(R.transition.shared_element_arc)
+                    .apply {
+                        duration = 400
+
+                        addListener(object : Transition.TransitionListener {
+                            override fun onTransitionEnd(p0: android.transition.Transition?) {
+                                removeListener(this)
+                                // No need to start reveal anim if user pressed back button during shared element transition
+                                if (!isEnterTransitionCanceled) {
+                                    view.post(revealViewRunnable)
+                                }
+                            }
+
+                            override fun onTransitionResume(p0: android.transition.Transition?) {
+                            }
+
+                            override fun onTransitionPause(p0: android.transition.Transition?) {
+                                isEnterTransitionCanceled = true
+                            }
+
+                            override fun onTransitionCancel(p0: android.transition.Transition?) {
+                                isEnterTransitionCanceled = true
+                            }
+
+                            override fun onTransitionStart(p0: android.transition.Transition?) {
+                            }
+                        })
+                    }
+        } else {
+            view.findViewById<View>(R.id.app_bar_background).visibility = VISIBLE
+        }
+
+        activity?.window?.sharedElementReturnTransition = transitionInflater
+                .inflateTransition(R.transition.shared_element_arc)
+                .apply {
+                    duration = 400
+
+                    addListener(object : Transition.TransitionListener {
+                        override fun onTransitionEnd(p0: android.transition.Transition?) {
+                        }
+
+                        override fun onTransitionResume(p0: android.transition.Transition?) {
+                        }
+
+                        override fun onTransitionPause(p0: android.transition.Transition?) {
+                        }
+
+                        override fun onTransitionCancel(p0: android.transition.Transition?) {
+                        }
+
+                        override fun onTransitionStart(p0: android.transition.Transition?) {
+                            removeListener(this)
+                            hideReveal()
+                        }
+                    })
+                }
     }
 
     private fun setupRecyclerView() {
@@ -101,73 +176,6 @@ class SpeakerDetailFragment : Fragment(), Injectable {
             adapter = groupAdapter
             setLinearDivider(R.drawable.shape_divider_vertical_6dp, linearLayoutManager)
         }
-    }
-
-    private fun initViewTransition(view: View, savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return
-        }
-
-        ViewCompat.setTransitionName(
-                view.findViewById<View>(R.id.speaker_image),
-                arguments!!.getString(EXTRA_TRANSITION_NAME))
-
-        val transitionInflater = TransitionInflater.from(activity)
-
-        if (savedInstanceState == null) {
-            val enterTransition = transitionInflater.inflateTransition(R.transition.shared_element_arc)
-            enterTransition.duration = 400
-
-            enterTransition.addListener(object : Transition.TransitionListener {
-                override fun onTransitionEnd(p0: android.transition.Transition?) {
-                    enterTransition.removeListener(this)
-                    // No need to start reveal anim if user pressed back button during shared element transition
-                    if (!isEnterTransitionCanceled) {
-                        view.post(revealViewRunnable)
-                    }
-                }
-
-                override fun onTransitionResume(p0: android.transition.Transition?) {
-                }
-
-                override fun onTransitionPause(p0: android.transition.Transition?) {
-                    isEnterTransitionCanceled = true
-                }
-
-                override fun onTransitionCancel(p0: android.transition.Transition?) {
-                    isEnterTransitionCanceled = true
-                }
-
-                override fun onTransitionStart(p0: android.transition.Transition?) {
-                }
-            })
-            activity?.window?.sharedElementEnterTransition = enterTransition
-        } else {
-            view.findViewById<View>(R.id.app_bar_background).visibility = VISIBLE
-        }
-
-        val exitTransition = transitionInflater.inflateTransition(R.transition.shared_element_arc)
-        exitTransition.duration = 400
-
-        exitTransition.addListener(object: Transition.TransitionListener {
-            override fun onTransitionEnd(p0: android.transition.Transition?) {
-            }
-
-            override fun onTransitionResume(p0: android.transition.Transition?) {
-            }
-
-            override fun onTransitionPause(p0: android.transition.Transition?) {
-            }
-
-            override fun onTransitionCancel(p0: android.transition.Transition?) {
-            }
-
-            override fun onTransitionStart(p0: android.transition.Transition?) {
-                exitTransition.removeListener(this)
-                hideReveal()
-            }
-        })
-        activity?.window?.sharedElementReturnTransition = exitTransition
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -197,7 +205,8 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                         override fun onAnimationEnd(animation: Animator?) {
                             super.onAnimationEnd(animation)
                             view?.visibility = View.INVISIBLE
-                        }})
+                        }
+                    })
                     start()
                 }
     }
@@ -218,12 +227,13 @@ class SpeakerDetailFragment : Fragment(), Injectable {
     companion object {
         const val EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID"
         const val EXTRA_TRANSITION_NAME = "EXTRA_TRANSITION_NAME"
-        fun newInstance(speakerId: String, transitionName: String): SpeakerDetailFragment = SpeakerDetailFragment()
+        fun newInstance(speakerId: String, transitionName: String?):
+                SpeakerDetailFragment = SpeakerDetailFragment()
                 .apply {
-            arguments = Bundle().apply {
-                putString(EXTRA_SPEAKER_ID, speakerId)
-                putString(EXTRA_TRANSITION_NAME, transitionName)
-            }
-        }
+                    arguments = Bundle().apply {
+                        putString(EXTRA_SPEAKER_ID, speakerId)
+                        putString(EXTRA_TRANSITION_NAME, transitionName)
+                    }
+                }
     }
 }

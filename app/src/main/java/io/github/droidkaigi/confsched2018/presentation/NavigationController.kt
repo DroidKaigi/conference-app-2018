@@ -77,7 +77,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(AboutThisAppFragment.newInstance())
     }
 
-    fun navigateToSpeakerDetail(speakerId: String, transitionName: String) {
+    fun navigateToSpeakerDetail(speakerId: String, transitionName: String?) {
         replaceFragment(SpeakerDetailFragment.newInstance(speakerId, transitionName))
     }
 

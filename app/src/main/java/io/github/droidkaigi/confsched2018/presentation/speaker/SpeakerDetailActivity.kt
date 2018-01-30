@@ -68,8 +68,11 @@ class SpeakerDetailActivity : AppCompatActivity(), HasSupportFragmentInjector {
             })
         }
 
-        fun start(activity: AppCompatActivity, sharedElement: Pair<View, String>, speakerId: String) {
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElement)
+        fun start(activity: AppCompatActivity,
+                  sharedElement: Pair<View, String>,
+                  speakerId: String) {
+            val options =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElement)
             activity.startActivity(Intent(activity, SpeakerDetailActivity::class.java).apply {
                 putExtra(EXTRA_SPEAKER_ID, speakerId)
                 putExtra(EXTRA_TRANSITION_NAME, sharedElement.second)
