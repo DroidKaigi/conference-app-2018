@@ -96,9 +96,13 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
                 override fun onClick(view: View, speakerId: String) {
                     if (speakerIdInDetail == null ||
                             (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
-                        val transitionName = speakerId
-                        val sharedElement = Pair(view.findViewById<View>(R.id.speaker_image), transitionName)
-                        SpeakerDetailActivity.start(context as AppCompatActivity, sharedElement, speakerId)
+                        val sharedElement = Pair(
+                                view.findViewById<View>(R.id.speaker_image),
+                                speakerId)
+                        SpeakerDetailActivity.start(
+                                activity = context as AppCompatActivity,
+                                sharedElement = sharedElement,
+                                speakerId = speakerId)
                     }
                 }
             })

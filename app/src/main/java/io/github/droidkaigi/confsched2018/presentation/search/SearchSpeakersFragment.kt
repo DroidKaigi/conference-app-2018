@@ -78,9 +78,12 @@ class SearchSpeakersFragment : Fragment(), Injectable {
         val groupAdapter = GroupAdapter<ViewHolder>().apply {
             setOnItemClickListener { item, v ->
                 val speakerId = (item as? SpeakerItem)?.speaker?.id ?: return@setOnItemClickListener
-                val transitionName = speakerId
-                val sharedElement = Pair(v.findViewById<View>(R.id.speaker_image), transitionName)
-                navigationController.navigateToSpeakerDetailActivity(speakerId, sharedElement)
+                val sharedElement = Pair(
+                        v.findViewById<View>(R.id.speaker_image),
+                        speakerId)
+                navigationController.navigateToSpeakerDetailActivity(
+                        speakerId = speakerId,
+                        sharedElement = sharedElement)
             }
             add(speakersSection)
         }
