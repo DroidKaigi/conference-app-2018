@@ -74,6 +74,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
      *     />
      */
     fun setSpeakers(speakers: List<Speaker>) {
+        if (speakerList == speakers) return
         speakerList.clear()
         speakerList.addAll(speakers)
 
