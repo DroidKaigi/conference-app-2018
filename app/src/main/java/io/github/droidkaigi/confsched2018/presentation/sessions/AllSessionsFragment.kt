@@ -56,7 +56,7 @@ class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
         sessionAlarm.toggleRegister(session)
     }
 
-    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+    private val onFeedbackListener = { session: Session.SpeechSession ->
         navigationController.navigateToSessionsFeedbackActivity(session)
     }
 
@@ -79,7 +79,7 @@ class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
                 is Result.Success -> {
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener,
-                            onQuestionnaireListener, true)
+                            onFeedbackListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }

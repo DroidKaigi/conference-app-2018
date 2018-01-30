@@ -12,7 +12,6 @@ import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -59,7 +58,7 @@ class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
         sessionAlarm.toggleRegister(session)
     }
 
-    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+    private val onFeedbackListener = { session: Session.SpeechSession ->
         navigationController.navigateToSessionsFeedbackActivity(session)
     }
 
@@ -88,7 +87,7 @@ class RoomSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
                 is Result.Success -> {
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener,
-                            onQuestionnaireListener, true)
+                            onFeedbackListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }

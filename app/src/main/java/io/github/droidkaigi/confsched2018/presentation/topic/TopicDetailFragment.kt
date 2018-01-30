@@ -42,7 +42,7 @@ class TopicDetailFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
-    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+    private val onFeedbackListener = { session: Session.SpeechSession ->
         navigationController.navigateToSessionsFeedbackActivity(session)
     }
 
@@ -65,7 +65,7 @@ class TopicDetailFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     sessionsSection.updateSessions(result.data.second,
                             onFavoriteClickListener,
-                            onQuestionnaireListener)
+                            onFeedbackListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

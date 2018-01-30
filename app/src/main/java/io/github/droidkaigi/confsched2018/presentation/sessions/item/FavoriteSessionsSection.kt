@@ -10,13 +10,13 @@ class FavoriteSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session.SpeechSession>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
-            onQuestionnaireListener: (Session.SpeechSession) -> Unit
+            onFeedbackListener: (Session.SpeechSession) -> Unit
     ) {
         val sessionItems = sessions.map {
             SpeechSessionItem(
                     it,
                     onFavoriteClickListener,
-                    onQuestionnaireListener,
+                    onFeedbackListener,
                     simplify = true)
         }
 

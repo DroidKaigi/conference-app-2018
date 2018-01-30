@@ -178,11 +178,11 @@
                         tools:drawableStart="@drawable/ic_check_circle_black_24dp"
                         />
                     <Button
-                        android:id="@+id/go_to_questionnaire"
-                        style="@style/GoToQuestionnaire"
+                        android:id="@+id/go_to_feedback"
+                        style="@style/GoToFeedback"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="@string/session_go_to_questionnaire"
+                        android:text="@string/session_go_to_feedback"
                         android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/finished_session_check"
@@ -199,7 +199,7 @@
                         android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/go_to_questionnaire"
+                        app:layout_constraintTop_toBottomOf="@id/go_to_feedback"
                         />
                     <TextView
                         android:id="@+id/session_day_number"
