@@ -121,7 +121,7 @@ ext {
                     core   : "com.facebook.stetho:stetho:$versions.stetho",
                     okhttp3: "com.facebook.stetho:stetho-okhttp3:$versions.stetho",
             ],
-            crashlytics            : "com.crashlytics.sdk.android:crashlytics:2.7.1@aar",
+            crashlytics            : "com.crashlytics.sdk.android:crashlytics:2.8.0@aar",
             timber                 : "com.jakewharton.timber:timber:4.6.0",
             leakcanary             : "com.squareup.leakcanary:leakcanary-android:1.5.4",
             debot                  : [
