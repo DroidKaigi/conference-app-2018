@@ -23,5 +23,4 @@ abstract class SponsorDao {
 
     @Query("SELECT * FROM sponsor_plan")
     abstract fun getAllSponsorPlan(): Flowable<List<SponsorPlanWithSponsor>>
-
 }

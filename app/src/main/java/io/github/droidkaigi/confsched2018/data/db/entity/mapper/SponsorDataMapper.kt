@@ -25,7 +25,8 @@ private fun SponsorPlanEntity.Type.toSponsorType(): ModelSponsorPlan.Type = when
     SponsorPlanEntity.Type.TECHNICAL_FOR_NETWORK -> ModelSponsorPlan.Type.TechnicalForNetwork
 }
 
-private fun SponsorPlanEntity.toSponsorPlanModel(groups: List<ModelSponsorGroup>): ModelSponsorPlan {
+private fun SponsorPlanEntity.toSponsorPlanModel(groups: List<ModelSponsorGroup>):
+        ModelSponsorPlan {
     return ModelSponsorPlan(
             name = name,
             type = type.toSponsorType(),
