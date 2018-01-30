@@ -124,5 +124,23 @@
     <string name="about_version_description">%1$s</string>
 
     <!-- Session Feedback -->
+    <string name="session_feedback_total_evaluation">セッションはどうでしたか?(総合評価)</string>
+    <string name="session_feedback_total_evaluation_min">まったく楽しめなかった</string>
+    <string name="session_feedback_total_evaluation_max">非常に楽しめた</string>
+    <string name="session_feedback_relevancy">セッションはあなたの仕事やプロジェクトに関連がありましたか?</string>
+    <string name="session_feedback_relevancy_min">関連が薄い</string>
+    <string name="session_feedback_relevancy_max">非常に関連する</string>
+    <string name="session_feedback_as_expected">セッションの説明を読んで期待した通りの内容でしたか?</string>
+    <string name="session_feedback_as_expected_min">期待とは異なる</string>
+    <string name="session_feedback_as_expected_max">期待を超える</string>
+    <string name="session_feedback_difficulty">セッションの難易度はいかがでしたか?</string>
+    <string name="session_feedback_difficulty_min">分かりやすかった</string>
+    <string name="session_feedback_difficulty_max">難しかった</string>
+    <string name="session_feedback_knowledgeable">技術的な知見は得られたでしょうか?</string>
+    <string name="session_feedback_knowledgeable_min">得られなかった</string>
+    <string name="session_feedback_knowledgeable_max">とても得られた</string>
+    <string name="session_feedback_comment">他にコメントがあればぜひ教えてください(個人が特定できるような内容は書かないでください)</string>
+    <string name="session_feedback_comment_hint">回答を入力</string>
     <string name="submit_feedback">フィードバックを送る</string>
+    <string name="submitted">送信済み</string>
 </resources>
