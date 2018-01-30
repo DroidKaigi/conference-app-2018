@@ -26,7 +26,7 @@ ext {
             ossLicenses     : "0.9.1",
             deploygate      : "1.1.4",
             playPublisher   : "1.2.0",
-            robolectric     : "3.5.1",
+            robolectric     : "3.6.1",
     ]
 
     depends = [
