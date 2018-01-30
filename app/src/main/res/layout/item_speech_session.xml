@@ -205,12 +205,12 @@
                 />
 
             <TextView
-                android:id="@+id/go_to_questionnaire"
+                android:id="@+id/go_to_feedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:padding="8dp"
-                android:text="@string/session_go_to_questionnaire"
+                android:text="@string/session_go_to_feedback"
                 android:textColor="@color/primary_dark"
                 android:textSize="14sp"
                 android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
