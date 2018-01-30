@@ -16,7 +16,7 @@ ext {
             kotshi          : "0.3.0",
             archLifecycle   : "1.1.0",
             archRoom        : "1.0.0",
-            dagger          : "2.13",
+            dagger          : "2.14.1",
             firebase        : "11.6.2", // Adjust version for emulator
             kotpref         : "2.3.0",
             glide           : "4.5.0",
