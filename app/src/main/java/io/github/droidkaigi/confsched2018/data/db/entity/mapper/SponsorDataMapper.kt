@@ -15,12 +15,11 @@ fun SponsorPlanEntity.toSponsorPlanModel(groups: List<ModelSponsorGroup>): Model
     )
 }
 
-fun List<SponsorGroupWithSponsor>.toSponsorGroupModels():List<ModelSponsorGroup> =
-        map {  ModelSponsorGroup(it.sponsors.toSponsorModels())}
+fun List<SponsorGroupWithSponsor>.toSponsorGroupModels(): List<ModelSponsorGroup> =
+        map { ModelSponsorGroup(it.sponsors.toSponsorModels()) }
 
 private fun List<SponsorEntity>.toSponsorModels(): List<ModelSponsor> =
         map { it.toSponsorModel() }
-
 
 private fun SponsorPlanEntity.Type.toSponsorType(): ModelSponsorPlan.Type = when (this) {
     SponsorPlanEntity.Type.PLATINUM -> ModelSponsorPlan.Type.Platinum

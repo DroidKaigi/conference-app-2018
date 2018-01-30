@@ -7,12 +7,12 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "sponsor_group",
         foreignKeys = [
-           (ForeignKey(
-                entity = SponsorPlanEntity::class,
-                parentColumns = arrayOf("id"),
-                childColumns = arrayOf("plan_id"),
-                onDelete = ForeignKey.CASCADE
-        ))])
+            (ForeignKey(
+                    entity = SponsorPlanEntity::class,
+                    parentColumns = arrayOf("id"),
+                    childColumns = arrayOf("plan_id"),
+                    onDelete = ForeignKey.CASCADE
+            ))])
 data class SponsorGroupEntity(
         @PrimaryKey(autoGenerate = true)
         var id: Int = 0,

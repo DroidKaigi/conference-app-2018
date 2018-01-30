@@ -16,13 +16,13 @@ class SponsorRoomDatabase @Inject constructor(
         private val sponsorDao: SponsorDao
 ) : SponsorDatabase {
 
-    override fun getAllSponsorPlan(): Flowable<List<Pair<SponsorPlanEntity, List<SponsorGroupWithSponsor>>>> {
+    override fun getAllSponsorPlan():
+            Flowable<List<Pair<SponsorPlanEntity, List<SponsorGroupWithSponsor>>>> {
         return sponsorDao.getAllSponsorPlan()
                 .map { sponsorPlans ->
-                   sponsorPlans.map { it to sponsorDao.getSponsors(it.id) }
+                    sponsorPlans.map { it to sponsorDao.getSponsors(it.id) }
                 }
     }
-
 
     override fun save(plans: List<SponsorPlan>) {
         database.runInTransaction {
@@ -30,7 +30,8 @@ class SponsorRoomDatabase @Inject constructor(
             val planIds = sponsorDao.insertSponsorPlan(plans.toSponsorPlanEntities())
             plans.map { it.groups }.zip(planIds)
                     .forEach { (groups, planId) ->
-                        val groupIds = sponsorDao.insertSponsorGroup(groups.toSponsorGroupEntities(planId.toInt()))
+                        val groupEntities = groups.toSponsorGroupEntities(planId.toInt())
+                        val groupIds = sponsorDao.insertSponsorGroup(groupEntities)
                         groups.map { it.sponsors }.zip(groupIds).forEach { (sponsors, groupId) ->
                             sponsorDao.insertSponsor(sponsors.toSponsorEntities(groupId.toInt()))
                         }

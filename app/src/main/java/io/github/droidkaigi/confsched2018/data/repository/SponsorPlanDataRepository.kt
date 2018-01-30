@@ -20,9 +20,9 @@ class SponsorPlanDataRepository @Inject constructor(
 
     override fun sponsorPlans(): Flowable<List<SponsorPlan>> =
             sponsorDatabase.getAllSponsorPlan()
-                    .filter{ it.isNotEmpty()}
+                    .filter { it.isNotEmpty() }
                     .map {
-                        it.map { (sponsorPlan, sponsorGroupWithSponsors)->
+                        it.map { (sponsorPlan, sponsorGroupWithSponsors) ->
                             val sponsorGroups = sponsorGroupWithSponsors.toSponsorGroupModels()
                             sponsorPlan.toSponsorPlanModel(sponsorGroups)
                         }
@@ -38,5 +38,4 @@ class SponsorPlanDataRepository @Inject constructor(
                         .subscribe { }
             }.subscribeOn(schedulerProvider.computation())
                     .toCompletable()
-
 }
