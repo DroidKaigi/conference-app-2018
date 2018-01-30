@@ -26,7 +26,6 @@ import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
             (SessionSpeakerJoinEntity::class),
             (SessionFeedbackEntity::class),
             (SponsorPlanEntity::class),
-            (SponsorGroupEntity::class),
             (SponsorEntity::class)
         ],
         version = 8

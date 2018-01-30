@@ -3,8 +3,7 @@ package io.github.droidkaigi.confsched2018.data.repository
 import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.db.SponsorDatabase
-import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSponsorGroupModels
-import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSponsorPlanModel
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSponsorPlanModels
 import io.github.droidkaigi.confsched2018.model.Lang
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
@@ -21,12 +20,7 @@ class SponsorPlanDataRepository @Inject constructor(
     override fun sponsorPlans(): Flowable<List<SponsorPlan>> =
             sponsorDatabase.getAllSponsorPlan()
                     .filter { it.isNotEmpty() }
-                    .map {
-                        it.map { (sponsorPlan, sponsorGroupWithSponsors) ->
-                            val sponsorGroups = sponsorGroupWithSponsors.toSponsorGroupModels()
-                            sponsorPlan.toSponsorPlanModel(sponsorGroups)
-                        }
-                    }
+                    .map { it.toSponsorPlanModels() }
 
     @CheckResult override fun refreshSponsorPlans(ln: Lang): Completable =
             when (ln) {
