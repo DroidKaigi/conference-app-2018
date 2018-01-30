@@ -4,31 +4,48 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsFeedbackBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
 class SessionsFeedbackFragment : Fragment(), Injectable {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var binding: FragmentSessionsFeedbackBinding
 
     private val sessionsFeedbackViewModel: SessionsFeedbackViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(SessionsFeedbackViewModel::class.java)
+        ViewModelProviders.of(activity!!, viewModelFactory)
+                .get(SessionsFeedbackViewModel::class.java)
+    }
+
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val onCurrentRankingChangeListener: FeedbackRankingView.OnCurrentRankingChangeListener
+            = object : FeedbackRankingView.OnCurrentRankingChangeListener {
+        override fun onCurrentRankingChange(view: FeedbackRankingView, currentRanking: Int) {
+            val old = (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)?.data!!
+            val new = when (view.id) {
+                R.id.total_evaluation -> old.copy(totalEvaluation = currentRanking)
+                R.id.relevancy -> old.copy(relevancy = currentRanking)
+                R.id.as_expected -> old.copy(asExpected = currentRanking)
+                R.id.difficulty -> old.copy(difficulty = currentRanking)
+                R.id.knowledgeable -> old.copy(knowledgeable = currentRanking)
+                else -> old
+            }
+            sessionsFeedbackViewModel.onSessionFeedbackChanged(new)
+        }
     }
 
     private val onSubmitListener = { sessionFeedback: SessionFeedback ->
-        sessionsFeedbackViewModel.onSubmit(sessionFeedback)
+        sessionsFeedbackViewModel.onSubmit(sessionFeedback.copy(submitted = true))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +60,6 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sessionsFeedbackViewModel.sessionId = arguments!!.getString(EXTRA_SESSION_ID)
-        sessionsFeedbackViewModel.sessionTitle = arguments!!.getString(EXTRA_SESSION_TITLE)
 
         sessionsFeedbackViewModel.sessionFeedback.observe(this, { result ->
             when (result) {
@@ -57,47 +72,20 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
             }
         })
 
-        binding.editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.isNullOrBlank()) {
-                    return
-                }
-
-                sessionsFeedbackViewModel.onSessionFeedbackChanged(
-                        (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)
-                                ?.data!!.copy(totalEvaluation = Integer.parseInt(p0.toString()))
-                )
-            }
-        })
+        binding.totalEvaluation.setListener(onCurrentRankingChangeListener)
+        binding.relevancy.setListener(onCurrentRankingChangeListener)
+        binding.asExpected.setListener(onCurrentRankingChangeListener)
+        binding.difficulty.setListener(onCurrentRankingChangeListener)
+        binding.knowledgeable.setListener(onCurrentRankingChangeListener)
 
         binding.submit.setOnClickListener {
             onSubmitListener(
                     (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)?.data!!)
         }
-
-        sessionsFeedbackViewModel.init()
-    }
-
-    override fun onDetach() {
-        sessionsFeedbackViewModel.save()
-        super.onDetach()
     }
 
     companion object {
-        const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
-        const val EXTRA_SESSION_TITLE = "EXTRA_SESSION_TITLE"
-        fun newInstance(sessionId: String, sessionTitle: String): SessionsFeedbackFragment =
-                SessionsFeedbackFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(EXTRA_SESSION_ID, sessionId)
-                        putString(EXTRA_SESSION_TITLE, sessionTitle)
-                    }
-                }
+        fun newInstance(): SessionsFeedbackFragment =
+                SessionsFeedbackFragment()
     }
 }

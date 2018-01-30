@@ -21,7 +21,8 @@ sealed class Session(
             val topic: Topic,
             val level: Level,
             val isFavorited: Boolean,
-            val speakers: List<Speaker>
+            val speakers: List<Speaker>,
+            val feedback: SessionFeedback
     ) : Session(id, dayNumber, startTime, endTime)
 
     data class SpecialSession(

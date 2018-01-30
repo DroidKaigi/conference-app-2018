@@ -16,7 +16,6 @@ import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
-import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSessionFeedback
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
 import io.github.droidkaigi.confsched2018.data.db.fixeddata.SpecialSessions
@@ -80,9 +79,11 @@ class SessionsDataRepositoryTest {
     @Test fun sessions() {
         val sessions = createDummySessionWithSpeakersEntities()
         val speakers = createDummySpeakerEntities()
+        val feedbacks = createDummySessionFeedbackEntities()
 
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessions))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
+        whenever(sessionDatabase.getAllSessionFeedback()).doReturn(Flowable.just(feedbacks))
         val sessionDataRepository = SessionDataRepository(mock(),
                 mock(),
                 sessionDatabase,
@@ -93,7 +94,12 @@ class SessionsDataRepositoryTest {
                 .sessions
                 .test()
                 .assertValueAt(0,
-                        sessions.map { it.toSession(speakers, listOf(), LocalDate.of(1, 1, 1)) }
+                        sessions.map {
+                            it.toSession(speakers,
+                                    listOf(),
+                                    createDummySessionFeedbackEntities(),
+                                    LocalDate.of(1, 1, 1))
+                        }
                                 + SpecialSessions.getSessions()
                 )
 
@@ -114,13 +120,14 @@ class SessionsDataRepositoryTest {
                 favoriteDatabase,
                 TestSchedulerProvider())
 
-        sessionDataRepository.sessionFeedbacks
+        sessionDataRepository.sessions
                 .test()
                 .assertNoErrors()
                 .assertValue(
-                        sessionFeedbacks.map { sessionFeedback ->
-                            sessionFeedback.toSessionFeedback()
-                        })
+                        sessionEntities.map { sessionEntity ->
+                            sessionEntity.toSession(speakers, emptyList(), sessionFeedbacks,
+                                    LocalDate.of(1, 1, 1))
+                        } + sessionDataRepository.specialSessions)
 
         verify(sessionDatabase).getAllSessionFeedback()
     }
@@ -128,18 +135,29 @@ class SessionsDataRepositoryTest {
     @Test fun search() {
         val sessions = createDummySessionWithSpeakersEntities()
         val speakers = createDummySpeakerEntities()
+        val feedbacks = createDummySessionFeedbackEntities()
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessions))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
-        val sessionDataRepository = SessionDataRepository(mock(),
+        whenever(sessionDatabase.getAllSessionFeedback()).doReturn(Flowable.just(feedbacks))
+        val sessionDataRepository = SessionDataRepository(
+                mock(),
                 mock(),
                 sessionDatabase,
                 favoriteDatabase,
-                TestSchedulerProvider())
+                TestSchedulerProvider()
+        )
 
         sessionDataRepository.search(DUMMY_SESSION_TITLE1)
                 .test()
-                .assertValue(SearchResult(listOf(sessions[0].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1))),
-                        listOf()))
+                .assertValue(SearchResult(listOf(
+                        sessions[0]
+                                .toSession(
+                                        speakers,
+                                        emptyList(),
+                                        feedbacks,
+                                        LocalDate.of(1, 1, 1)
+                                )
+                ), listOf()))
 
         verify(sessionDatabase).getAllSessions()
     }
@@ -147,15 +165,26 @@ class SessionsDataRepositoryTest {
     @Test fun roomSessions() {
         val sessionEntities = createDummySessionWithSpeakersEntities()
         val speakers = createDummySpeakerEntities()
+        val feedbacks = createDummySessionFeedbackEntities()
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessionEntities))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
+        whenever(sessionDatabase.getAllSessionFeedback()).doReturn(Flowable.just(feedbacks))
         val sessionDataRepository = SessionDataRepository(mock(),
                 mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())
-        val session1 = sessionEntities[0].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1))
-        val session2 = sessionEntities[1].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1))
+        val session1 = sessionEntities[0].toSession(
+                speakers,
+                emptyList(),
+                feedbacks,
+                LocalDate.of(1, 1, 1)
+        )
+        val session2 = sessionEntities[1].toSession(
+                speakers,
+                emptyList(),
+                feedbacks,
+                LocalDate.of(1, 1, 1))
 
         val specialSessions = SpecialSessions.getSessions()
         sessionDataRepository.roomSessions
@@ -175,15 +204,28 @@ class SessionsDataRepositoryTest {
     @Test fun speakerSessions() {
         val sessionEntities = createDummySessionWithSpeakersEntities()
         val speakers = createDummySpeakerEntities()
+        val feedbacks = createDummySessionFeedbackEntities()
         whenever(sessionDatabase.getAllSessions()).doReturn(Flowable.just(sessionEntities))
         whenever(sessionDatabase.getAllSpeaker()).doReturn(Flowable.just(speakers))
+        whenever(sessionDatabase.getAllSessionFeedback()).doReturn(Flowable.just(feedbacks))
         val sessionDataRepository = SessionDataRepository(mock(),
                 mock(),
                 sessionDatabase,
                 favoriteDatabase,
                 TestSchedulerProvider())
-        val sessions1 = listOf(sessionEntities[0].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1)))
-        val sessions2 = sessions1 + listOf(sessionEntities[1].toSession(speakers, emptyList(), LocalDate.of(1, 1, 1)))
+        val sessions1 = listOf(
+                sessionEntities[0].toSession(
+                        speakers,
+                        emptyList(),
+                        feedbacks,
+                        LocalDate.of(1, 1, 1)
+                ))
+        val sessions2 = sessions1 + listOf(sessionEntities[1].toSession(
+                speakers,
+                emptyList(),
+                feedbacks,
+                LocalDate.of(1, 1, 1)
+        ))
 
         sessionDataRepository.speakerSessions
                 .test()

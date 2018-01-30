@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.db.SponsorDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSponsorGroupModels
@@ -27,7 +28,7 @@ class SponsorPlanDataRepository @Inject constructor(
                         }
                     }
 
-    override fun refreshSponsorPlans(ln: Lang): Completable =
+    @CheckResult override fun refreshSponsorPlans(ln: Lang): Completable =
             when (ln) {
                 Lang.JA -> droidKaigiApi.sponsorPlansJa()
                 Lang.EN -> droidKaigiApi.sponsorPlansEn()

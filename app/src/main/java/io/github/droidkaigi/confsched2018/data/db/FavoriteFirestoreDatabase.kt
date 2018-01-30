@@ -21,7 +21,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
 
     private var isInitialized = false
 
-    override fun favorite(session: Session): Single<Boolean> {
+    @CheckResult override fun favorite(session: Session): Single<Boolean> {
         if (!isInitialized) {
             return Single.error(NotPreparedException())
         }
@@ -69,8 +69,7 @@ class FavoriteFirestoreDatabase : FavoriteDatabase {
         }
     }
 
-    @CheckResult
-    private fun getFavorites(currentUser: FirebaseUser): Observable<List<Int>> {
+    @CheckResult private fun getFavorites(currentUser: FirebaseUser): Observable<List<Int>> {
         return favoritesRef(currentUser)
                 .whereEqualTo("favorite", true)
                 .observesSnapshot()

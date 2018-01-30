@@ -62,8 +62,8 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(SessionDetailFragment.newInstance(sessionId))
     }
 
-    fun navigateToFeedback(sessionId: String, sessionTitle: String) {
-        replaceFragment(SessionsFeedbackFragment.newInstance(sessionId, sessionTitle))
+    fun navigateToFeedback() {
+        replaceFragment(SessionsFeedbackFragment.newInstance())
     }
 
     fun navigateToMap() {

@@ -11,7 +11,6 @@ import io.github.droidkaigi.confsched2018.model.Topic
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import retrofit2.Response
 
 interface SessionRepository {
     val sessions: Flowable<List<Session>>
@@ -19,7 +18,6 @@ interface SessionRepository {
     val roomSessions: Flowable<Map<Room, List<Session>>>
     val rooms: Flowable<List<Room>>
     val topics: Flowable<List<Topic>>
-    val sessionFeedbacks: Flowable<List<SessionFeedback>>
     val speakerSessions: Flowable<Map<Speaker, List<Session.SpeechSession>>>
     val topicSessions: Flowable<Map<Topic, List<Session.SpeechSession>>>
     val levelSessions: Flowable<Map<Level, List<Session.SpeechSession>>>
@@ -28,5 +26,8 @@ interface SessionRepository {
     @CheckResult fun favorite(session: Session.SpeechSession): Single<Boolean>
     @CheckResult fun search(query: String): Single<SearchResult>
     @CheckResult fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable
-    @CheckResult fun submitSessionFeedback(sessionFeedback: SessionFeedback): Single<Response<Void>>
+    @CheckResult fun submitSessionFeedback(
+            session: Session.SpeechSession,
+            sessionFeedback: SessionFeedback
+    ): Completable
 }
