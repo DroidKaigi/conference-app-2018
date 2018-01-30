@@ -141,5 +141,23 @@
     <string name="about_version_description">%1$s</string>
 
     <!-- Session Feedback -->
+    <string name="session_feedback_total_evaluation">How was the session? (Overall Rating)</string>
+    <string name="session_feedback_total_evaluation_min">bored</string>
+    <string name="session_feedback_total_evaluation_max">Awesome</string>
+    <string name="session_feedback_relevancy">How relevant was this session to your projects?</string>
+    <string name="session_feedback_relevancy_min">Not at all</string>
+    <string name="session_feedback_relevancy_max">Extremely</string>
+    <string name="session_feedback_as_expected">Based on the description, was the content as expected?</string>
+    <string name="session_feedback_as_expected_min">Below</string>
+    <string name="session_feedback_as_expected_max">Beyond</string>
+    <string name="session_feedback_difficulty">Was this session easy to understand?</string>
+    <string name="session_feedback_difficulty_min">Easy</string>
+    <string name="session_feedback_difficulty_max">Hard</string>
+    <string name="session_feedback_knowledgeable">How knowledgeable was the content?</string>
+    <string name="session_feedback_knowledgeable_min">Poor</string>
+    <string name="session_feedback_knowledgeable_max">Outstanding</string>
+    <string name="session_feedback_comment">Anything else we should know? (Please don\'t add any personal information in your comments)</string>
+    <string name="session_feedback_comment_hint">Other session feedback?</string>
     <string name="submit_feedback">Submit feedback</string>
+    <string name="submitted">Submitted</string>
 </resources>
