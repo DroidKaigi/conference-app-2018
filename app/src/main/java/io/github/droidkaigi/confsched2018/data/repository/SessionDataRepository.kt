@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.CheckResult
 import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
@@ -125,10 +126,10 @@ class SessionDataRepository @Inject constructor(
                         .groupBy { it.level }
             }
 
-    override fun favorite(session: Session.SpeechSession): Single<Boolean> =
+    @CheckResult override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 
-    override fun refreshSessions(): Completable {
+    @CheckResult override fun refreshSessions(): Completable {
         return api.getSessions()
                 .doOnSuccess { response ->
                     sessionDatabase.save(response)
@@ -137,7 +138,7 @@ class SessionDataRepository @Inject constructor(
                 .toCompletable()
     }
 
-    override fun search(query: String): Single<SearchResult> = Singles.zip(
+    @CheckResult override fun search(query: String): Single<SearchResult> = Singles.zip(
             sessions.map {
                 it
                         .filterIsInstance<Session.SpeechSession>()
@@ -150,11 +151,11 @@ class SessionDataRepository @Inject constructor(
                 SearchResult(sessions, speakers)
             })
 
-    override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
+    @CheckResult override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
             Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
                     .subscribeOn(schedulerProvider.computation())
 
-    override fun submitSessionFeedback(
+    @CheckResult override fun submitSessionFeedback(
             session: Session.SpeechSession,
             sessionFeedback: SessionFeedback
     ): Completable = sessionFeedbackApi
