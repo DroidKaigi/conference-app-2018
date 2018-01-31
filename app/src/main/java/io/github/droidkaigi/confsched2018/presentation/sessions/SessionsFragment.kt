@@ -190,7 +190,7 @@ class SessionsViewPagerAdapter(
                 Tab("Day${schedule.dayNumber} / ${schedule.startTime.toReadableTimeString()}")
     }
 
-    private fun maySetupTabs(otherTabs: List<Tab>) {
+    private fun setupTabsIfNeeded(otherTabs: List<Tab>) {
         if (tabs.isNotEmpty() && tabs.subList(1, tabs.size) == otherTabs) {
             return
         }
@@ -255,7 +255,7 @@ class SessionsViewPagerAdapter(
             }.toMutableList()
         }
 
-        maySetupTabs(roomTabs)
+        setupTabsIfNeeded(roomTabs)
     }
 
     private fun setSchedules(schedules: List<SessionSchedule>) {
@@ -265,6 +265,6 @@ class SessionsViewPagerAdapter(
             }.toMutableList()
         }
 
-        maySetupTabs(schedulesTabs)
+        setupTabsIfNeeded(schedulesTabs)
     }
 }
