@@ -27,12 +27,9 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
+import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
 import timber.log.Timber
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -149,9 +146,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
                 }
             }
             SessionTabMode.SCHEDULE -> {
-                val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
-                        .toInstant().toEpochMilli())
-                val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition(now)
+                val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition()
                 binding.sessionsViewPager.currentItem = position
             }
         }
@@ -172,10 +167,6 @@ class SessionsViewPagerAdapter(
         fragmentManager: FragmentManager,
         private val activity: Activity
 ) : FragmentStateNullablePagerAdapter(fragmentManager) {
-    companion object {
-        private val startDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-    }
-
     private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
     private var currentTab by Delegates.observable<Tab?>(null) { _, old, new ->
         if (old != new && new != null) {
@@ -196,7 +187,7 @@ class SessionsViewPagerAdapter(
         object All : Tab("All")
         data class RoomTab(val room: Room) : Tab(room.name)
         data class TimeTab(val schedule: SessionSchedule) :
-                Tab("Day${schedule.dayNumber} / ${startDateFormat.format(schedule.startTime)}")
+                Tab("Day${schedule.dayNumber} / ${schedule.startTime.toReadableTimeString()}")
     }
 
     private fun maySetupTabs(otherTabs: List<Tab>) {
@@ -238,7 +229,7 @@ class SessionsViewPagerAdapter(
         currentTab = tabs.getOrNull(position)
     }
 
-    fun getRecentScheduleTabPosition(time: Date): Int {
+    fun getRecentScheduleTabPosition(time: Date = Date()): Int {
         val position = schedulesTabs.withIndex().firstOrNull {
             it.value.schedule.startTime > time
         }?.index?.dec() ?: 0
