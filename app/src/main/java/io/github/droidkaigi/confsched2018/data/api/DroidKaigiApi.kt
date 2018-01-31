@@ -10,6 +10,7 @@ import javax.inject.Singleton
 @Singleton
 interface DroidKaigiApi {
     @GET("sessionize/all.json")
+    @CheckResult
     fun getSessions(): Single<Response>
 
     @GET("sponsors/ja.json")

@@ -27,7 +27,6 @@ fun List<Session>?.toSessionSpeakerJoinEntities(): List<SessionSpeakerJoinEntity
 
 fun SessionFeedback.toSessionFeedbackEntity(): SessionFeedbackEntity {
     return SessionFeedbackEntity(
-            id = null,
             sessionId = sessionId,
             totalEvaluation = totalEvaluation,
             relevancy = relevancy,

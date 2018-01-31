@@ -10,6 +10,14 @@ fun List<io.github.droidkaigi.confsched2018.data.api.response.Post>.toFeeds():
             content = it.content!!,
             date = Date(it.date!!.time),
             published = it.published!!,
-            type = it.type!!
+            type = it.type!!.let {
+                when (it) {
+                    "tutorial" -> Post.Type.Tutorial
+                    "notification" -> Post.Type.Notification
+                    "alert" -> Post.Type.Alert
+                    "enquete" -> Post.Type.Enquete
+                    else -> throw IllegalStateException("unsupported Post type.")
+                }
+            }
     )
 }

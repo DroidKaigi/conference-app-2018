@@ -1,6 +1,7 @@
 <resources>
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
+    <string name="web_search">ウェブ検索</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">ホーム</string>
@@ -27,7 +28,7 @@
     <string name="session_content_description_level">レベルの画像</string>
     <string name="session_load_retry">リトライ</string>
     <string name="session_finished">終了済みのセッション</string>
-    <string name="session_go_to_questionnaire">アンケートへ</string>
+    <string name="session_go_to_feedback">アンケートへ</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -49,15 +50,16 @@
 
     <!-- Feed -->
     <string name="feed_title">お知らせ</string>
+    <string name="feed_content_description_feed_icon">お知らせアイコン</string>
     <string name="feed_not_found">お知らせがありません</string>
     <string name="feed_content_description_not_found">お知らせが無い画像</string>
 
     <!-- Map -->
-    <string name="map_title_activity">地図</string>
+    <string name="map_title_activity">アクセス</string>
     <string name="map_place_name">ベルサール新宿グランドコンファレンスセンター</string>
     <string name="map_meeting_rooms_name">DroidKaigi 2018 会場</string>
     <string name="map_address">〒160–0023 東京都新宿区西新宿8丁目17 西新宿8–17–1 住友不動産新宿グランドタワー5F</string>
-    <string name="map_nearby_stations">丸ノ内線「西新宿駅」 (1番出口徒歩3分) 大江戸線「都庁前駅」 (E4出口徒歩7分) 大江戸線「新宿西口駅」(D4出口徒歩11分) JR線・丸ノ内線･小田急線･京王線・新宿線・大江戸線「新宿駅」 (西口徒歩15分)</string>
+    <string name="map_nearby_stations">丸ノ内線「西新宿駅」 (1番出口徒歩3分)\n大江戸線「都庁前駅」 (E4出口徒歩7分)\n大江戸線「新宿西口駅」(D4出口徒歩11分)\nJR線・丸ノ内線･小田急線･京王線・新宿線・大江戸線「新宿駅」 (西口徒歩15分)</string>
     <string name="map_content_description_place_icon">場所アイコン</string>
     <string name="map_content_description_train_icon">電車アイコン</string>
 
@@ -121,4 +123,25 @@
     <string name="about_contributors_description">App制作に携わった人たちです。</string>
     <string name="about_version_title">開発情報</string>
     <string name="about_version_description">%1$s</string>
+
+    <!-- Session Feedback -->
+    <string name="session_feedback_total_evaluation">セッションはどうでしたか?(総合評価)</string>
+    <string name="session_feedback_total_evaluation_min">まったく楽しめなかった</string>
+    <string name="session_feedback_total_evaluation_max">非常に楽しめた</string>
+    <string name="session_feedback_relevancy">セッションはあなたの仕事やプロジェクトに関連がありましたか?</string>
+    <string name="session_feedback_relevancy_min">関連が薄い</string>
+    <string name="session_feedback_relevancy_max">非常に関連する</string>
+    <string name="session_feedback_as_expected">セッションの説明を読んで期待した通りの内容でしたか?</string>
+    <string name="session_feedback_as_expected_min">期待とは異なる</string>
+    <string name="session_feedback_as_expected_max">期待を超える</string>
+    <string name="session_feedback_difficulty">セッションの難易度はいかがでしたか?</string>
+    <string name="session_feedback_difficulty_min">分かりやすかった</string>
+    <string name="session_feedback_difficulty_max">難しかった</string>
+    <string name="session_feedback_knowledgeable">技術的な知見は得られたでしょうか?</string>
+    <string name="session_feedback_knowledgeable_min">得られなかった</string>
+    <string name="session_feedback_knowledgeable_max">とても得られた</string>
+    <string name="session_feedback_comment">他にコメントがあればぜひ教えてください(個人が特定できるような内容は書かないでください)</string>
+    <string name="session_feedback_comment_hint">回答を入力</string>
+    <string name="submit_feedback">フィードバックを送る</string>
+    <string name="submitted">送信済み</string>
 </resources>

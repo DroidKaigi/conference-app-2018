@@ -12,7 +12,6 @@ import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.R
@@ -21,9 +20,9 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.CurrentSessionScroller
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
-import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.CurrentSessionScroller
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
@@ -40,7 +39,6 @@ import javax.inject.Inject
 
 class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
 
-    private var fireBaseAnalytics: FirebaseAnalytics? = null
     private lateinit var binding: FragmentAllSessionsBinding
 
     private val sessionsSection = DateSessionsSection()
@@ -58,6 +56,10 @@ class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onFeedbackListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentAllSessionsBinding.inflate(inflater, container, false)
@@ -67,7 +69,6 @@ class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fireBaseAnalytics = FirebaseAnalytics.getInstance(context)
         setupRecyclerView()
 
         val progressTimeLatch = ProgressTimeLatch {
@@ -77,7 +78,8 @@ class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, true)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener,
+                            onFeedbackListener, true)
 
                     sessionsViewModel.onSuccessFetchSessions()
                 }
@@ -93,13 +95,6 @@ class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller {
             if (it != true) return@observe
             scrollToCurrentSession()
         })
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            fireBaseAnalytics?.setCurrentScreen(activity!!, null, this::class.java.simpleName)
-        }
     }
 
     override fun scrollToCurrentSession() {
