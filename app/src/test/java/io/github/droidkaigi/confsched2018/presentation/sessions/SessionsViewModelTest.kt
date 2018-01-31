@@ -33,10 +33,10 @@ class SessionsViewModelTest {
     @Test fun sessions_rooms_Empty() {
         whenever(repository.rooms).doReturn(Flowable.empty())
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.RoomTabMode)
-        val result: Observer<Result<List<Any>>> = mock()
+        viewModel.changeTabMode(SessionTabMode.Room)
+        val result: Observer<Result<SessionTab>> = mock()
 
-        viewModel.tabStuffs.observeForever(result)
+        viewModel.tab.observeForever(result)
 
         verify(repository).rooms
         verify(result).onChanged(Result.inProgress())
@@ -46,23 +46,23 @@ class SessionsViewModelTest {
         val rooms = listOf(mock<Room>())
         whenever(repository.rooms).doReturn(Flowable.just(rooms))
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.RoomTabMode)
-        val result: Observer<Result<List<Any>>> = mock()
+        viewModel.changeTabMode(SessionTabMode.Room)
+        val result: Observer<Result<SessionTab>> = mock()
 
-        viewModel.tabStuffs.observeForever(result)
+        viewModel.tab.observeForever(result)
 
         verify(repository).rooms
-        verify(result).onChanged(Result.success(rooms))
+        verify(result).onChanged(Result.success(SessionTab.Room(rooms)))
     }
 
     @Test fun sessions_rooms_Error() {
         val runtimeException = RuntimeException("test")
         whenever(repository.rooms).doReturn(Flowable.error(runtimeException))
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.RoomTabMode)
-        val result: Observer<Result<List<Any>>> = mock()
+        viewModel.changeTabMode(SessionTabMode.Room)
+        val result: Observer<Result<SessionTab>> = mock()
 
-        viewModel.tabStuffs.observeForever(result)
+        viewModel.tab.observeForever(result)
 
         verify(repository).rooms
         verify(result).onChanged(Result.failure(runtimeException.message!!, runtimeException))
@@ -72,10 +72,10 @@ class SessionsViewModelTest {
     @Test fun sessions_times_Empty() {
         whenever(repository.schedules).doReturn(Flowable.empty())
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
-        val result: Observer<Result<List<Any>>> = mock()
+        viewModel.changeTabMode(SessionTabMode.Schedule)
+        val result: Observer<Result<SessionTab>> = mock()
 
-        viewModel.tabStuffs.observeForever(result)
+        viewModel.tab.observeForever(result)
 
         verify(repository).schedules
         verify(result).onChanged(Result.inProgress())
@@ -85,23 +85,23 @@ class SessionsViewModelTest {
         val schedules = listOf(mock<SessionSchedule>())
         whenever(repository.schedules).doReturn(Flowable.just(schedules))
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
-        val result: Observer<Result<List<Any>>> = mock()
+        viewModel.changeTabMode(SessionTabMode.Schedule)
+        val result: Observer<Result<SessionTab>> = mock()
 
-        viewModel.tabStuffs.observeForever(result)
+        viewModel.tab.observeForever(result)
 
         verify(repository).schedules
-        verify(result).onChanged(Result.success(schedules))
+        verify(result).onChanged(Result.success(SessionTab.Schedule(schedules)))
     }
 
     @Test fun sessions_times_Error() {
         val runtimeException = RuntimeException("test")
         whenever(repository.schedules).doReturn(Flowable.error(runtimeException))
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
-        val result: Observer<Result<List<Any>>> = mock()
+        viewModel.changeTabMode(SessionTabMode.Schedule)
+        val result: Observer<Result<SessionTab>> = mock()
 
-        viewModel.tabStuffs.observeForever(result)
+        viewModel.tab.observeForever(result)
 
         verify(repository).schedules
         verify(result).onChanged(Result.failure(runtimeException.message!!, runtimeException))
