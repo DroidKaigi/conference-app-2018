@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
 import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
@@ -19,6 +20,8 @@ class FeedViewModel @Inject constructor(
 
     val feeds: LiveData<Result<List<Post>>> by lazy {
         repository.feeds
+                .doOnNext { Timber.d("Firestore:feed.doOnNext3" + it) }
+                .doOnError { Timber.d(it, "Firestore:feed.doOnError3") }
                 .toResult(schedulerProvider)
                 .toLiveData()
     }
