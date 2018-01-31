@@ -15,8 +15,6 @@ val versionMajor = 0
 val versionMinor = 1
 val versionPatch = 0
 
-//apply { from(rootProject.file("versions.gradle.kts")) }
-
 plugins {
     id("com.android.application") version Versions.gradleBuildTool
     kotlin("android") version Versions.kotlin
