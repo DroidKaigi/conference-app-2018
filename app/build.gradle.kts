@@ -17,32 +17,21 @@ val versionPatch = 0
 
 plugins {
     id("com.android.application") version Versions.gradleBuildTool
+    id("com.google.gms.oss.licenses.plugin") version Versions.ossLicenses
+    id("com.google.gms.google-services") version Versions.googleServices apply false
     kotlin("android") version Versions.kotlin
     kotlin("kapt") version Versions.kotlin
+    id("com.github.ben-manes.versions") version Versions.gradleVersions
+    id("com.github.triplet.play") version Versions.playPublisher
     id("org.jlleitschuh.gradle.ktlint") version Versions.ktlintGradle
     id("io.fabric") version Versions.fabricGradleTool
-    id("com.google.gms.oss.licenses.plugin") version Versions.ossLicenses
-    id("com.github.ben-manes.versions") version Versions.gradleVersions
     id("deploygate") version Versions.deploygate
-    id("com.github.triplet.play") version Versions.playPublisher
-    id("com.google.gms.google-services") version Versions.googleServices apply false
 }
 
 android {
     compileSdkVersion(Versions.compileSdk)
     buildToolsVersion(Versions.buildTools)
     dataBinding.isEnabled = true
-
-    // Play publisher
-    //TODO playAccountConfigs を直接かけないので追加する必要がある
-    container(PlayAccountConfig::class.java).create("playAccountConfigs") {
-        jsonFile = file("publisher-keys.json")
-    }
-//    playAccountConfigs.defaultAccountConfig {
-//        // TODO Replace json file to the one which is generated in the API console.
-//        // https://github.com/Triple-T/gradle-play-publisher#authentication
-//        jsonFile = file("publisher-keys.json")
-//    }
 
     defaultConfig {
         applicationId = "io.github.droidkaigi.confsched2018"
@@ -54,7 +43,13 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
         resConfigs("en", "ja")
-//        playAccountConfig = playAccountConfigs.defaultAccountConfig
+
+        // Play publisher
+        // TODO Replace json file to the one which is generated in the API console.
+        // https://github.com/Triple-T/gradle-play-publisher#authentication
+        ext["playAccountConfig"] = PlayAccountConfig("playAccountConfigs").apply {
+            jsonFile = file("publisher-keys.json")
+        }
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -248,10 +243,10 @@ deploygate {
     apks {
         create("release") {
             val hash = Runtime.getRuntime().exec("git rev-parse --short HEAD")
-            message = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
+            message = "https://github.com/DroidKaigi/conference-app-2018/tree/$hash ${System.getenv("CIRCLE_BUILD_URL")}"
 
             distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
-            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/${hash} ${System.getenv("CIRCLE_BUILD_URL")}"
+            releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/$hash ${System.getenv("CIRCLE_BUILD_URL")}"
         }
     }
 }

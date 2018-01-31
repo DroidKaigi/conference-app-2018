@@ -10,17 +10,11 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             switch (requested.id.id) {
-                case 'kotlin-android':
-                    useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
+                case "com.android.application":
+                    useModule("com.android.tools.build:gradle:${requested.version}")
                     break
-                case 'kotlin-kapt':
-                    useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
-                    break
-                case "org.jlleitschuh.gradle.ktlint":
-                    useModule("gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:${requested.version}")
-                    break
-                case 'io.fabric':
-                    useModule("io.fabric.tools:gradle:${requested.version}")
+                case "com.google.gms.google-services":
+                    useModule("com.google.gms:google-services:${requested.version}")
                     break
                 case 'com.google.gms.oss.licenses.plugin':
                     useModule("com.google.gms:oss-licenses:${requested.version}")
@@ -28,17 +22,17 @@ pluginManagement {
                 case 'com.github.ben-manes.versions':
                     useModule("com.github.ben-manes:gradle-versions-plugin:${requested.version}")
                     break
-                case 'deploygate':
-                    useModule("com.deploygate:gradle:${requested.version}")
-                    break
                 case 'com.github.triplet.play':
                     useModule("com.github.triplet.gradle:play-publisher:${requested.version}")
                     break
-                case "com.android.application":
-                    useModule("com.android.tools.build:gradle:${requested.version}")
+                case "org.jlleitschuh.gradle.ktlint":
+                    useModule("gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:${requested.version}")
                     break
-                case "com.google.gms.google-services":
-                    useModule("com.google.gms:google-services:${requested.version}")
+                case 'io.fabric':
+                    useModule("io.fabric.tools:gradle:${requested.version}")
+                    break
+                case 'deploygate':
+                    useModule("com.deploygate:gradle:${requested.version}")
                     break
             }
         }
