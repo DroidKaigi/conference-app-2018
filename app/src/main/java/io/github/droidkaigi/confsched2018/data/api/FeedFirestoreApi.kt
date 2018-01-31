@@ -17,15 +17,11 @@ class FeedFirestoreApi : FeedApi {
                 .whereEqualTo("published", true)
                 .orderBy("date", Query.Direction.DESCENDING)
                 .observesSnapshot()
-                .doOnNext { if (DEBUG) Timber.d("Firestore:feed.doOnNext1" + it) }
-                .doOnError { if (DEBUG) Timber.d(it, "Firestore:feed.doOnError") }
                 .map { it.map { it.toObject(Post::class.java) } }
-                .doOnNext { if (DEBUG) Timber.d("Firestore:feed.doOnNext2" + it) }
-                .doOnError { if (DEBUG) Timber.d(it, "Firestore:feed.doOnError2") }
                 .toFlowable(BackpressureStrategy.DROP)
     }
 
     companion object {
-        private const val DEBUG: Boolean = true
+        private const val DEBUG: Boolean = false
     }
 }
