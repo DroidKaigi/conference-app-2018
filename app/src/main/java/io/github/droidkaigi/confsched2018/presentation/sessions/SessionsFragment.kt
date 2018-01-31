@@ -1,12 +1,12 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.Menu
@@ -14,12 +14,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.github.droidkaigi.confsched2018.BuildConfig
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
+import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -33,6 +35,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener {
     private lateinit var binding: FragmentSessionsBinding
@@ -92,7 +95,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager)
+        sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager, activity!!)
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
         sessionsViewModel = ViewModelProviders
@@ -167,10 +170,23 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 }
 
 class SessionsViewPagerAdapter(
-        fragmentManager: FragmentManager
-) : FragmentStatePagerAdapter(fragmentManager) {
+        fragmentManager: FragmentManager,
+        private val activity: Activity
+) : FragmentStateNullablePagerAdapter(fragmentManager) {
     companion object {
         private val startDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    }
+
+    private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
+    private var currentTab by Delegates.observable<Tab?>(null) { _, old, new ->
+        if (old != new && new != null) {
+            val key = when (new) {
+                Tab.All -> AllSessionsFragment::class.java.simpleName
+                is Tab.RoomTab -> RoomSessionsFragment::class.java.simpleName + new.room.name
+                is Tab.TimeTab -> ScheduleSessionsFragment::class.java.simpleName + new.title
+            }
+            fireBaseAnalytics.setCurrentScreen(activity, null, key)
+        }
     }
 
     private val tabs = arrayListOf<Tab>()
@@ -184,7 +200,11 @@ class SessionsViewPagerAdapter(
                 Tab("Day${schedule.dayNumber} / ${startDateFormat.format(schedule.startTime)}")
     }
 
-    private fun setupTabs(otherTabs: List<Tab>) {
+    private fun maySetupTabs(otherTabs: List<Tab>) {
+        if (tabs.isNotEmpty() && tabs.subList(1, tabs.size) == otherTabs) {
+            return
+        }
+
         tabs.clear()
         tabs.add(Tab.All)
         tabs.addAll(otherTabs)
@@ -249,14 +269,19 @@ class SessionsViewPagerAdapter(
         }
     }
 
-    private fun setRooms(rooms: List<Room>) {
+    override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
+        super.setPrimaryItem(container, position, o)
+        currentTab = tabs.getOrNull(position)
+    }
+
+    fun setRooms(rooms: List<Room>) {
         if (rooms != roomTabs.map { it.room }) {
             roomTabs = rooms.map {
                 Tab.RoomTab(it)
             }.toMutableList()
         }
 
-        setupTabs(roomTabs)
+        maySetupTabs(roomTabs)
     }
 
     private fun setSchedules(schedules: List<SessionSchedule>) {
@@ -266,6 +291,6 @@ class SessionsViewPagerAdapter(
             }.toMutableList()
         }
 
-        setupTabs(schedulesTabs)
+        maySetupTabs(schedulesTabs)
     }
 }

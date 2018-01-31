@@ -5,13 +5,13 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import java.util.Date
 
 interface SessionRepository {
     val sessions: Flowable<List<Session>>
@@ -28,4 +28,9 @@ interface SessionRepository {
     @CheckResult fun refreshSessions(): Completable
     @CheckResult fun favorite(session: Session.SpeechSession): Single<Boolean>
     @CheckResult fun search(query: String): Single<SearchResult>
+    @CheckResult fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable
+    @CheckResult fun submitSessionFeedback(
+            session: Session.SpeechSession,
+            sessionFeedback: SessionFeedback
+    ): Completable
 }

@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.GithubApi
 import io.github.droidkaigi.confsched2018.data.db.ContributorDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toContributors
@@ -17,7 +18,7 @@ class ContributorDataRepository @Inject constructor(
         private val contributorDatabase: ContributorDatabase,
         private val schedulerProvider: SchedulerProvider
 ) : ContributorRepository {
-    override fun loadContributors(): Completable {
+    @CheckResult override fun loadContributors(): Completable {
         // We want to implement paging logic,
         // But The GitHub API does not return the total count of contributors in response data.
         // And we want to show total count.

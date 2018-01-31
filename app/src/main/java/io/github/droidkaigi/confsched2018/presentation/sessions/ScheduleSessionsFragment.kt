@@ -47,6 +47,10 @@ class ScheduleSessionsFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onFeedbackListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentScheduleSessionsBinding.inflate(inflater, container, false)
@@ -71,7 +75,7 @@ class ScheduleSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, onFeedbackListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -105,8 +109,8 @@ class ScheduleSessionsFragment : Fragment(), Injectable {
         fun newInstance(schedule: SessionSchedule): ScheduleSessionsFragment =
                 ScheduleSessionsFragment().apply {
                     arguments = Bundle().apply {
-                    putSerializable(ARG_SCHEDULE, schedule)
+                        putSerializable(ARG_SCHEDULE, schedule)
+                    }
                 }
-            }
     }
 }

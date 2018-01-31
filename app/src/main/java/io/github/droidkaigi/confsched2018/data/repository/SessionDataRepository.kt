@@ -1,6 +1,9 @@
 package io.github.droidkaigi.confsched2018.data.repository
 
+import android.support.annotation.CheckResult
+import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
+import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
@@ -13,6 +16,7 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
@@ -27,6 +31,7 @@ import javax.inject.Inject
 
 class SessionDataRepository @Inject constructor(
         private val api: DroidKaigiApi,
+        private val sessionFeedbackApi: SessionFeedbackApi,
         private val sessionDatabase: SessionDatabase,
         private val favoriteDatabase: FavoriteDatabase,
         private val schedulerProvider: SchedulerProvider
@@ -50,10 +55,12 @@ class SessionDataRepository @Inject constructor(
                             favoriteDatabase.favorites.onErrorReturn { listOf() }
                     )
                             .doOnNext { if (DEBUG) Timber.d("favorites") },
-                    { sessionEntities, speakerEntities, favList ->
+                    sessionDatabase.getAllSessionFeedback()
+                            .doOnNext { if (DEBUG) Timber.d("feedback") },
+                    { sessionEntities, speakerEntities, favList, feedbacks ->
                         val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
                         val speakerSessions = sessionEntities
-                                .map { it.toSession(speakerEntities, favList, firstDay) }
+                                .map { it.toSession(speakerEntities, favList, feedbacks, firstDay) }
                                 .sortedWith(compareBy(
                                         { it.startTime.getTime() },
                                         { it.room.id }
@@ -70,7 +77,8 @@ class SessionDataRepository @Inject constructor(
                 it.map { it.toSchedule() }.distinct().sorted()
             }
 
-    private val specialSessions: List<Session.SpecialSession> by lazy {
+    @VisibleForTesting
+    val specialSessions: List<Session.SpecialSession> by lazy {
         SpecialSessions.getSessions()
     }
 
@@ -125,14 +133,14 @@ class SessionDataRepository @Inject constructor(
             }
 
     override val scheduleSessions: Flowable<Map<SessionSchedule, List<Session>>> =
-        sessions.map {
-            it.groupBy { it.toSchedule() }
-        }
+            sessions.map {
+                it.groupBy { it.toSchedule() }
+            }
 
-    override fun favorite(session: Session.SpeechSession): Single<Boolean> =
+    @CheckResult override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 
-    override fun refreshSessions(): Completable {
+    @CheckResult override fun refreshSessions(): Completable {
         return api.getSessions()
                 .doOnSuccess { response ->
                     sessionDatabase.save(response)
@@ -141,7 +149,7 @@ class SessionDataRepository @Inject constructor(
                 .toCompletable()
     }
 
-    override fun search(query: String): Single<SearchResult> = Singles.zip(
+    @CheckResult override fun search(query: String): Single<SearchResult> = Singles.zip(
             sessions.map {
                 it
                         .filterIsInstance<Session.SpeechSession>()
@@ -153,6 +161,29 @@ class SessionDataRepository @Inject constructor(
             { sessions: List<Session>, speakers: List<Speaker> ->
                 SearchResult(sessions, speakers)
             })
+
+    @CheckResult override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
+            Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
+                    .subscribeOn(schedulerProvider.computation())
+
+    @CheckResult override fun submitSessionFeedback(
+            session: Session.SpeechSession,
+            sessionFeedback: SessionFeedback
+    ): Completable = sessionFeedbackApi
+            .submitSessionFeedback(
+                    sessionId = session.id,
+                    sessionTitle = session.title,
+                    totalEvaluation = sessionFeedback.totalEvaluation,
+                    relevancy = sessionFeedback.relevancy,
+                    asExpected = sessionFeedback.asExpected,
+                    difficulty = sessionFeedback.difficulty,
+                    knowledgeable = sessionFeedback.knowledgeable,
+                    comment = sessionFeedback.comment
+            )
+            .flatMapCompletable {
+                return@flatMapCompletable saveSessionFeedback(sessionFeedback)
+            }
+            .subscribeOn(schedulerProvider.computation())
 
     companion object {
         const val DEBUG = false

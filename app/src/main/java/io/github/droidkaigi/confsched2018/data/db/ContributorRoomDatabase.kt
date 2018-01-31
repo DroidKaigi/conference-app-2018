@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.db
 
 import android.arch.persistence.room.RoomDatabase
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.response.Contributor
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toEntities
 import io.github.droidkaigi.confsched2018.data.db.dao.ContributorDao
@@ -12,7 +13,7 @@ class ContributorRoomDatabase @Inject constructor(
         private val database: RoomDatabase,
         private val dao: ContributorDao
 ) : ContributorDatabase {
-    override fun getAll(): Flowable<List<ContributorEntity>> =
+    @CheckResult override fun getAll(): Flowable<List<ContributorEntity>> =
             dao.getAllContributors()
 
     override fun save(contributors: List<Contributor>) {

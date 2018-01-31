@@ -7,6 +7,7 @@ import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
 import io.github.droidkaigi.confsched2018.data.api.FeedApi
 import io.github.droidkaigi.confsched2018.data.api.GithubApi
+import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.ContributorDatabase
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
@@ -24,19 +25,20 @@ import io.github.droidkaigi.confsched2018.util.rx.AppSchedulerProvider
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import javax.inject.Singleton
 
-@Module(includes = [(ViewModelModule::class)])
-internal object AppModule {
+@Module internal object AppModule {
     @Singleton @Provides @JvmStatic
     fun provideContext(application: Application): Context = application
 
     @Singleton @Provides @JvmStatic
     fun provideSessionRepository(
             api: DroidKaigiApi,
+            sessionFeedbackApi: SessionFeedbackApi,
             sessionDatabase: SessionDatabase,
             favoriteDatabase: FavoriteDatabase,
             schedulerProvider: SchedulerProvider
     ): SessionRepository =
-            SessionDataRepository(api, sessionDatabase, favoriteDatabase, schedulerProvider)
+            SessionDataRepository(api, sessionFeedbackApi, sessionDatabase, favoriteDatabase,
+                    schedulerProvider)
 
     @Singleton @Provides @JvmStatic
     fun provideFeedRepository(

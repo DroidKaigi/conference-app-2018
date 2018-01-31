@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.data.db
 
 import android.arch.persistence.room.RoomDatabase
+import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.response.Response
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionEntities
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSessionFeedbackEntity
@@ -26,17 +27,18 @@ class SessionRoomDatabase @Inject constructor(
         private val sessionSpeakerJoinDao: SessionSpeakerJoinDao,
         private val sessionFeedbackDao: SessionFeedbackDao
 ) : SessionDatabase {
-    override fun getAllSessions(): Flowable<List<SessionWithSpeakers>> =
+    @CheckResult override fun getAllSessions(): Flowable<List<SessionWithSpeakers>> =
             sessionSpeakerJoinDao.getAllSessions()
 
-    override fun getAllSessionFeedback(): Flowable<List<SessionFeedbackEntity>> =
+    @CheckResult override fun getAllSessionFeedback(): Flowable<List<SessionFeedbackEntity>> =
             sessionFeedbackDao.getAllSessionFeedback()
 
+    @CheckResult
     override fun getAllSpeaker(): Flowable<List<SpeakerEntity>> = speakerDao.getAllSpeaker()
 
-    override fun getAllRoom(): Flowable<List<RoomEntity>> = sessionDao.getAllRoom()
+    @CheckResult override fun getAllRoom(): Flowable<List<RoomEntity>> = sessionDao.getAllRoom()
 
-    override fun getAllTopic(): Flowable<List<TopicEntity>> = sessionDao.getAllTopic()
+    @CheckResult override fun getAllTopic(): Flowable<List<TopicEntity>> = sessionDao.getAllTopic()
 
     override fun save(response: Response) {
         database.runInTransaction {

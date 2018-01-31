@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2018.util.ext.drawable
 data class SpeechSessionItem(
         override val session: Session.SpeechSession,
         private val onFavoriteClickListener: (Session.SpeechSession) -> Unit,
+        private val onFeedbackListener: (Session.SpeechSession) -> Unit,
         private val isShowDayNumber: Boolean = false,
         private val searchQuery: String = "",
         private val simplify: Boolean = false,
@@ -29,8 +30,8 @@ data class SpeechSessionItem(
         viewBinding.speakerSummary.setSpeakerIdInDetail(userIdInDetail)
         viewBinding.isShowDayNumber = isShowDayNumber
         viewBinding.simplify = simplify
-        viewBinding.goToQuestionnaire.setOnClickListener {
-            //TODO: will implement this. Please check comments of issue #141
+        viewBinding.goToFeedback.setOnClickListener {
+            onFeedbackListener(session)
         }
         val levelDrawable = viewBinding.context.drawable(when (session.level) {
             is Level.Beginner -> R.drawable.ic_beginner_lightgreen_20dp
