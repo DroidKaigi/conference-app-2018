@@ -1,16 +1,20 @@
 package io.github.droidkaigi.confsched2018.presentation
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
+import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppFragment
+import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsActivity
 import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsFragment
 import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
@@ -21,6 +25,8 @@ import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
 import io.github.droidkaigi.confsched2018.presentation.map.MapFragment
 import io.github.droidkaigi.confsched2018.presentation.search.SearchFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
+import io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackActivity
+import io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackFragment
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
 import io.github.droidkaigi.confsched2018.presentation.settings.SettingsFragment
 import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity
@@ -58,6 +64,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(SessionDetailFragment.newInstance(sessionId))
     }
 
+    fun navigateToFeedback() {
+        replaceFragment(SessionsFeedbackFragment.newInstance())
+    }
+
     fun navigateToMap() {
         replaceFragment(MapFragment.newInstance())
     }
@@ -74,8 +84,8 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(AboutThisAppFragment.newInstance())
     }
 
-    fun navigateToSpeakerDetail(speakerId: String) {
-        replaceFragment(SpeakerDetailFragment.newInstance(speakerId))
+    fun navigateToSpeakerDetail(speakerId: String, transitionName: String?) {
+        replaceFragment(SpeakerDetailFragment.newInstance(speakerId, transitionName))
     }
 
     fun navigateToTopicDetail(topicId: Int) {
@@ -85,7 +95,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     private fun replaceFragment(fragment: Fragment) {
         fragmentManager
                 .beginTransaction()
-                .replace(containerId, fragment)
+                .replace(containerId, fragment, (fragment as? Findable)?.tagForFinding)
                 .commitAllowingStateLoss()
     }
 
@@ -113,6 +123,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         SessionDetailActivity.start(activity, session)
     }
 
+    fun navigateToSessionsFeedbackActivity(session: Session.SpeechSession) {
+        SessionsFeedbackActivity.start(activity, session)
+    }
+
     fun navigateToMapActivity() {
         MapActivity.start(activity)
     }
@@ -133,11 +147,29 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         SpeakerDetailActivity.start(activity, speakerId)
     }
 
+    fun navigateToSpeakerDetailActivity(speakerId: String, sharedElement: Pair<View, String>) {
+        SpeakerDetailActivity.start(activity, sharedElement, speakerId)
+    }
+
     fun navigateToTopicDetailActivity(topicId: Int) {
         TopicDetailActivity.start(activity, topicId)
     }
 
     fun navigateToExternalBrowser(url: String) {
+        val uri = run {
+            val uri = Uri.parse(url)
+            if (uri.host.contains("facebook")) {
+                return@run Uri.parse(FACEBOOK_SCHEME + url)
+            }
+            uri
+        }
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        val intentResolveInfo = activity.packageManager.resolveActivity(
+                intent,
+                PackageManager.MATCH_DEFAULT_ONLY
+        )
+        val resolvePackageName = intentResolveInfo.activityInfo.packageName
+
         val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
@@ -148,14 +180,19 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 }
 
         val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+        if (resolvePackageName != null && resolvePackageName != packageName) {
+            // Open specific app
+            activity.startActivity(intent)
+            return
+        }
         packageName ?: run {
             // Cannot use custom tabs.
-            activity.startActivity(customTabsIntent.intent.setData(Uri.parse(url)))
+            activity.startActivity(customTabsIntent.intent.setData(uri))
             return
         }
 
         customTabsIntent.intent.`package` = packageName
-        customTabsIntent.launchUrl(activity, Uri.parse(url))
+        customTabsIntent.launchUrl(activity, uri)
     }
 
     fun navigateImplicitly(url: String?) {
@@ -165,5 +202,9 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 activity.startActivity(intent)
             }
         }
+    }
+
+    companion object {
+        private const val FACEBOOK_SCHEME = "fb://facewebmodal/f?href="
     }
 }

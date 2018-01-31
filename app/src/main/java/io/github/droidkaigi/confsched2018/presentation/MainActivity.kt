@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -8,16 +9,22 @@ import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
 import android.support.annotation.MenuRes
 import android.support.annotation.StringRes
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.Fragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
+import io.github.droidkaigi.confsched2018.di.ViewModelFactory
 import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActivity
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
+import io.github.droidkaigi.confsched2018.presentation.common.view.BottomNavigationBehavior
+import io.github.droidkaigi.confsched2018.presentation.common.view.BottomNavigationHideBehavior
 import io.github.droidkaigi.confsched2018.util.ext.disableShiftMode
 import io.github.droidkaigi.confsched2018.util.ext.elevationForPostLollipop
+import io.github.droidkaigi.confsched2018.util.ext.observe
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), HasSupportFragmentInjector {
@@ -25,6 +32,11 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
 
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var drawerMenu: DrawerMenu
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+
+    private val mainViewModel: MainViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+    }
 
     private val binding: ActivityMainBinding by lazy {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
@@ -34,11 +46,31 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
 
+        mainViewModel.localTimeConfig.observe(this, {
+            forceReloadCurrentFragment()
+        })
+        mainViewModel.bottomNavigationBarConfig.observe(this, {
+            setBottomNavigationBehavior()
+        })
+        mainViewModel.lastTimeZoneChangeIntent.observe(this, {
+            forceReloadCurrentFragment()
+        })
+
         setupBottomNavigation(savedInstanceState)
         drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar, true)
     }
 
+    private fun forceReloadCurrentFragment() {
+        binding.bottomNavigation.apply {
+            menu.findItem(selectedItemId)?.let {
+                BottomNavigationItem.forId(it.itemId)
+                        .navigate(navigationController)
+            }
+        }
+    }
+
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
+        setBottomNavigationBehavior()
         binding.bottomNavigation.disableShiftMode()
         binding.bottomNavigation.itemIconTintList = null
         binding.bottomNavigation.setOnNavigationItemSelectedListener({ item ->
@@ -58,7 +90,23 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
                 else -> binding.bottomNavigation.selectedItemId = R.id.navigation_sessions
             }
         }
-        binding.bottomNavigation.setOnNavigationItemReselectedListener { }
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { item ->
+            val navigationItem = BottomNavigationItem
+                    .forId(item.itemId)
+            val fragment = supportFragmentManager.findFragmentByTag(navigationItem.name)
+            if (fragment is BottomNavigationItem.OnReselectedListener) {
+                fragment.onReselected()
+            }
+        }
+    }
+
+    private fun setBottomNavigationBehavior() {
+        (binding.bottomNavigation.layoutParams as CoordinatorLayout.LayoutParams).behavior =
+                if (Prefs.enableHideBottomNavigationBar) {
+                    BottomNavigationHideBehavior()
+                } else {
+                    BottomNavigationBehavior()
+                }
     }
 
     private fun setupToolbar(navigationItem: BottomNavigationItem) {
@@ -112,6 +160,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
         FEED(R.id.navigation_feed, R.string.feed_title, null, true, {
             navigateToFeed()
         });
+
+        interface OnReselectedListener {
+            fun onReselected()
+        }
 
         companion object {
             fun forId(@IdRes id: Int): BottomNavigationItem {

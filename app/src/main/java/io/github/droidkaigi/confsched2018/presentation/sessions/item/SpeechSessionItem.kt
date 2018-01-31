@@ -7,16 +7,15 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.ext.context
 import io.github.droidkaigi.confsched2018.util.ext.drawable
-import java.util.Calendar
-import java.util.Date
-import java.util.TimeZone
 
 data class SpeechSessionItem(
         override val session: Session.SpeechSession,
         private val onFavoriteClickListener: (Session.SpeechSession) -> Unit,
+        private val onFeedbackListener: (Session.SpeechSession) -> Unit,
         private val isShowDayNumber: Boolean = false,
         private val searchQuery: String = "",
-        private val simplify: Boolean = false
+        private val simplify: Boolean = false,
+        private val userIdInDetail: String? = null
 ) : BindableItem<ItemSpeechSessionBinding>(
         session.id.toLong()
 ), SessionItem {
@@ -28,11 +27,11 @@ data class SpeechSessionItem(
         viewBinding.favorite.setOnClickListener {
             onFavoriteClickListener(session)
         }
+        viewBinding.speakerSummary.setSpeakerIdInDetail(userIdInDetail)
         viewBinding.isShowDayNumber = isShowDayNumber
         viewBinding.simplify = simplify
-        viewBinding.isFinished = isFinishedSession(session)
-        viewBinding.goToQuestionnaire.setOnClickListener {
-            //TODO: will implement this. Please check comments of issue #141
+        viewBinding.goToFeedback.setOnClickListener {
+            onFeedbackListener(session)
         }
         val levelDrawable = viewBinding.context.drawable(when (session.level) {
             is Level.Beginner -> R.drawable.ic_beginner_lightgreen_20dp
@@ -44,10 +43,4 @@ data class SpeechSessionItem(
 
     override fun getLayout(): Int = R.layout.item_speech_session
 
-    private fun isFinishedSession(session: Session.SpeechSession): Boolean {
-        val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("JST"))
-        cal.timeInMillis = System.currentTimeMillis()
-        val now: Date = cal.time
-        return now.time > session.endTime.getTime()
-    }
 }

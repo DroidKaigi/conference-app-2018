@@ -44,7 +44,7 @@ class DateSessionsSectionTest {
 
         @Test fun emptySessions() {
             assertItemCount(0)
-            section.updateSessions(emptyList(), {})
+            section.updateSessions(emptyList(), {}, {})
             assertItemCount(0)
         }
 
@@ -55,13 +55,13 @@ class DateSessionsSectionTest {
             sections[0] : DateHeaderItem()
             sections[1] : SpeechSessionItem()
              */
-            section.updateSessions(listOf(createDummySession()), {})
+            section.updateSessions(listOf(createDummySession()), {}, {})
             assertItemCount(2)
             assertItemInstanceOf(0, DateHeaderItem::class.java)
             assertItemInstanceOf(1, SpeechSessionItem::class.java)
 
             // re-update test
-            section.updateSessions(listOf(createDummySession()), {})
+            section.updateSessions(listOf(createDummySession()), {}, {})
             assertItemCount(2)
             assertItemInstanceOf(0, DateHeaderItem::class.java)
             assertItemInstanceOf(1, SpeechSessionItem::class.java)
@@ -74,7 +74,7 @@ class DateSessionsSectionTest {
              */
             section.updateSessions(listOf(
                     createDummySpecialSession(),
-                    createDummySession()), {})
+                    createDummySession()), {}, {})
             assertItemCount(3)
             assertItemInstanceOf(0, DateHeaderItem::class.java)
             assertItemInstanceOf(1, SpecialSessionItem::class.java)
@@ -87,7 +87,7 @@ class DateSessionsSectionTest {
 
         @Test fun emptySessions() {
             assertDateHeaderPosition(Date(), 0)
-            section.updateSessions(emptyList(), {})
+            section.updateSessions(emptyList(), {}, {})
             assertDateHeaderPosition(Date(), 0)
         }
 
@@ -108,7 +108,7 @@ class DateSessionsSectionTest {
                     createDummySession(startTime = 20000, endTime = 20000),
                     createDummySession(startTime = 20000, endTime = 20000),
                     createDummySession(startTime = 30000, endTime = 30000)
-            ), {})
+            ), {}, {})
 
             assertItemCount(8)
             assertDateHeaderPosition(Date(1000), 0)
@@ -128,7 +128,7 @@ class DateSessionsSectionTest {
 
         @Test fun emptySessions() {
             assertDateNumberOrNull(0, null)
-            section.updateSessions(emptyList(), {})
+            section.updateSessions(emptyList(), {}, {})
             assertDateNumberOrNull(0, null)
         }
 
@@ -148,7 +148,7 @@ class DateSessionsSectionTest {
                     createDummySession(dayNumber = 2, startTime = 20000, endTime = 20000),
                     createDummySession(dayNumber = 2, startTime = 20000, endTime = 20000),
                     createDummySession(dayNumber = 2, startTime = 20000, endTime = 20000)
-            ), {})
+            ), {}, {})
 
             assertItemCount(7)
             assertDateNumberOrNull(0, 1)

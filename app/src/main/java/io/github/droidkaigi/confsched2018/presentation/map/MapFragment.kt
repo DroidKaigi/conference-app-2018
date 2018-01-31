@@ -1,10 +1,13 @@
 package io.github.droidkaigi.confsched2018.presentation.map
 
-import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.DrawableRes
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,18 +15,17 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentMapBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
-import javax.inject.Inject
 
 class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private lateinit var binding: FragmentMapBinding
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var mapView: MapView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +46,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
         binding.placeText.setOnClickListener {
             val placeName = context?.getString(R.string.map_place_name)
-            val placeUri = Uri.parse("geo:0,0?q=$placeLat,$placeLang($placeName)")
+            val placeUri = Uri.parse("geo:0,0?q=$PLACE_LAT,$PLACE_LNG($placeName)")
             val mapIntent = Intent().apply {
                 action = Intent.ACTION_VIEW
                 data = placeUri
@@ -55,8 +57,17 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
-            val latLng = LatLng(placeLat, placeLang)
-            addMarker(MarkerOptions().position(latLng))
+            val latLng = LatLng(PLACE_LAT, PLACE_LNG)
+
+            // custom pin
+            val pin: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(getBitmap(R.drawable
+                    .ic_place_orange_36dp))
+
+            val marker = addMarker(MarkerOptions()
+                    .position(latLng)
+                    .icon(pin)
+                    .title(context?.getString(R.string.map_place_name)))
+            marker.showInfoWindow()
 
             val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16f)
             moveCamera(cameraUpdate)
@@ -98,10 +109,21 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
         mapView.onLowMemory()
     }
 
-    companion object {
-        fun newInstance(): MapFragment = MapFragment()
+    private fun getBitmap(@DrawableRes resource: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context!!, resource)
+        val canvas = Canvas()
+        val bitmap = Bitmap.createBitmap(drawable!!.intrinsicWidth, drawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888)
+        canvas.setBitmap(bitmap)
+        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        drawable.draw(canvas)
+        return bitmap
+    }
 
-        private const val placeLat = 35.6957954
-        private const val placeLang = 139.69038920000003
+    companion object {
+        private const val PLACE_LAT = 35.6957954
+        private const val PLACE_LNG = 139.69038920000003
+
+        fun newInstance(): MapFragment = MapFragment()
     }
 }

@@ -20,6 +20,7 @@
             android:id="@+id/speaker_image"
             android:layout_width="@dimen/speaker_image"
             android:layout_height="@dimen/speaker_image"
+            android:contentDescription="@string/speaker_content_description"
             android:layout_margin="4dp"
             app:image_url="@{speaker.imageUrl}"
             app:layout_constraintStart_toStartOf="parent"

@@ -6,7 +6,8 @@ import android.content.Context
 import android.os.Build
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.presentation.common.broadcastreceiver.NotificationBroadcastReceiver
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationBroadcastReceiver
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationContent
 import io.github.droidkaigi.confsched2018.util.ext.toReadableDateTimeString
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -51,12 +52,10 @@ class SessionAlarm @Inject constructor(val context: Context) {
                 displaySTime,
                 displayETime,
                 session.room.name)
+        val notificationContent = NotificationContent.FavoriteSessionStart(title, text, session.id)
         val intent = NotificationBroadcastReceiver.createIntent(
                 context,
-                session.id,
-                title,
-                text,
-                NotificationUtil.ChannelType.FAVORITE_SESSION_START
+                notificationContent
         )
         return PendingIntent.getBroadcast(
                 context,

@@ -42,6 +42,10 @@ class TopicDetailFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onFeedbackListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentTopicDetailBinding.inflate(
@@ -59,7 +63,9 @@ class TopicDetailFragment : Fragment(), Injectable {
         topicDetailViewModel.topicSessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsSection.updateSessions(result.data.second, onFavoriteClickListener)
+                    sessionsSection.updateSessions(result.data.second,
+                            onFavoriteClickListener,
+                            onFeedbackListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)

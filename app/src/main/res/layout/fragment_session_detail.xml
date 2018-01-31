@@ -69,6 +69,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:textIsSelectable="true"
                             android:text="@{session.title}"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -108,15 +109,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="6dp"
-                            android:paddingBottom="6dp"
-                            android:paddingEnd="12dp"
-                            tools:drawableStart="@drawable/ic_beginner_lightgreen_20dp"
                             android:drawablePadding="6dp"
                             android:gravity="center_vertical"
+                            android:paddingBottom="6dp"
+                            android:paddingEnd="12dp"
                             android:text="@{session.level.name}"
                             android:textColor="?colorAccent"
                             app:layout_constraintStart_toStartOf="@id/level_background"
                             app:layout_constraintTop_toTopOf="@id/level_background"
+                            tools:drawableStart="@drawable/ic_beginner_lightgreen_20dp"
                             tools:text="初心者向け"
                             />
                         <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
@@ -158,7 +159,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
+                    <TextView
+                        android:id="@+id/finished_session_check"
+                        style="@style/TextStyle.App.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:drawablePadding="4dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/session_finished"
+                        android:textColor="@android:color/black"
+                        android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:vectorDrawableStart="@{@drawable/ic_check_circle_black_24dp}"
+                        tools:drawableStart="@drawable/ic_check_circle_black_24dp"
+                        />
+                    <Button
+                        android:id="@+id/go_to_feedback"
+                        style="@style/GoToFeedback"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/session_go_to_feedback"
+                        android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/finished_session_check"
+                        />
 
+                    <View
+                        android:id="@+id/divider_finished_session"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/divider_background"
+                        android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/go_to_feedback"
+                        />
                     <TextView
                         android:id="@+id/session_day_number"
                         style="@style/TextStyle.App.Caption"
@@ -169,7 +211,7 @@
                         android:layout_marginTop="24dp"
                         android:text='@{"DAY"+session.dayNumber+" / "}'
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
                         tools:text="DAY1 / "
                         />
                     <TextView
@@ -204,6 +246,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        android:textIsSelectable="@{true}"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
@@ -214,6 +257,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/session_room"
                         app:layout_constraintVertical_bias="0.0"
+                        app:menuWebSearchEnabled="@{true}"
                         tools:text="A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic"
                         />
 
@@ -320,7 +364,7 @@
                 app:layout_anchorGravity="bottom|end"
                 app:srcCompat="@drawable/state_favorite_icon"
                 app:tintCompat="@{@colorStateList/state_favorite_color}"
-                />
+                android:scaleType="center"/>
 
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>

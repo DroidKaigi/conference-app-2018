@@ -2,6 +2,9 @@ package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.support.v4.util.Pair
+import android.support.v7.app.AppCompatActivity
+import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -28,11 +31,11 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     private val speakerList: ArrayList<Speaker> = ArrayList()
     private val speakerContainer: RecyclerView
     private val customAttributes: CustomAttributes
+    private var speakerIdInDetail: String? = null
 
     private fun customAttributesFrom(context: Context, attrs: AttributeSet?): CustomAttributes {
-        val res = context.resources
         val defaultAttributes = CustomAttributes(
-                textColor = 0
+                textColor = Color.BLACK
         )
 
         return attrs?.let {
@@ -56,7 +59,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.view_speakers_summary_layout, this)
         speakerContainer = findViewById(R.id.speaker_container)
 
-        speakerContainer.setLayoutManager(LinearLayoutManager(context))
+        speakerContainer.layoutManager = LinearLayoutManager(context)
         setSpeakers(speakerList)
     }
 
@@ -73,21 +76,35 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
      *     />
      */
     fun setSpeakers(speakers: List<Speaker>) {
+        if (speakerList == speakers) return
         speakerList.clear()
         speakerList.addAll(speakers)
 
         updateSpeakers()
     }
 
+    fun setSpeakerIdInDetail(speakerId: String?) {
+        speakerIdInDetail = speakerId
+    }
+
     private fun updateSpeakers() {
         if (speakerList.isEmpty()) {
         } else {
-            var speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
+            val speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
             speakerContainer.adapter = speakerAdapter
 
             speakerAdapter.setOnItemClickListener(object : SpeakersAdapter.OnItemClickListener {
                 override fun onClick(view: View, speakerId: String) {
-                    SpeakerDetailActivity.start(context, speakerId)
+                    if (speakerIdInDetail == null ||
+                            (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
+                        val sharedElement = Pair(
+                                view.findViewById<View>(R.id.speaker_image),
+                                speakerId)
+                        SpeakerDetailActivity.start(
+                                activity = context as AppCompatActivity,
+                                sharedElement = sharedElement,
+                                speakerId = speakerId)
+                    }
                 }
             })
         }

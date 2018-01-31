@@ -5,7 +5,6 @@
     >
 
     <data>
-
         <variable
             name="session"
             type="io.github.droidkaigi.confsched2018.model.Session.SpeechSession"
@@ -23,10 +22,6 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@animator/card_state_list_anim"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop"
         >
 
@@ -110,6 +105,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 app:speakers="@{session.speakers}"
+                app:textColor="@color/black"
                 />
 
             <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
