@@ -51,18 +51,18 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         val roomTabMenu = menu.findItem(R.id.room_tab_mode)
-        val timeTabMenu = menu.findItem(R.id.time_tab_mode)
+        val scheduleTabMenu = menu.findItem(R.id.schedule_tab_mode)
 
         Timber.d("onPrepareOptionsMenu")
 
         when (sessionsViewModel.tabMode) {
-            is SessionTabMode.TimeTabMode -> {
+            is SessionTabMode.ScheduleTabMode -> {
                 roomTabMenu.isVisible = false
-                timeTabMenu.isVisible = true
-                timeTabMenu.isEnabled = true
+                scheduleTabMenu.isVisible = true
+                scheduleTabMenu.isEnabled = true
             }
             is SessionTabMode.RoomTabMode -> {
-                timeTabMenu.isVisible = false
+                scheduleTabMenu.isVisible = false
                 roomTabMenu.isVisible = true
                 roomTabMenu.isEnabled = true
             }
@@ -73,9 +73,9 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         return when (item.itemId) {
             R.id.room_tab_mode -> true.apply {
                 item.isEnabled = false
-                sessionsViewModel.changeTabMode(SessionTabMode.TimeTabMode)
+                sessionsViewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
             }
-            R.id.time_tab_mode -> true.apply {
+            R.id.schedule_tab_mode -> true.apply {
                 item.isEnabled = false
                 sessionsViewModel.changeTabMode(SessionTabMode.RoomTabMode)
             }
@@ -146,7 +146,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
                     fragment.scrollToCurrentSession()
                 }
             }
-            is SessionTabMode.TimeTabMode -> {
+            is SessionTabMode.ScheduleTabMode -> {
                 val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
                         .toInstant().toEpochMilli())
                 val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition(now)
@@ -203,7 +203,7 @@ class SessionsViewPagerAdapter(
                 RoomSessionsFragment.newInstance(tab.room)
             }
             is Tab.TimeTab -> {
-                TimeSessionsFragment.newInstance(tab.schedule)
+                ScheduleSessionsFragment.newInstance(tab.schedule)
             }
         }
     }

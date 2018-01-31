@@ -7,7 +7,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import android.support.annotation.MainThread
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
@@ -20,7 +19,6 @@ import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import java.util.Date
 import javax.inject.Inject
 
 class SessionsViewModel @Inject constructor(
@@ -35,7 +33,7 @@ class SessionsViewModel @Inject constructor(
             .toResult(schedulerProvider)
             .toLiveData()
     }
-    private val startTimes: LiveData<Result<List<SessionSchedule>>> by lazy {
+    private val schedules: LiveData<Result<List<SessionSchedule>>> by lazy {
         repository.schedules
                 .toResult(schedulerProvider)
                 .toLiveData()
@@ -45,9 +43,9 @@ class SessionsViewModel @Inject constructor(
         get() = tabModeLiveData.value ?: throw IllegalStateException("null is not allowed")
 
     val tabStuffs: LiveData<Result<List<Any>>> = Transformations.switchMap(tabModeLiveData) {
-        when(it) {
+        when (it) {
             is SessionTabMode.RoomTabMode -> rooms as LiveData<Result<List<Any>>>
-            is SessionTabMode.TimeTabMode -> startTimes as LiveData<Result<List<Any>>>
+            is SessionTabMode.ScheduleTabMode -> schedules as LiveData<Result<List<Any>>>
         }
     }
     val isLoading: LiveData<Boolean> by lazy {

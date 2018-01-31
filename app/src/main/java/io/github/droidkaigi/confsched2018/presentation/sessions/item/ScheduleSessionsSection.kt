@@ -5,7 +5,7 @@ import com.xwray.groupie.Section
 import io.github.droidkaigi.confsched2018.BuildConfig
 import io.github.droidkaigi.confsched2018.model.Session
 
-class TimeBasedSessionsSection : Section() {
+class ScheduleSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit

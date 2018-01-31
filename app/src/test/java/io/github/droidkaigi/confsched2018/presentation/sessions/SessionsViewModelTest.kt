@@ -72,7 +72,7 @@ class SessionsViewModelTest {
     @Test fun sessions_times_Empty() {
         whenever(repository.schedules).doReturn(Flowable.empty())
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.TimeTabMode)
+        viewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
         val result: Observer<Result<List<Any>>> = mock()
 
         viewModel.tabStuffs.observeForever(result)
@@ -85,7 +85,7 @@ class SessionsViewModelTest {
         val schedules = listOf(mock<SessionSchedule>())
         whenever(repository.schedules).doReturn(Flowable.just(schedules))
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.TimeTabMode)
+        viewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
         val result: Observer<Result<List<Any>>> = mock()
 
         viewModel.tabStuffs.observeForever(result)
@@ -98,7 +98,7 @@ class SessionsViewModelTest {
         val runtimeException = RuntimeException("test")
         whenever(repository.schedules).doReturn(Flowable.error(runtimeException))
         viewModel = SessionsViewModel(repository, TestSchedulerProvider())
-        viewModel.changeTabMode(SessionTabMode.TimeTabMode)
+        viewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
         val result: Observer<Result<List<Any>>> = mock()
 
         viewModel.tabStuffs.observeForever(result)

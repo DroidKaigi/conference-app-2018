@@ -35,8 +35,8 @@
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
     <string name="session_go_to_questionnaire">Go To Questionnaire</string>
-    <string name="session_menu_tab_mode_room">Change to Time-based views</string>
-    <string name="session_menu_tab_mode_time">Change to Room-based views</string>
+    <string name="session_menu_tab_mode_room">Change to Schedule-based views</string>
+    <string name="session_menu_tab_mode_schedule">Change to Room-based views</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
