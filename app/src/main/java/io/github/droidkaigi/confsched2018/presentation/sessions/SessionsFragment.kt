@@ -15,7 +15,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.analytics.FirebaseAnalytics
-import io.github.droidkaigi.confsched2018.BuildConfig
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
@@ -59,12 +58,12 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         Timber.d("onPrepareOptionsMenu")
 
         when (sessionsViewModel.tabMode) {
-            is SessionTabMode.ScheduleTabMode -> {
+            SessionTabMode.Schedule -> {
                 roomTabMenu.isVisible = false
                 scheduleTabMenu.isVisible = true
                 scheduleTabMenu.isEnabled = true
             }
-            is SessionTabMode.RoomTabMode -> {
+            SessionTabMode.Room -> {
                 scheduleTabMenu.isVisible = false
                 roomTabMenu.isVisible = true
                 roomTabMenu.isEnabled = true
@@ -76,11 +75,11 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         return when (item.itemId) {
             R.id.room_tab_mode -> true.apply {
                 item.isEnabled = false
-                sessionsViewModel.changeTabMode(SessionTabMode.ScheduleTabMode)
+                sessionsViewModel.changeTabMode(SessionTabMode.Schedule)
             }
             R.id.schedule_tab_mode -> true.apply {
                 item.isEnabled = false
-                sessionsViewModel.changeTabMode(SessionTabMode.RoomTabMode)
+                sessionsViewModel.changeTabMode(SessionTabMode.Room)
             }
             else -> super.onOptionsItemSelected(item)
         }
@@ -105,10 +104,10 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        sessionsViewModel.tabStuffs.observe(this, { result ->
+        sessionsViewModel.tab.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsViewPagerAdapter.setTabStuffs(result.data)
+                    sessionsViewPagerAdapter.setSessionTab(result.data)
                     activity?.invalidateOptionsMenu()
                 }
                 is Result.Failure -> {
@@ -140,7 +139,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 
     override fun onReselected() {
         when (sessionsViewModel.tabMode) {
-            is SessionTabMode.RoomTabMode -> {
+            is SessionTabMode.Room -> {
                 val currentItem = binding.sessionsViewPager.currentItem
                 val fragment = sessionsViewPagerAdapter
                         .instantiateItem(binding.sessionsViewPager, currentItem)
@@ -149,7 +148,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
                     fragment.scrollToCurrentSession()
                 }
             }
-            is SessionTabMode.ScheduleTabMode -> {
+            is SessionTabMode.Schedule -> {
                 val now = Date(ZonedDateTime.now(ZoneId.of(ZoneId.SHORT_IDS["JST"]))
                         .toInstant().toEpochMilli())
                 val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition(now)
@@ -234,6 +233,11 @@ class SessionsViewPagerAdapter(
 
     override fun getCount(): Int = tabs.size
 
+    override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
+        super.setPrimaryItem(container, position, o)
+        currentTab = tabs.getOrNull(position)
+    }
+
     fun getRecentScheduleTabPosition(time: Date): Int {
         val position = schedulesTabs.withIndex().firstOrNull {
             it.value.schedule.startTime > time
@@ -242,36 +246,15 @@ class SessionsViewPagerAdapter(
         return position + 1
     }
 
-    fun setTabStuffs(tabStuffs: List<Any>) {
-        val sample = tabStuffs.firstOrNull()
-
-        when (sample) {
-            is Room -> {
-                if (BuildConfig.DEBUG) {
-                    if (!tabStuffs.all { it is Room }) {
-                        throw IllegalStateException("Tab stuffs contain non-Room class")
-                    }
-                }
-
-                setRooms(tabStuffs as List<Room>)
+    fun setSessionTab(tab: SessionTab) {
+        when (tab) {
+            is SessionTab.Room -> {
+                setRooms(tab.stuffs)
             }
-            is SessionSchedule -> {
-                if (BuildConfig.DEBUG) {
-                    if (!tabStuffs.all { it is SessionSchedule }) {
-                        throw IllegalStateException("Tab stuffs contain non-SessionSchedule class")
-                    }
-                }
-
-                setSchedules(tabStuffs as List<SessionSchedule>)
+            is SessionTab.Schedule -> {
+                setSchedules(tab.stuffs)
             }
-            null -> throw IllegalArgumentException("No tab stuff found")
-            else -> throw IllegalStateException("Unknown tab stuff was passed : $sample")
         }
-    }
-
-    override fun setPrimaryItem(container: ViewGroup, position: Int, o: Any?) {
-        super.setPrimaryItem(container, position, o)
-        currentTab = tabs.getOrNull(position)
     }
 
     fun setRooms(rooms: List<Room>) {
