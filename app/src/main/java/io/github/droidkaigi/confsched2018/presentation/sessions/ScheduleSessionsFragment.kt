@@ -75,7 +75,8 @@ class ScheduleSessionsFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener, onFeedbackListener)
+                    sessionsSection.updateSessions(sessions, onFavoriteClickListener,
+                            onFeedbackListener)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
