@@ -106,7 +106,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
         }
     }
 
-    private fun launchSNSLink(url:String, dialog: BottomSheetDialog) {
+    private fun launchSNSLink(url: String, dialog: BottomSheetDialog) {
         navigationController.navigateToExternalBrowser(url)
         dialog.dismiss()
     }
