@@ -8,7 +8,7 @@ sealed class SessionTab {
     data class Schedule(val stuffs: List<SessionSchedule>) : SessionTab()
 }
 
-sealed class SessionTabMode {
-    object Room : SessionTabMode()
-    object Schedule : SessionTabMode()
+enum class SessionTabMode {
+    ROOM,
+    SCHEDULE
 }

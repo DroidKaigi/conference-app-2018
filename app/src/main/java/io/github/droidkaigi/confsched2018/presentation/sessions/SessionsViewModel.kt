@@ -24,7 +24,7 @@ class SessionsViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel(), LifecycleObserver {
     private val tabModeLiveData = MutableLiveData<SessionTabMode>().apply {
-        postValue(SessionTabMode.Room)
+        postValue(SessionTabMode.ROOM)
     }
     private val rooms: LiveData<Result<SessionTab>> by lazy {
         repository.rooms
@@ -42,8 +42,8 @@ class SessionsViewModel @Inject constructor(
         get() = tabModeLiveData.value ?: throw IllegalStateException("null is not allowed")
     val tab: LiveData<Result<SessionTab>> = tabModeLiveData.switchMap {
         when (it) {
-            SessionTabMode.Room -> rooms
-            SessionTabMode.Schedule -> schedules
+            SessionTabMode.ROOM -> rooms
+            SessionTabMode.SCHEDULE -> schedules
         }
     }
     val isLoading: LiveData<Boolean> by lazy {
