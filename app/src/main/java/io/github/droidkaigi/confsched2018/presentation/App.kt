@@ -33,6 +33,9 @@ open class App : MultiDexApplication(), HasActivityInjector {
         setupCalligraphy()
         setupEmoji()
         setupNotification()
+
+        // TODO:Firestoreのデバッグが終わり次第消す
+        Timber.plant(Timber.DebugTree())
     }
 
     private fun setupFirebase() {
