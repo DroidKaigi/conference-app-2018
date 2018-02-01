@@ -164,7 +164,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
             uri
         }
 
-        val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+        val chromePackageName = CustomTabsHelper.getPackageNameToUse(activity)
 
         val intent = Intent(Intent.ACTION_VIEW, uri)
         val intentResolveInfo = activity.packageManager.resolveActivity(
@@ -173,7 +173,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         )
 
         intentResolveInfo?.activityInfo?.packageName?.let {
-            if (it != packageName) {
+            if (it != chromePackageName) {
                 // Open specific app
                 activity.startActivity(intent)
                 return
@@ -189,13 +189,13 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                     intent.putExtra(Intent.EXTRA_REFERRER, appUri)
                 }
 
-        packageName ?: run {
+        chromePackageName ?: run {
             // Cannot use custom tabs.
             activity.startActivity(customTabsIntent.intent.setData(uri))
             return
         }
 
-        customTabsIntent.intent.`package` = packageName
+        customTabsIntent.intent.`package` = chromePackageName
         customTabsIntent.launchUrl(activity, Uri.parse(url))
     }
 
