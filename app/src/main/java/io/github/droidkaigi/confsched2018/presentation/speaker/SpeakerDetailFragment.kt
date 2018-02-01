@@ -28,6 +28,7 @@ import io.github.droidkaigi.confsched2018.databinding.BottomSheetDialogSpeakerSn
 import io.github.droidkaigi.confsched2018.databinding.FragmentSpeakerDetailBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
@@ -47,6 +48,8 @@ class SpeakerDetailFragment : Fragment(), Injectable {
     private var isEnterTransitionCanceled: Boolean = false
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
+
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     private val speakerDetailViewModel: SpeakerDetailViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SpeakerDetailViewModel::class.java)
@@ -75,7 +78,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
         dialogBinding =
                 BottomSheetDialogSpeakerSnsBinding.inflate(
                         inflater,
-                        container!!,
+                        container,
                         false)
         return binding.root
     }
@@ -89,12 +92,8 @@ class SpeakerDetailFragment : Fragment(), Injectable {
             when (result) {
                 is Result.Success -> {
                     val speaker = result.data.first
-                    binding.speaker = speaker
-                    dialogBinding.speaker = speaker
-                    sessionsSection.updateSessions(result.data.second,
-                            onFavoriteClickListener,
-                            onFeedbackListener,
-                            userIdInDetail = speaker.id)
+                    val sessions = result.data.second
+                    bindSpeaker(speaker, sessions)
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -102,7 +101,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
             }
         })
 
-        val dialog = BottomSheetDialog(context!!).apply {
+        bottomSheetDialog = BottomSheetDialog(context!!).apply {
             setContentView(dialogBinding.root)
             setCancelable(true)
         }
@@ -111,31 +110,35 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             initViewTransition(view, savedInstanceState)
         }
-
-        binding.speakerImage.setOnClickListener {
-            dialog.show()
-        }
-        dialogBinding.speakerDetailTwitter.setOnClickListener {
-            dialogBinding.speaker?.twitterUrl ?: return@setOnClickListener
-            launchSNSLink(dialogBinding.speaker!!.twitterUrl!!, dialog)
-        }
-        dialogBinding.speakerDetailGithub.setOnClickListener {
-            dialogBinding.speaker?.githubUrl ?: return@setOnClickListener
-            launchSNSLink(dialogBinding.speaker!!.githubUrl!!, dialog)
-        }
-        dialogBinding.speakerDetailCompany.setOnClickListener {
-            dialogBinding.speaker?.companyUrl ?: return@setOnClickListener
-            launchSNSLink(dialogBinding.speaker!!.companyUrl!!, dialog)
-        }
-        dialogBinding.speakerDetailBlog.setOnClickListener {
-            dialogBinding.speaker?.blogUrl ?: return@setOnClickListener
-            launchSNSLink(dialogBinding.speaker!!.blogUrl!!, dialog)
-        }
     }
 
-    private fun launchSNSLink(url: String, dialog: BottomSheetDialog) {
-        navigationController.navigateToExternalBrowser(url)
-        dialog.dismiss()
+    private fun bindSpeaker(speaker: Speaker, sessions: List<Session.SpeechSession>) {
+        binding.speaker = speaker
+        dialogBinding.speaker = speaker
+        sessionsSection.updateSessions(sessions,
+                onFavoriteClickListener,
+                onFeedbackListener,
+                userIdInDetail = speaker.id)
+        binding.speakerImage.setOnClickListener {
+            bottomSheetDialog.show()
+        }
+
+        val navigateBrowserAndDismissDialog: (String) -> Unit = { url ->
+            navigationController.navigateToExternalBrowser(url)
+            bottomSheetDialog.dismiss()
+        }
+        dialogBinding.speakerDetailTwitter.setOnClickListener {
+            speaker.twitterUrl?.let(navigateBrowserAndDismissDialog)
+        }
+        dialogBinding.speakerDetailGithub.setOnClickListener {
+            speaker.githubUrl?.let(navigateBrowserAndDismissDialog)
+        }
+        dialogBinding.speakerDetailCompany.setOnClickListener {
+            speaker.companyUrl?.let(navigateBrowserAndDismissDialog)
+        }
+        dialogBinding.speakerDetailBlog.setOnClickListener {
+            speaker.blogUrl?.let(navigateBrowserAndDismissDialog)
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
