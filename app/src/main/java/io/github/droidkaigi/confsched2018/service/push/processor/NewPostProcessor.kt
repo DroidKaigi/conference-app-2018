@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat
 import com.google.firebase.messaging.RemoteMessage
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationHelper
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -44,7 +45,8 @@ class NewPostProcessor @Inject constructor(
             "alert" -> NotificationCompat.PRIORITY_HIGH
             else -> NotificationCompat.PRIORITY_DEFAULT
         }
-        val notification: Notification = NotificationCompat.Builder(application, CHANNEL_POST_FEED)
+        val notification: Notification = NotificationCompat.Builder(application,
+                NotificationHelper.ChannelType.NEW_FEED_POST.id)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setLargeIcon((ContextCompat.getDrawable(application, largeIcon) as BitmapDrawable)
@@ -67,6 +69,6 @@ class NewPostProcessor @Inject constructor(
         const val KEY_TITLE = "title"
         const val KEY_CONTENT = "content"
         const val KEY_TYPE = "type"
-        const val CHANNEL_POST_FEED = "post"
+        const val TOPIC = "post"
     }
 }

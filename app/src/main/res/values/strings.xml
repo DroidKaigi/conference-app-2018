@@ -123,6 +123,7 @@
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
     <string name="notification_channel_name_start_favorite_session">start favorite session</string>
+    <string name="notification_channel_name_new_feed_post">New announcement</string>
 
     <!-- AboutThisApp -->
     <!-- TODO check if these English are all natural to international ppl. -->

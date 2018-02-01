@@ -49,7 +49,7 @@ open class App : MultiDexApplication(), HasActivityInjector, HasServiceInjector 
                     .build()
             fireStore.firestoreSettings = settings
             // push notification for new feed
-            FirebaseMessaging.getInstance().subscribeToTopic(NewPostProcessor.CHANNEL_POST_FEED)
+            FirebaseMessaging.getInstance().subscribeToTopic(NewPostProcessor.TOPIC)
         }
     }
 
