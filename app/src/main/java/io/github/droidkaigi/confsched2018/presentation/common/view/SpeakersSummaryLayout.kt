@@ -87,19 +87,16 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     }
 
     private fun updateSpeakers() {
-        if (speakerList.isEmpty()) {
-        } else {
-            val speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
-            speakerContainer.adapter = speakerAdapter
+        if (speakerList.isEmpty()) return
 
-            speakerAdapter.setOnItemClickListener(object : SpeakersAdapter.OnItemClickListener {
-                override fun onClick(view: View, speakerId: String) {
-                    if (speakerIdInDetail == null ||
-                            (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
-                        SpeakerDetailActivity.start(context, speakerId)
-                    }
-                }
-            })
+        val speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
+        speakerContainer.adapter = speakerAdapter
+
+        speakerAdapter.onSpeakerClick = { _, speakerId ->
+            if (speakerIdInDetail == null ||
+                    (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
+                SpeakerDetailActivity.start(context, speakerId)
+            }
         }
     }
 }
