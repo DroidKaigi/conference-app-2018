@@ -93,7 +93,7 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.level.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 levelDrawable, null, null, null)
 
-        binding.goToQuestionnaire.setOnClickListener {
+        binding.goToFeedback.setOnClickListener {
             navigationController.navigateToSessionsFeedbackActivity(session)
         }
     }

@@ -65,7 +65,7 @@ class SearchFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
-    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+    private val onFeedbackListener = { session: Session.SpeechSession ->
         navigationController.navigateToSessionsFeedbackActivity(session)
     }
 
@@ -102,7 +102,7 @@ class SearchFragment : Fragment(), Injectable {
                     sessionsSection.updateSessions(
                             searchResult.sessions,
                             onFavoriteClickListener,
-                            onQuestionnaireListener,
+                            onFeedbackListener,
                             searchViewModel.searchQuery
                     )
                     speakersSection.updateSpeakers(

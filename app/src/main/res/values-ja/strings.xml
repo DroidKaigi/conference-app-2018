@@ -28,7 +28,7 @@
     <string name="session_content_description_level">レベルの画像</string>
     <string name="session_load_retry">リトライ</string>
     <string name="session_finished">終了済みのセッション</string>
-    <string name="session_go_to_questionnaire">アンケートへ</string>
+    <string name="session_go_to_feedback">アンケートへ</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -84,6 +84,7 @@
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
     <string name="speaker_content_description">スピーカー画像</string>
+    <string name="speaker_sns_empty_message">SNSのリンクが設定されていません</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">

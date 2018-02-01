@@ -35,7 +35,7 @@
     <string name="session_header_divider" translatable="false">" / "</string>
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
-    <string name="session_go_to_questionnaire">Go To Questionnaire</string>
+    <string name="session_go_to_feedback">Go To Feedback</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -95,6 +95,7 @@
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
     <string name="speaker_content_description">Speaker image</string>
+    <string name="speaker_sns_empty_message">Speaker has not set SNS Link..</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">

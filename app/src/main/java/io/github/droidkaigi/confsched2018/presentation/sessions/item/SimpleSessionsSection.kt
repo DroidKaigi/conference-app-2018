@@ -8,7 +8,7 @@ class SimpleSessionsSection : Section() {
     fun updateSessions(
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
-            onQuestionnaireListener: (Session.SpeechSession) -> Unit,
+            onFeedbackListener: (Session.SpeechSession) -> Unit,
             searchQuery: String = "",
             userIdInDetail: String? = null
     ) {
@@ -19,7 +19,7 @@ class SimpleSessionsSection : Section() {
                     SpeechSessionItem(
                             session = it,
                             onFavoriteClickListener = onFavoriteClickListener,
-                            onQuestionnaireListener = onQuestionnaireListener,
+                            onFeedbackListener = onFeedbackListener,
                             isShowDayNumber = true,
                             searchQuery = searchQuery,
                             userIdInDetail = userIdInDetail

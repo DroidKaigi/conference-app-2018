@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/button_ripple"
+    >
+    <item android:drawable="@drawable/shape_round_corner_68dp" />
+</ripple>

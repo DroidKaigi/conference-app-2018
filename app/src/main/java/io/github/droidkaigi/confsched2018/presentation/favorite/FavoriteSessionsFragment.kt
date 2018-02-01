@@ -51,7 +51,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
-    private val onQuestionnaireListener = { session: Session.SpeechSession ->
+    private val onFeedbackListener = { session: Session.SpeechSession ->
         navigationController.navigateToSessionsFeedbackActivity(session)
     }
 
@@ -76,7 +76,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                     progressTimeLatch.loading = false
                     val sessions = result.data
                     sessionsSection.updateSessions(
-                            sessions, onFavoriteClickListener, onQuestionnaireListener)
+                            sessions, onFavoriteClickListener, onFeedbackListener)
                     binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
                     binding.sessionsRecycler.setVisible(sessions.isNotEmpty())
                 }
