@@ -1,26 +1,18 @@
 package io.github.droidkaigi.confsched2018.data.db.entity
 
 import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
 
-@Entity(tableName = "sponsor",
-        foreignKeys = [
-            ForeignKey(
-                    entity = SponsorPlanEntity::class,
-                    parentColumns = arrayOf("id"),
-                    childColumns = arrayOf("plan_id"),
-                    onDelete = ForeignKey.CASCADE
-            )
-        ])
+@Entity(tableName = "sponsor")
 data class SponsorEntity(
         @PrimaryKey(autoGenerate = true)
         var id: Int = 0,
         @ColumnInfo(name = "group_index")
         var groupIndex: Int,
-        @ColumnInfo(name = "plan_id", index = true)
-        var planId: Int,
+        @Embedded
+        var plan: SponsorPlanEntity,
         var link: String,
         @ColumnInfo(name = "base64_img")
         var base64Img: String?,

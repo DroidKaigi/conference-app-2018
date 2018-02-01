@@ -2,8 +2,9 @@ package io.github.droidkaigi.confsched2018.data.repository
 
 import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
+import io.github.droidkaigi.confsched2018.data.api.response.mapper.toSponsorsEntities
 import io.github.droidkaigi.confsched2018.data.db.SponsorDatabase
-import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSponsorPlanModels
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSponsorPlan
 import io.github.droidkaigi.confsched2018.model.Lang
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
@@ -18,18 +19,17 @@ class SponsorPlanDataRepository @Inject constructor(
 ) : SponsorPlanRepository {
 
     override fun sponsorPlans(): Flowable<List<SponsorPlan>> =
-            sponsorDatabase.getAllSponsorPlan()
+            sponsorDatabase.getSponsors()
                     .filter { it.isNotEmpty() }
-                    .map { it.toSponsorPlanModels() }
+                    .map { it.toSponsorPlan() }
 
     @CheckResult override fun refreshSponsorPlans(ln: Lang): Completable =
             when (ln) {
                 Lang.JA -> droidKaigiApi.sponsorPlansJa()
                 Lang.EN -> droidKaigiApi.sponsorPlansEn()
             }.doOnSuccess {
-                sponsorDatabase.save(it)
-                sponsorDatabase.getAllSponsorPlan()
-                        .subscribe { }
+                val plansResponse = it
+                sponsorDatabase.save(plansResponse.toSponsorsEntities())
             }.subscribeOn(schedulerProvider.computation())
                     .toCompletable()
 }

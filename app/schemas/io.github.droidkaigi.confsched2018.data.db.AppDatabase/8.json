@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 8,
-    "identityHash": "a8182d92b66f2427d46cbb6ce712f988",
+    "identityHash": "ae0e2eb76da85daac1fce81e17c4a66b",
     "entities": [
       {
         "tableName": "contributor",
@@ -333,40 +333,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "sponsor_plan",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `type` TEXT NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
         "tableName": "sponsor",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `group_index` INTEGER NOT NULL, `plan_id` INTEGER NOT NULL, `link` TEXT NOT NULL, `base64_img` TEXT, `img_url` TEXT, FOREIGN KEY(`plan_id`) REFERENCES `sponsor_plan`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `group_index` INTEGER NOT NULL, `link` TEXT NOT NULL, `base64_img` TEXT, `img_url` TEXT, `sponsor_plan_name` TEXT NOT NULL, `sponsor_plan_type` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -377,12 +345,6 @@
           {
             "fieldPath": "groupIndex",
             "columnName": "group_index",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "planId",
-            "columnName": "plan_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -403,6 +365,18 @@
             "columnName": "img_url",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "plan.name",
+            "columnName": "sponsor_plan_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plan.type",
+            "columnName": "sponsor_plan_type",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -411,34 +385,13 @@
           ],
           "autoGenerate": true
         },
-        "indices": [
-          {
-            "name": "index_sponsor_plan_id",
-            "unique": false,
-            "columnNames": [
-              "plan_id"
-            ],
-            "createSql": "CREATE  INDEX `index_sponsor_plan_id` ON `${TABLE_NAME}` (`plan_id`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "sponsor_plan",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "plan_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a8182d92b66f2427d46cbb6ce712f988\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ae0e2eb76da85daac1fce81e17c4a66b\")"
     ]
   }
 }

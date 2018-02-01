@@ -1,12 +1,11 @@
 package io.github.droidkaigi.confsched2018.data.db
 
-import io.github.droidkaigi.confsched2018.data.api.response.SponsorPlan
-import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanWithSponsor
+import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
 import io.reactivex.Flowable
 
 interface SponsorDatabase {
 
-    fun getAllSponsorPlan(): Flowable<List<SponsorPlanWithSponsor>>
+    fun getSponsors(): Flowable<List<SponsorEntity>>
 
-    fun save(plans: List<SponsorPlan>)
+    fun save(sponsorEntities: List<SponsorEntity>)
 }
