@@ -163,12 +163,22 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
             }
             uri
         }
+
+        val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+
         val intent = Intent(Intent.ACTION_VIEW, uri)
         val intentResolveInfo = activity.packageManager.resolveActivity(
                 intent,
                 PackageManager.MATCH_DEFAULT_ONLY
         )
-        val resolvePackageName = intentResolveInfo.activityInfo.packageName
+
+        intentResolveInfo?.activityInfo?.packageName?.let {
+            if (it != packageName) {
+                // Open specific app
+                activity.startActivity(intent)
+                return
+            }
+        }
 
         val customTabsIntent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
@@ -179,12 +189,6 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                     intent.putExtra(Intent.EXTRA_REFERRER, appUri)
                 }
 
-        val packageName = CustomTabsHelper.getPackageNameToUse(activity)
-        if (resolvePackageName != null && resolvePackageName != packageName) {
-            // Open specific app
-            activity.startActivity(intent)
-            return
-        }
         packageName ?: run {
             // Cannot use custom tabs.
             activity.startActivity(customTabsIntent.intent.setData(uri))
@@ -192,7 +196,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         }
 
         customTabsIntent.intent.`package` = packageName
-        customTabsIntent.launchUrl(activity, uri)
+        customTabsIntent.launchUrl(activity, Uri.parse(url))
     }
 
     fun navigateImplicitly(url: String?) {
