@@ -159,6 +159,7 @@ dependencies {
     implementation depends.playService.map
 
     implementation depends.firebase.firestore
+    implementation depends.firebase.messaging
     implementation depends.firebase.auth
     implementation depends.firebase.core
 
