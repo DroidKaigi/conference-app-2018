@@ -51,6 +51,7 @@ class HorizontalSessionsItem(
             })
             val linearLayoutManager = layoutManager as LinearLayoutManager
             linearLayoutManager.scrollToPositionWithOffset(scroll.position, scroll.offset)
+            isNestedScrollingEnabled = false
         }
         sessions.forEach {
             items.add(HorizontalSessionItem(
