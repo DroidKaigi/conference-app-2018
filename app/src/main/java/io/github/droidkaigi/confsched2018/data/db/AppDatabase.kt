@@ -26,7 +26,7 @@ import io.github.droidkaigi.confsched2018.data.db.entity.mapper.Converters
             (SessionFeedbackEntity::class),
             (SponsorEntity::class)
         ],
-        version = 8
+        version = 9
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
