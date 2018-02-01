@@ -48,7 +48,8 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
             createDummySpeaker(),
             createDummySpeaker()
     ),
-            feedback = createDummySessionFeedback()
+            feedback = createDummySessionFeedback(),
+            message = null
     )
 }
 
@@ -157,7 +158,8 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     "日本語",
                     LevelEntity(3540, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
-                    RoomEntity(1, "ホール")),
+                    RoomEntity(1, "ホール"),
+                    null),
                     listOf("aaaa", "bbbb")),
             SessionWithSpeakers(SessionEntity(DUMMY_SESSION_ID2,
                     DUMMY_SESSION_TITLE2,
@@ -168,7 +170,8 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     "日本語",
                     LevelEntity(3542, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
-                    RoomEntity(1, "ホール")),
+                    RoomEntity(1, "ホール"),
+                    null),
                     listOf("aaaa"))
     )
 }

@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
+import io.github.droidkaigi.confsched2018.model.SessionMessage
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.ext.toUnixMills
@@ -51,7 +52,12 @@ fun SessionWithSpeakers.toSession(
             feedback = feedbacks
                     .firstOrNull { it.sessionId == sessionEntity.id }
                     ?.toSessionFeedback()
-                    ?: SessionFeedback(sessionEntity.id, 0, 0, 0, 0, 0, "", false)
+                    ?: SessionFeedback(sessionEntity.id, 0, 0, 0, 0, 0, "", false),
+            message = if (sessionEntity.message == null) {
+                null
+            } else {
+                SessionMessage(sessionEntity.message.ja, sessionEntity.message.en)
+            }
     )
 }
 

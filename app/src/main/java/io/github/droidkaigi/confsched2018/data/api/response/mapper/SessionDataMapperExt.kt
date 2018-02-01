@@ -6,6 +6,7 @@ import io.github.droidkaigi.confsched2018.data.api.response.Room
 import io.github.droidkaigi.confsched2018.data.api.response.Session
 import io.github.droidkaigi.confsched2018.data.api.response.Speaker
 import io.github.droidkaigi.confsched2018.data.db.entity.LevelEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.MessageEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
@@ -59,6 +60,11 @@ fun Session.toSessionEntity(categories: List<Category>?, rooms: List<Room>?): Se
             etime = endsAt!!,
             sessionFormat = sessionFormat.name!!,
             language = language.name!!,
+            message = if (message != null) {
+                MessageEntity(message.ja!!, message.en!!)
+            } else {
+                null
+            },
             topic = TopicEntity(topic.id!!, topic.name!!),
             level = LevelEntity(level.id!!, level.name!!),
             room = RoomEntity(roomId!!, rooms.roomName(roomId))

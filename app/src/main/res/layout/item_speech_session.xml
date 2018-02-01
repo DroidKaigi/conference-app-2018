@@ -121,6 +121,18 @@
                 tools:text="Material is the metaphor A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic."
                 />
 
+            <android.support.text.emoji.widget.EmojiTextView
+                android:id="@+id/message"
+                style="@style/TextStyle.App.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:textColor="?colorAccent"
+                android:visibility="@{session.message == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                />
+
             <ImageView
                 android:id="@+id/level"
                 android:layout_width="20dp"
@@ -129,7 +141,7 @@
                 android:contentDescription="@string/session_content_description_level"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintTop_toBottomOf="@id/message"
                 />
 
             <TextView
