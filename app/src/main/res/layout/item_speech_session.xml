@@ -124,11 +124,17 @@
             <android.support.text.emoji.widget.EmojiTextView
                 android:id="@+id/message"
                 style="@style/TextStyle.App.Body2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="14dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="3"
+                android:paddingBottom="2dp"
                 android:textColor="?colorAccent"
                 android:visibility="@{session.message == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/description"
                 />
