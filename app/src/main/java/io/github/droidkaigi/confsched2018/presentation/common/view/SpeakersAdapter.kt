@@ -13,7 +13,7 @@ import io.github.droidkaigi.confsched2018.model.Speaker
  */
 class SpeakersAdapter(var context: Context, var speakerList: List<Speaker>, val textColor: Int) :
         RecyclerView.Adapter<SpeakersAdapter.BindingHolder>() {
-    var onSpeakerClick: (view: View, speakerId: String) -> Unit = { _,_ -> }
+    var onSpeakerClick: (view: View, speakerId: String) -> Unit = { _ , _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BindingHolder? {
         val layoutInflater = LayoutInflater.from(parent!!.context)
