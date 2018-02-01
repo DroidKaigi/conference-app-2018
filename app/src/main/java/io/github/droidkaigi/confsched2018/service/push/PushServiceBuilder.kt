@@ -8,6 +8,6 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module
 interface PushServiceBuilder {
-    @ContributesAndroidInjector(modules = [PushServiceModule::class])
+    @ContributesAndroidInjector()
     fun contributePushService(): PushService
 }
