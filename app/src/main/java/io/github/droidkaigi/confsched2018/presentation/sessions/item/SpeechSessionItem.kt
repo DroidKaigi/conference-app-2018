@@ -6,9 +6,11 @@ import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
 import io.github.droidkaigi.confsched2018.model.Lang
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.util.ext.color
 import io.github.droidkaigi.confsched2018.util.ext.context
 import io.github.droidkaigi.confsched2018.util.ext.drawable
 import io.github.droidkaigi.confsched2018.util.lang
+import java.util.Date
 
 data class SpeechSessionItem(
         override val session: Session.SpeechSession,
@@ -49,6 +51,15 @@ data class SpeechSessionItem(
             is Level.Niche -> R.drawable.ic_niche_cyan_20dp
         })
         viewBinding.level.setImageDrawable(levelDrawable)
+
+        val now = Date()
+        val backgroundColor = when {
+            now.before(session.startTime) -> viewBinding.context.color(R.color
+                    .card_background_color)
+            now.after(session.endTime) -> viewBinding.context.color(R.color.card_background_color)
+            else -> viewBinding.context.color(R.color.highlight_text)
+        }
+        viewBinding.root.setBackgroundColor(backgroundColor)
     }
 
     override fun getLayout(): Int = R.layout.item_speech_session
