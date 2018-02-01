@@ -14,7 +14,7 @@ interface SessionFeedbackApi {
     @FormUrlEncoded
     fun submitSessionFeedback(
 
-            @Field("entry.1298546024") sessionId: Int,
+            @Field("entry.1298546024") sessionId: String,
             @Field("entry.413792998") sessionTitle: String,
 
             // セッションはどうでしたか？(総合評価)

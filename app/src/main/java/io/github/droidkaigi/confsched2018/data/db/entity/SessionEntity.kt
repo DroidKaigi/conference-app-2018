@@ -16,5 +16,6 @@ data class SessionEntity(
         var language: String,
         @Embedded var level: LevelEntity,
         @Embedded var topic: TopicEntity,
-        @Embedded var room: RoomEntity
+        @Embedded var room: RoomEntity,
+        @Embedded val message: MessageEntity?
 )

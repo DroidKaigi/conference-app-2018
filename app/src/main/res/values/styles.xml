@@ -86,11 +86,18 @@
         <item name="android:elevation" tools:targetApi="21">2dp</item>
     </style>
 
-    <style name="GoToQuestionnaire">
+    <style name="SNSLinkButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_sns_link_button</item>
+        <item name="android:elevation" tools:targetApi="21">2dp</item>
+    </style>
+
+    <style name="GoToFeedback">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/app_bar_text_color</item>
-        <item name="android:background">@drawable/bg_go_to_questionnaire</item>
+        <item name="android:background">@drawable/bg_go_to_feedback</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingTop">11dp</item>
@@ -99,4 +106,30 @@
         <item name="android:stateListAnimator" tools:targetApi="21">@null</item>
         <item name="android:elevation" tools:targetApi="21">2dp</item>
     </style>
+
+    <style name="FeedbackRanking">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/bg_feedback_ranking_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:lines">1</item>
+        <item name="android:textColor">@color/feedback_ranking_item_text</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Subhead</item>
+    </style>
+
+    <style name="FeedbackTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Body2</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FeedbackRankingLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Caption</item>
+        <item name="android:textColor">#9E9E9E</item>
+    </style>
+
 </resources>

@@ -1,36 +1,33 @@
 package io.github.droidkaigi.confsched2018.data.api.response.mapper
 
-import io.github.droidkaigi.confsched2018.model.Sponsor
-import io.github.droidkaigi.confsched2018.model.SponsorGroup
-import io.github.droidkaigi.confsched2018.data.api.response.SponsorGroup as ResponseSponsorGroup
-import io.github.droidkaigi.confsched2018.data.api.response.SponsorPlan as ResponseSponsorPlan
-import io.github.droidkaigi.confsched2018.model.SponsorGroup as ModelSponsorGroup
-import io.github.droidkaigi.confsched2018.model.SponsorPlan as ModelSponsorPlan
+import io.github.droidkaigi.confsched2018.data.api.response.SponsorPlan
+import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
 
-fun ResponseSponsorPlan.toSponsorPlan(): ModelSponsorPlan =
-        ModelSponsorPlan(
-                planName,
-                planType.toSponsorType(),
-                groups.map { it.toSponsorGroup() }
-        )
 
-fun ResponseSponsorPlan.Type.toSponsorType(): ModelSponsorPlan.Type = when (this) {
-    ResponseSponsorPlan.Type.PLATINUM -> ModelSponsorPlan.Type.Platinum
-    ResponseSponsorPlan.Type.GOLD -> ModelSponsorPlan.Type.Gold
-    ResponseSponsorPlan.Type.SILVER -> ModelSponsorPlan.Type.Silver
-    ResponseSponsorPlan.Type.SUPPORTER -> ModelSponsorPlan.Type.Supporter
-    ResponseSponsorPlan.Type.TECHNICAL_FOR_NETWORK -> ModelSponsorPlan.Type.TechnicalForNetwork
+fun List<SponsorPlan>.toSponsorsEntities(): List<SponsorEntity> =
+        map { plan ->
+            plan.groups.mapIndexed { index, group ->
+                group.sponsors.map { sponsor ->
+                    SponsorEntity(
+                            groupIndex = index,
+                            plan = plan.toSponsorEntity(),
+                            link = sponsor.link,
+                            base64Img = sponsor.base64Img,
+                            imgUrl = sponsor.imgUrl)
+                }
+            }.flatten()
+        }.flatten()
+
+fun SponsorPlan.toSponsorEntity(): SponsorPlanEntity {
+    return SponsorPlanEntity(name = planName,
+            type = planType.toSponsorType())
 }
 
-fun ResponseSponsorGroup.toSponsorGroup(): ModelSponsorGroup =
-        SponsorGroup(sponsors.map {
-            val (base64Img, imgUrl) = it.base64Img to it.imgUrl
-
-            val imageUri = when {
-                base64Img != null -> Sponsor.ImageUri.Base64ImageUri(base64Img)
-                imgUrl != null -> Sponsor.ImageUri.NetworkImageUri(imgUrl)
-                else -> throw IllegalStateException("a json file is broken.")
-            }
-
-            Sponsor(it.link, imageUri)
-        })
+private fun SponsorPlan.Type.toSponsorType(): SponsorPlanEntity.Type = when (this) {
+    SponsorPlan.Type.PLATINUM -> SponsorPlanEntity.Type.PLATINUM
+    SponsorPlan.Type.GOLD -> SponsorPlanEntity.Type.GOLD
+    SponsorPlan.Type.SILVER -> SponsorPlanEntity.Type.SILVER
+    SponsorPlan.Type.SUPPORTER -> SponsorPlanEntity.Type.SUPPORTER
+    SponsorPlan.Type.TECHNICAL_FOR_NETWORK -> SponsorPlanEntity.Type.TECHNICAL_FOR_NETWORK
+}

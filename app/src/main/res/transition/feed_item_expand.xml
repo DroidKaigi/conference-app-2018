@@ -21,6 +21,7 @@
             <target android:targetId="@id/feed_item_constraint_layout" />
         </targets>
     </changeBounds>
+
     <transition class="io.github.droidkaigi.confsched2018.presentation.common.transition.Rotate">
         <targets>
             <target android:targetId="@id/expand_icon" />
@@ -29,10 +30,15 @@
 
     <changeBounds>
         <targets>
+            <target android:targetId="@id/title" />
+        </targets>
+    </changeBounds>
+
+    <changeBounds>
+        <targets>
             <target android:targetId="@id/content" />
         </targets>
         <arcMotion />
     </changeBounds>
-
 
 </transitionSet>

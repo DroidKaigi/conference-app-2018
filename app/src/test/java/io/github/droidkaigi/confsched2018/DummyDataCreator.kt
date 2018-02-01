@@ -3,12 +3,14 @@ package io.github.droidkaigi.confsched2018
 import io.github.droidkaigi.confsched2018.data.db.entity.LevelEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
+import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import org.threeten.bp.LocalDateTime
@@ -45,8 +47,48 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
             isFavorited = true, speakers = listOf(
             createDummySpeaker(),
             createDummySpeaker()
+    ),
+            feedback = createDummySessionFeedback(),
+            message = null
     )
+}
+
+fun createDummySessionFeedbackEntities(): List<SessionFeedbackEntity> {
+    return listOf(
+            SessionFeedbackEntity(
+                    sessionId = DUMMY_SESSION_ID1,
+                    totalEvaluation = 1,
+                    relevancy = 1,
+                    asExpected = 1,
+                    difficulty = 1,
+                    knowledgeable = 1,
+                    comment = "comment",
+                    submitted = false),
+            SessionFeedbackEntity(
+                    sessionId = DUMMY_SESSION_ID2,
+                    totalEvaluation = 3,
+                    relevancy = 3,
+                    asExpected = 3,
+                    difficulty = 3,
+                    knowledgeable = 3,
+                    comment = "comment",
+                    submitted = false)
     )
+
+}
+
+fun createDummySessionFeedback(sessionId: String = DUMMY_SESSION_ID1,
+                               sessionTitle: String = DUMMY_SESSION_TITLE1): SessionFeedback {
+    return SessionFeedback(
+            sessionId = sessionId,
+            totalEvaluation = 1,
+            relevancy = 1,
+            asExpected = 1,
+            difficulty = 1,
+            knowledgeable = 1,
+            comment = "comment",
+            submitted = false)
+
 }
 
 fun createDummySpecialSession(dayNumber: Int = 1,
@@ -116,7 +158,8 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     "日本語",
                     LevelEntity(3540, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
-                    RoomEntity(1, "ホール")),
+                    RoomEntity(1, "ホール"),
+                    null),
                     listOf("aaaa", "bbbb")),
             SessionWithSpeakers(SessionEntity(DUMMY_SESSION_ID2,
                     DUMMY_SESSION_TITLE2,
@@ -127,7 +170,8 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     "日本語",
                     LevelEntity(3542, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
-                    RoomEntity(1, "ホール")),
+                    RoomEntity(1, "ホール"),
+                    null),
                     listOf("aaaa"))
     )
 }

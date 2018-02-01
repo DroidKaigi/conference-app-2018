@@ -8,3 +8,6 @@ fun TextView.setTextIfChanged(newText: String) {
         text = newText
     }
 }
+
+val TextView.selectedText: CharSequence
+    get() = text.subSequence(selectionStart, selectionEnd)

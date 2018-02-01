@@ -6,7 +6,9 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
+import android.view.View
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -34,13 +36,20 @@ class DrawerMenu @Inject constructor(
     ) {
         this.drawerLayout = drawerLayout
         if (actionBarDrawerSync) {
-            ActionBarDrawerToggle(
+            object : ActionBarDrawerToggle(
                     activity,
                     drawerLayout,
                     toolbar,
                     R.string.nav_content_description_drawer_open,
                     R.string.nav_content_description_drawer_close
-            ).also {
+            ) {
+                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                    super.onDrawerSlide(drawerView, slideOffset)
+                    if (activity.currentFocus is SearchView.SearchAutoComplete) {
+                        drawerView.requestFocus()
+                    }
+                }
+            }.also {
                 drawerLayout.addDrawerListener(it)
             }.apply {
                 isDrawerIndicatorEnabled = true
@@ -105,8 +114,8 @@ class DrawerMenu @Inject constructor(
         SETTINGS(R.id.nav_item_setting, SettingsActivity::class, {
             navigateToSettingsActivity()
         }),
-        SURVEY(R.id.nav_item_all_survey, /*fixme*/AboutThisAppActivity::class, {
-            //todo
+        SURVEY(R.id.nav_item_all_survey, Unit::class, {
+            navigateToExternalBrowser("https://goo.gl/forms/Hjp54vk5P0VILcgf1")
         }),
         OTHER(0, Unit::class, {
             //do nothing

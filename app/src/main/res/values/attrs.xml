@@ -5,9 +5,16 @@
         <attr name="image_size" format="dimension" />
         <attr name="textColor" format="color" />
     </declare-styleable>
+
     <declare-styleable name="FavoriteButton">
         <attr name="android:checked" />
         <attr name="checkedColorTint" format="color" />
         <attr name="uncheckedColorTint" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="FeedbackRankingView">
+        <attr name="rankingMaxSize" format="integer" />
+        <attr name="rankingLabelMin" format="string" />
+        <attr name="rankingLabelMax" format="string" />
     </declare-styleable>
 </resources>
