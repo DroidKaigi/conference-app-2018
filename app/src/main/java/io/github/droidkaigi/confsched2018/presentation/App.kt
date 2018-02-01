@@ -14,7 +14,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.di.AppInjector
+import io.github.droidkaigi.confsched2018.di.initDaggerComponent
 import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationHelper
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
@@ -57,7 +57,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
     }
 
     open fun setupDagger() {
-        AppInjector.init(this)
+        initDaggerComponent()
     }
 
     private fun setupCalligraphy() {
