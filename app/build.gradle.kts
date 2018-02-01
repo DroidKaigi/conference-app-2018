@@ -157,6 +157,7 @@ dependencies {
     implementation(Depends.RxJava2.core)
     implementation(Depends.RxJava2.android)
     implementation(Depends.RxJava2.kotlin)
+    implementation(Depends.rxbroadcast)
 
     kapt(Depends.Binding.compiler)
 
@@ -186,7 +187,7 @@ dependencies {
     implementation(Depends.Groupie.binding)
 
     implementation(Depends.downloadableCalligraphy)
-    implementation(Depends.gms)
+    implementation(Depends.PlayService.oss)
 
 //==================== Debug ====================
     debugImplementation(Depends.Stetho.core)

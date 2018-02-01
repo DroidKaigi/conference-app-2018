@@ -32,22 +32,24 @@ object Depends {
     }
 
     object LifeCycle {
-        val runtime = "android.arch.lifecycle:runtime:${Versions.arch}"
-        val extensions = "android.arch.lifecycle:extensions:${Versions.arch}"
-        val reactivestreams = "android.arch.lifecycle:reactivestreams:${Versions.arch}"
+        val runtime = "android.arch.lifecycle:runtime:${Versions.archLifecycle}"
+        val extensions = "android.arch.lifecycle:extensions:${Versions.archLifecycle}"
+        val reactivestreams = "android.arch.lifecycle:reactivestreams:${Versions.archLifecycle}"
     }
 
     object Room {
-        val runtime = "android.arch.persistence.room:runtime:${Versions.arch}"
-        val rxjava2 = "android.arch.persistence.room:rxjava2:${Versions.arch}"
-        val compiler = "android.arch.persistence.room:compiler:${Versions.arch}"
+        val runtime = "android.arch.persistence.room:runtime:${Versions.archRoom}"
+        val rxjava2 = "android.arch.persistence.room:rxjava2:${Versions.archRoom}"
+        val compiler = "android.arch.persistence.room:compiler:${Versions.archRoom}"
     }
 
     object RxJava2 {
-        val core = "io.reactivex.rxjava2:rxjava:2.1.8"
+        val core = "io.reactivex.rxjava2:rxjava:2.1.9"
         val android = "io.reactivex.rxjava2:rxandroid:2.0.1"
         val kotlin = "io.reactivex.rxjava2:rxkotlin:2.2.0"
     }
+
+    val rxbroadcast = "com.cantrowitz:rxbroadcast:2.0.0"
 
     object Binding {
         val compiler = "com.android.databinding:compiler:3.0.1"
@@ -63,6 +65,7 @@ object Depends {
 
     object PlayService {
         val map = "com.google.android.gms:play-services-maps:${Versions.firebase}"
+        val oss = "com.google.android.gms:play-services-oss-licenses:${Versions.firebase}"
     }
 
     object Firebase {
@@ -90,14 +93,13 @@ object Depends {
     }
 
     val downloadableCalligraphy = "com.github.takahirom.downloadable.calligraphy:downloadable-calligraphy:0.1.2"
-    val gms = "com.google.android.gms:play-services-oss-licenses:11.6.2"
 
     object Stetho {
         val core = "com.facebook.stetho:stetho:${Versions.stetho}"
         val okhttp3 = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
     }
 
-    val crashlytics = "com.crashlytics.sdk.android:crashlytics:2.7.1@aar"
+    val crashlytics = "com.crashlytics.sdk.android:crashlytics:2.8.0@aar"
     val timber = "com.jakewharton.timber:timber:4.6.0"
     val leakcanary = "com.squareup.leakcanary:leakcanary-android:1.5.4"
 
@@ -116,12 +118,12 @@ object Depends {
     }
 
     val assertk = "com.willowtreeapps.assertk:assertk:0.9"
-    val threetenbp = "org.threeten:threetenbp:1.3.3"
+    val threetenbp = "org.threeten:threetenbp:1.3.6"
 
     object SupportTest {
         val runner = "com.android.support.test:runner:1.0.1"
         val espresso = "com.android.support.test.espresso:espresso-core:3.0.1"
-        val contrib = "com.android.support.test.espresso:espresso-contrib:2.2.2"
+        val contrib = "com.android.support.test.espresso:espresso-contrib:3.0.1"
 
     }
 
