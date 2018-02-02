@@ -99,7 +99,8 @@ android {
             val files = rootProject.file("proguard")
                     .listFiles()
                     .filter { it.name.startsWith("proguard") }
-            setProguardFiles(files)
+                    .toTypedArray()
+            proguardFiles(*files)
         }
     }
     testOptions {
