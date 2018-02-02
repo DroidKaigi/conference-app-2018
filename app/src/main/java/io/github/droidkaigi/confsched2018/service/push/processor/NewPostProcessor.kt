@@ -15,9 +15,6 @@ import io.github.droidkaigi.confsched2018.presentation.common.notification.Notif
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * @author keishinyokomaku
- */
 @Singleton
 class NewPostProcessor @Inject constructor(
         private val application: Application,

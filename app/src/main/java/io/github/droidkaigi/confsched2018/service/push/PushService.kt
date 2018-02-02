@@ -6,9 +6,6 @@ import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
 
-/**
- * @author keishinyokomaku
- */
 class PushService : FirebaseMessagingService() {
     @Inject
     lateinit var classifier: MessageClassifier
