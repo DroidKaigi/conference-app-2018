@@ -51,6 +51,10 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
         sessionAlarm.toggleRegister(session)
     }
 
+    private val onFeedbackListener = { session: Session.SpeechSession ->
+        navigationController.navigateToSessionsFeedbackActivity(session)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = FragmentFavoriteSessionsBinding.inflate(inflater, container, false)
@@ -72,7 +76,7 @@ class FavoriteSessionsFragment : Fragment(), Injectable {
                     progressTimeLatch.loading = false
                     val sessions = result.data
                     sessionsSection.updateSessions(
-                            sessions, onFavoriteClickListener)
+                            sessions, onFavoriteClickListener, onFeedbackListener)
                     binding.mysessionInactiveGroup.setVisible(sessions.isEmpty())
                     binding.sessionsRecycler.setVisible(sessions.isNotEmpty())
                 }

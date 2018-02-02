@@ -1,14 +1,16 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="mySession"
         android:enabled="true"
         android:icon="@drawable/ic_heart_orange_24dp"
+        android:shortcutId="mySession"
+        android:shortcutLongLabel="@string/favorite_title"
         android:shortcutShortLabel="@string/favorite_title"
-        android:shortcutLongLabel="@string/favorite_title">
+        >
         <intent
             android:action="android.intent.action.VIEW"
+            android:targetClass="io.github.droidkaigi.confsched2018.presentation.MainActivity"
             android:targetPackage="io.github.droidkaigi.confsched2018.debug"
-            android:targetClass="io.github.droidkaigi.confsched2018.presentation.MainActivity">
+            >
             <extra android:name="shortcut" android:value="favorite" />
         </intent>
     </shortcut>

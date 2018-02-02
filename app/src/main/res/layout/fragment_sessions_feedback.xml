@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="sessionFeedback"
+            type="io.github.droidkaigi.confsched2018.model.SessionFeedback"
+            />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="io.github.droidkaigi.confsched2018.presentation.sessions.feedback.SessionsFeedbackActivity"
+            tools:showIn="@layout/activity_sessions_feedback"
+            >
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/total_evaluation_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:stateListAnimator="@animator/card_state_list_anim"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:targetApi="lollipop"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        >
+
+                        <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_total_evaluation"
+                            />
+
+                        <io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
+                            android:id="@+id/total_evaluation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:currentRanking="@{sessionFeedback.totalEvaluation}"
+                            app:rankingLabelMax="@string/session_feedback_total_evaluation_max"
+                            app:rankingLabelMin="@string/session_feedback_total_evaluation_min"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/relevancy_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:stateListAnimator="@animator/card_state_list_anim"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/total_evaluation_card"
+                    tools:targetApi="lollipop"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        >
+
+                        <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_relevancy"
+                            />
+
+                        <io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
+                            android:id="@+id/relevancy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:currentRanking="@{sessionFeedback.relevancy}"
+                            app:rankingLabelMax="@string/session_feedback_relevancy_max"
+                            app:rankingLabelMin="@string/session_feedback_relevancy_min"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/as_expected_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:stateListAnimator="@animator/card_state_list_anim"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/relevancy_card"
+                    tools:targetApi="lollipop"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        >
+
+                        <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_as_expected"
+                            />
+
+                        <io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
+                            android:id="@+id/as_expected"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:currentRanking="@{sessionFeedback.asExpected}"
+                            app:rankingLabelMax="@string/session_feedback_as_expected_max"
+                            app:rankingLabelMin="@string/session_feedback_as_expected_min"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/difficulty_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:stateListAnimator="@animator/card_state_list_anim"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/as_expected_card"
+                    tools:targetApi="lollipop"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        >
+
+                        <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_difficulty"
+                            />
+
+                        <io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
+                            android:id="@+id/difficulty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:currentRanking="@{sessionFeedback.difficulty}"
+                            app:rankingLabelMax="@string/session_feedback_difficulty_max"
+                            app:rankingLabelMin="@string/session_feedback_difficulty_min"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/knowledgeable_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:stateListAnimator="@animator/card_state_list_anim"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/difficulty_card"
+                    tools:targetApi="lollipop"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        >
+
+                        <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_knowledgeable"
+                            />
+
+                        <io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
+                            android:id="@+id/knowledgeable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:currentRanking="@{sessionFeedback.knowledgeable}"
+                            app:rankingLabelMax="@string/session_feedback_knowledgeable_max"
+                            app:rankingLabelMin="@string/session_feedback_knowledgeable_min"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/comment_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:stateListAnimator="@animator/card_state_list_anim"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/knowledgeable_card"
+                    tools:targetApi="lollipop"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        >
+
+                        <TextView
+                            style="@style/FeedbackTitle"
+                            android:text="@string/session_feedback_comment"
+                            />
+
+                        <EditText
+                            android:id="@+id/comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/session_feedback_comment_hint"
+                            android:text="@{sessionFeedback.comment}"
+                            android:textAppearance="@style/TextAppearance.App.Subhead"
+                            android:textColor="@color/black"
+                            android:textColorHint="#757575"
+                            />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/primary"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:text="@string/submit_feedback"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/comment_card"
+                    />
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/ProgressBar"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
+    </FrameLayout>
+</layout>

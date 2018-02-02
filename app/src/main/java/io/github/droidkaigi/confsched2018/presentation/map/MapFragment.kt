@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.map
 
-import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -23,13 +22,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentMapBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
-import javax.inject.Inject
 
 class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     private lateinit var binding: FragmentMapBinding
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var mapView: MapView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +46,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
         binding.placeText.setOnClickListener {
             val placeName = context?.getString(R.string.map_place_name)
-            val placeUri = Uri.parse("geo:0,0?q=$placeLat,$placeLang($placeName)")
+            val placeUri = Uri.parse("geo:0,0?q=$PLACE_LAT,$PLACE_LNG($placeName)")
             val mapIntent = Intent().apply {
                 action = Intent.ACTION_VIEW
                 data = placeUri
@@ -61,7 +57,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap?) {
         map?.run {
-            val latLng = LatLng(placeLat, placeLang)
+            val latLng = LatLng(PLACE_LAT, PLACE_LNG)
 
             // custom pin
             val pin: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(getBitmap(R.drawable
@@ -125,9 +121,9 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
     }
 
     companion object {
-        fun newInstance(): MapFragment = MapFragment()
+        private const val PLACE_LAT = 35.6957954
+        private const val PLACE_LNG = 139.69038920000003
 
-        private const val placeLat = 35.6957954
-        private const val placeLang = 139.69038920000003
+        fun newInstance(): MapFragment = MapFragment()
     }
 }

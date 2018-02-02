@@ -7,9 +7,7 @@ import io.reactivex.Single
 
 interface FavoriteDatabase {
 
-    @get:CheckResult
-    val favorites: Flowable<List<Int>>
+    @get:CheckResult val favorites: Flowable<List<Int>>
 
-    @CheckResult
-    fun favorite(session: Session): Single<Boolean>
+    @CheckResult fun favorite(session: Session): Single<Boolean>
 }

@@ -121,6 +121,24 @@
                 tools:text="Material is the metaphor A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the study of paper and ink, yet technologically advanced and open to imagination and magic."
                 />
 
+            <android.support.text.emoji.widget.EmojiTextView
+                android:id="@+id/message"
+                style="@style/TextStyle.App.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="14dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="3"
+                android:paddingBottom="2dp"
+                android:textColor="?colorAccent"
+                android:visibility="@{session.message == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                />
+
             <ImageView
                 android:id="@+id/level"
                 android:layout_width="20dp"
@@ -129,7 +147,7 @@
                 android:contentDescription="@string/session_content_description_level"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintTop_toBottomOf="@id/message"
                 />
 
             <TextView
@@ -205,12 +223,12 @@
                 />
 
             <TextView
-                android:id="@+id/go_to_questionnaire"
+                android:id="@+id/go_to_feedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:padding="8dp"
-                android:text="@string/session_go_to_questionnaire"
+                android:text="@string/session_go_to_feedback"
                 android:textColor="@color/primary_dark"
                 android:textSize="14sp"
                 android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"

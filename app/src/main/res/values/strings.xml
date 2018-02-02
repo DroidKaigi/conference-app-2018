@@ -2,6 +2,7 @@
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
     <string name="room_format" translatable="false">%1$s%2$s</string>
+    <string name="web_search">Web Search</string>
 
     <!-- Preference Keys -->
     <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
@@ -10,7 +11,7 @@
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_map">Map</string>
+    <string name="nav_item_map">Access</string>
     <string name="nav_item_sponsor">Sponsor</string>
     <string name="nav_item_info">About this app</string>
     <string name="nav_item_setting">Settings</string>
@@ -34,7 +35,7 @@
     <string name="session_header_divider" translatable="false">" / "</string>
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
-    <string name="session_go_to_questionnaire">Go To Questionnaire</string>
+    <string name="session_go_to_feedback">Go To Feedback</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -61,12 +62,12 @@
     <string name="feed_content_description_not_found">Feed does not exist image</string>
 
     <!-- Map -->
-    <string name="map_title_activity">Map</string>
+    <string name="map_title_activity">Access</string>
     <string name="map_place_name">Bellesalle Shinjuku Grand Conference Center</string>
     <string name="map_meeting_rooms_name">DroidKaigi 2018 Place</string>
     <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 5F 8-17-1 Nishi Shinjuku,
         Shinjuku City, Tokyo 160-0023</string>
-    <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1 Toei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4 Toei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4 JR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
+    <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1\nToei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4\nToei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4\nJR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
     <string name="map_content_description_place_icon">Place icon</string>
     <string name="map_content_description_train_icon">Train icon</string>
 
@@ -94,6 +95,7 @@
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
     <string name="speaker_content_description">Speaker image</string>
+    <string name="speaker_sns_empty_message">Speaker has not set SNS Link..</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -122,6 +124,7 @@
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
     <string name="notification_channel_name_start_favorite_session">start favorite session</string>
+    <string name="notification_channel_name_new_feed_post">New announcement</string>
 
     <!-- AboutThisApp -->
     <!-- TODO check if these English are all natural to international ppl. -->
@@ -138,4 +141,25 @@
     <string name="about_contributors_description">Those who contribute to creation.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_description">%1$s</string>
+
+    <!-- Session Feedback -->
+    <string name="session_feedback_total_evaluation">How was the session? (Overall Rating)</string>
+    <string name="session_feedback_total_evaluation_min">bored</string>
+    <string name="session_feedback_total_evaluation_max">Awesome</string>
+    <string name="session_feedback_relevancy">How relevant was this session to your projects?</string>
+    <string name="session_feedback_relevancy_min">Not at all</string>
+    <string name="session_feedback_relevancy_max">Extremely</string>
+    <string name="session_feedback_as_expected">Based on the description, was the content as expected?</string>
+    <string name="session_feedback_as_expected_min">Below</string>
+    <string name="session_feedback_as_expected_max">Beyond</string>
+    <string name="session_feedback_difficulty">Was this session easy to understand?</string>
+    <string name="session_feedback_difficulty_min">Easy</string>
+    <string name="session_feedback_difficulty_max">Hard</string>
+    <string name="session_feedback_knowledgeable">How knowledgeable was the content?</string>
+    <string name="session_feedback_knowledgeable_min">Poor</string>
+    <string name="session_feedback_knowledgeable_max">Outstanding</string>
+    <string name="session_feedback_comment">Anything else we should know? (Please don\'t add any personal information in your comments)</string>
+    <string name="session_feedback_comment_hint">Other session feedback?</string>
+    <string name="submit_feedback">Submit feedback</string>
+    <string name="submitted">Submitted</string>
 </resources>

@@ -14,5 +14,6 @@ data class Session(
         val title: String?,
         val endsAt: LocalDateTime?,
         val roomId: Int?,
-        val categoryItems: List<Int?>?
+        val categoryItems: List<Int?>?,
+        val message: SessionMessage?
 )

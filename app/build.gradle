@@ -146,6 +146,7 @@ dependencies {
     implementation depends.rxjava2.core
     implementation depends.rxjava2.android
     implementation depends.rxjava2.kotlin
+    implementation depends.rxbroadcast
 
     kapt depends.binding.compiler
 
@@ -158,6 +159,7 @@ dependencies {
     implementation depends.playService.map
 
     implementation depends.firebase.firestore
+    implementation depends.firebase.messaging
     implementation depends.firebase.auth
     implementation depends.firebase.core
 

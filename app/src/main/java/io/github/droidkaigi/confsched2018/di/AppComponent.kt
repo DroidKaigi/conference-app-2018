@@ -9,12 +9,14 @@ import io.github.droidkaigi.confsched2018.di.activitymodule.ContributorsActivity
 import io.github.droidkaigi.confsched2018.di.activitymodule.MainActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.MapActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SessionDetailActivityBuilder
+import io.github.droidkaigi.confsched2018.di.activitymodule.SessionsFeedbackActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SettingsActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SpeakerDetailActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.SponsorsActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.StaffActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.TopicDetailActivityBuilder
 import io.github.droidkaigi.confsched2018.presentation.App
+import io.github.droidkaigi.confsched2018.service.push.PushServiceBuilder
 import javax.inject.Singleton
 
 @Singleton
@@ -23,6 +25,8 @@ import javax.inject.Singleton
     AppModule::class,
     NetworkModule::class,
     DatabaseModule::class,
+    ViewModelModule::class,
+    PushServiceBuilder::class,
     MainActivityBuilder::class,
     MapActivityBuilder::class,
     AboutThisAppActivityBuilder::class,
@@ -32,7 +36,8 @@ import javax.inject.Singleton
     SponsorsActivityBuilder::class,
     SessionDetailActivityBuilder::class,
     SpeakerDetailActivityBuilder::class,
-    TopicDetailActivityBuilder::class
+    TopicDetailActivityBuilder::class,
+    SessionsFeedbackActivityBuilder::class
 ])
 interface AppComponent {
     @Component.Builder
