@@ -10,23 +10,23 @@ import org.gradle.kotlin.dsl.version
 import org.gradle.kotlin.dsl.*
 import org.jlleitschuh.gradle.ktlint.ReporterType
 
+plugins {
+    id("com.android.application") version Versions.gradleBuildTool
+    kotlin("android") version Versions.kotlin
+    kotlin("kapt") version Versions.kotlin
+    id("org.jlleitschuh.gradle.ktlint") version Versions.ktlintGradle
+    id("io.fabric") version Versions.fabricGradleTool
+    id("com.google.gms.oss.licenses.plugin") version Versions.ossLicenses
+    id("com.github.ben-manes.versions") version Versions.gradleVersions
+    id("deploygate") version Versions.deploygate
+    id("com.github.triplet.play") version Versions.playPublisher
+    id("com.google.gms.google-services") version Versions.googleServices apply false
+}
+
 // Manifest version
 val versionMajor = 0
 val versionMinor = 1
 val versionPatch = 0
-
-plugins {
-    id("com.android.application") version Versions.gradleBuildTool
-    id("com.google.gms.oss.licenses.plugin") version Versions.ossLicenses
-    id("com.google.gms.google-services") version Versions.googleServices apply false
-    kotlin("android") version Versions.kotlin
-    kotlin("kapt") version Versions.kotlin
-    id("com.github.ben-manes.versions") version Versions.gradleVersions
-    id("com.github.triplet.play") version Versions.playPublisher
-    id("org.jlleitschuh.gradle.ktlint") version Versions.ktlintGradle
-    id("io.fabric") version Versions.fabricGradleTool
-    id("deploygate") version Versions.deploygate
-}
 
 android {
     compileSdkVersion(Versions.compileSdk)
@@ -121,7 +121,8 @@ kapt {
 dependencies {
 
     implementation(project(":model"))
-//    implementation(kotlin("stdlib-jre7", Versions.kotlin))
+
+    // Kotlin
     implementation(Depends.Kotlin.stdlib)
 
 //    //==================== Support Library ====================
@@ -162,9 +163,9 @@ dependencies {
     kapt(Depends.Binding.compiler)
 
     implementation(Depends.Dagger.core)
-    implementation(Depends.Dagger.compiler)
     implementation(Depends.Dagger.android)
-    kapt(Depends.Dagger.androidSupport)
+    implementation(Depends.Dagger.androidSupport)
+    kapt(Depends.Dagger.compiler)
     kapt(Depends.Dagger.androidProcessor)
 
     implementation(Depends.PlayService.map)
@@ -210,8 +211,8 @@ dependencies {
 
     testImplementation(Depends.Robolectric.core)
     testImplementation(Depends.Robolectric.multidex)
-
     testImplementation(Depends.assertk)
+
     testImplementation(Depends.threetenbp)
 
     androidTestImplementation(Depends.SupportTest.runner)
@@ -231,11 +232,13 @@ play {
 }
 
 ktlint {
-    version = "0.14.0"
+    version = Versions.ktlint
     android = true
     reporter = ReporterType.CHECKSTYLE
     ignoreFailures = true
 }
+
+apply(mapOf("plugin" to "com.google.gms.google-services"))
 
 deploygate {
     userName = "takahirom"
@@ -251,5 +254,3 @@ deploygate {
         }
     }
 }
-
-apply(mapOf("plugin" to "com.google.gms.google-services"))
