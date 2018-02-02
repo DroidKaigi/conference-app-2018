@@ -1,17 +1,22 @@
 package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
+import android.net.Uri
 import android.support.text.emoji.widget.EmojiTextView
 import android.text.Selection
 import android.text.Spannable
 import android.text.style.ClickableSpan
+import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.view.MotionEvent
+import timber.log.Timber
 
 class FeedContentTextView
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
                           defStyleAttr: Int = 0) : EmojiTextView(context, attrs, defStyleAttr) {
+
+    var onClickUrl: ((String) -> Unit)? = null
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val action = event.action
@@ -38,7 +43,13 @@ class FeedContentTextView
                 val url: ClickableSpan = urls[0]
 
                 when (action) {
-                    MotionEvent.ACTION_UP -> url.onClick(this)
+                    MotionEvent.ACTION_UP -> {
+                        if (url is URLSpan && onClickUrl != null) {
+                            onClickUrl?.invoke(url.url)
+                        } else {
+                            url.onClick(this)
+                        }
+                    }
                     MotionEvent.ACTION_DOWN -> {
                         Selection.setSelection(spannable,
                                 spannable.getSpanStart(url),
