@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
 import android.net.Uri
-import android.support.text.emoji.widget.EmojiTextView
+import android.support.text.emoji.widget.EmojiAppCompatTextView
 import android.text.Selection
 import android.text.Spannable
 import android.text.style.ClickableSpan
@@ -14,7 +14,7 @@ import timber.log.Timber
 class FeedContentTextView
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : EmojiTextView(context, attrs, defStyleAttr) {
+                          defStyleAttr: Int = 0) : EmojiAppCompatTextView(context, attrs, defStyleAttr) {
 
     var onClickUrl: ((String) -> Unit)? = null
 
