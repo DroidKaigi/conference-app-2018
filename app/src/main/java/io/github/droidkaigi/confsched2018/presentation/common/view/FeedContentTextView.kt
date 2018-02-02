@@ -56,7 +56,6 @@ class FeedContentTextView
                     }
                 }
                 true
-
             } else {
                 Selection.removeSelection(spannable)
                 false
