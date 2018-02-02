@@ -26,4 +26,7 @@
     <dimen name="sticky_label_padding">20dp</dimen>
     <dimen name="sticky_label_font_size">24sp</dimen>
     <dimen name="sticky_label_content_margin">60dp</dimen>
+
+    <!-- Speaker -->
+    <dimen name="speaker_detail_image_size">64dp</dimen>
 </resources>

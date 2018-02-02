@@ -17,9 +17,9 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.HasServiceInjector
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.di.AppInjector
-import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationHelper
 import io.github.droidkaigi.confsched2018.service.push.processor.NewPostProcessor
+import io.github.droidkaigi.confsched2018.di.initDaggerComponent
+import io.github.droidkaigi.confsched2018.presentation.common.notification.initNotificationChannel
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
@@ -64,7 +64,7 @@ open class App : MultiDexApplication(), HasActivityInjector, HasServiceInjector 
     }
 
     open fun setupDagger() {
-        AppInjector.init(this)
+        initDaggerComponent()
     }
 
     private fun setupCalligraphy() {
@@ -94,7 +94,7 @@ open class App : MultiDexApplication(), HasActivityInjector, HasServiceInjector 
     }
 
     private fun setupNotification() {
-        NotificationHelper.initNotificationChannel(this)
+        initNotificationChannel()
     }
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> =

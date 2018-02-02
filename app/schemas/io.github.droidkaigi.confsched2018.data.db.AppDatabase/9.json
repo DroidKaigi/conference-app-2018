@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 6,
-    "identityHash": "5b9cb42652b6813a5d5e0b8abc21fa21",
+    "version": 9,
+    "identityHash": "57f14e952da2a0eae8e85d37c1e040c2",
     "entities": [
       {
         "tableName": "contributor",
@@ -50,7 +50,7 @@
       },
       {
         "tableName": "session",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `desc` TEXT NOT NULL, `stime` INTEGER NOT NULL, `etime` INTEGER NOT NULL, `sessionFormat` TEXT NOT NULL, `language` TEXT NOT NULL, `level_id` INTEGER NOT NULL, `level_name` TEXT NOT NULL, `topic_id` INTEGER NOT NULL, `topic_name` TEXT NOT NULL, `room_id` INTEGER NOT NULL, `room_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `desc` TEXT NOT NULL, `stime` INTEGER NOT NULL, `etime` INTEGER NOT NULL, `sessionFormat` TEXT NOT NULL, `language` TEXT NOT NULL, `level_id` INTEGER NOT NULL, `level_name` TEXT NOT NULL, `topic_id` INTEGER NOT NULL, `topic_name` TEXT NOT NULL, `room_id` INTEGER NOT NULL, `room_name` TEXT NOT NULL, `message_ja` TEXT, `message_en` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -129,6 +129,18 @@
             "columnName": "room_name",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "message.ja",
+            "columnName": "message_ja",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "message.en",
+            "columnName": "message_en",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -263,7 +275,7 @@
       },
       {
         "tableName": "session_feedback",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`session_id` TEXT NOT NULL, `total_evaluation` INTEGER NOT NULL, `relevancy` INTEGER NOT NULL, `asExpected` INTEGER NOT NULL, `difficulty` INTEGER NOT NULL, `knowledgeable` INTEGER NOT NULL, `comment` TEXT NOT NULL, `submitted` INTEGER NOT NULL, PRIMARY KEY(`session_id`), FOREIGN KEY(`session_id`) REFERENCES `session`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`session_id` TEXT NOT NULL, `total_evaluation` INTEGER NOT NULL, `relevancy` INTEGER NOT NULL, `asExpected` INTEGER NOT NULL, `difficulty` INTEGER NOT NULL, `knowledgeable` INTEGER NOT NULL, `comment` TEXT NOT NULL, `submitted` INTEGER NOT NULL, PRIMARY KEY(`session_id`))",
         "fields": [
           {
             "fieldPath": "sessionId",
@@ -330,24 +342,68 @@
             "createSql": "CREATE  INDEX `index_session_feedback_session_id` ON `${TABLE_NAME}` (`session_id`)"
           }
         ],
-        "foreignKeys": [
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sponsor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `group_index` INTEGER NOT NULL, `link` TEXT NOT NULL, `base64_img` TEXT, `img_url` TEXT, `sponsor_plan_name` TEXT NOT NULL, `sponsor_plan_type` TEXT NOT NULL)",
+        "fields": [
           {
-            "table": "session",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "session_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "groupIndex",
+            "columnName": "group_index",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "link",
+            "columnName": "link",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "base64Img",
+            "columnName": "base64_img",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "imgUrl",
+            "columnName": "img_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "plan.name",
+            "columnName": "sponsor_plan_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plan.type",
+            "columnName": "sponsor_plan_type",
+            "affinity": "TEXT",
+            "notNull": true
           }
-        ]
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"5b9cb42652b6813a5d5e0b8abc21fa21\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"57f14e952da2a0eae8e85d37c1e040c2\")"
     ]
   }
 }
