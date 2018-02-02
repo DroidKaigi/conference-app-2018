@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
-import android.net.Uri
 import android.support.text.emoji.widget.EmojiAppCompatTextView
 import android.text.Selection
 import android.text.Spannable
@@ -9,7 +8,6 @@ import android.text.style.ClickableSpan
 import android.text.style.URLSpan
 import android.util.AttributeSet
 import android.view.MotionEvent
-import timber.log.Timber
 
 class FeedContentTextView
 @JvmOverloads constructor(context: Context,
