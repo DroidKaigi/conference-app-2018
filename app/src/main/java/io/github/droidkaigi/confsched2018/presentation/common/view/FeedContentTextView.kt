@@ -12,7 +12,8 @@ import android.view.MotionEvent
 class FeedContentTextView
 @JvmOverloads constructor(context: Context,
                           attrs: AttributeSet? = null,
-                          defStyleAttr: Int = 0) : EmojiAppCompatTextView(context, attrs, defStyleAttr) {
+                          defStyleAttr: Int = 0
+) : EmojiAppCompatTextView(context, attrs, defStyleAttr) {
 
     var onClickUrl: ((String) -> Unit)? = null
 
