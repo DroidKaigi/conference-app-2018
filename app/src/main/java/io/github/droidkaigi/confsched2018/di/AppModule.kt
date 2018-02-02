@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.di
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -11,6 +12,7 @@ import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.ContributorDatabase
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
+import io.github.droidkaigi.confsched2018.data.db.SponsorDatabase
 import io.github.droidkaigi.confsched2018.data.repository.ContributorDataRepository
 import io.github.droidkaigi.confsched2018.data.repository.ContributorRepository
 import io.github.droidkaigi.confsched2018.data.repository.FeedDataRepository
@@ -48,8 +50,10 @@ import javax.inject.Singleton
 
     @Singleton @Provides @JvmStatic
     fun provideSponsorPlanRepository(
-            droidKaigiApi: DroidKaigiApi
-    ): SponsorPlanRepository = SponsorPlanDataRepository(droidKaigiApi)
+            droidKaigiApi: DroidKaigiApi,
+            sponsorDatabase: SponsorDatabase,
+            schedulerProvider: SchedulerProvider
+    ): SponsorPlanRepository = SponsorPlanDataRepository(droidKaigiApi, sponsorDatabase, schedulerProvider)
 
     @Singleton @Provides @JvmStatic
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
@@ -68,4 +72,10 @@ import javax.inject.Singleton
             schedulerProvider: SchedulerProvider
     ): StaffRepository =
             StaffDataRepository(context, schedulerProvider)
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideNotificationManager(context: Context): NotificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

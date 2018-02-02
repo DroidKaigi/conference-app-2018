@@ -7,7 +7,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
 import timber.log.Timber
 
 class NotificationBroadcastReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context, intent: Intent?) {
         Timber.d("NotificationBroadcastReceiver.onReceive")
 
         if (!Prefs.enableNotification) {
@@ -16,10 +16,7 @@ class NotificationBroadcastReceiver : BroadcastReceiver() {
         }
 
         intent ?: return
-        context ?: return
-
-        val notificationContent = NotificationContent.parse(intent)
-        NotificationHelper.showNotification(context, notificationContent)
+        context.showNotification(NotificationContent.parse(intent))
     }
 
     companion object {

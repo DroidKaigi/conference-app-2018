@@ -72,6 +72,7 @@ object Depends {
         val firestore = "com.google.firebase:firebase-firestore:${Versions.firebase}"
         val auth = "com.google.firebase:firebase-auth:${Versions.firebase}"
         val core = "com.google.firebase:firebase-core:${Versions.firebase}"
+        val messaging = "com.google.firebase:firebase-messaging:${Versions.firebase}"
     }
 
     val threetenabp = "com.jakewharton.threetenabp:threetenabp:1.0.5"
@@ -114,7 +115,6 @@ object Depends {
     object Robolectric {
         val core = "org.robolectric:robolectric:${Versions.robolectric}"
         val multidex = "org.robolectric:shadows-multidex:${Versions.robolectric}"
-
     }
 
     val assertk = "com.willowtreeapps.assertk:assertk:0.9"

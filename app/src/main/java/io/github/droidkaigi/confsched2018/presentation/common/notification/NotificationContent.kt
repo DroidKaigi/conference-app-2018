@@ -10,7 +10,7 @@ import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActiv
 sealed class NotificationContent(
         open val title: String,
         open val text: String,
-        val channelType: NotificationHelper.ChannelType
+        val channelType: NotificationChannelType
 ) {
     enum class NotificationType {
         FAVORITE_SESSION_START_NOTIFICATION
@@ -23,7 +23,7 @@ sealed class NotificationContent(
     ) : NotificationContent(
             title,
             text,
-            NotificationHelper.ChannelType.FAVORITE_SESSION_START
+            NotificationChannelType.FAVORITE_SESSION_START
     ) {
         override fun createPendingContentIntent(context: Context): PendingIntent {
             return TaskStackBuilder
