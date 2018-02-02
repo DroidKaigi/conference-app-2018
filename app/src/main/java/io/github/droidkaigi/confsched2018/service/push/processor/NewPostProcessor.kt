@@ -11,7 +11,7 @@ import android.support.v4.content.ContextCompat
 import com.google.firebase.messaging.RemoteMessage
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
-import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationHelper
+import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationChannelType
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -43,9 +43,10 @@ class NewPostProcessor @Inject constructor(
             else -> NotificationCompat.PRIORITY_DEFAULT
         }
         val notification: Notification = NotificationCompat.Builder(application,
-                NotificationHelper.ChannelType.NEW_FEED_POST.id)
+                NotificationChannelType.NEW_FEED_POST.id)
                 .setContentTitle(title)
                 .setContentText(content)
+                .setAutoCancel(true)
                 .setLargeIcon((ContextCompat.getDrawable(application, largeIcon) as BitmapDrawable)
                         .bitmap)
                 .setSmallIcon(R.drawable.ic_notification)
