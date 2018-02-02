@@ -96,6 +96,7 @@ ext {
                     firestore: "com.google.firebase:firebase-firestore:$versions.firebase",
                     auth     : "com.google.firebase:firebase-auth:$versions.firebase",
                     core     : "com.google.firebase:firebase-core:$versions.firebase",
+                    messaging: "com.google.firebase:firebase-messaging:$versions.firebase",
             ],
             threetenabp            : "com.jakewharton.threetenabp:threetenabp:1.0.5",
             kotpref                : [

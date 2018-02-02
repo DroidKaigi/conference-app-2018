@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2018.di
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -71,4 +72,10 @@ import javax.inject.Singleton
             schedulerProvider: SchedulerProvider
     ): StaffRepository =
             StaffDataRepository(context, schedulerProvider)
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideNotificationManager(context: Context): NotificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

@@ -20,6 +20,11 @@ enum class NotificationChannelType(
             "favorite_session_start_channel",
             R.string.notification_channel_name_start_favorite_session,
             NotificationManager.IMPORTANCE_HIGH
+    ),
+    NEW_FEED_POST(
+            "new_feed_post",
+            R.string.notification_channel_name_new_feed_post,
+            NotificationManager.IMPORTANCE_HIGH
     );
 }
 
