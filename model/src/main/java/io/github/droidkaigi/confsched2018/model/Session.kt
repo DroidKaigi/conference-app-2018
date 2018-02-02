@@ -37,4 +37,7 @@ sealed class Session(
 
     val isFinished: Boolean
         get() = System.currentTimeMillis() > endTime.time
+
+    val isOnGoing: Boolean
+        get() = Date().after(startTime) && Date().before(endTime)
 }

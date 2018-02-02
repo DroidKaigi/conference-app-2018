@@ -1,17 +1,14 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.item
 
-import android.view.View
 import com.xwray.groupie.databinding.BindableItem
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSpeechSessionBinding
 import io.github.droidkaigi.confsched2018.model.Lang
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.util.ext.color
 import io.github.droidkaigi.confsched2018.util.ext.context
 import io.github.droidkaigi.confsched2018.util.ext.drawable
 import io.github.droidkaigi.confsched2018.util.lang
-import java.util.Date
 
 data class SpeechSessionItem(
         override val session: Session.SpeechSession,
@@ -52,25 +49,6 @@ data class SpeechSessionItem(
             is Level.Niche -> R.drawable.ic_niche_cyan_20dp
         })
         viewBinding.level.setImageDrawable(levelDrawable)
-
-        val now = Date()
-        when {
-            now.before(session.startTime) -> {
-                viewBinding.root.setBackgroundColor(viewBinding.context.color(R.color
-                        .card_background_color))
-                viewBinding.currentBadge.visibility = View.GONE
-            }
-            now.after(session.endTime) -> {
-                viewBinding.root.setBackgroundColor(viewBinding.context.color(R.color
-                        .card_background_color))
-                viewBinding.currentBadge.visibility = View.GONE
-            }
-            else -> {
-                viewBinding.root.setBackgroundColor(viewBinding.context.color(R.color
-                        .current_card_background_color))
-                viewBinding.currentBadge.visibility = View.VISIBLE
-            }
-        }
     }
 
     override fun getLayout(): Int = R.layout.item_speech_session

@@ -23,6 +23,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@animator/card_state_list_anim"
+        android:background="@{session.isOnGoing ? @color/current_card_background_color : @color/card_background_color}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +44,7 @@
                 android:layout_marginStart="12dp"
                 android:text="@string/session_current_badge"
                 android:textColor="@color/accent"
+                android:visibility="@{session.isOnGoing ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/day_number"
                 />
