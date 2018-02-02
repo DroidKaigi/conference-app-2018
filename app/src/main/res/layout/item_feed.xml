@@ -61,6 +61,7 @@
             android:ellipsize="end"
             android:paddingBottom="16dp"
             android:text="@{post.content}"
+            android:textIsSelectable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/expand_icon"
             app:layout_constraintStart_toStartOf="parent"
