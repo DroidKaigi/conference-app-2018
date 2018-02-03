@@ -11,13 +11,18 @@ private val timeFormat = SimpleDateFormat("HH:mm", Locale.US)
 
 fun Date.toReadableDateTimeString() = "${toReadableDateString()} ${toReadableTimeString()}"
 
-fun Date.toReadableDateString() = dateFormat.apply {
-    timeZone = timeZone()
-}.format(this)
+fun Date.toReadableDateString() =
+        synchronized(Prefs) {
+            dateFormat.timeZone = timeZone()
+            dateFormat.format(this)
+        }
 
-fun Date.toReadableTimeString() = timeFormat.apply {
-    timeZone = timeZone()
-}.format(this)
+
+fun Date.toReadableTimeString() =
+        synchronized(Prefs) {
+            timeFormat.timeZone = timeZone()
+            timeFormat.format(this)
+        }
 
 private fun timeZone(): TimeZone {
     return if (Prefs.enableLocalTime) {
