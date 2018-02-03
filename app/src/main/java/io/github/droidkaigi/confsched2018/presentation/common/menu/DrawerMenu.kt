@@ -114,7 +114,7 @@ class DrawerMenu @Inject constructor(
         SETTINGS(R.id.nav_item_setting, SettingsActivity::class, {
             navigateToSettingsActivity()
         }),
-        SURVEY(R.id.nav_item_all_survey, Unit::class, {
+        FEEDBACK(R.id.nav_item_all_feedback, Unit::class, {
             navigateToExternalBrowser("https://goo.gl/forms/Hjp54vk5P0VILcgf1")
         }),
         OTHER(0, Unit::class, {

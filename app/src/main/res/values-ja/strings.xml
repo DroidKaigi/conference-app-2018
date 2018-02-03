@@ -9,7 +9,7 @@
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_staff">@string/staff</string>
-    <string name="nav_item_all_survey">全体アンケートを記入</string>
+    <string name="nav_item_all_feedback">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
     <string name="nav_content_description_drawer_open">ナビゲーションドロワーを開く</string>
