@@ -20,6 +20,7 @@ import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
@@ -81,6 +82,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
+        binding.tabLayout.addOnTabSelectedListener(OnTabReselectedListener(binding.sessionsViewPager))
     }
 
     override fun onReselected() {
@@ -122,9 +124,9 @@ class SessionsViewPagerAdapter(
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
 
-    sealed class Tab(val title: String) {
-        object All : Tab("All")
-        data class RoomTab(val room: Room) : Tab(room.name)
+    sealed class Tab(val title: String, val fragment: Fragment) {
+        object All : Tab("All", AllSessionsFragment.newInstance())
+        data class RoomTab(val room: Room) : Tab(room.name, RoomSessionsFragment.newInstance(room))
     }
 
     private fun setupTabs() {
@@ -136,17 +138,7 @@ class SessionsViewPagerAdapter(
 
     override fun getPageTitle(position: Int): CharSequence = tabs[position].title
 
-    override fun getItem(position: Int): Fragment {
-        val tab = tabs[position]
-        return when (tab) {
-            Tab.All -> {
-                AllSessionsFragment.newInstance()
-            }
-            is Tab.RoomTab -> {
-                RoomSessionsFragment.newInstance(tab.room)
-            }
-        }
-    }
+    override fun getItem(position: Int): Fragment = tabs[position].fragment
 
     override fun getCount(): Int = tabs.size
 
