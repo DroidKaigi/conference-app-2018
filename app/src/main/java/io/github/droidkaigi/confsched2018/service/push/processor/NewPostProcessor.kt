@@ -34,7 +34,7 @@ class NewPostProcessor @Inject constructor(
         val largeIcon = when (type) {
             "tutorial" -> R.drawable.ic_feed_tutorial_pink_20dp
             "alert" -> R.drawable.ic_feed_alert_amber_20dp
-            "feedback" -> R.drawable.ic_feed_feedback_cyan_20dp
+            "enquete" -> R.drawable.ic_feed_feedback_cyan_20dp
             else -> R.drawable.ic_feed_notification_blue_20dp
         }
         val priority = when (type) {

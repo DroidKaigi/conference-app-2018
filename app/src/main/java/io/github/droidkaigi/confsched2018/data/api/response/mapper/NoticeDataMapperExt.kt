@@ -15,7 +15,7 @@ fun List<io.github.droidkaigi.confsched2018.data.api.response.Post>.toFeeds():
                     "tutorial" -> Post.Type.Tutorial
                     "notification" -> Post.Type.Notification
                     "alert" -> Post.Type.Alert
-                    "feedback" -> Post.Type.Feedback
+                    "enquete" -> Post.Type.Feedback
                     else -> throw IllegalStateException("unsupported Post type.")
                 }
             }
