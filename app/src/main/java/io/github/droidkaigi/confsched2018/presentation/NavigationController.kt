@@ -178,7 +178,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         activity.startActivity(customTabsIntent.intent.setData(webUri))
     }
 
-    private fun tryLaunchingSpecificApp(url:String, customTabsPackageName: String?): Boolean {
+    private fun tryLaunchingSpecificApp(url: String, customTabsPackageName: String?): Boolean {
         val appUri = Uri.parse(url).let {
             if (it.host.contains("facebook")) {
                 Uri.parse(FACEBOOK_SCHEME + url)
@@ -200,7 +200,9 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         return false
     }
 
-    private fun tryUsingCustomTabs(customTabsPackageName: String?, customTabsIntent: CustomTabsIntent, webUri: Uri?): Boolean {
+    private fun tryUsingCustomTabs(customTabsPackageName: String?,
+                                   customTabsIntent: CustomTabsIntent,
+                                   webUri: Uri?): Boolean {
         customTabsPackageName?.let {
             customTabsIntent.intent.`package` = customTabsPackageName
             customTabsIntent.launchUrl(activity, webUri)
