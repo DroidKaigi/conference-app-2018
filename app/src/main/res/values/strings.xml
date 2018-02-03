@@ -101,6 +101,10 @@
     <string name="speaker_dialog_content_description_github"> Link Button</string>
     <string name="speaker_dialog_content_description_company">Company Link Button</string>
     <string name="speaker_dialog_content_description_blog">Blog Link Button</string>
+    <string name="speaker_dialog_text_twitter">Twitter</string>
+    <string name="speaker_dialog_text_github">Github</string>
+    <string name="speaker_dialog_text_company">Company</string>
+    <string name="speaker_dialog_text_blog">Blog</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
