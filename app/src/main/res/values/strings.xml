@@ -37,6 +37,7 @@
     <string name="session_finished">Finished Session</string>
     <string name="session_go_to_feedback">Go To Feedback</string>
     <string name="session_current_badge" translatable="false">NOW!</string>
+    <string name="session_share_via">Share via</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>

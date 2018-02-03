@@ -22,6 +22,9 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
 import javax.inject.Inject
+import android.content.Intent
+
+
 
 class SessionDetailFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSessionDetailBinding
@@ -52,7 +55,7 @@ class SessionDetailFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val sessions = result.data
                     val position = sessions.indexOfFirst { it.id == sessionId }
-                    bindSession(sessions[position])
+                    bindSession(sessions[position], sessionId)
                     setSessionIndicator(sessions.getOrNull(position - 1),
                             sessions.getOrNull(position + 1))
                 }
@@ -77,12 +80,22 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.toolbar.setNavigationOnClickListener { activity?.finish() }
     }
 
-    private fun bindSession(session: Session.SpeechSession) {
+    private fun bindSession(session: Session.SpeechSession, sessionId: String) {
         binding.session = session
         binding.fab.setOnClickListener {
             updateDrawable()
             sessionDetailViewModel.onFavoriteClick(session)
             sessionAlarm.toggleRegister(session)
+        }
+        binding.fabShare.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                // TODO: extract to string resource
+                val title = "${session.title} at ${session.room.name}"
+                val url = "https//droidkaigi.jp/2018/timetable?session=$sessionId"
+                putExtra(Intent.EXTRA_TEXT, "$title\n$url")
+            }
+            startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.session_share_via)))
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
         val levelDrawable = binding.context.drawable(when (session.level) {
