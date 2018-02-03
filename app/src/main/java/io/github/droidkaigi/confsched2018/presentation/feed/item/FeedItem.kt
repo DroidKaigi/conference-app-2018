@@ -35,7 +35,7 @@ data class FeedItem(
             Post.Type.Tutorial -> R.drawable.ic_feed_tutorial_pink_20dp
             Post.Type.Notification -> R.drawable.ic_feed_notification_blue_20dp
             Post.Type.Alert -> R.drawable.ic_feed_alert_amber_20dp
-            Post.Type.Enquete -> R.drawable.ic_feed_enquete_cyan_20dp
+            Post.Type.Feedback -> R.drawable.ic_feed_feedback_cyan_20dp
         })
 
         viewBinding.content.onClickUrl = onClickUri
