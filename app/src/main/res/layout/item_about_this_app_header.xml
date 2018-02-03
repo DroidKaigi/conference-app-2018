@@ -24,7 +24,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
-            android:text='What is " '
+            android:text="@string/about_what_is_prefix"
             android:textColor="#de000000"
             android:textSize="23sp"
             android:textStyle="normal"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
-            android:text=' " ?'
+            android:text="@string/about_what_is_suffix"
             android:textColor="#de000000"
             android:textSize="23sp"
             android:textStyle="normal"

@@ -141,6 +141,8 @@
     <string name="about_contributors_description">Those who contribute to creation.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_description">%1$s</string>
+    <string name="about_what_is_prefix">What is " </string>
+    <string name="about_what_is_suffix"> " ?</string>
 
     <!-- Session Feedback -->
     <string name="session_feedback_total_evaluation">How was the session? (Overall Rating)</string>
