@@ -92,7 +92,8 @@ class SearchFragment : Fragment(), Injectable {
         binding.sessionsViewPager.adapter =
                 SearchBeforeViewPagerAdapter(activity!!, childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
-        binding.tabLayout.addOnTabSelectedListener(OnTabReselectedListener(binding.sessionsViewPager))
+        binding.tabLayout.addOnTabSelectedListener(
+                OnTabReselectedListener(binding.sessionsViewPager))
     }
 
     private fun setupSearch() {

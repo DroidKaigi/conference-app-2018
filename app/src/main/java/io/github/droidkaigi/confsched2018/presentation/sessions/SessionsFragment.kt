@@ -82,7 +82,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
-        binding.tabLayout.addOnTabSelectedListener(OnTabReselectedListener(binding.sessionsViewPager))
+        binding.tabLayout.addOnTabSelectedListener(
+                OnTabReselectedListener(binding.sessionsViewPager))
     }
 
     override fun onReselected() {
