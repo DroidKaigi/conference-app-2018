@@ -143,6 +143,12 @@
     <string name="about_version_description">%1$s</string>
     <string name="about_what_is_prefix">What is " </string>
     <string name="about_what_is_suffix"> " ?</string>
+    <string name="about_content_description_conference_name">DroidKaigi Logo</string>
+    <string name="about_content_description_facebook">facebook link button</string>
+    <string name="about_content_description_twitter">twitter link button</string>
+    <string name="about_content_description_github">github link button</string>
+    <string name="about_content_description_youtube">youtube link button</string>
+    <string name="about_content_description_medium">medium link button</string>
 
     <!-- Session Feedback -->
     <string name="session_feedback_total_evaluation">How was the session? (Overall Rating)</string>
