@@ -141,8 +141,8 @@
     <string name="about_contributors_description">Those who contribute to creation.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_description">%1$s</string>
-    <string name="about_what_is_prefix">What is " </string>
-    <string name="about_what_is_suffix"> " ?</string>
+    <string name="about_what_is_prefix" translatable="false">What is " </string>
+    <string name="about_what_is_suffix" translatable="false"> " ?</string>
     <string name="about_content_description_conference_name">DroidKaigi Logo</string>
     <string name="about_content_description_facebook">facebook link button</string>
     <string name="about_content_description_twitter">twitter link button</string>
