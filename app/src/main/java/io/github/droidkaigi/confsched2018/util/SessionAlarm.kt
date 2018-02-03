@@ -23,7 +23,7 @@ class SessionAlarm @Inject constructor(val context: Context) {
     }
 
     private fun register(session: Session.SpeechSession) {
-        val time = session.startTime.getTime().toLong() - NOTIFICATION_TIME_BEFORE_START_MILLS
+        val time = session.startTime.getTime() - NOTIFICATION_TIME_BEFORE_START_MILLS
 //        val time = System.currentTimeMillis() + 61000
         if (System.currentTimeMillis() < time) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
