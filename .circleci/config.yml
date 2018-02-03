@@ -72,6 +72,7 @@ jobs:
                   ./gradlew :app:uploadDeployGateRelease
               elif [[ "${CIRCLE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
                   echo "Deploy to Google Play"
+                  openssl aes-256-cbc -k $PUBLISHER_KEYS_JSON_DECRYPT_PASSWORD -d -in encrypted-publisher_keys.json -out app/publisher_keys.json
                   ./gradlew clean assembleRelease publishApkRelease
               fi
       - store_artifacts:

@@ -21,7 +21,6 @@ android {
     // Play publisher
     playAccountConfigs {
         defaultAccountConfig {
-            // TODO Replace json file to the one which is generated in the API console.
             // https://github.com/Triple-T/gradle-play-publisher#authentication
             jsonFile = file('publisher-keys.json')
         }
