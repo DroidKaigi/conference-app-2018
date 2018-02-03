@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation.detail
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -22,8 +23,6 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
 import javax.inject.Inject
-import android.content.Intent
-
 
 
 class SessionDetailFragment : Fragment(), Injectable {
@@ -90,12 +89,14 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.fabShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                // TODO: extract to string resource
                 var speakerList = listOf<String>()
                 session.speakers.forEach { speakerList += it.name }
                 val speakers = speakerList.joinToString(", ")
-                val title = "${session.title} at ${session.room.name} by $speakers"
-                val url = "https//droidkaigi.jp/2018/timetable?session=$sessionId"
+                val title = resources.getString(R.string.session_share_title,
+                        session.title,
+                        session.room.name,
+                        speakers)
+                val url = resources.getString(R.string.session_share_url, sessionId)
                 putExtra(Intent.EXTRA_TEXT, "$title\n$url")
             }
             startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.session_share_via)))
