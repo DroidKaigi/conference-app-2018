@@ -11,52 +11,50 @@ import android.support.v4.app.NotificationManagerCompat
 import android.support.v4.content.ContextCompat
 import io.github.droidkaigi.confsched2018.R
 
-/**
- * Helper class for Notification.
- */
-object NotificationHelper {
-    enum class ChannelType(
-            val id: String,
-            @StringRes val nameRes: Int,
-            val importance: Int
-    ) {
-        FAVORITE_SESSION_START(
-                "favorite_session_start_channel",
-                R.string.notification_channel_name_start_favorite_session,
-                NotificationManager.IMPORTANCE_HIGH
-        );
-    }
+enum class NotificationChannelType(
+        val id: String,
+        @StringRes val nameRes: Int,
+        val importance: Int
+) {
+    FAVORITE_SESSION_START(
+            "favorite_session_start_channel",
+            R.string.notification_channel_name_start_favorite_session,
+            NotificationManager.IMPORTANCE_HIGH
+    ),
+    NEW_FEED_POST(
+            "new_feed_post",
+            R.string.notification_channel_name_new_feed_post,
+            NotificationManager.IMPORTANCE_HIGH
+    );
+}
 
-    fun initNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ChannelType.values().forEach {
-                createNotificationChannel(context, it)
-            }
-        }
+fun Context.initNotificationChannel() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        NotificationChannelType.values().forEach(::createNotificationChannel)
     }
+}
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(context: Context, channelType: ChannelType) {
-        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channelName = context.getString(channelType.nameRes)
-        val channel = NotificationChannel(channelType.id, channelName, channelType.importance)
-        manager.createNotificationChannel(channel)
-    }
+@RequiresApi(Build.VERSION_CODES.O)
+private fun Context.createNotificationChannel(channelType: NotificationChannelType) {
+    (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+            .createNotificationChannel(NotificationChannel(
+                    channelType.id,
+                    getString(channelType.nameRes),
+                    channelType.importance
+            ))
+}
 
-    fun showNotification(
-            context: Context,
-            content: NotificationContent
-    ) {
-        val notification =
-                NotificationCompat.Builder(context, content.channelType.id)
-                        .setContentTitle(content.title)
-                        .setContentText(content.text)
-                        .setFullScreenIntent(content.createPendingContentIntent(context), true)
-                        .setAutoCancel(true)
-                        .setColor(ContextCompat.getColor(context, R.color.primary))
-                        .setSmallIcon(R.drawable.ic_notification).build()
-
-        val manager = NotificationManagerCompat.from(context)
-        manager.notify(content.text.hashCode(), notification)
-    }
+fun Context.showNotification(
+        content: NotificationContent
+) {
+    NotificationManagerCompat.from(this).notify(
+            content.text.hashCode(),
+            NotificationCompat.Builder(this, content.channelType.id)
+                    .setContentTitle(content.title)
+                    .setContentText(content.text)
+                    .setFullScreenIntent(content.createPendingContentIntent(this), true)
+                    .setAutoCancel(true)
+                    .setColor(ContextCompat.getColor(this, R.color.primary))
+                    .setSmallIcon(R.drawable.ic_notification).build()
+    )
 }

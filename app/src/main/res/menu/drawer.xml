@@ -58,9 +58,9 @@
         android:checkableBehavior="single"
         >
         <item
-            android:id="@+id/nav_item_all_survey"
-            android:icon="@drawable/ic_survey_black_24dp"
-            android:title="@string/nav_item_all_survey"
+            android:id="@+id/nav_item_all_feedback"
+            android:icon="@drawable/ic_feedback_black_24dp"
+            android:title="@string/nav_item_all_feedback"
             />
     </group>
 

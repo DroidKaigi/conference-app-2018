@@ -22,7 +22,8 @@ sealed class Session(
             val level: Level,
             val isFavorited: Boolean,
             val speakers: List<Speaker>,
-            val feedback: SessionFeedback
+            val feedback: SessionFeedback,
+            val message: SessionMessage?
     ) : Session(id, dayNumber, startTime, endTime)
 
     data class SpecialSession(

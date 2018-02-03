@@ -13,6 +13,6 @@ data class Post(
         Tutorial,
         Notification,
         Alert,
-        Enquete,
+        Feedback,
     }
 }

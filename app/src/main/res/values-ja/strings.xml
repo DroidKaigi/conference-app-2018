@@ -9,7 +9,7 @@
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_staff">@string/staff</string>
-    <string name="nav_item_all_survey">全体アンケートを記入</string>
+    <string name="nav_item_all_feedback">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
     <string name="nav_content_description_drawer_open">ナビゲーションドロワーを開く</string>
@@ -84,6 +84,7 @@
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
     <string name="speaker_content_description">スピーカー画像</string>
+    <string name="speaker_sns_empty_message">SNSのリンクが設定されていません</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -108,6 +109,7 @@
     <string name="notification_title">%1$s がもうすぐ始まります。</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
     <string name="notification_channel_name_start_favorite_session">マイセッションの開始</string>
+    <string name="notification_channel_name_new_feed_post">新しいお知らせ</string>
 
     <!-- AboutThisApp -->
     <string name="about_official_head_title">What is "DroidKaigi"?</string>

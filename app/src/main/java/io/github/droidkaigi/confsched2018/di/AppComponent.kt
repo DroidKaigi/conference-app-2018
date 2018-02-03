@@ -16,6 +16,7 @@ import io.github.droidkaigi.confsched2018.di.activitymodule.SponsorsActivityBuil
 import io.github.droidkaigi.confsched2018.di.activitymodule.StaffActivityBuilder
 import io.github.droidkaigi.confsched2018.di.activitymodule.TopicDetailActivityBuilder
 import io.github.droidkaigi.confsched2018.presentation.App
+import io.github.droidkaigi.confsched2018.service.push.PushServiceBuilder
 import javax.inject.Singleton
 
 @Singleton
@@ -25,6 +26,7 @@ import javax.inject.Singleton
     NetworkModule::class,
     DatabaseModule::class,
     ViewModelModule::class,
+    PushServiceBuilder::class,
     MainActivityBuilder::class,
     MapActivityBuilder::class,
     AboutThisAppActivityBuilder::class,

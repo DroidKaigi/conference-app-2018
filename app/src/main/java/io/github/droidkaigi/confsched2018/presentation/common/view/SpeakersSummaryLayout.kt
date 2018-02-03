@@ -75,7 +75,8 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
      *     app:speakers="@{speakers}"
      *     />
      */
-    fun setSpeakers(speakers: List<Speaker>) {
+    fun setSpeakers(speakers: List<Speaker>?) {
+        speakers ?: return
         if (speakerList == speakers) return
         speakerList.clear()
         speakerList.addAll(speakers)
@@ -88,25 +89,22 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
     }
 
     private fun updateSpeakers() {
-        if (speakerList.isEmpty()) {
-        } else {
-            val speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
-            speakerContainer.adapter = speakerAdapter
+        if (speakerList.isEmpty()) return
 
-            speakerAdapter.setOnItemClickListener(object : SpeakersAdapter.OnItemClickListener {
-                override fun onClick(view: View, speakerId: String) {
-                    if (speakerIdInDetail == null ||
-                            (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
-                        val sharedElement = Pair(
-                                view.findViewById<View>(R.id.speaker_image),
-                                speakerId)
-                        SpeakerDetailActivity.start(
-                                activity = context as AppCompatActivity,
-                                sharedElement = sharedElement,
-                                speakerId = speakerId)
-                    }
-                }
-            })
+        val speakerAdapter = SpeakersAdapter(context, speakerList, customAttributes.textColor)
+        speakerContainer.adapter = speakerAdapter
+
+        speakerAdapter.onSpeakerClick = { view, speakerId ->
+            if (speakerIdInDetail == null ||
+                    (speakerIdInDetail != null && !speakerIdInDetail.equals(speakerId))) {
+                val sharedElement = Pair(
+                        view.findViewById<View>(R.id.speaker_image),
+                        speakerId)
+                SpeakerDetailActivity.start(
+                        activity = context as AppCompatActivity,
+                        sharedElement = sharedElement,
+                        speakerId = speakerId)
+            }
         }
     }
 }

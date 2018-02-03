@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2018.presentation
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Service
 import android.support.multidex.MultiDexApplication
 import android.support.text.emoji.EmojiCompat
 import android.support.text.emoji.FontRequestEmojiCompatConfig
@@ -10,19 +11,23 @@ import android.support.v7.app.AppCompatDelegate
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.messaging.FirebaseMessaging
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import dagger.android.HasServiceInjector
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.di.AppInjector
-import io.github.droidkaigi.confsched2018.presentation.common.notification.NotificationHelper
+import io.github.droidkaigi.confsched2018.service.push.processor.NewPostProcessor
+import io.github.droidkaigi.confsched2018.di.initDaggerComponent
+import io.github.droidkaigi.confsched2018.presentation.common.notification.initNotificationChannel
 import timber.log.Timber
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import javax.inject.Inject
 
 @SuppressLint("Registered")
-open class App : MultiDexApplication(), HasActivityInjector {
+open class App : MultiDexApplication(), HasActivityInjector, HasServiceInjector {
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+    @Inject lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
 
     override fun onCreate() {
         super.onCreate()
@@ -43,6 +48,8 @@ open class App : MultiDexApplication(), HasActivityInjector {
                     .setPersistenceEnabled(false)
                     .build()
             fireStore.firestoreSettings = settings
+            // push notification for new feed
+            FirebaseMessaging.getInstance().subscribeToTopic(NewPostProcessor.TOPIC)
         }
     }
 
@@ -57,7 +64,7 @@ open class App : MultiDexApplication(), HasActivityInjector {
     }
 
     open fun setupDagger() {
-        AppInjector.init(this)
+        initDaggerComponent()
     }
 
     private fun setupCalligraphy() {
@@ -87,11 +94,13 @@ open class App : MultiDexApplication(), HasActivityInjector {
     }
 
     private fun setupNotification() {
-        NotificationHelper.initNotificationChannel(this)
+        initNotificationChannel()
     }
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> =
             dispatchingAndroidInjector
+
+    override fun serviceInjector(): DispatchingAndroidInjector<Service> = dispatchingServiceInjector
 
     protected open fun isInUnitTests() = false
 }

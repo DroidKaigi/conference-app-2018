@@ -17,7 +17,7 @@
     <string name="nav_item_setting">Settings</string>
     <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_staff">@string/staff</string>
-    <string name="nav_item_all_survey">Conference survey</string>
+    <string name="nav_item_all_feedback">Conference feedback</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
     <string name="nav_content_description_drawer_header">DroidKaigi 2018</string>
@@ -98,6 +98,7 @@
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
     <string name="speaker_content_description">Speaker image</string>
+    <string name="speaker_sns_empty_message">Speaker has not set SNS Link..</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -126,6 +127,7 @@
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
     <string name="notification_channel_name_start_favorite_session">start favorite session</string>
+    <string name="notification_channel_name_new_feed_post">New announcement</string>
 
     <!-- AboutThisApp -->
     <!-- TODO check if these English are all natural to international ppl. -->
