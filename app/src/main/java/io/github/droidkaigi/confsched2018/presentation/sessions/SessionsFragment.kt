@@ -219,6 +219,7 @@ class SessionsViewPagerAdapter(
     }
 
     override fun getItemPosition(`object`: Any): Int {
+        // For recreating Page
         return PagerAdapter.POSITION_NONE
     }
 
