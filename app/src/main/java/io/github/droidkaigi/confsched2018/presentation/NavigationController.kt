@@ -156,28 +156,9 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     }
 
     fun navigateToExternalBrowser(url: String) {
-        val uri = run {
-            val uri = Uri.parse(url)
-            if (uri.host.contains("facebook")) {
-                return@run Uri.parse(FACEBOOK_SCHEME + url)
-            }
-            uri
-        }
-
-        val chromePackageName = CustomTabsHelper.getPackageNameToUse(activity)
-
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        val intentResolveInfo = activity.packageManager.resolveActivity(
-                intent,
-                PackageManager.MATCH_DEFAULT_ONLY
-        )
-
-        intentResolveInfo?.activityInfo?.packageName?.let {
-            if (it != chromePackageName) {
-                // Open specific app
-                activity.startActivity(intent)
-                return
-            }
+        val customTabsPackageName = CustomTabsHelper.getPackageNameToUse(activity)
+        if (tryLaunchingSpecificApp(url, customTabsPackageName)) {
+            return
         }
 
         val customTabsIntent = CustomTabsIntent.Builder()
@@ -185,18 +166,47 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
                 .build()
                 .apply {
-                    val appUri = Uri.parse("android-app://${activity.packageName}")
-                    intent.putExtra(Intent.EXTRA_REFERRER, appUri)
+                    val referrer = Uri.parse("android-app://${activity.packageName}")
+                    intent.putExtra(Intent.EXTRA_REFERRER, referrer)
                 }
-
-        chromePackageName ?: run {
-            // Cannot use custom tabs.
-            activity.startActivity(customTabsIntent.intent.setData(uri))
+        val webUri = Uri.parse(url)
+        if (tryUsingCustomTabs(customTabsPackageName, customTabsIntent, webUri)) {
             return
         }
 
-        customTabsIntent.intent.`package` = chromePackageName
-        customTabsIntent.launchUrl(activity, Uri.parse(url))
+        // Cannot use custom tabs.
+        activity.startActivity(customTabsIntent.intent.setData(webUri))
+    }
+
+    private fun tryLaunchingSpecificApp(url:String, customTabsPackageName: String?): Boolean {
+        val appUri = Uri.parse(url).let {
+            if (it.host.contains("facebook")) {
+                Uri.parse(FACEBOOK_SCHEME + url)
+            } else it
+        }
+        val appIntent = Intent(Intent.ACTION_VIEW, appUri)
+        val intentResolveInfo = activity.packageManager.resolveActivity(
+                appIntent,
+                PackageManager.MATCH_DEFAULT_ONLY
+        )
+
+        intentResolveInfo?.activityInfo?.packageName?.let {
+            if (customTabsPackageName != null && it != customTabsPackageName) {
+                // Open specific app
+                activity.startActivity(appIntent)
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun tryUsingCustomTabs(customTabsPackageName: String?, customTabsIntent: CustomTabsIntent, webUri: Uri?): Boolean {
+        customTabsPackageName?.let {
+            customTabsIntent.intent.`package` = customTabsPackageName
+            customTabsIntent.launchUrl(activity, webUri)
+            return true
+        }
+        return false
     }
 
     fun navigateImplicitly(url: String?) {
