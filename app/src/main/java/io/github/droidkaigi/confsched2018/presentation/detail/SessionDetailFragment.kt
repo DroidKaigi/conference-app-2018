@@ -24,7 +24,6 @@ import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class SessionDetailFragment : Fragment(), Injectable {
     private lateinit var binding: FragmentSessionDetailBinding
     @Inject lateinit var navigationController: NavigationController
@@ -99,7 +98,8 @@ class SessionDetailFragment : Fragment(), Injectable {
                 val url = resources.getString(R.string.session_share_url, sessionId)
                 putExtra(Intent.EXTRA_TEXT, "$title\n$url")
             }
-            startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.session_share_via)))
+            startActivity(Intent.createChooser(shareIntent,
+                    resources.getString(R.string.session_share_via)))
         }
         binding.sessionTopic.text = session.topic.getNameByLang(lang())
         val levelDrawable = binding.context.drawable(when (session.level) {
