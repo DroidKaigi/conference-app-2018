@@ -97,6 +97,14 @@
     <string name="speaker_title_activity_detail">Speaker</string>
     <string name="speaker_content_description">Speaker image</string>
     <string name="speaker_sns_empty_message">Speaker has not set SNS Link..</string>
+    <string name="speaker_dialog_content_description_twitter" translatable="false">Twitter Link Button</string>
+    <string name="speaker_dialog_content_description_github" translatable="false"> Link Button</string>
+    <string name="speaker_dialog_content_description_company" translatable="false">Company Link Button</string>
+    <string name="speaker_dialog_content_description_blog" translatable="false">Blog Link Button</string>
+    <string name="speaker_dialog_text_twitter" translatable="false">Twitter</string>
+    <string name="speaker_dialog_text_github" translatable="false">Github</string>
+    <string name="speaker_dialog_text_company" translatable="false">Company</string>
+    <string name="speaker_dialog_text_blog" translatable="false">Blog</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
