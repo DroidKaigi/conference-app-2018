@@ -366,16 +366,15 @@
                 app:tintCompat="@{@colorStateList/state_favorite_color}"
                 android:scaleType="center"/>
 
-            <!-- TODO: replace icon and adjust spacing -->
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fabShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="80dp"
                 app:backgroundTint="#FFF"
                 app:layout_anchor="@id/app_bar"
                 app:layout_anchorGravity="bottom|end"
-                app:srcCompat="@drawable/state_favorite_icon"
+                app:srcCompat="@drawable/ic_share_black_24dp"
                 android:scaleType="center"/>
 
         </android.support.design.widget.CoordinatorLayout>
