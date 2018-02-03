@@ -9,8 +9,8 @@ apply plugin: 'deploygate'
 apply plugin: 'com.github.triplet.play'
 
 // Manifest version
-def versionMajor = 0
-def versionMinor = 1
+def versionMajor = 1
+def versionMinor = 0
 def versionPatch = 0
 
 android {
