@@ -91,7 +91,10 @@ class SessionDetailFragment : Fragment(), Injectable {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 // TODO: extract to string resource
-                val title = "${session.title} at ${session.room.name}"
+                var speakerList = listOf<String>()
+                session.speakers.forEach { speakerList += it.name }
+                val speakers = speakerList.joinToString(", ")
+                val title = "${session.title} at ${session.room.name} by $speakers"
                 val url = "https//droidkaigi.jp/2018/timetable?session=$sessionId"
                 putExtra(Intent.EXTRA_TEXT, "$title\n$url")
             }
