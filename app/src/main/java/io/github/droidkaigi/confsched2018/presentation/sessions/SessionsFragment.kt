@@ -113,20 +113,19 @@ class SessionsViewPagerAdapter(
     private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
     private var currentTab by Delegates.observable<Tab?>(null) { _, old, new ->
         if (old != new && new != null) {
-            val key = when (new) {
-                Tab.All -> AllSessionsFragment::class.java.simpleName
-                is Tab.RoomTab -> RoomSessionsFragment::class.java.simpleName + new.room.name
-            }
-            fireBaseAnalytics.setCurrentScreen(activity, null, key)
+            fireBaseAnalytics.setCurrentScreen(activity, null, new.screenName)
         }
     }
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
 
-    sealed class Tab(val title: String, val fragment: Fragment) {
-        object All : Tab("All", AllSessionsFragment.newInstance())
-        data class RoomTab(val room: Room) : Tab(room.name, RoomSessionsFragment.newInstance(room))
+    sealed class Tab(val title: String, val fragment: Fragment, val screenName: String) {
+        object All : Tab("All", AllSessionsFragment.newInstance(),
+                AllSessionsFragment::class.java.simpleName)
+
+        data class RoomTab(val room: Room) : Tab(room.name, RoomSessionsFragment.newInstance(room),
+                RoomSessionsFragment::class.java.simpleName + room.name)
     }
 
     private fun setupTabs() {
