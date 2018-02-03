@@ -143,6 +143,10 @@
     <string name="session_feedback_knowledgeable_max">とても得られた</string>
     <string name="session_feedback_comment">他にコメントがあればぜひ教えてください(個人が特定できるような内容は書かないでください)</string>
     <string name="session_feedback_comment_hint">回答を入力</string>
+    <string name="session_feedback_confirm">送信してよろしいですか？</string>
+    <string name="session_feedback_not_fillout">未入力の項目があります</string>
     <string name="submit_feedback">フィードバックを送る</string>
+    <string name="submit_success">送信しました</string>
+    <string name="submit_failure">送信に失敗しました</string>
     <string name="submitted">送信済み</string>
 </resources>
