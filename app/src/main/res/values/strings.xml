@@ -9,8 +9,6 @@
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
     <string name="pref_key_enable_hide_bottom_navigation" translatable="false">pref_key_enable_hide_bottom_navigation</string>
     <string name="pref_key_enable_reopen_previous_room_sessions" translatable="false">pref_key_enable_reopen_previous_room_sessions</string>
-    <string name="pref_key_previous_session_tab" translatable="false">pref_key_previous_session_tab</string>
-    <string name="pref_key_previous_session_tab_id" translatable="false">pref_key_previous_session_tab_id</string>
 
     <!-- Preference Default Values -->
     <string name="pref_default_value_previous_session_tab" translatable="false">ROOM</string>

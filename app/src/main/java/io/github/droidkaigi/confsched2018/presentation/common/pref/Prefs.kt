@@ -24,12 +24,10 @@ object Prefs : KotprefModel() {
             R.string.pref_key_enable_reopen_previous_room_sessions
     )
     var previousSessionTab: String by stringPref(
-            context.getString(R.string.pref_default_value_previous_session_tab),
-            R.string.pref_key_previous_session_tab
+            context.getString(R.string.pref_default_value_previous_session_tab)
     )
     var previousSessionTabId: Int by intPref(
-            context.integer(R.integer.pref_default_value_previous_session_tab_id),
-            R.string.pref_key_previous_session_tab_id
+            context.integer(R.integer.pref_default_value_previous_session_tab_id)
     )
 }
 
