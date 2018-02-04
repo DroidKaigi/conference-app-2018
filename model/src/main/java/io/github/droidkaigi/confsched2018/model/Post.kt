@@ -10,9 +10,9 @@ data class Post(
         val type: Type
 ) {
     enum class Type {
-        Tutorial,
-        Notification,
-        Alert,
-        Feedback,
+        TUTORIAL,
+        NOTIFICATION,
+        ALERT,
+        FEEDBACK,
     }
 }
