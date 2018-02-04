@@ -87,11 +87,11 @@ class SessionDetailFragment : Fragment(), Injectable {
         }
         binding.fabShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
+                type = resources.getString(R.string.session_share_intent_type)
                 var speakerList = listOf<String>()
                 session.speakers.forEach { speakerList += it.name }
                 val speakers = speakerList.joinToString(", ")
-                val hashTag = generateHashTagByRoom(session)
+                val hashTag = generateHashTagByRoom(session.room.name)
                 val title = resources.getString(R.string.session_share_title,
                         session.title,
                         speakers,
@@ -116,9 +116,17 @@ class SessionDetailFragment : Fragment(), Injectable {
         }
     }
 
-    private fun generateHashTagByRoom(session: Session.SpeechSession): String {
-        val room = session.room.name.replace(" ", "").toLowerCase()
-        return resources.getString(R.string.session_share_hash_tag, room)
+    /**
+     * Generate a hash tag by room name.
+     *
+     * e.g. #droidkaigi_hall, #droidkaigi_room1, ...
+     *
+     * @param   roomName The Room name
+     * @return  A hash tag
+     */
+    private fun generateHashTagByRoom(roomName: String): String {
+        val lowerCasedName = roomName.replace(" ", "").toLowerCase()
+        return resources.getString(R.string.session_share_hash_tag, lowerCasedName)
     }
 
     private fun updateDrawable() {

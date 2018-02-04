@@ -40,6 +40,7 @@
     <string name="session_share_url" translatable="false">https://droidkaigi.jp/2018/timetable?session=%s</string>
     <string name="session_share_title" translatable="false">%1$s (%2$s) %3$s</string>
     <string name="session_share_hash_tag" translatable="false">#droidkaigi_%s</string>
+    <string name="session_share_intent_type" translatable="false">text/plain</string>
     <string name="session_share_via">Share via</string>
 
     <!-- Session detail -->
