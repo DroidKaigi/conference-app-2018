@@ -236,10 +236,21 @@ class SearchBeforeViewPagerAdapter(
         }
     }
 
-    enum class Tab(@StringRes val title: Int, val fragment: Fragment) {
-        Session(R.string.search_before_tab_session, SearchSessionsFragment.newInstance()),
-        Topic(R.string.search_before_tab_topic, SearchTopicsFragment.newInstance()),
-        Speakers(R.string.search_before_tab_speaker, SearchSpeakersFragment.newInstance());
+    enum class Tab(@StringRes val title: Int) {
+        Session(R.string.search_before_tab_session) {
+            override val fragment: Fragment
+                get() = SearchSessionsFragment.newInstance()
+        },
+        Topic(R.string.search_before_tab_topic) {
+            override val fragment: Fragment
+                get() = SearchTopicsFragment.newInstance()
+        },
+        Speakers(R.string.search_before_tab_speaker) {
+            override val fragment: Fragment
+                get() = SearchSpeakersFragment.newInstance()
+        };
+
+        abstract val fragment: Fragment
     }
 
     override fun getPageTitle(position: Int): CharSequence =
