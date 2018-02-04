@@ -53,7 +53,7 @@ open class BottomNavigationBehavior : CoordinatorLayout.Behavior<BottomNavigatio
     internal fun updateSnackBarPaddingBottomByBottomNavigationView(view: BottomNavigationView) {
         snackbar?.apply {
             val translateY = (view.height - view.translationY).toInt()
-            setPadding(paddingLeft, paddingTop, paddingRight, translateY)
+            setPadding(paddingEnd, paddingTop, paddingStart, translateY)
             requestLayout()
         }
     }
