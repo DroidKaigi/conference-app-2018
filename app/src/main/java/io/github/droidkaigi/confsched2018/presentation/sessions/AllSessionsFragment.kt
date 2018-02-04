@@ -20,7 +20,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.view.TabLayoutItem
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.CurrentSessionScroller
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
@@ -38,7 +38,11 @@ import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
 
-class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller, TabLayoutItem {
+class AllSessionsFragment :
+        Fragment(),
+        Injectable,
+        CurrentSessionScroller,
+        OnTabReselectedListener {
 
     private lateinit var binding: FragmentAllSessionsBinding
 
@@ -105,7 +109,7 @@ class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller, TabL
         binding.sessionsRecycler.scrollToPosition(currentSessionPosition)
     }
 
-    override fun scrollToTop() {
+    override fun onTabReselected() {
         binding.sessionsRecycler.smoothScrollToPosition(0)
     }
 

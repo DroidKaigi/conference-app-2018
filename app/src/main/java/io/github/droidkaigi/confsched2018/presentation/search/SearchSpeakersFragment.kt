@@ -16,14 +16,14 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.itemdecoration.StickyHeaderItemDecoration
-import io.github.droidkaigi.confsched2018.presentation.common.view.TabLayoutItem
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchSpeakersFragment : Fragment(), Injectable, TabLayoutItem {
+class SearchSpeakersFragment : Fragment(), Injectable, OnTabReselectedListener {
 
     private lateinit var binding: FragmentSearchSpeakersBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -92,7 +92,7 @@ class SearchSpeakersFragment : Fragment(), Injectable, TabLayoutItem {
                 }))
     }
 
-    override fun scrollToTop() {
+    override fun onTabReselected() {
         binding.searchSessionRecycler.smoothScrollToPosition(0)
     }
 

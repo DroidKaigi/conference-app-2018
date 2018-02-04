@@ -26,7 +26,7 @@ import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
-import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedDispatcher
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
@@ -141,7 +141,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
         binding.tabLayout.addOnTabSelectedListener(
-                OnTabReselectedListener(binding.sessionsViewPager))
+                OnTabReselectedDispatcher(binding.sessionsViewPager)
+        )
     }
 
     override fun onReselected() {

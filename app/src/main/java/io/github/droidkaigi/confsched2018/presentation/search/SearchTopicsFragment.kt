@@ -15,14 +15,14 @@ import io.github.droidkaigi.confsched2018.databinding.FragmentSearchTopicsBindin
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.view.TabLayoutItem
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicsGroup
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchTopicsFragment : Fragment(), Injectable, TabLayoutItem {
+class SearchTopicsFragment : Fragment(), Injectable, OnTabReselectedListener {
 
     private lateinit var binding: FragmentSearchTopicsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -76,7 +76,7 @@ class SearchTopicsFragment : Fragment(), Injectable, TabLayoutItem {
         }
     }
 
-    override fun scrollToTop() {
+    override fun onTabReselected() {
         binding.searchSessionRecycler.smoothScrollToPosition(0)
     }
 

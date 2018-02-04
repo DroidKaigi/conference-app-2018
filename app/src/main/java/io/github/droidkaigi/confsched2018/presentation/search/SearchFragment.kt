@@ -32,7 +32,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedDispatcher
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultSpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchSpeakersSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
@@ -93,7 +93,8 @@ class SearchFragment : Fragment(), Injectable {
                 SearchBeforeViewPagerAdapter(activity!!, childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
         binding.tabLayout.addOnTabSelectedListener(
-                OnTabReselectedListener(binding.sessionsViewPager))
+                OnTabReselectedDispatcher(binding.sessionsViewPager)
+        )
     }
 
     private fun setupSearch() {

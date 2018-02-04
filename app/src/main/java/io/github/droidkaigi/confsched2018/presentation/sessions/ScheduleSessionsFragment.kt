@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.ScheduleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
@@ -27,7 +28,7 @@ import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
 import javax.inject.Inject
 
-class ScheduleSessionsFragment : Fragment(), Injectable {
+class ScheduleSessionsFragment : Fragment(), Injectable, OnTabReselectedListener {
 
     private lateinit var binding: FragmentScheduleSessionsBinding
 
@@ -102,6 +103,10 @@ class ScheduleSessionsFragment : Fragment(), Injectable {
             setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
         }
+    }
+
+    override fun onTabReselected() {
+        binding.sessionsRecycler.smoothScrollToPosition(0)
     }
 
     companion object {
