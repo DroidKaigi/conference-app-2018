@@ -31,6 +31,7 @@
             android:id="@+id/sessions_view_pager"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clipChildren="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -10,6 +10,7 @@
         android:id="@+id/sessions_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         >
 
         <android.support.v7.widget.RecyclerView
@@ -17,6 +18,7 @@
             style="@style/BaseRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:clipChildren="false"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingBottom="@dimen/session_recycler_bottom_padding"
