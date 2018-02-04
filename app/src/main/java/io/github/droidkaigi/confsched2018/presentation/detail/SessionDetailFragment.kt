@@ -88,16 +88,8 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.fabShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = resources.getString(R.string.session_share_intent_type)
-                var speakerList = listOf<String>()
-                session.speakers.forEach { speakerList += it.name }
-                val speakers = speakerList.joinToString(", ")
-                val hashTag = generateHashTagByRoom(session.room.name)
-                val title = resources.getString(R.string.session_share_title,
-                        session.title,
-                        speakers,
-                        hashTag)
-                val url = resources.getString(R.string.session_share_url, sessionId)
-                putExtra(Intent.EXTRA_TEXT, "$title\n$url")
+                val text = generateSharedText(session, sessionId)
+                putExtra(Intent.EXTRA_TEXT, text)
             }
             startActivity(Intent.createChooser(shareIntent,
                     resources.getString(R.string.session_share_via)))
@@ -117,12 +109,36 @@ class SessionDetailFragment : Fragment(), Injectable {
     }
 
     /**
+     * Generate a shared text
+     *
+     * e.g.
+     * ConstraintLayout, now and future (Nicolas Roard, John Hoford, thagikura) #droidkaigi_room6
+     * https://droidkaigi.jp/2018/timetable/?session=16988
+     *
+     * @param session The [Session.SpeechSession] object
+     * @param sessionId The session ID
+     * @return A shared text
+     */
+    private fun generateSharedText(session: Session.SpeechSession, sessionId: String): String {
+        var speakerList = listOf<String>()
+        session.speakers.forEach { speakerList += it.name }
+        val speakers = speakerList.joinToString(", ")
+        val hashTag = generateHashTagByRoom(session.room.name)
+        val title = resources.getString(R.string.session_share_title,
+                session.title,
+                speakers,
+                hashTag)
+        val url = resources.getString(R.string.session_share_url, sessionId)
+        return "$title\n$url"
+    }
+
+    /**
      * Generate a hash tag by room name.
      *
      * e.g. #droidkaigi_hall, #droidkaigi_room1, ...
      *
-     * @param   roomName The Room name
-     * @return  A hash tag
+     * @param roomName The Room name
+     * @return A hash tag
      */
     private fun generateHashTagByRoom(roomName: String): String {
         val lowerCasedName = roomName.replace(" ", "").toLowerCase()
