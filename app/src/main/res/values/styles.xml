@@ -132,4 +132,15 @@
         <item name="android:textColor">#9E9E9E</item>
     </style>
 
+    <style name="FeedbackSubmitButton">
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:textColor">@color/feedback_submit_button_text</item>
+        <item name="android:background">@drawable/bg_feedback_submit_button</item>
+    </style>
+
 </resources>
