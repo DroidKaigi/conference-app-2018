@@ -99,10 +99,11 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     binding.sessionFeedback = result.data
                     binding.submit.text =
-                            if (binding.sessionFeedback!!.submitted)
+                            if (binding.sessionFeedback!!.submitted) {
                                 getString(R.string.submitted)
-                            else
+                            } else {
                                 getString(R.string.submit_feedback)
+                            }
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
