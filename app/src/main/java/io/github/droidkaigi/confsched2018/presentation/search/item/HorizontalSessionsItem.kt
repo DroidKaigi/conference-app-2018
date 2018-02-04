@@ -14,6 +14,7 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ItemSearchHorizontalSessionsBinding
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
+import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 
 class HorizontalSessionsItem(
         val level: Level,
@@ -35,6 +36,10 @@ class HorizontalSessionsItem(
             onItemLongClickListener: OnItemLongClickListener?
     ) {
         this.onItemClickListener = onItemClickListener!!
+        // Save scroll position on scrolled
+        holder.binding.searchSessionsRecycler.addOnScrollListener(
+                onScrolled = { _, _, _ -> saveScrollPosition(holder) }
+        )
         super.bind(holder, position, payloads, onItemClickListener, onItemLongClickListener)
     }
 
@@ -64,8 +69,7 @@ class HorizontalSessionsItem(
         section.update(items)
     }
 
-    override fun unbind(holder: ViewHolder<ItemSearchHorizontalSessionsBinding>) {
-        // Save scroll position to HashMap
+    private fun saveScrollPosition(holder: ViewHolder<ItemSearchHorizontalSessionsBinding>) {
         val searchSessionsRecycler = holder.binding.searchSessionsRecycler
         val linearLayoutManager = searchSessionsRecycler.layoutManager as LinearLayoutManager
         val position = linearLayoutManager.findFirstVisibleItemPosition()
@@ -76,7 +80,6 @@ class HorizontalSessionsItem(
                 linearLayoutManager.getPosition(holder.root),
                 LevelSessionsSection.PositionAndOffset(position, x.toInt())
         )
-        super.unbind(holder)
     }
 
     override fun getLayout(): Int = R.layout.item_search_horizontal_sessions
