@@ -187,23 +187,28 @@ class SessionsViewPagerAdapter(
     private var roomTabs = mutableListOf<Tab.RoomTab>()
     private var schedulesTabs = mutableListOf<Tab.TimeTab>()
 
-    sealed class Tab(val title: String, val fragment: Fragment) {
+    sealed class Tab(val title: String) {
+        abstract val fragment: Fragment
         abstract val screenName: String
 
-        object All : Tab("All", AllSessionsFragment.newInstance()) {
+        object All : Tab("All") {
+            override val fragment: Fragment
+                get() = AllSessionsFragment.newInstance()
             override val screenName: String =
                     AllSessionsFragment::class.java.simpleName
         }
 
-        data class RoomTab(val room: Room) : Tab(room.name,
-                RoomSessionsFragment.newInstance(room)) {
+        data class RoomTab(val room: Room) : Tab(room.name) {
+            override val fragment: Fragment
+                get() = RoomSessionsFragment.newInstance(room)
             override val screenName: String =
                     RoomSessionsFragment::class.java.simpleName + room.name
         }
 
         data class TimeTab(val schedule: SessionSchedule) :
-                Tab("Day${schedule.dayNumber} / ${schedule.startTime.toReadableTimeString()}",
-                        ScheduleSessionsFragment.newInstance(schedule)) {
+                Tab("Day${schedule.dayNumber} / ${schedule.startTime.toReadableTimeString()}") {
+            override val fragment: Fragment
+                get() = ScheduleSessionsFragment.newInstance(schedule)
             override val screenName: String =
                     ScheduleSessionsFragment::class.java.simpleName + title
         }
