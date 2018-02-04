@@ -91,10 +91,11 @@ class SessionDetailFragment : Fragment(), Injectable {
                 var speakerList = listOf<String>()
                 session.speakers.forEach { speakerList += it.name }
                 val speakers = speakerList.joinToString(", ")
+                val hashTag = generateHashTagByRoom(session)
                 val title = resources.getString(R.string.session_share_title,
                         session.title,
-                        session.room.name,
-                        speakers)
+                        speakers,
+                        hashTag)
                 val url = resources.getString(R.string.session_share_url, sessionId)
                 putExtra(Intent.EXTRA_TEXT, "$title\n$url")
             }
@@ -113,6 +114,11 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.goToFeedback.setOnClickListener {
             navigationController.navigateToSessionsFeedbackActivity(session)
         }
+    }
+
+    private fun generateHashTagByRoom(session: Session.SpeechSession): String {
+        val room = session.room.name.replace(" ", "").toLowerCase()
+        return resources.getString(R.string.session_share_hash_tag, room)
     }
 
     private fun updateDrawable() {

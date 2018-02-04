@@ -38,7 +38,8 @@
     <string name="session_go_to_feedback">Go To Feedback</string>
     <string name="session_current_badge" translatable="false">NOW!</string>
     <string name="session_share_url" translatable="false">https://droidkaigi.jp/2018/timetable?session=%s</string>
-    <string name="session_share_title" translatable="false">%1$s at %2$s by %3$s</string>
+    <string name="session_share_title" translatable="false">%1$s (%2$s) %3$s</string>
+    <string name="session_share_hash_tag" translatable="false">#droidkaigi_%s</string>
     <string name="session_share_via">Share via</string>
 
     <!-- Session detail -->
