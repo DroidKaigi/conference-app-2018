@@ -18,4 +18,10 @@
         android:summary="@string/settings_enable_hide_bottom_navigation_summary_preference"
         android:title="@string/settings_enable_hide_bottom_navigation_title_preference"
         />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:defaultValue="@bool/pref_default_value_enable_reopen_previous_room_sessions"
+        android:key="@string/pref_key_enable_reopen_previous_room_sessions"
+        android:summary="@string/settings_enable_reopen_previous_room_sessions_summary_preference"
+        android:title="@string/settings_enable_reopen_previous_room_sessions_title_preference"
+        />
 </PreferenceScreen>
