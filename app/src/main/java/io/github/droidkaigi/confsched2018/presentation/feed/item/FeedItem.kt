@@ -32,10 +32,10 @@ data class FeedItem(
         viewBinding.post = post
 
         viewBinding.feedIcon.setImageResource(when (post.type) {
-            Post.Type.Tutorial -> R.drawable.ic_feed_tutorial_pink_20dp
-            Post.Type.Notification -> R.drawable.ic_feed_notification_blue_20dp
-            Post.Type.Alert -> R.drawable.ic_feed_alert_amber_20dp
-            Post.Type.Feedback -> R.drawable.ic_feed_feedback_cyan_20dp
+            Post.Type.TUTORIAL -> R.drawable.ic_feed_tutorial_pink_20dp
+            Post.Type.NOTIFICATION -> R.drawable.ic_feed_notification_blue_20dp
+            Post.Type.ALERT -> R.drawable.ic_feed_alert_amber_20dp
+            Post.Type.FEEDBACK -> R.drawable.ic_feed_feedback_cyan_20dp
         })
 
         viewBinding.content.onClickUrl = onClickUri
