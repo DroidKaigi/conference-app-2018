@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.db.FavoriteDatabase
 import io.github.droidkaigi.confsched2018.data.db.SessionDatabase
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toRooms
+import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSchedule
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSession
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toSpeaker
 import io.github.droidkaigi.confsched2018.data.db.entity.mapper.toTopics
@@ -16,6 +17,7 @@ import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SearchResult
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
@@ -70,6 +72,10 @@ class SessionDataRepository @Inject constructor(
                     .doOnNext {
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
+    override val schedules: Flowable<List<SessionSchedule>> =
+            sessions.map {
+                it.map { it.toSchedule() }.distinct().sorted()
+            }
 
     @VisibleForTesting
     val specialSessions: List<Session.SpecialSession> by lazy {
@@ -124,6 +130,11 @@ class SessionDataRepository @Inject constructor(
                 sessionList
                         .filterIsInstance<Session.SpeechSession>()
                         .groupBy { it.level }
+            }
+
+    override val scheduleSessions: Flowable<Map<SessionSchedule, List<Session>>> =
+            sessions.map {
+                it.groupBy { it.toSchedule() }
             }
 
     @CheckResult override fun favorite(session: Session.SpeechSession): Single<Boolean> =
