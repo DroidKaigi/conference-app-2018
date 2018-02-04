@@ -102,6 +102,7 @@ ext {
             kotpref                : [
                     kotpref    : "com.chibatching.kotpref:kotpref:$versions.kotpref",
                     initializer: "com.chibatching.kotpref:initializer:$versions.kotpref",
+                    enumSupport: "com.chibatching.kotpref:enum-support:$versions.kotpref",
             ],
 
             //==================== UI ====================

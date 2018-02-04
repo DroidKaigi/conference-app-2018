@@ -80,6 +80,8 @@
     <string name="settings_enable_notification_summary_preference">このアプリで通知を受信するかどうかを選択できます。</string>
     <string name="settings_enable_hide_bottom_navigation_title_preference">BottomNavigationを隠す</string>
     <string name="settings_enable_hide_bottom_navigation_summary_preference">BottomNavigationBarをスクロールにあわせて隠すかどうかを選択できます。</string>
+    <string name="settings_enable_reopen_previous_room_sessions_title_preference">以前開いていたセッションリストを開く</string>
+    <string name="settings_enable_reopen_previous_room_sessions_summary_preference">最後に開いていたルーム及びセッションの場所を記録します。</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
