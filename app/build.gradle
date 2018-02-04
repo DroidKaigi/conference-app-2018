@@ -167,6 +167,7 @@ dependencies {
 
     implementation depends.kotpref.kotpref
     implementation depends.kotpref.initializer
+    implementation depends.kotpref.enumSupport
 
     //==================== UI ====================
     implementation depends.glide.core

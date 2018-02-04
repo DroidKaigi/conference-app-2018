@@ -10,9 +10,6 @@
     <string name="pref_key_enable_hide_bottom_navigation" translatable="false">pref_key_enable_hide_bottom_navigation</string>
     <string name="pref_key_enable_reopen_previous_room_sessions" translatable="false">pref_key_enable_reopen_previous_room_sessions</string>
 
-    <!-- Preference Default Values -->
-    <string name="pref_default_value_previous_session_tab" translatable="false">ROOM</string>
-
     <!-- NavigationDrawer -->
     <string name="nav_item_home">Home</string>
     <string name="nav_item_map">Access</string>
