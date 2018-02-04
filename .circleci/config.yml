@@ -13,9 +13,15 @@ jobs:
           key: sdks-licenses-build-tools-extras-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - restore_cache:
+          key: bundle-{{ checksum "Gemfile.lock" }}
       - run:
           name: Bundle install
-          command: bundle instal
+          command: bundle install --path vendor/bundle
+      - save_cache:
+          paths:
+            - vendor/bundle
+          key: bundle-{{ checksum "Gemfile.lock" }}
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
