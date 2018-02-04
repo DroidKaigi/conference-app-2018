@@ -117,7 +117,12 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         binding.difficulty.setListener(onCurrentRankingChangeListener)
         binding.knowledgeable.setListener(onCurrentRankingChangeListener)
         binding.comment.addTextChangedListener(onCommentChangedListener)
-        binding.submit.setOnClickListener { sessionsFeedbackViewModel.onSubmitClick() }
+        binding.submit.setOnClickListener {
+            val sessionFeedback =
+                    (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)
+                            ?.data ?: return@setOnClickListener
+            sessionsFeedbackViewModel.onSubmitClick(sessionFeedback)
+        }
     }
 
     private fun setUpAlertView() {

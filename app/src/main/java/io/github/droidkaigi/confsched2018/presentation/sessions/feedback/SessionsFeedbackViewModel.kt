@@ -57,9 +57,7 @@ class SessionsFeedbackViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
-    fun onSubmitClick() {
-        val sessionFeedback = (sessionFeedback.value as? Result.Success)!!.data
-
+    fun onSubmitClick(sessionFeedback: SessionFeedback) {
         if (sessionFeedback.fillouted) {
             alertMessage.value = Alert(Alert.Type.AlertDialog, R.string.session_feedback_confirm)
         } else {
@@ -81,7 +79,6 @@ class SessionsFeedbackViewModel @Inject constructor(
                 .doOnError { alertMessage.value = Alert(Alert.Type.Toast, R.string.submit_failure) }
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
-
     }
 
     override fun onCleared() {
