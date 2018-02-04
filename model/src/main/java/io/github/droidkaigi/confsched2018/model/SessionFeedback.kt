@@ -11,7 +11,7 @@ data class SessionFeedback(
         val submitted: Boolean
 ) {
     val fillouted: Boolean
-        get() = sessionId != ""
+        get() = sessionId.isNotBlank()
                 && totalEvaluation != 0
                 && relevancy != 0
                 && asExpected != 0
