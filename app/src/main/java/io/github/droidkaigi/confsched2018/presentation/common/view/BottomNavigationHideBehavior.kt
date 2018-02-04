@@ -46,6 +46,7 @@ class BottomNavigationHideBehavior : BottomNavigationBehavior {
                                         child: BottomNavigationView, directTargetChild: View,
                                         target: View, axes: Int, type: Int) {
         isAcceptNestedScroll = true
+        isProcessedScroll = true
         super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild,
                 target, axes, type)
     }
@@ -53,7 +54,6 @@ class BottomNavigationHideBehavior : BottomNavigationBehavior {
     override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: BottomNavigationView,
                                 target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int,
                                 dyUnconsumed: Int, type: Int) {
-        isProcessedScroll = true
         when {
         // positive value: finger's move = touch -> move up (contents are scrolled downward)
             dyConsumed > THRESHOLD_PX -> hideBottomNavigationView(child)
