@@ -101,6 +101,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
             }
         })
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
+        binding.sessionsViewPager.pageMargin =
+                resources.getDimensionPixelSize(R.dimen.session_page_margin)
 
         sessionsViewModel = ViewModelProviders
                 .of(this, viewModelFactory)
