@@ -27,7 +27,6 @@ import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNaviga
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
 import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
-import io.github.droidkaigi.confsched2018.presentation.common.pref.initPreviousSessionPrefs
 import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedDispatcher
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
@@ -160,7 +159,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         super.onPause()
         when (Prefs.enableReopenPreviousRoomSessions) {
             true -> saveCurrentSession()
-            false -> initPreviousSessionPrefs()
+            false -> Prefs.initPreviousSessionPrefs()
         }
     }
 
@@ -193,7 +192,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         if (previousItem < 0) return
 
         binding.sessionsViewPager.currentItem = previousItem
-        initPreviousSessionPrefs()
+        Prefs.initPreviousSessionPrefs()
     }
 
     override val tagForFinding = MainActivity.BottomNavigationItem.SESSION.name

@@ -29,10 +29,10 @@ object Prefs : KotprefModel() {
     var previousSessionTabId: Int by intPref(
             default = context.integer(R.integer.pref_default_value_previous_session_tab_id)
     )
-}
 
-fun initPreviousSessionPrefs() {
-    Prefs.previousSessionTab = SessionTabMode.ROOM
-    Prefs.previousSessionTabId = Prefs.context.integer(
-            integerRes = R.integer.pref_default_value_previous_session_tab_id)
+    fun initPreviousSessionPrefs() {
+        Prefs.previousSessionTab = SessionTabMode.ROOM
+        Prefs.previousSessionTabId = Prefs.context.integer(
+                integerRes = R.integer.pref_default_value_previous_session_tab_id)
+    }
 }
