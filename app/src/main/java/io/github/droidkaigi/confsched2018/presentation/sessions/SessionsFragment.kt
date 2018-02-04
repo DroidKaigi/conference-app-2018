@@ -110,7 +110,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
                 .get(SessionsViewModel::class.java)
 
         if (Prefs.enableReopenPreviousRoomSessions and (savedInstanceState == null)) {
-            sessionsViewModel.changeTabMode(Prefs.previousSessionTab)
+            sessionsViewModel.changeTabMode(Prefs.previousSessionTabMode)
         }
 
         val progressTimeLatch = ProgressTimeLatch {
@@ -166,7 +166,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     private fun saveCurrentSession() {
         val currentItem = binding.sessionsViewPager.currentItem
         Prefs.previousSessionTabId = currentItem
-        Prefs.previousSessionTab = sessionsViewModel.tabMode
+        Prefs.previousSessionTabMode = sessionsViewModel.tabMode
     }
 
     override fun onReselected() {

@@ -25,13 +25,13 @@ object Prefs : KotprefModel() {
             default = context.bool(R.bool.pref_default_value_enable_reopen_previous_room_sessions),
             key = R.string.pref_key_enable_reopen_previous_room_sessions
     )
-    var previousSessionTab by enumValuePref(SessionTabMode.ROOM)
+    var previousSessionTabMode by enumValuePref(SessionTabMode.ROOM)
     var previousSessionTabId: Int by intPref(
             default = context.integer(R.integer.pref_default_value_previous_session_tab_id)
     )
 
     fun initPreviousSessionPrefs() {
-        Prefs.previousSessionTab = SessionTabMode.ROOM
+        Prefs.previousSessionTabMode = SessionTabMode.ROOM
         Prefs.previousSessionTabId = Prefs.context.integer(
                 integerRes = R.integer.pref_default_value_previous_session_tab_id)
     }
