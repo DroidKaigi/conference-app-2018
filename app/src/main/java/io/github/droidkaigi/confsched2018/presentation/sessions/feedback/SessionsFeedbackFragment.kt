@@ -19,6 +19,7 @@ import io.github.droidkaigi.confsched2018.model.Alert
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.observeNonNull
 import io.github.droidkaigi.confsched2018.util.ext.toGone
 import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
@@ -85,8 +86,8 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         setUpFeedbackView()
         setUpAlertView()
 
-        sessionsFeedbackViewModel.isLoading.observe(this, {
-            if (it!!) binding.progress.toVisible() else binding.progress.toGone()
+        sessionsFeedbackViewModel.isLoading.observeNonNull(this, {
+            if (it) binding.progress.toVisible() else binding.progress.toGone()
         })
     }
 
@@ -117,9 +118,8 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
     }
 
     private fun setUpAlertView() {
-        sessionsFeedbackViewModel.alertMessage.observe(this, {
-            val type = it!!.type
-            when (type) {
+        sessionsFeedbackViewModel.alertMessage.observeNonNull(this, {
+            when (it.type) {
                 Alert.Type.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }

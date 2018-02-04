@@ -8,6 +8,14 @@ import android.arch.lifecycle.Transformations
 fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T?) -> Unit) where T : Any =
         observe(owner, Observer<T> { v -> observer(v) })
 
+fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: (T) -> Unit) {
+    this.observe(owner, Observer {
+        if (it != null) {
+            observer(it)
+        }
+    })
+}
+
 fun <X, Y> LiveData<X>.map(transformer: (X) -> Y): LiveData<Y> =
         Transformations.map(this, transformer)
 
