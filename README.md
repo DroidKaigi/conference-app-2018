@@ -256,6 +256,10 @@ Some contributors are challenging to develop iOS app with [Kotlin/Native](https:
 We are watching this project. 
 [DroidKaigi2018iOS](https://github.com/kikuchy/DroidKaigi2018iOS)
 
+## DroidKaigi 2018 Flutter App
+The unofficial conference app for DroidKaigi 2018 Tokyo
+https://github.com/konifar/droidkaigi2018-flutter
+
 ## Thanks
 Thank you for contributing!
 
