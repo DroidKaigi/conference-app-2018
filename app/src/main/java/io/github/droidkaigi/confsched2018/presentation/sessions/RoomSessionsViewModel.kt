@@ -26,6 +26,10 @@ class RoomSessionsViewModel @Inject constructor(
 
     private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
     val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
+
+    private val restorePreviousSession: MutableLiveData<Boolean> = MutableLiveData()
+    val reopenPreviousSession: LiveData<Boolean> = restorePreviousSession
+
     lateinit var roomName: String
 
     val sessions: LiveData<Result<List<Session>>> by lazy {
@@ -49,11 +53,18 @@ class RoomSessionsViewModel @Inject constructor(
 
     fun onSuccessFetchSessions() {
         refreshFocusCurrentSession()
+        reopenPreviousSession()
     }
 
     private fun refreshFocusCurrentSession() {
         if (focusCurrentSession.value != true) {
             focusCurrentSession.value = true
+        }
+    }
+
+    private fun reopenPreviousSession() {
+        if (restorePreviousSession.value != true) {
+            restorePreviousSession.value = true
         }
     }
 

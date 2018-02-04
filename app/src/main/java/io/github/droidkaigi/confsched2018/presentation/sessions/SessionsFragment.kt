@@ -167,6 +167,11 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         val currentItem = binding.sessionsViewPager.currentItem
         Prefs.previousSessionTabId = currentItem
         Prefs.previousSessionTabMode = sessionsViewModel.tabMode
+        val fragment = sessionsViewPagerAdapter
+                .instantiateItem(binding.sessionsViewPager, currentItem)
+        if (fragment is SavePreviousSessionScroller) {
+            fragment.saveCurrentSession()
+        }
     }
 
     override fun onReselected() {
@@ -192,13 +197,22 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         if (previousItem < 0) return
 
         binding.sessionsViewPager.currentItem = previousItem
-        Prefs.initPreviousSessionPrefs()
+        val fragment = sessionsViewPagerAdapter
+                .instantiateItem(binding.sessionsViewPager, previousItem)
+        if (fragment is SavePreviousSessionScroller) {
+            fragment.restorePreviousSession()
+        }
     }
 
     override val tagForFinding = MainActivity.BottomNavigationItem.SESSION.name
 
     interface CurrentSessionScroller {
         fun scrollToCurrentSession()
+    }
+
+    interface SavePreviousSessionScroller {
+        fun saveCurrentSession()
+        fun restorePreviousSession()
     }
 
     companion object {
