@@ -15,6 +15,7 @@ import android.text.style.StyleSpan
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.util.ext.selectedText
@@ -45,8 +46,12 @@ fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
 @BindingAdapter(value = ["prefix", "roomName"])
 fun TextView.setRoomText(prefix: String?, roomName: String?) {
     prefix ?: return
-    text = when (roomName) { null -> ""
-        else -> context.getString(R.string.room_format, prefix, roomName)
+    roomName ?: return
+    val isLayoutDirectionRtl = resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
+    text = if (isLayoutDirectionRtl) {
+        context.getString(R.string.room_format_rtl, prefix, roomName)
+    } else {
+        context.getString(R.string.room_format, prefix, roomName)
     }
 }
 
