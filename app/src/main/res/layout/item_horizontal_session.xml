@@ -102,7 +102,7 @@
                 android:id="@+id/speakers"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:layout_height="70dp"
+                tools:layout_height="68dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,12 +113,12 @@
 
             <io.github.droidkaigi.confsched2018.presentation.common.view.FavoriteButton
                 android:id="@+id/favorite"
+                android:layout_height="68dp"
                 style="@style/FavoriteButton"
                 android:checked="@{session.isFavorited}"
                 app:checkedColorTint="@color/accent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title"
                 app:uncheckedColorTint="@color/sub_icon_color"
                 />
 
