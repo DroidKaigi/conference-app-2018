@@ -16,13 +16,14 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.itemdecoration.StickyHeaderItemDecoration
+import io.github.droidkaigi.confsched2018.presentation.common.view.TabLayoutItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SpeakersSection
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchSpeakersFragment : Fragment(), Injectable {
+class SearchSpeakersFragment : Fragment(), Injectable, TabLayoutItem {
 
     private lateinit var binding: FragmentSearchSpeakersBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -89,6 +90,10 @@ class SearchSpeakersFragment : Fragment(), Injectable {
                         return speakersSection.getGroupId(position)?.toString()
                     }
                 }))
+    }
+
+    override fun scrollToTop() {
+        binding.searchSessionRecycler.smoothScrollToPosition(0)
     }
 
     companion object {

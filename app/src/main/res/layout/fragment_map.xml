@@ -62,6 +62,8 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="16dp"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -95,6 +97,8 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="8dp"
                     >
                     <ImageView
                         android:layout_width="wrap_content"

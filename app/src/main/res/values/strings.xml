@@ -38,6 +38,7 @@
     <string name="session_go_to_feedback">Go To Feedback</string>
     <string name="session_menu_tab_mode_room">Change to Schedule-based views</string>
     <string name="session_menu_tab_mode_schedule">Change to Room-based views</string>
+    <string name="session_current_badge" translatable="false">NOW!</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -98,6 +99,14 @@
     <string name="speaker_title_activity_detail">Speaker</string>
     <string name="speaker_content_description">Speaker image</string>
     <string name="speaker_sns_empty_message">Speaker has not set SNS Link..</string>
+    <string name="speaker_dialog_content_description_twitter" translatable="false">Twitter Link Button</string>
+    <string name="speaker_dialog_content_description_github" translatable="false"> Link Button</string>
+    <string name="speaker_dialog_content_description_company" translatable="false">Company Link Button</string>
+    <string name="speaker_dialog_content_description_blog" translatable="false">Blog Link Button</string>
+    <string name="speaker_dialog_text_twitter" translatable="false">Twitter</string>
+    <string name="speaker_dialog_text_github" translatable="false">Github</string>
+    <string name="speaker_dialog_text_company" translatable="false">Company</string>
+    <string name="speaker_dialog_text_blog" translatable="false">Blog</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -143,6 +152,14 @@
     <string name="about_contributors_description">Those who contribute to creation.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_description">%1$s</string>
+    <string name="about_what_is_prefix" translatable="false">What is \" </string>
+    <string name="about_what_is_suffix" translatable="false"> \" ?</string>
+    <string name="about_content_description_conference_name">DroidKaigi Logo</string>
+    <string name="about_content_description_facebook">facebook link button</string>
+    <string name="about_content_description_twitter">twitter link button</string>
+    <string name="about_content_description_github">github link button</string>
+    <string name="about_content_description_youtube">youtube link button</string>
+    <string name="about_content_description_medium">medium link button</string>
 
     <!-- Session Feedback -->
     <string name="session_feedback_total_evaluation">How was the session? (Overall Rating)</string>

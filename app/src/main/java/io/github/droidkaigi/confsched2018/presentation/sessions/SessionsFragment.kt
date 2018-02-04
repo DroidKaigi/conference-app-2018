@@ -25,6 +25,7 @@ import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
@@ -132,6 +133,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
+        binding.tabLayout.addOnTabSelectedListener(
+                OnTabReselectedListener(binding.sessionsViewPager))
     }
 
     override fun onReselected() {
@@ -170,12 +173,7 @@ class SessionsViewPagerAdapter(
     private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
     private var currentTab by Delegates.observable<Tab?>(null) { _, old, new ->
         if (old != new && new != null) {
-            val key = when (new) {
-                Tab.All -> AllSessionsFragment::class.java.simpleName
-                is Tab.RoomTab -> RoomSessionsFragment::class.java.simpleName + new.room.name
-                is Tab.TimeTab -> ScheduleSessionsFragment::class.java.simpleName + new.title
-            }
-            fireBaseAnalytics.setCurrentScreen(activity, null, key)
+            fireBaseAnalytics.setCurrentScreen(activity, null, new.screenName)
         }
     }
 
@@ -183,11 +181,26 @@ class SessionsViewPagerAdapter(
     private var roomTabs = mutableListOf<Tab.RoomTab>()
     private var schedulesTabs = mutableListOf<Tab.TimeTab>()
 
-    sealed class Tab(val title: String) {
-        object All : Tab("All")
-        data class RoomTab(val room: Room) : Tab(room.name)
+    sealed class Tab(val title: String, val fragment: Fragment) {
+        abstract val screenName: String
+
+        object All : Tab("All", AllSessionsFragment.newInstance()) {
+            override val screenName: String =
+                    AllSessionsFragment::class.java.simpleName
+        }
+
+        data class RoomTab(val room: Room) : Tab(room.name,
+                RoomSessionsFragment.newInstance(room)) {
+            override val screenName: String =
+                    RoomSessionsFragment::class.java.simpleName + room.name
+        }
+
         data class TimeTab(val schedule: SessionSchedule) :
-                Tab("Day${schedule.dayNumber} / ${schedule.startTime.toReadableTimeString()}")
+                Tab("Day${schedule.dayNumber} / ${schedule.startTime.toReadableTimeString()}",
+                        ScheduleSessionsFragment.newInstance(schedule)) {
+            override val screenName: String =
+                    ScheduleSessionsFragment::class.java.simpleName + title
+        }
     }
 
     private fun setupTabsIfNeeded(otherTabs: List<Tab>) {
@@ -203,20 +216,7 @@ class SessionsViewPagerAdapter(
 
     override fun getPageTitle(position: Int): CharSequence = tabs[position].title
 
-    override fun getItem(position: Int): Fragment {
-        val tab = tabs[position]
-        return when (tab) {
-            Tab.All -> {
-                AllSessionsFragment.newInstance()
-            }
-            is Tab.RoomTab -> {
-                RoomSessionsFragment.newInstance(tab.room)
-            }
-            is Tab.TimeTab -> {
-                ScheduleSessionsFragment.newInstance(tab.schedule)
-            }
-        }
-    }
+    override fun getItem(position: Int): Fragment = tabs[position].fragment
 
     override fun getItemPosition(`object`: Any): Int {
         // For recreating Page
