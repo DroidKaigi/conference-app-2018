@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2018.presentation.sessions
 import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.database.DataSetObserver
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -93,6 +94,11 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         super.onViewCreated(view, savedInstanceState)
 
         sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager, activity!!)
+        sessionsViewPagerAdapter.registerDataSetObserver(object : DataSetObserver() {
+            override fun onChanged() {
+                binding.tabLayout.getTabAt(0)?.select()
+            }
+        })
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
 
         sessionsViewModel = ViewModelProviders
@@ -249,7 +255,7 @@ class SessionsViewPagerAdapter(
         }
     }
 
-    fun setRooms(rooms: List<Room>) {
+    private fun setRooms(rooms: List<Room>) {
         if (rooms != roomTabs.map { it.room }) {
             roomTabs = rooms.map {
                 Tab.RoomTab(it)
