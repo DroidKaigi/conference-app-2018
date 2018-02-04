@@ -38,7 +38,11 @@ import timber.log.Timber
 import java.util.Date
 import javax.inject.Inject
 
-class AllSessionsFragment : Fragment(), Injectable, CurrentSessionScroller, OnTabReselectedListener {
+class AllSessionsFragment :
+        Fragment(),
+        Injectable,
+        CurrentSessionScroller,
+        OnTabReselectedListener {
 
     private lateinit var binding: FragmentAllSessionsBinding
 
