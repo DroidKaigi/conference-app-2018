@@ -17,8 +17,8 @@ class BottomNavigationHideBehavior : BottomNavigationBehavior {
     @Keep constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     private var isAnimation: Boolean = false
-    private var isAcceptNestedScroll: Boolean = false
-    private var isProcessedScroll: Boolean = false
+    private var isFlinging: Boolean = false
+    private var needsShowBnv: Boolean = false
     private val animationListener = object : Animator.AnimatorListener {
         override fun onAnimationRepeat(animation: Animator?) {
         }
@@ -39,44 +39,49 @@ class BottomNavigationHideBehavior : BottomNavigationBehavior {
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout,
                                      child: BottomNavigationView, directTargetChild: View,
                                      target: View, axes: Int, type: Int): Boolean {
-        return axes == ViewCompat.SCROLL_AXIS_VERTICAL && type == ViewCompat.TYPE_TOUCH
-    }
-
-    override fun onNestedScrollAccepted(coordinatorLayout: CoordinatorLayout,
-                                        child: BottomNavigationView, directTargetChild: View,
-                                        target: View, axes: Int, type: Int) {
-        isAcceptNestedScroll = true
-        super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild,
-                target, axes, type)
+        return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
     override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: BottomNavigationView,
                                 target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int,
                                 dyUnconsumed: Int, type: Int) {
-        isProcessedScroll = true
+        // skip scroll event via fling
+        if (isFlinging && type == ViewCompat.TYPE_NON_TOUCH) return
         when {
         // positive value: finger's move = touch -> move up (contents are scrolled downward)
             dyConsumed > THRESHOLD_PX -> hideBottomNavigationView(child)
         // negative value: finger's move = touch -> move down (contents are scrolled upward)
             dyConsumed < THRESHOLD_PX -> showBottomNavigationView(child)
         // ignore case: user scrolls contents upward but contents are too short to scroll
-            dyConsumed == 0 && dyUnconsumed < 0 -> isProcessedScroll = false
+            dyConsumed == 0 && dyUnconsumed < 0 -> needsShowBnv = true
             else -> Unit
         }
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
                 dxUnconsumed, dyUnconsumed, type)
     }
 
+    override fun onNestedFling(coordinatorLayout: CoordinatorLayout, child: BottomNavigationView,
+                               target: View, velocityX: Float, velocityY: Float,
+                               consumed: Boolean): Boolean {
+        isFlinging = true
+        when {
+            velocityY > 0 -> hideBottomNavigationView(child)
+            velocityY < 0 -> showBottomNavigationView(child)
+            else -> Unit
+        }
+        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed)
+    }
+
     override fun onStopNestedScroll(coordinatorLayout: CoordinatorLayout,
                                     child: BottomNavigationView, target: View, type: Int) {
-        if (isAcceptNestedScroll && !isProcessedScroll) {
+        if (type == ViewCompat.TYPE_NON_TOUCH) isFlinging = false
+        if (needsShowBnv) {
             // user touches screen but contents are not scrolled
             // this happens like contents are shot enough which has no reason to scroll
             // on the situation, it is necessary for the user to show BNV
             showBottomNavigationView(child)
+            needsShowBnv = false
         }
-        isAcceptNestedScroll = false
-        isProcessedScroll = false
         super.onStopNestedScroll(coordinatorLayout, child, target, type)
     }
 
