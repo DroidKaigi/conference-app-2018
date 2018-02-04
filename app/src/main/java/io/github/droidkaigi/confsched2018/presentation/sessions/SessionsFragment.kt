@@ -198,6 +198,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         if (previousItem < 0) return
 
         binding.sessionsViewPager.currentItem = previousItem
+        initPreviousSessionPrefs()
     }
 
     override val tagForFinding = MainActivity.BottomNavigationItem.SESSION.name
