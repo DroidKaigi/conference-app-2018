@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +46,20 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         }
     }
 
+    private val onCommentChangedListener: TextWatcher = object : TextWatcher {
+        override fun afterTextChanged(p0: Editable?) {
+            val old = (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)?.data!!
+            val new = old.copy(comment = p0.toString())
+            sessionsFeedbackViewModel.onSessionFeedbackChanged(new)
+        }
+
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+    }
+
     private val onSubmitListener = { sessionFeedback: SessionFeedback ->
         sessionsFeedbackViewModel.onSubmit(sessionFeedback.copy(submitted = true))
     }
@@ -77,6 +93,7 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         binding.asExpected.setListener(onCurrentRankingChangeListener)
         binding.difficulty.setListener(onCurrentRankingChangeListener)
         binding.knowledgeable.setListener(onCurrentRankingChangeListener)
+        binding.comment.addTextChangedListener(onCommentChangedListener)
 
         binding.submit.setOnClickListener {
             onSubmitListener(
