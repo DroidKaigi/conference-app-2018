@@ -3,32 +3,27 @@ package io.github.droidkaigi.confsched2018.util.ext
 import android.os.Parcel
 import android.os.Parcelable
 import android.support.v7.widget.LinearLayoutManager
-import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
 
-fun LinearLayoutManager.saveScrollPositionToPrefs() {
+fun LinearLayoutManager.getScrollState(): ScrollState {
     val savedState = onSaveInstanceState()
     val parcel = Parcel.obtain()
     savedState.writeToParcel(parcel, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
     parcel.setDataPosition(0)
 
-    val anchorPosition = parcel.readInt()
-    val anchorOffset = parcel.readInt()
-
+    val scrollState = ScrollState(
+            anchorPosition = parcel.readInt(),
+            anchorOffset = parcel.readInt())
     parcel.recycle()
 
-    Prefs.previousSessionScrollPosition = anchorPosition
-    Prefs.previousSessionScrollOffset = anchorOffset
+    return scrollState
 }
 
-fun LinearLayoutManager.restoreScrollPositionFromPrefs() {
-    val previousScrollPosition = Prefs.previousSessionScrollPosition
-    val previousScrollOffset = Prefs.previousSessionScrollOffset
-
-    if (previousScrollPosition < 0) return
+fun LinearLayoutManager.restoreScrollState(anchorPosition: Int, anchorOffset: Int) {
+    if (anchorPosition < 0) return
 
     val parcel = Parcel.obtain()
-    parcel.writeInt(previousScrollPosition)
-    parcel.writeInt(previousScrollOffset)
+    parcel.writeInt(anchorPosition)
+    parcel.writeInt(anchorOffset)
     parcel.writeInt(0)
     parcel.setDataPosition(0)
 
@@ -38,3 +33,5 @@ fun LinearLayoutManager.restoreScrollPositionFromPrefs() {
 
     onRestoreInstanceState(savedState)
 }
+
+class ScrollState(val anchorPosition: Int, val anchorOffset: Int)
