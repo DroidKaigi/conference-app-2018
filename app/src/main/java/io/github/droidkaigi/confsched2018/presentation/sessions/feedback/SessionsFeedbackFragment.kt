@@ -39,7 +39,9 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
     private val onCurrentRankingChangeListener
             = object : FeedbackRankingView.OnCurrentRankingChangeListener {
         override fun onCurrentRankingChange(view: FeedbackRankingView, currentRanking: Int) {
-            val old = (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)?.data!!
+
+            val old = (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)
+                    ?.data ?: return
             val new = when (view.id) {
                 R.id.total_evaluation -> old.copy(totalEvaluation = currentRanking)
                 R.id.relevancy -> old.copy(relevancy = currentRanking)
