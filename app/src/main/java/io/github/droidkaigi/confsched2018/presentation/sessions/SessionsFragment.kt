@@ -96,7 +96,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager, activity!!)
         sessionsViewPagerAdapter.registerDataSetObserver(object : DataSetObserver() {
             override fun onChanged() {
-                binding.tabLayout.getTabAt(0)?.select()
+                binding.tabLayout.setScrollPosition(0, 0f, true)
+                binding.sessionsViewPager.currentItem = 0
             }
         })
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
