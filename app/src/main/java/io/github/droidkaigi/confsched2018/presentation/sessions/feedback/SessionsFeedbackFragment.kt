@@ -20,8 +20,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.view.FeedbackRankingView
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.observeNonNull
-import io.github.droidkaigi.confsched2018.util.ext.toGone
-import io.github.droidkaigi.confsched2018.util.ext.toVisible
+import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -89,7 +88,7 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         setUpAlertView()
 
         sessionsFeedbackViewModel.isLoading.observeNonNull(this, {
-            if (it) binding.progress.toVisible() else binding.progress.toGone()
+            binding.progress.setVisible(it)
         })
     }
 
