@@ -101,6 +101,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector {
     }
 
     private fun setBottomNavigationBehavior() {
+        binding.bottomNavigation.translationY = 0f
         (binding.bottomNavigation.layoutParams as CoordinatorLayout.LayoutParams).behavior =
                 if (Prefs.enableHideBottomNavigationBar) {
                     BottomNavigationHideBehavior()
