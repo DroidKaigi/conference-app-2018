@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:text="@{plan.name}"
             android:textAppearance="@style/TextAppearance.App.Body1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="PLATINUM SPONSORS"
             />
@@ -37,6 +38,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="12dp"
             android:background="#607d8b"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/planName"
             />
     </android.support.constraint.ConstraintLayout>
