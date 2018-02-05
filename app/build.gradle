@@ -112,6 +112,7 @@ dependencies {
 
     // Kotlin
     implementation depends.kotlin.stdlib
+    implementation depends.ktx
 
     //==================== Support Library ====================
     implementation depends.support.v4
