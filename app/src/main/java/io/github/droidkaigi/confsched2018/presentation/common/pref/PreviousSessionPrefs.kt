@@ -12,7 +12,7 @@ object PreviousSessionPrefs : KotprefModel() {
     var previousSessionTabMode by enumValuePref(
             default = SessionTabMode.ROOM
     )
-    var previousSessionTabId: Int by intPref(
+    var previousSessionTabIndex: Int by intPref(
             default = context.integer(R.integer.pref_default_value_previous_session_tab_id)
     )
     private var previousSessionScrollPosition: Int by intPref(
@@ -24,7 +24,7 @@ object PreviousSessionPrefs : KotprefModel() {
 
     fun initPreviousSessionPrefs() {
         PreviousSessionPrefs.previousSessionTabMode = SessionTabMode.ROOM
-        PreviousSessionPrefs.previousSessionTabId = context.integer(
+        PreviousSessionPrefs.previousSessionTabIndex = context.integer(
                 integerRes = R.integer.pref_default_value_previous_session_tab_id)
         PreviousSessionPrefs.previousSessionScrollPosition = context.integer(
                 integerRes = R.integer.pref_default_value_previous_session_scroll_position)
