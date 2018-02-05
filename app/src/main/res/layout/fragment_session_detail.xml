@@ -69,6 +69,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            android:textAlignment="viewStart"
                             android:textIsSelectable="true"
                             android:text="@{session.title}"
                             android:textColor="@color/app_bar_text_color"
@@ -85,6 +86,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:paddingTop="8dp"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/app_bar_text_color"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/session_title"
@@ -187,7 +189,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/finished_session_check"
                         />
-
                     <View
                         android:id="@+id/divider_finished_session"
                         android:layout_width="match_parent"
@@ -209,10 +210,19 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="12dp"
                         android:layout_marginTop="24dp"
-                        android:text='@{"DAY"+session.dayNumber+" / "}'
+                        android:text='@{"DAY"+session.dayNumber}'
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
-                        tools:text="DAY1 / "
+                        tools:text="DAY1"
+                        />
+                    <TextView
+                        android:id="@+id/divider_day_and_period"
+                        style="@style/TextStyle.App.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/session_header_divider"
+                        app:layout_constraintStart_toEndOf="@+id/session_day_number"
+                        app:layout_constraintTop_toTopOf="@id/session_day_number"
                         />
                     <TextView
                         android:id="@+id/session_period"
@@ -221,8 +231,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         app:endDate="@{session.endTime}"
-                        app:layout_constraintStart_toEndOf="@id/session_day_number"
-                        app:layout_constraintTop_toTopOf="@id/session_day_number"
+                        app:layout_constraintStart_toEndOf="@id/divider_day_and_period"
+                        app:layout_constraintTop_toTopOf="@id/divider_day_and_period"
                         app:layout_goneMarginStart="12dp"
                         app:layout_goneMarginTop="16dp"
                         app:startDate="@{session.startTime}"
@@ -250,8 +260,8 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
-                        android:gravity="top"
                         android:text="@{session.desc}"
+                        android:textAlignment="viewStart"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

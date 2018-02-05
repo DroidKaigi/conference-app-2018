@@ -91,6 +91,7 @@
                 android:lineSpacingExtra="@dimen/session_title_line_spacing"
                 android:maxLines="2"
                 android:text="@{session.title}"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/period"
