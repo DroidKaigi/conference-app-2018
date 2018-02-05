@@ -257,6 +257,7 @@
                             android:layout_marginTop="16dp"
                             android:hint="@string/session_feedback_comment_hint"
                             android:text="@{sessionFeedback.comment}"
+                            android:textAlignment="viewStart"
                             android:textAppearance="@style/TextAppearance.App.Subhead"
                             android:textColor="@color/black"
                             android:textColorHint="#757575"

@@ -62,12 +62,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text='@{"DAY"+session.dayNumber+" / "}'
+                android:text='@{"DAY"+session.dayNumber}'
                 android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toEndOf="@+id/current_badge"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginStart="0dp"
-                tools:text="DAY1 / "
+                tools:text="DAY1"
+                />
+
+            <TextView
+                android:id="@+id/divider_day_and_period"
+                style="@style/TextStyle.App.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/session_header_divider"
+                android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toEndOf="@+id/day_number"
+                app:layout_constraintTop_toTopOf="@id/day_number"
                 />
 
             <TextView
@@ -77,11 +88,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 app:endDate="@{session.endTime}"
-                app:layout_constraintStart_toEndOf="@id/day_number"
-                app:layout_constraintTop_toTopOf="@id/day_number"
+                app:layout_constraintStart_toEndOf="@id/divider_day_and_period"
+                app:layout_constraintTop_toTopOf="@id/divider_day_and_period"
                 app:layout_goneMarginTop="16dp"
                 app:startDate="@{session.startTime}"
                 tools:text="10:30 - 11:00"
+                />
+
+            <TextView
+                android:id="@+id/divider_period_and_room"
+                style="@style/TextStyle.App.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/session_header_divider"
+                android:visibility="@{isShowDayNumber || simplify ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toEndOf="@+id/period"
+                app:layout_constraintTop_toTopOf="@id/period"
                 />
 
             <TextView
@@ -106,6 +128,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:text="@{session.title}"
+                android:textAlignment="viewStart"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,6 +149,7 @@
                 android:maxLines="3"
                 android:paddingBottom="2dp"
                 android:text="@{session.desc}"
+                android:textAlignment="viewStart"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:highlightText="@{searchQuery}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -145,6 +169,7 @@
                 android:includeFontPadding="false"
                 android:maxLines="3"
                 android:paddingBottom="2dp"
+                android:textAlignment="viewStart"
                 android:textColor="?colorAccent"
                 android:visibility="@{session.message == null ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -171,6 +196,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
                 android:maxLines="2"
+                android:textAlignment="viewStart"
                 android:visibility="@{simplify ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="@id/level"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -229,7 +255,7 @@
                 android:textColor="@android:color/black"
                 android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
                 app:vectorDrawableStart="@{@drawable/ic_check_circle_black_24dp}"
                 tools:drawableStart="@drawable/ic_check_circle_black_24dp"
@@ -246,7 +272,7 @@
                 android:textSize="14sp"
                 android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBaseline_toBaselineOf="@id/finished_session_check"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
 
         </android.support.constraint.ConstraintLayout>

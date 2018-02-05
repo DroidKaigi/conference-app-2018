@@ -99,9 +99,9 @@
         <item name="android:textColor">@color/app_bar_text_color</item>
         <item name="android:background">@drawable/bg_go_to_feedback</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingStart">8dp</item>
         <item name="android:paddingTop">11dp</item>
-        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
         <item name="android:paddingBottom">11dp</item>
         <item name="android:stateListAnimator" tools:targetApi="21">@null</item>
         <item name="android:elevation" tools:targetApi="21">2dp</item>
@@ -121,6 +121,7 @@
     <style name="FeedbackTitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Body2</item>
         <item name="android:textColor">@color/black</item>
     </style>
