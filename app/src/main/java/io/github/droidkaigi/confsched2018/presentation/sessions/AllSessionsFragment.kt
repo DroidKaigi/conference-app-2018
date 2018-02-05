@@ -20,7 +20,7 @@ import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
-import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
+import io.github.droidkaigi.confsched2018.presentation.common.pref.PreviousSessionPrefs
 import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.CurrentSessionScroller
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.SavePreviousSessionScroller
@@ -121,8 +121,8 @@ class AllSessionsFragment :
     override fun saveCurrentSession() {
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
         val scrollState = layoutManager.getScrollState()
-        Prefs.previousSessionScrollPosition = scrollState.anchorPosition
-        Prefs.previousSessionScrollOffset = scrollState.anchorOffset
+        PreviousSessionPrefs.previousSessionScrollPosition = scrollState.anchorPosition
+        PreviousSessionPrefs.previousSessionScrollOffset = scrollState.anchorOffset
     }
 
     override fun restorePreviousSession() {
@@ -135,9 +135,9 @@ class AllSessionsFragment :
     private fun scrollToPreviousSession() {
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
         layoutManager.restoreScrollState(
-                anchorPosition = Prefs.previousSessionScrollPosition,
-                anchorOffset = Prefs.previousSessionScrollOffset)
-        Prefs.initPreviousSessionPrefs()
+                anchorPosition = PreviousSessionPrefs.previousSessionScrollPosition,
+                anchorOffset = PreviousSessionPrefs.previousSessionScrollOffset)
+        PreviousSessionPrefs.initPreviousSessionPrefs()
     }
 
     private fun setupRecyclerView() {
