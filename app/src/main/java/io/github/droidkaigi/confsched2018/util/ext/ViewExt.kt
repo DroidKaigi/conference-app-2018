@@ -36,8 +36,11 @@ var View.elevationForPostLollipop: Float
     }
 
 fun View.setPaddingWithLayoutDirction(start: Int, top: Int, end: Int, bottom: Int) =
-        if (resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+        if (isLayoutDirectionRtl()) {
             setPadding(end, top, start, bottom)
         } else {
             setPadding(start, top, end, bottom)
         }
+
+fun View.isLayoutDirectionRtl() =
+        resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL

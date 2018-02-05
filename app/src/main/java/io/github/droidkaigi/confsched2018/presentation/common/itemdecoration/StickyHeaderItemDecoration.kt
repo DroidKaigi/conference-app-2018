@@ -11,6 +11,7 @@ import android.text.TextPaint
 import android.text.TextUtils
 import android.view.View
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.util.ext.isLayoutDirectionRtl
 
 /**
  * Created by e10dokup on 2018/01/18.
@@ -53,7 +54,7 @@ class StickyHeaderItemDecoration constructor(
             return
         }
 
-        if (view.context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+        if (view.isLayoutDirectionRtl()) {
             outRect.right = contentMargin
         } else {
             outRect.left = contentMargin
@@ -81,9 +82,7 @@ class StickyHeaderItemDecoration constructor(
             val textLine = callback.getGroupFirstLine(position)
             if (TextUtils.isEmpty(textLine)) continue
 
-            val isLayoutDirectionRtl =
-                    view.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
-            val textX = if (isLayoutDirectionRtl) {
+            val textX = if (view.isLayoutDirectionRtl()) {
                 labelPadding.toFloat() + view.width.toFloat()
             } else {
                 labelPadding.toFloat()

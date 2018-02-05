@@ -18,6 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.util.ext.isLayoutDirectionRtl
 import io.github.droidkaigi.confsched2018.util.ext.selectedText
 import io.github.droidkaigi.confsched2018.util.ext.toReadableDateTimeString
 import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
@@ -47,8 +48,7 @@ fun TextView.setPeriodText(startDate: Date?, endDate: Date?) {
 fun TextView.setRoomText(prefix: String?, roomName: String?) {
     prefix ?: return
     roomName ?: return
-    val isLayoutDirectionRtl = resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
-    text = if (isLayoutDirectionRtl) {
+    text = if (isLayoutDirectionRtl()) {
         context.getString(R.string.room_format_rtl, prefix, roomName)
     } else {
         context.getString(R.string.room_format, prefix, roomName)
