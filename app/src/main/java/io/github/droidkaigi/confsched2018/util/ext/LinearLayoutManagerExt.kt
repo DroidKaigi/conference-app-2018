@@ -18,12 +18,12 @@ fun LinearLayoutManager.getScrollState(): ScrollState {
     return scrollState
 }
 
-fun LinearLayoutManager.restoreScrollState(anchorPosition: Int, anchorOffset: Int) {
-    if (anchorPosition < 0) return
+fun LinearLayoutManager.restoreScrollState(scrollState: ScrollState) {
+    if (scrollState.anchorPosition < 0) return
 
     val parcel = Parcel.obtain()
-    parcel.writeInt(anchorPosition)
-    parcel.writeInt(anchorOffset)
+    parcel.writeInt(scrollState.anchorPosition)
+    parcel.writeInt(scrollState.anchorOffset)
     parcel.writeInt(0)
     parcel.setDataPosition(0)
 

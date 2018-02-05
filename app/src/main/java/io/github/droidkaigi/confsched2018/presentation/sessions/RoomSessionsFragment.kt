@@ -140,10 +140,7 @@ class RoomSessionsFragment :
 
     private fun scrollToPreviousSession() {
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
-        val scrollState = PreviousSessionPrefs.scrollState
-        layoutManager.restoreScrollState(
-                anchorPosition = scrollState.anchorPosition,
-                anchorOffset = scrollState.anchorOffset)
+        layoutManager.restoreScrollState(PreviousSessionPrefs.scrollState)
         PreviousSessionPrefs.initPreviousSessionPrefs()
     }
 
