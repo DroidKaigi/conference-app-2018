@@ -53,7 +53,11 @@ class StickyHeaderItemDecoration constructor(
             return
         }
 
-        outRect.left = contentMargin
+        if (view.context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+            outRect.right = contentMargin
+        } else {
+            outRect.left = contentMargin
+        }
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -77,6 +81,14 @@ class StickyHeaderItemDecoration constructor(
             val textLine = callback.getGroupFirstLine(position)
             if (TextUtils.isEmpty(textLine)) continue
 
+            val isLayoutDirectionRtl =
+                    view.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
+            val textX = if (isLayoutDirectionRtl) {
+                labelPadding.toFloat() + view.width.toFloat()
+            } else {
+                labelPadding.toFloat()
+            }
+
             val viewBottom = view.bottom + view.paddingBottom
             var textY = Math.max(view.height, viewBottom) - lineHeight
             if (position + 1 < totalItemCount) {
@@ -85,7 +97,7 @@ class StickyHeaderItemDecoration constructor(
                     textY = viewBottom - lineHeight
                 }
             }
-            c.drawText(textLine, labelPadding.toFloat(), textY, textPaint)
+            c.drawText(textLine, textX, textY, textPaint)
         }
     }
 
