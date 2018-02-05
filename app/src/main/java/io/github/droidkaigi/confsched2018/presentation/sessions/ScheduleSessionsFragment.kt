@@ -120,9 +120,7 @@ class ScheduleSessionsFragment :
 
     override fun saveCurrentSession() {
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
-        val scrollState = layoutManager.getScrollState()
-        PreviousSessionPrefs.previousSessionScrollPosition = scrollState.anchorPosition
-        PreviousSessionPrefs.previousSessionScrollOffset = scrollState.anchorOffset
+        PreviousSessionPrefs.scrollState = layoutManager.getScrollState()
     }
 
     override fun restorePreviousSession() {
@@ -134,9 +132,10 @@ class ScheduleSessionsFragment :
 
     private fun scrollToPreviousSession() {
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
+        val scrollState = PreviousSessionPrefs.scrollState
         layoutManager.restoreScrollState(
-                anchorPosition = PreviousSessionPrefs.previousSessionScrollPosition,
-                anchorOffset = PreviousSessionPrefs.previousSessionScrollOffset)
+                anchorPosition = scrollState.anchorPosition,
+                anchorOffset = scrollState.anchorOffset)
         PreviousSessionPrefs.initPreviousSessionPrefs()
     }
 
