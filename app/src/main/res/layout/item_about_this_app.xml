@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="sans-serif"
-            android:paddingLeft="24dp"
             android:paddingStart="24dp"
             android:text="@{aboutThisApp.name}"
             android:textColor="#de000000"

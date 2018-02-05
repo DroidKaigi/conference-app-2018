@@ -251,7 +251,7 @@
                 android:textColor="@android:color/black"
                 android:visibility="@{session.isFinished ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider_finished_session"
                 app:vectorDrawableStart="@{@drawable/ic_check_circle_black_24dp}"
                 tools:drawableStart="@drawable/ic_check_circle_black_24dp"

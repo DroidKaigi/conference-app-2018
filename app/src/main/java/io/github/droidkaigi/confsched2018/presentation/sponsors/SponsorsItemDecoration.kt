@@ -30,21 +30,21 @@ class SponsorsItemDecoration(@LayoutRes private val sponsorItemViewType: Int)
         val sidePadding = 16 * density
         val middlePadding = 8 * density
 
-        val leftPadding = when {
+        val startPadding = when {
             isStart -> sidePadding
             isEnd && spanSize == 2 -> 0f
             isEnd && spanSize == 3 -> middlePadding / 2
             else -> middlePadding
         }.toInt()
 
-        val rightPadding = when {
+        val endPadding = when {
             isEnd -> sidePadding
             isStart && spanSize == 2 -> 0f
             isStart && spanSize == 3 -> middlePadding / 2
             else -> middlePadding
         }.toInt()
 
-        view.setPadding(leftPadding, view.paddingTop, rightPadding, view.paddingBottom)
+        view.setPadding(startPadding, view.paddingTop, endPadding, view.paddingBottom)
     }
 
     private fun isSponsorItem(child: View, parent: RecyclerView): Boolean =
