@@ -196,6 +196,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     private fun reopenPreviousOpenedItem() {
         val previousItem = PreviousSessionPrefs.previousSessionTabId
         if (previousItem < 0) return
+        if (sessionsViewPagerAdapter.count < previousItem) return
 
         binding.sessionsViewPager.currentItem = previousItem
         val fragment = sessionsViewPagerAdapter
