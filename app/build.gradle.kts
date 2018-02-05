@@ -44,13 +44,6 @@ android {
         multiDexEnabled = true
         resConfigs("en", "ja")
 
-        // Play publisher
-        // TODO Replace json file to the one which is generated in the API console.
-        // https://github.com/Triple-T/gradle-play-publisher#authentication
-        ext["playAccountConfig"] = PlayAccountConfig("playAccountConfigs").apply {
-            jsonFile = file("publisher-keys.json")
-        }
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = mapOf("room.schemaLocation" to "$projectDir/schemas")
@@ -228,6 +221,7 @@ repositories {
 }
 
 play {
+    jsonFile = file("publisher_keys.json")
     setTrack("beta") // 'production' or 'rollout' or 'beta' or 'alpha'
 // userFraction = 0.1
 

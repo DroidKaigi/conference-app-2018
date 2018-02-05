@@ -6,15 +6,23 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
+private val dateFormat = SimpleDateFormat("MM/dd", Locale.US)
+private val timeFormat = SimpleDateFormat("HH:mm", Locale.US)
+
 fun Date.toReadableDateTimeString() = "${toReadableDateString()} ${toReadableTimeString()}"
 
-fun Date.toReadableDateString() = SimpleDateFormat("MM/dd", Locale.US).apply {
-    timeZone = timeZone()
-}.format(this)
+fun Date.toReadableDateString() =
+        synchronized(Prefs) {
+            dateFormat.timeZone = timeZone()
+            dateFormat.format(this)
+        }
 
-fun Date.toReadableTimeString() = SimpleDateFormat("HH:mm", Locale.US).apply {
-    timeZone = timeZone()
-}.format(this)
+
+fun Date.toReadableTimeString() =
+        synchronized(Prefs) {
+            timeFormat.timeZone = timeZone()
+            timeFormat.format(this)
+        }
 
 private fun timeZone(): TimeZone {
     return if (Prefs.enableLocalTime) {

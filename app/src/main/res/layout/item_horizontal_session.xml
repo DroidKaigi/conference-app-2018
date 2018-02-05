@@ -13,7 +13,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="166dp"
+        android:layout_height="210dp"
         android:layout_marginBottom="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -83,23 +83,27 @@
                 android:id="@+id/title"
                 style="@style/TextStyle.App.Title"
                 android:layout_width="0dp"
-                android:layout_height="62dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:lineSpacingExtra="@dimen/session_title_line_spacing"
-                android:maxLines="2"
+                android:maxLines="@{4 - session.speakers.size}"
                 android:text="@{session.title}"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/period"
+                app:layout_constraintBottom_toTopOf="@id/speakers"
                 tools:text="テストセッション"
                 />
 
             <io.github.droidkaigi.confsched2018.presentation.common.view.SpeakersSummaryLayout
+                android:id="@+id/speakers"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                tools:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite"
                 app:layout_constraintStart_toStartOf="parent"

@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.SessionMessage
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
@@ -58,6 +59,13 @@ fun SessionWithSpeakers.toSession(
             } else {
                 SessionMessage(sessionEntity.message.ja, sessionEntity.message.en)
             }
+    )
+}
+
+fun Session.toSchedule(): SessionSchedule {
+    return SessionSchedule(
+            dayNumber = dayNumber,
+            startTime = startTime
     )
 }
 

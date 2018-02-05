@@ -34,6 +34,7 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
+import io.github.droidkaigi.confsched2018.util.SimpleTransitionListener
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
@@ -156,8 +157,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                     .inflateTransition(R.transition.shared_element_arc)
                     .apply {
                         duration = 400
-
-                        addListener(object : Transition.TransitionListener {
+                        addListener(object : SimpleTransitionListener() {
                             override fun onTransitionEnd(p0: android.transition.Transition?) {
                                 removeListener(this)
                                 // No need to start reveal anim if user pressed back button during shared element transition
@@ -166,18 +166,12 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                                 }
                             }
 
-                            override fun onTransitionResume(p0: android.transition.Transition?) {
-                            }
-
                             override fun onTransitionPause(p0: android.transition.Transition?) {
                                 isEnterTransitionCanceled = true
                             }
 
                             override fun onTransitionCancel(p0: android.transition.Transition?) {
                                 isEnterTransitionCanceled = true
-                            }
-
-                            override fun onTransitionStart(p0: android.transition.Transition?) {
                             }
                         })
                     }
@@ -190,19 +184,7 @@ class SpeakerDetailFragment : Fragment(), Injectable {
                 .apply {
                     duration = 400
 
-                    addListener(object : Transition.TransitionListener {
-                        override fun onTransitionEnd(p0: android.transition.Transition?) {
-                        }
-
-                        override fun onTransitionResume(p0: android.transition.Transition?) {
-                        }
-
-                        override fun onTransitionPause(p0: android.transition.Transition?) {
-                        }
-
-                        override fun onTransitionCancel(p0: android.transition.Transition?) {
-                        }
-
+                    addListener(object : SimpleTransitionListener() {
                         override fun onTransitionStart(p0: android.transition.Transition?) {
                             removeListener(this)
                             hideReveal()

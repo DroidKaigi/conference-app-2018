@@ -9,20 +9,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchTopicsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.TopicsGroup
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchTopicsFragment : Fragment(), Injectable {
+class SearchTopicsFragment : Fragment(), Injectable, OnTabReselectedListener {
 
     private lateinit var binding: FragmentSearchTopicsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -74,6 +74,10 @@ class SearchTopicsFragment : Fragment(), Injectable {
             adapter = groupAdapter
             addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
         }
+    }
+
+    override fun onTabReselected() {
+        binding.searchSessionRecycler.smoothScrollToPosition(0)
     }
 
     companion object {

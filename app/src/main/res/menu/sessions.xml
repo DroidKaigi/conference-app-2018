@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/room_tab_mode"
+        android:title="@string/session_menu_tab_mode_room"
+        android:icon="@drawable/ic_room_tab_white_24dp"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/schedule_tab_mode"
+        android:visible="false"
+        android:icon="@drawable/ic_schedule_tab_white_24dp"
+        android:title="@string/session_menu_tab_mode_schedule"
+        app:showAsAction="ifRoom"
+        />
+</menu>

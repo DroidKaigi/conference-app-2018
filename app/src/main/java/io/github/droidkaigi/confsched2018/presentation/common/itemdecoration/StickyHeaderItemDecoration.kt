@@ -11,6 +11,7 @@ import android.text.TextPaint
 import android.text.TextUtils
 import android.view.View
 import io.github.droidkaigi.confsched2018.R
+import io.github.droidkaigi.confsched2018.util.ext.isLayoutDirectionRtl
 
 /**
  * Created by e10dokup on 2018/01/18.
@@ -53,7 +54,11 @@ class StickyHeaderItemDecoration constructor(
             return
         }
 
-        outRect.left = contentMargin
+        if (view.isLayoutDirectionRtl()) {
+            outRect.right = contentMargin
+        } else {
+            outRect.left = contentMargin
+        }
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -77,6 +82,12 @@ class StickyHeaderItemDecoration constructor(
             val textLine = callback.getGroupFirstLine(position)
             if (TextUtils.isEmpty(textLine)) continue
 
+            val textX = if (view.isLayoutDirectionRtl()) {
+                labelPadding.toFloat() + view.width.toFloat()
+            } else {
+                labelPadding.toFloat()
+            }
+
             val viewBottom = view.bottom + view.paddingBottom
             var textY = Math.max(view.height, viewBottom) - lineHeight
             if (position + 1 < totalItemCount) {
@@ -85,7 +96,7 @@ class StickyHeaderItemDecoration constructor(
                     textY = viewBottom - lineHeight
                 }
             }
-            c.drawText(textLine, labelPadding.toFloat(), textY, textPaint)
+            c.drawText(textLine, textX, textY, textPaint)
         }
     }
 

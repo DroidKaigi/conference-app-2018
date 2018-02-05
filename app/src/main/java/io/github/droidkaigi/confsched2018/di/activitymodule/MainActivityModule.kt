@@ -25,6 +25,8 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragm
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.RoomSessionsViewModel
+import io.github.droidkaigi.confsched2018.presentation.sessions.ScheduleSessionsFragment
+import io.github.droidkaigi.confsched2018.presentation.sessions.ScheduleSessionsViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewModel
 
@@ -38,6 +40,8 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     @ContributesAndroidInjector fun contributeFeedFragment(): FeedFragment
 
     @ContributesAndroidInjector fun contributeRoomSessionsFragment(): RoomSessionsFragment
+
+    @ContributesAndroidInjector fun contributeScheduleSessionsFragment(): ScheduleSessionsFragment
 
     @ContributesAndroidInjector fun contributeSearchFragment(): SearchFragment
 
@@ -77,6 +81,12 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsViewMode
     @ViewModelKey(RoomSessionsViewModel::class)
     fun bindRoomSessionsViewModel(
             roomSessionsViewModel: RoomSessionsViewModel
+    ): ViewModel
+
+    @Binds @IntoMap
+    @ViewModelKey(ScheduleSessionsViewModel::class)
+    fun bindScheduleSessionsViewModel(
+            scheduleSessionsViewModel: ScheduleSessionsViewModel
     ): ViewModel
 
     @Binds @IntoMap

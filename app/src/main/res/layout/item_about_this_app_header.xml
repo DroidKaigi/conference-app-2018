@@ -21,14 +21,13 @@
             android:id="@+id/about_this_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
-            android:text='What is " '
+            android:text="@string/about_what_is_prefix"
             android:textColor="#de000000"
             android:textSize="23sp"
             android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/conference_name"
             app:layout_constraintTop_toTopOf="parent"
             />
 
@@ -38,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:contentDescription="DroidKaigi Logo"
+            android:contentDescription="@string/about_content_description_conference_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_what_is_droidkaigi_black"
@@ -50,11 +49,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
-            android:text=' " ?'
+            android:text="@string/about_what_is_suffix"
             android:textColor="#de000000"
             android:textSize="23sp"
             android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@id/conference_name"
+            app:layout_constraintRight_toRightOf="@id/conference_name"
             app:layout_constraintTop_toTopOf="parent"
             />
 
@@ -68,6 +67,7 @@
             android:fontFamily="sans-serif"
             android:lineSpacingExtra="9.6sp"
             android:text="@{headItem.description}"
+            android:textAlignment="viewStart"
             android:textColor="#000000"
             android:textSize="12sp"
             android:textStyle="normal"
@@ -82,11 +82,11 @@
             style="@style/SocialMediaButton"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="32dp"
-            android:contentDescription="facebook link button"
+            android:contentDescription="@string/about_content_description_facebook"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/about_this_app_twitter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/about_this_app_twitter"
             app:layout_constraintTop_toBottomOf="@id/about_this_app_description"
             app:srcCompat="@drawable/ic_facebook_purple_24dp"
             />
@@ -94,10 +94,10 @@
         <ImageButton
             android:id="@+id/about_this_app_twitter"
             style="@style/SocialMediaButton"
-            android:contentDescription="twitter link button"
+            android:contentDescription="@string/about_content_description_twitter"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_facebook"
-            app:layout_constraintLeft_toRightOf="@+id/about_this_app_facebook"
-            app:layout_constraintRight_toLeftOf="@+id/about_this_app_github"
+            app:layout_constraintStart_toEndOf="@+id/about_this_app_facebook"
+            app:layout_constraintEnd_toStartOf="@+id/about_this_app_github"
             app:layout_constraintTop_toTopOf="@id/about_this_app_facebook"
             app:srcCompat="@drawable/ic_twitter_blue_24dp"
             />
@@ -105,10 +105,10 @@
         <ImageButton
             android:id="@+id/about_this_app_github"
             style="@style/SocialMediaButton"
-            android:contentDescription="github link button"
+            android:contentDescription="@string/about_content_description_github"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_twitter"
-            app:layout_constraintLeft_toRightOf="@+id/about_this_app_twitter"
-            app:layout_constraintRight_toLeftOf="@+id/about_this_app_youtube"
+            app:layout_constraintStart_toEndOf="@+id/about_this_app_twitter"
+            app:layout_constraintEnd_toStartOf="@+id/about_this_app_youtube"
             app:layout_constraintTop_toTopOf="@id/about_this_app_twitter"
             app:srcCompat="@drawable/ic_github_black_24dp"
             />
@@ -116,10 +116,10 @@
         <ImageButton
             android:id="@+id/about_this_app_youtube"
             style="@style/SocialMediaButton"
-            android:contentDescription="youtube link button"
+            android:contentDescription="@string/about_content_description_youtube"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_github"
-            app:layout_constraintLeft_toRightOf="@+id/about_this_app_github"
-            app:layout_constraintRight_toLeftOf="@+id/about_this_app_Medium"
+            app:layout_constraintStart_toEndOf="@+id/about_this_app_github"
+            app:layout_constraintEnd_toStartOf="@+id/about_this_app_Medium"
             app:layout_constraintTop_toTopOf="@id/about_this_app_github"
             app:srcCompat="@drawable/ic_youtube_24dp"
             />
@@ -127,10 +127,10 @@
         <ImageButton
             android:id="@+id/about_this_app_Medium"
             style="@style/SocialMediaButton"
-            android:contentDescription="medium link button"
+            android:contentDescription="@string/about_content_description_medium"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_youtube"
-            app:layout_constraintLeft_toRightOf="@+id/about_this_app_youtube"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/about_this_app_youtube"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/about_this_app_youtube"
             app:srcCompat="@drawable/ic_medium_24dp"
             />

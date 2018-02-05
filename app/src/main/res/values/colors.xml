@@ -10,6 +10,7 @@
     <color name="app_bar_text_color">#FFF</color>
 
     <color name="card_background_color">#FFF</color>
+    <color name="current_card_background_color">#fff9e6</color>
 
     <color name="sub_icon_color">#8a000000</color>
     <color name="circle_button_background">#f6f6f6</color>

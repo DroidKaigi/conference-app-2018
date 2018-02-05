@@ -29,7 +29,7 @@ class FeedContentTextView
             var x = event.x.toInt()
             var y = event.y.toInt()
 
-            x -= totalPaddingLeft
+            x -= totalPaddingStart
             y -= totalPaddingTop
             x += scrollX
             y += scrollY

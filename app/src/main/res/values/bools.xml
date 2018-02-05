@@ -3,4 +3,5 @@
     <bool name="pref_default_value_enable_local_time">false</bool>
     <bool name="pref_default_value_enable_notification">true</bool>
     <bool name="pref_default_value_enable_hide_bottom_navigation">true</bool>
+    <bool name="pref_default_value_enable_reopen_previous_room_sessions">true</bool>
 </resources>
