@@ -221,7 +221,7 @@ repositories {
 }
 
 play {
-    jsonFile = file("publisher_keys.json")
+    jsonFile = file("publisher-keys.json")
     setTrack("beta") // 'production' or 'rollout' or 'beta' or 'alpha'
 // userFraction = 0.1
 
