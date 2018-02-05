@@ -78,7 +78,7 @@ jobs:
                   ./gradlew :app:uploadDeployGateRelease
               elif [[ "${CIRCLE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
                   echo "Deploy to Google Play"
-                  ./gradlew clean assembleRelease publishApkRelease
+#                  ./gradlew clean assembleRelease publishApkRelease
               fi
       - store_artifacts:
           path: app/build/reports
