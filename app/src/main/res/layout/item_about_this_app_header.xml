@@ -21,14 +21,13 @@
             android:id="@+id/about_this_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
             android:text="@string/about_what_is_prefix"
             android:textColor="#de000000"
             android:textSize="23sp"
             android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/conference_name"
             app:layout_constraintTop_toTopOf="parent"
             />
 
@@ -54,7 +53,7 @@
             android:textColor="#de000000"
             android:textSize="23sp"
             android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@id/conference_name"
+            app:layout_constraintRight_toRightOf="@id/conference_name"
             app:layout_constraintTop_toTopOf="parent"
             />
 
@@ -86,7 +85,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/about_this_app_twitter"
+            app:layout_constraintEnd_toStartOf="@id/about_this_app_twitter"
             app:layout_constraintTop_toBottomOf="@id/about_this_app_description"
             app:srcCompat="@drawable/ic_facebook_purple_24dp"
             />
@@ -96,8 +95,8 @@
             style="@style/SocialMediaButton"
             android:contentDescription="@string/about_content_description_twitter"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_facebook"
-            app:layout_constraintStart_toStartOf="@+id/about_this_app_facebook"
-            app:layout_constraintEnd_toEndOf="@+id/about_this_app_github"
+            app:layout_constraintStart_toEndOf="@+id/about_this_app_facebook"
+            app:layout_constraintEnd_toStartOf="@+id/about_this_app_github"
             app:layout_constraintTop_toTopOf="@id/about_this_app_facebook"
             app:srcCompat="@drawable/ic_twitter_blue_24dp"
             />
@@ -130,7 +129,7 @@
             android:contentDescription="@string/about_content_description_medium"
             app:layout_constraintBottom_toBottomOf="@id/about_this_app_youtube"
             app:layout_constraintStart_toEndOf="@+id/about_this_app_youtube"
-            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/about_this_app_youtube"
             app:srcCompat="@drawable/ic_medium_24dp"
             />
