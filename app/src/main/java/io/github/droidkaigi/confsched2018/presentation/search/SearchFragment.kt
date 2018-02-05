@@ -32,6 +32,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedDispatcher
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchResultSpeakerItem
 import io.github.droidkaigi.confsched2018.presentation.search.item.SearchSpeakersSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
@@ -91,6 +92,9 @@ class SearchFragment : Fragment(), Injectable {
         binding.sessionsViewPager.adapter =
                 SearchBeforeViewPagerAdapter(activity!!, childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
+        binding.tabLayout.addOnTabSelectedListener(
+                OnTabReselectedDispatcher(binding.sessionsViewPager)
+        )
     }
 
     private fun setupSearch() {
@@ -233,22 +237,26 @@ class SearchBeforeViewPagerAdapter(
     }
 
     enum class Tab(@StringRes val title: Int) {
-        Session(R.string.search_before_tab_session),
-        Topic(R.string.search_before_tab_topic),
-        Speakers(R.string.search_before_tab_speaker);
+        SESSION(R.string.search_before_tab_session) {
+            override val fragment: Fragment
+                get() = SearchSessionsFragment.newInstance()
+        },
+        TOPIC(R.string.search_before_tab_topic) {
+            override val fragment: Fragment
+                get() = SearchTopicsFragment.newInstance()
+        },
+        SPEAKERS(R.string.search_before_tab_speaker) {
+            override val fragment: Fragment
+                get() = SearchSpeakersFragment.newInstance()
+        };
+
+        abstract val fragment: Fragment
     }
 
     override fun getPageTitle(position: Int): CharSequence =
             activity.getString(Tab.values()[position].title)
 
-    override fun getItem(position: Int): Fragment {
-        val tab = Tab.values()[position]
-        return when (tab) {
-            Tab.Session -> SearchSessionsFragment.newInstance()
-            Tab.Topic -> SearchTopicsFragment.newInstance()
-            Tab.Speakers -> SearchSpeakersFragment.newInstance()
-        }
-    }
+    override fun getItem(position: Int): Fragment = Tab.values()[position].fragment
 
     override fun getCount(): Int = Tab.values().size
 

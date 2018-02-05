@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import io.github.droidkaigi.confsched2018.util.ext.setPaddingWithLayoutDirction
 
 class SponsorsItemDecoration(@LayoutRes private val sponsorItemViewType: Int)
     : RecyclerView.ItemDecoration() {
@@ -30,21 +31,22 @@ class SponsorsItemDecoration(@LayoutRes private val sponsorItemViewType: Int)
         val sidePadding = 16 * density
         val middlePadding = 8 * density
 
-        val leftPadding = when {
+        val startPadding = when {
             isStart -> sidePadding
             isEnd && spanSize == 2 -> 0f
             isEnd && spanSize == 3 -> middlePadding / 2
             else -> middlePadding
         }.toInt()
 
-        val rightPadding = when {
+        val endPadding = when {
             isEnd -> sidePadding
             isStart && spanSize == 2 -> 0f
             isStart && spanSize == 3 -> middlePadding / 2
             else -> middlePadding
         }.toInt()
 
-        view.setPadding(leftPadding, view.paddingTop, rightPadding, view.paddingBottom)
+        view.setPaddingWithLayoutDirction(
+                startPadding, view.paddingTop, endPadding, view.paddingBottom)
     }
 
     private fun isSponsorItem(child: View, parent: RecyclerView): Boolean =

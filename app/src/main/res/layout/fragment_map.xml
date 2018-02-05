@@ -34,6 +34,7 @@
                     android:layout_margin="16dp"
                     android:lineSpacingExtra="7.2sp"
                     android:text="@string/map_place_name"
+                    android:textAlignment="viewStart"
                     android:textColor="#ffffff"
                     android:textIsSelectable="true"
                     android:textSize="18sp"
@@ -62,6 +63,8 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="16dp"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -83,6 +86,7 @@
                         android:layout_marginStart="72dp"
                         android:lineSpacingExtra="9.6sp"
                         android:text="@string/map_address"
+                        android:textAlignment="viewStart"
                         android:textIsSelectable="true"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,6 +99,8 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="8dp"
                     >
                     <ImageView
                         android:layout_width="wrap_content"
@@ -117,6 +123,7 @@
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="9.6sp"
                         android:text="@string/map_nearby_stations"
+                        android:textAlignment="viewStart"
                         android:textIsSelectable="true"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"

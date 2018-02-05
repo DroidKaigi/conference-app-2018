@@ -3,11 +3,16 @@ package io.github.droidkaigi.confsched2018.presentation.sessions
 import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.database.DataSetObserver
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -15,14 +20,20 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.MainActivity.BottomNavigationItem.OnReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.fragment.Findable
+import io.github.droidkaigi.confsched2018.presentation.common.pref.Prefs
+import io.github.droidkaigi.confsched2018.presentation.common.pref.PreviousSessionPrefs
+import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedDispatcher
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.toReadableTimeString
 import timber.log.Timber
+import java.util.Date
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -31,6 +42,49 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     private lateinit var sessionsViewPagerAdapter: SessionsViewPagerAdapter
     private lateinit var sessionsViewModel: SessionsViewModel
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.sessions, menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val roomTabMenu = menu.findItem(R.id.room_tab_mode)
+        val scheduleTabMenu = menu.findItem(R.id.schedule_tab_mode)
+
+        Timber.d("onPrepareOptionsMenu")
+
+        when (sessionsViewModel.tabMode) {
+            SessionTabMode.SCHEDULE -> {
+                roomTabMenu.isVisible = false
+                scheduleTabMenu.isVisible = true
+                scheduleTabMenu.isEnabled = true
+            }
+            SessionTabMode.ROOM -> {
+                scheduleTabMenu.isVisible = false
+                roomTabMenu.isVisible = true
+                roomTabMenu.isEnabled = true
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.room_tab_mode -> true.apply {
+                item.isEnabled = false
+                sessionsViewModel.changeTabMode(SessionTabMode.SCHEDULE)
+            }
+            R.id.schedule_tab_mode -> true.apply {
+                item.isEnabled = false
+                sessionsViewModel.changeTabMode(SessionTabMode.ROOM)
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,19 +96,35 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         super.onViewCreated(view, savedInstanceState)
 
         sessionsViewPagerAdapter = SessionsViewPagerAdapter(childFragmentManager, activity!!)
+        sessionsViewPagerAdapter.registerDataSetObserver(object : DataSetObserver() {
+            override fun onChanged() {
+                binding.tabLayout.setScrollPosition(0, 0f, true)
+                binding.sessionsViewPager.currentItem = 0
+            }
+        })
         binding.sessionsViewPager.adapter = sessionsViewPagerAdapter
+        binding.sessionsViewPager.pageMargin =
+                resources.getDimensionPixelSize(R.dimen.session_page_margin)
 
         sessionsViewModel = ViewModelProviders
                 .of(this, viewModelFactory)
                 .get(SessionsViewModel::class.java)
 
+        if (Prefs.enableReopenPreviousRoomSessions and (savedInstanceState == null)) {
+            sessionsViewModel.changeTabMode(PreviousSessionPrefs.previousSessionTabMode)
+        }
+
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        sessionsViewModel.rooms.observe(this, { result ->
+        sessionsViewModel.tab.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsViewPagerAdapter.setRooms(result.data)
+                    sessionsViewPagerAdapter.setSessionTab(result.data)
+                    activity?.invalidateOptionsMenu()
+                    if (Prefs.enableReopenPreviousRoomSessions and (savedInstanceState == null)) {
+                        reopenPreviousOpenedItem()
+                    }
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -81,14 +151,57 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         lifecycle.addObserver(sessionsViewModel)
 
         binding.tabLayout.setupWithViewPager(binding.sessionsViewPager)
+        binding.tabLayout.addOnTabSelectedListener(
+                OnTabReselectedDispatcher(binding.sessionsViewPager)
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        when (Prefs.enableReopenPreviousRoomSessions) {
+            true -> saveCurrentSession()
+            false -> PreviousSessionPrefs.initPreviousSessionPrefs()
+        }
+    }
+
+    private fun saveCurrentSession() {
+        val currentItem = binding.sessionsViewPager.currentItem
+        PreviousSessionPrefs.previousSessionTabId = currentItem
+        PreviousSessionPrefs.previousSessionTabMode = sessionsViewModel.tabMode
+        val fragment = sessionsViewPagerAdapter
+                .instantiateItem(binding.sessionsViewPager, currentItem)
+        if (fragment is SavePreviousSessionScroller) {
+            fragment.requestSavingScrollState()
+        }
     }
 
     override fun onReselected() {
-        val currentItem = binding.sessionsViewPager.currentItem
+        when (sessionsViewModel.tabMode) {
+            SessionTabMode.ROOM -> {
+                val currentItem = binding.sessionsViewPager.currentItem
+                val fragment = sessionsViewPagerAdapter
+                        .instantiateItem(binding.sessionsViewPager, currentItem)
+
+                if (fragment is CurrentSessionScroller) {
+                    fragment.scrollToCurrentSession()
+                }
+            }
+            SessionTabMode.SCHEDULE -> {
+                val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition()
+                binding.sessionsViewPager.currentItem = position
+            }
+        }
+    }
+
+    private fun reopenPreviousOpenedItem() {
+        val previousItem = PreviousSessionPrefs.previousSessionTabId
+        if (previousItem < 0) return
+
+        binding.sessionsViewPager.currentItem = previousItem
         val fragment = sessionsViewPagerAdapter
-                .instantiateItem(binding.sessionsViewPager, currentItem)
-        if (fragment is CurrentSessionScroller) {
-            fragment.scrollToCurrentSession()
+                .instantiateItem(binding.sessionsViewPager, previousItem)
+        if (fragment is SavePreviousSessionScroller) {
+            fragment.requestRestoringScrollState()
         }
     }
 
@@ -96,6 +209,11 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 
     interface CurrentSessionScroller {
         fun scrollToCurrentSession()
+    }
+
+    interface SavePreviousSessionScroller {
+        fun requestSavingScrollState()
+        fun requestRestoringScrollState()
     }
 
     companion object {
@@ -107,45 +225,62 @@ class SessionsViewPagerAdapter(
         fragmentManager: FragmentManager,
         private val activity: Activity
 ) : FragmentStateNullablePagerAdapter(fragmentManager) {
-
     private val fireBaseAnalytics = FirebaseAnalytics.getInstance(activity)
     private var currentTab by Delegates.observable<Tab?>(null) { _, old, new ->
         if (old != new && new != null) {
-            val key = when (new) {
-                Tab.All -> AllSessionsFragment::class.java.simpleName
-                is Tab.RoomTab -> RoomSessionsFragment::class.java.simpleName + new.room.name
-            }
-            fireBaseAnalytics.setCurrentScreen(activity, null, key)
+            fireBaseAnalytics.setCurrentScreen(activity, null, new.screenName)
         }
     }
 
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
+    private var schedulesTabs = mutableListOf<Tab.TimeTab>()
 
     sealed class Tab(val title: String) {
-        object All : Tab("All")
-        data class RoomTab(val room: Room) : Tab(room.name)
+        abstract val fragment: Fragment
+        abstract val screenName: String
+
+        object All : Tab("All") {
+            override val fragment: Fragment
+                get() = AllSessionsFragment.newInstance()
+            override val screenName: String =
+                    AllSessionsFragment::class.java.simpleName
+        }
+
+        data class RoomTab(val room: Room) : Tab(room.name) {
+            override val fragment: Fragment
+                get() = RoomSessionsFragment.newInstance(room)
+            override val screenName: String =
+                    RoomSessionsFragment::class.java.simpleName + room.name
+        }
+
+        data class TimeTab(val schedule: SessionSchedule) :
+                Tab("Day${schedule.dayNumber} / ${schedule.startTime.toReadableTimeString()}") {
+            override val fragment: Fragment
+                get() = ScheduleSessionsFragment.newInstance(schedule)
+            override val screenName: String =
+                    ScheduleSessionsFragment::class.java.simpleName + title
+        }
     }
 
-    private fun setupTabs() {
+    private fun setupTabsIfNeeded(otherTabs: List<Tab>) {
+        if (tabs.isNotEmpty() && tabs.subList(1, tabs.size) == otherTabs) {
+            return
+        }
+
         tabs.clear()
         tabs.add(Tab.All)
-        tabs.addAll(roomTabs)
+        tabs.addAll(otherTabs)
         notifyDataSetChanged()
     }
 
     override fun getPageTitle(position: Int): CharSequence = tabs[position].title
 
-    override fun getItem(position: Int): Fragment {
-        val tab = tabs[position]
-        return when (tab) {
-            Tab.All -> {
-                AllSessionsFragment.newInstance()
-            }
-            is Tab.RoomTab -> {
-                RoomSessionsFragment.newInstance(tab.room)
-            }
-        }
+    override fun getItem(position: Int): Fragment = tabs[position].fragment
+
+    override fun getItemPosition(`object`: Any): Int {
+        // For recreating Page
+        return PagerAdapter.POSITION_NONE
     }
 
     override fun getCount(): Int = tabs.size
@@ -155,13 +290,42 @@ class SessionsViewPagerAdapter(
         currentTab = tabs.getOrNull(position)
     }
 
-    fun setRooms(rooms: List<Room>) {
-        if (rooms == roomTabs.map { it.room }) {
-            return
+    fun getRecentScheduleTabPosition(time: Date = Date()): Int {
+        val position = schedulesTabs.withIndex().firstOrNull {
+            it.value.schedule.startTime > time
+        }?.index?.dec() ?: 0
+
+        return position + 1
+    }
+
+    fun setSessionTab(tab: SessionTab) {
+        when (tab) {
+            is SessionTab.Room -> {
+                setRooms(tab.stuffs)
+            }
+            is SessionTab.Schedule -> {
+                setSchedules(tab.stuffs)
+            }
         }
-        roomTabs = rooms.map {
-            Tab.RoomTab(it)
-        }.toMutableList()
-        setupTabs()
+    }
+
+    private fun setRooms(rooms: List<Room>) {
+        if (rooms != roomTabs.map { it.room }) {
+            roomTabs = rooms.map {
+                Tab.RoomTab(it)
+            }.toMutableList()
+        }
+
+        setupTabsIfNeeded(roomTabs)
+    }
+
+    private fun setSchedules(schedules: List<SessionSchedule>) {
+        if (schedules != schedulesTabs.map { it.schedule }) {
+            schedulesTabs = schedules.map {
+                Tab.TimeTab(it)
+            }.toMutableList()
+        }
+
+        setupTabsIfNeeded(schedulesTabs)
     }
 }

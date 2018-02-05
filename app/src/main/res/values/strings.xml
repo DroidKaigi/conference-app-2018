@@ -2,12 +2,14 @@
     <!-- Common -->
     <string name="time_period">%1$s - %2$s</string>
     <string name="room_format" translatable="false">%1$s%2$s</string>
+    <string name="room_format_rtl" translatable="false">%2$s%1$s</string>
     <string name="web_search">Web Search</string>
 
     <!-- Preference Keys -->
     <string name="pref_key_enable_local_time" translatable="false">pref_key_enable_local_time</string>
     <string name="pref_key_enable_notification" translatable="false">pref_key_enable_notification</string>
     <string name="pref_key_enable_hide_bottom_navigation" translatable="false">pref_key_enable_hide_bottom_navigation</string>
+    <string name="pref_key_enable_reopen_previous_room_sessions" translatable="false">pref_key_enable_reopen_previous_room_sessions</string>
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">Home</string>
@@ -17,7 +19,7 @@
     <string name="nav_item_setting">Settings</string>
     <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_staff">@string/staff</string>
-    <string name="nav_item_all_survey">Conference survey</string>
+    <string name="nav_item_all_feedback">Conference feedback</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
     <string name="nav_content_description_drawer_header">DroidKaigi 2018</string>
@@ -36,6 +38,9 @@
     <string name="session_load_retry">Retry</string>
     <string name="session_finished">Finished Session</string>
     <string name="session_go_to_feedback">Go To Feedback</string>
+    <string name="session_menu_tab_mode_room">Change to Schedule-based views</string>
+    <string name="session_menu_tab_mode_schedule">Change to Room-based views</string>
+    <string name="session_current_badge" translatable="false">NOW!</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>
@@ -91,11 +96,23 @@
     <string name="settings_enable_hide_bottom_navigation_title_preference">Hide BottomNavigation</string>
     <string name="settings_enable_hide_bottom_navigation_summary_preference">Hide
         BottomNavigationBar by scrolling or not.</string>
+    <string name="settings_enable_reopen_previous_room_sessions_title_preference">Reopen previous
+        room sessions</string>
+    <string name="settings_enable_reopen_previous_room_sessions_summary_preference">Save the
+        room-tab and the sessions when closed.</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">Speaker</string>
     <string name="speaker_content_description">Speaker image</string>
     <string name="speaker_sns_empty_message">Speaker has not set SNS Link..</string>
+    <string name="speaker_dialog_content_description_twitter" translatable="false">Twitter Link Button</string>
+    <string name="speaker_dialog_content_description_github" translatable="false"> Link Button</string>
+    <string name="speaker_dialog_content_description_company" translatable="false">Company Link Button</string>
+    <string name="speaker_dialog_content_description_blog" translatable="false">Blog Link Button</string>
+    <string name="speaker_dialog_text_twitter" translatable="false">Twitter</string>
+    <string name="speaker_dialog_text_github" translatable="false">Github</string>
+    <string name="speaker_dialog_text_company" translatable="false">Company</string>
+    <string name="speaker_dialog_text_blog" translatable="false">Blog</string>
 
     <!-- Topic -->
     <plurals name="topic_total_session">
@@ -141,6 +158,14 @@
     <string name="about_contributors_description">Those who contribute to creation.</string>
     <string name="about_version_title">Version</string>
     <string name="about_version_description">%1$s</string>
+    <string name="about_what_is_prefix" translatable="false">What is \" </string>
+    <string name="about_what_is_suffix" translatable="false"> \" ?</string>
+    <string name="about_content_description_conference_name">DroidKaigi Logo</string>
+    <string name="about_content_description_facebook">facebook link button</string>
+    <string name="about_content_description_twitter">twitter link button</string>
+    <string name="about_content_description_github">github link button</string>
+    <string name="about_content_description_youtube">youtube link button</string>
+    <string name="about_content_description_medium">medium link button</string>
 
     <!-- Session Feedback -->
     <string name="session_feedback_total_evaluation">How was the session? (Overall Rating)</string>
@@ -160,6 +185,10 @@
     <string name="session_feedback_knowledgeable_max">Outstanding</string>
     <string name="session_feedback_comment">Anything else we should know? (Please don\'t add any personal information in your comments)</string>
     <string name="session_feedback_comment_hint">Other session feedback?</string>
+    <string name="session_feedback_confirm">Are you sure to send it?</string>
+    <string name="session_feedback_not_fillout">There are unfilled items</string>
     <string name="submit_feedback">Submit feedback</string>
+    <string name="submit_success">Submit succeeded</string>
+    <string name="submit_failure">Submit failed</string>
     <string name="submitted">Submitted</string>
 </resources>

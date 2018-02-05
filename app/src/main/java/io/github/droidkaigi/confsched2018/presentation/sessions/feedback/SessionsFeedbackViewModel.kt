@@ -1,8 +1,11 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions.feedback
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
+import io.github.droidkaigi.confsched2018.model.Alert
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -36,6 +39,9 @@ class SessionsFeedbackViewModel @Inject constructor(
                 .toLiveData()
     }
 
+    var isLoading = MutableLiveData<Boolean>()
+    var alertMessage = MutableLiveData<Alert>()
+
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private val sessionFlowable = repository.sessions
@@ -51,12 +57,24 @@ class SessionsFeedbackViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
-    fun onSubmit(sessionFeedback: SessionFeedback) {
-        (session.value as? Result.Success)?.data?.also {
-            repository.submitSessionFeedback(it, sessionFeedback)
-                    .subscribeBy(onError = defaultErrorHandler())
-                    .addTo(compositeDisposable)
+    fun onSubmitClick(sessionFeedback: SessionFeedback) {
+        if (sessionFeedback.fillouted) {
+            alertMessage.value = Alert(Alert.Type.AlertDialog, R.string.session_feedback_confirm)
+        } else {
+            alertMessage.value = Alert(Alert.Type.Toast, R.string.session_feedback_not_fillout)
         }
+    }
+
+    fun submit(session: Session.SpeechSession, sessionFeedback: SessionFeedback) {
+        repository.submitSessionFeedback(session, sessionFeedback)
+                .doOnSubscribe { isLoading.value = true }
+                .doOnDispose { isLoading.value = false }
+                .doOnComplete {
+                    alertMessage.value = Alert(Alert.Type.Toast, R.string.submit_success)
+                }
+                .doOnError { alertMessage.value = Alert(Alert.Type.Toast, R.string.submit_failure) }
+                .subscribeBy(onError = defaultErrorHandler())
+                .addTo(compositeDisposable)
     }
 
     override fun onCleared() {

@@ -12,7 +12,26 @@
         android:id="@+id/sessions_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sessions_recycler"
+            style="@style/BaseRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/session_recycler_bottom_padding"
+            android:paddingTop="@dimen/session_recycler_top_padding"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_speech_session"
+            />
 
         <TextView
             android:id="@+id/day_header"
@@ -25,23 +44,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:targetApi="lollipop"
             tools:text="DAY1"
-            />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/sessions_recycler"
-            style="@style/BaseRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/session_recycler_bottom_padding"
-            android:paddingTop="@dimen/session_recycler_top_padding"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_speech_session"
             />
 
         <ProgressBar

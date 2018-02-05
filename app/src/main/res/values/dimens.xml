@@ -4,6 +4,7 @@
     <dimen name="session_title_line_spacing">4sp</dimen>
     <dimen name="session_recycler_top_padding">12dp</dimen>
     <dimen name="session_recycler_bottom_padding">4dp</dimen>
+    <dimen name="session_page_margin">16dp</dimen>
 
     <!-- Feed -->
     <dimen name="feed_expand_button_size">20dp</dimen>

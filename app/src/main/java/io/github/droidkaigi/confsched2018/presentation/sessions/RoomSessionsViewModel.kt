@@ -26,6 +26,9 @@ class RoomSessionsViewModel @Inject constructor(
 
     private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
     val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
+
+    var isNeedRestoreScrollState: Boolean = false
+
     lateinit var roomName: String
 
     val sessions: LiveData<Result<List<Session>>> by lazy {
@@ -47,7 +50,7 @@ class RoomSessionsViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
-    fun onSuccessFetchSessions() {
+    fun onShowSessions() {
         refreshFocusCurrentSession()
     }
 

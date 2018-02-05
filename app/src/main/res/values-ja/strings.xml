@@ -9,7 +9,7 @@
     <string name="nav_item_sponsor">スポンサー一覧</string>
     <string name="nav_item_contributor">@string/contributors</string>
     <string name="nav_item_staff">@string/staff</string>
-    <string name="nav_item_all_survey">全体アンケートを記入</string>
+    <string name="nav_item_all_feedback">全体アンケートを記入</string>
     <string name="nav_item_info">DroidKaigiとは</string>
     <string name="nav_item_setting">設定</string>
     <string name="nav_content_description_drawer_open">ナビゲーションドロワーを開く</string>
@@ -80,6 +80,8 @@
     <string name="settings_enable_notification_summary_preference">このアプリで通知を受信するかどうかを選択できます。</string>
     <string name="settings_enable_hide_bottom_navigation_title_preference">BottomNavigationを隠す</string>
     <string name="settings_enable_hide_bottom_navigation_summary_preference">BottomNavigationBarをスクロールにあわせて隠すかどうかを選択できます。</string>
+    <string name="settings_enable_reopen_previous_room_sessions_title_preference">以前開いていたセッションリストを開く</string>
+    <string name="settings_enable_reopen_previous_room_sessions_summary_preference">最後に開いていたルーム及びセッションの場所を記録します。</string>
 
     <!-- Speaker -->
     <string name="speaker_title_activity_detail">スピーカー</string>
@@ -143,6 +145,10 @@
     <string name="session_feedback_knowledgeable_max">とても得られた</string>
     <string name="session_feedback_comment">他にコメントがあればぜひ教えてください(個人が特定できるような内容は書かないでください)</string>
     <string name="session_feedback_comment_hint">回答を入力</string>
+    <string name="session_feedback_confirm">送信してよろしいですか？</string>
+    <string name="session_feedback_not_fillout">未入力の項目があります</string>
     <string name="submit_feedback">フィードバックを送る</string>
+    <string name="submit_success">送信しました</string>
+    <string name="submit_failure">送信に失敗しました</string>
     <string name="submitted">送信済み</string>
 </resources>
