@@ -166,7 +166,9 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
 
     private fun saveCurrentSession() {
         val currentItem = binding.sessionsViewPager.currentItem
-        PreviousSessionPrefs.previousSessionTabId = currentItem
+        if (sessionsViewPagerAdapter.count <= currentItem) return
+
+        PreviousSessionPrefs.previousSessionTabIndex = currentItem
         PreviousSessionPrefs.previousSessionTabMode = sessionsViewModel.tabMode
         val fragment = sessionsViewPagerAdapter
                 .instantiateItem(binding.sessionsViewPager, currentItem)
@@ -179,6 +181,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         when (sessionsViewModel.tabMode) {
             SessionTabMode.ROOM -> {
                 val currentItem = binding.sessionsViewPager.currentItem
+                if (sessionsViewPagerAdapter.count <= currentItem) return
+
                 val fragment = sessionsViewPagerAdapter
                         .instantiateItem(binding.sessionsViewPager, currentItem)
 
@@ -194,9 +198,9 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     }
 
     private fun reopenPreviousOpenedItem() {
-        val previousItem = PreviousSessionPrefs.previousSessionTabId
+        val previousItem = PreviousSessionPrefs.previousSessionTabIndex
         if (previousItem < 0) return
-        if (sessionsViewPagerAdapter.count < previousItem) return
+        if (sessionsViewPagerAdapter.count <= previousItem) return
 
         binding.sessionsViewPager.currentItem = previousItem
         val fragment = sessionsViewPagerAdapter
