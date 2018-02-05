@@ -97,9 +97,10 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
         sessionsFeedbackViewModel.sessionFeedback.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    binding.sessionFeedback = result.data
+                    val sessionFeedback = result.data
+                    binding.sessionFeedback = sessionFeedback
                     binding.submit.text =
-                            if (binding.sessionFeedback!!.submitted) {
+                            if (sessionFeedback.submitted) {
                                 getString(R.string.submitted)
                             } else {
                                 getString(R.string.submit_feedback)
