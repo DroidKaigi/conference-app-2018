@@ -27,8 +27,7 @@ class RoomSessionsViewModel @Inject constructor(
     private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
     val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
 
-    private val restorePreviousSession: MutableLiveData<Boolean> = MutableLiveData()
-    val reopenPreviousSession: LiveData<Boolean> = restorePreviousSession
+    var isNeedRestoreScrollState: Boolean = false
 
     lateinit var roomName: String
 
@@ -51,20 +50,13 @@ class RoomSessionsViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
-    fun onSuccessFetchSessions() {
+    fun onShowSessions() {
         refreshFocusCurrentSession()
-        reopenPreviousSession()
     }
 
     private fun refreshFocusCurrentSession() {
         if (focusCurrentSession.value != true) {
             focusCurrentSession.value = true
-        }
-    }
-
-    private fun reopenPreviousSession() {
-        if (restorePreviousSession.value != true) {
-            restorePreviousSession.value = true
         }
     }
 

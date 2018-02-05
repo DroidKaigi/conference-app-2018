@@ -171,7 +171,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         val fragment = sessionsViewPagerAdapter
                 .instantiateItem(binding.sessionsViewPager, currentItem)
         if (fragment is SavePreviousSessionScroller) {
-            fragment.saveCurrentSession()
+            fragment.requestSavingScrollState()
         }
     }
 
@@ -201,7 +201,7 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
         val fragment = sessionsViewPagerAdapter
                 .instantiateItem(binding.sessionsViewPager, previousItem)
         if (fragment is SavePreviousSessionScroller) {
-            fragment.restorePreviousSession()
+            fragment.requestRestoringScrollState()
         }
     }
 
@@ -212,8 +212,8 @@ class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener 
     }
 
     interface SavePreviousSessionScroller {
-        fun saveCurrentSession()
-        fun restorePreviousSession()
+        fun requestSavingScrollState()
+        fun requestRestoringScrollState()
     }
 
     companion object {

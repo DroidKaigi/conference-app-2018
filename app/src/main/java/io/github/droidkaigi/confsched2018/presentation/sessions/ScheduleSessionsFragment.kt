@@ -86,7 +86,9 @@ class ScheduleSessionsFragment :
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener,
                             onFeedbackListener)
-                    scheduleSessionsViewModel.onSuccessFetchSessions()
+                    if (scheduleSessionsViewModel.isNeedRestoreScrollState) {
+                        scrollToPreviousSession()
+                    }
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -118,19 +120,21 @@ class ScheduleSessionsFragment :
         binding.sessionsRecycler.smoothScrollToPosition(0)
     }
 
-    override fun saveCurrentSession() {
+    override fun requestSavingScrollState() {
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
         PreviousSessionPrefs.scrollState = layoutManager.getScrollState()
     }
 
-    override fun restorePreviousSession() {
-        scheduleSessionsViewModel.reopenPreviousSession.observe(this, {
-            if (it != true) return@observe
+    override fun requestRestoringScrollState() {
+        if (scheduleSessionsViewModel.sessions is Result.Success<*>) {
             scrollToPreviousSession()
-        })
+        } else {
+            scheduleSessionsViewModel.isNeedRestoreScrollState = true
+        }
     }
 
     private fun scrollToPreviousSession() {
+        scheduleSessionsViewModel.isNeedRestoreScrollState = false
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
         layoutManager.restoreScrollState(PreviousSessionPrefs.scrollState)
         PreviousSessionPrefs.initPreviousSessionPrefs()

@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
@@ -26,8 +25,7 @@ class ScheduleSessionsViewModel @Inject constructor(
 
     lateinit var schedule: SessionSchedule
 
-    private val restorePreviousSession: MutableLiveData<Boolean> = MutableLiveData()
-    val reopenPreviousSession: LiveData<Boolean> = restorePreviousSession
+    var isNeedRestoreScrollState: Boolean = false
 
     val sessions: LiveData<Result<List<Session>>> by lazy {
         repository.scheduleSessions
@@ -46,16 +44,6 @@ class ScheduleSessionsViewModel @Inject constructor(
         favoriteSingle
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
-    }
-
-    fun onSuccessFetchSessions() {
-        reopenPreviousSession()
-    }
-
-    private fun reopenPreviousSession() {
-        if (restorePreviousSession.value != true) {
-            restorePreviousSession.value = true
-        }
     }
 
     override fun onCleared() {
