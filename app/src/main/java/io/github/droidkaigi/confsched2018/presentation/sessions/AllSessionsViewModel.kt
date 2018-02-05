@@ -26,6 +26,8 @@ class AllSessionsViewModel @Inject constructor(
     private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
     val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
 
+    var isNeedRestoreScrollState: Boolean = false
+
     val sessions: LiveData<Result<List<Session>>> by lazy {
         repository.sessions
                 .toResult(schedulerProvider)
@@ -43,7 +45,7 @@ class AllSessionsViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
-    fun onSuccessFetchSessions() {
+    fun onShowSessions() {
         refreshFocusCurrentSession()
     }
 
