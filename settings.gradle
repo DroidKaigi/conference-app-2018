@@ -1,1 +1,42 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url "https://jcenter.bintray.com/" }
+        maven { url "https://maven.google.com" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://maven.fabric.io/public" }
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            switch (requested.id.id) {
+                case "com.android.application":
+                    useModule("com.android.tools.build:gradle:${requested.version}")
+                    break
+                case "com.google.gms.google-services":
+                    useModule("com.google.gms:google-services:${requested.version}")
+                    break
+                case 'com.google.gms.oss.licenses.plugin':
+                    useModule("com.google.gms:oss-licenses:${requested.version}")
+                    break
+                case 'com.github.ben-manes.versions':
+                    useModule("com.github.ben-manes:gradle-versions-plugin:${requested.version}")
+                    break
+                case 'com.github.triplet.play':
+                    useModule("com.github.triplet.gradle:play-publisher:${requested.version}")
+                    break
+                case "org.jlleitschuh.gradle.ktlint":
+                    useModule("gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:${requested.version}")
+                    break
+                case 'io.fabric':
+                    useModule("io.fabric.tools:gradle:${requested.version}")
+                    break
+                case 'deploygate':
+                    useModule("com.deploygate:gradle:${requested.version}")
+                    break
+            }
+        }
+    }
+}
+
 include ':app', ':model'
