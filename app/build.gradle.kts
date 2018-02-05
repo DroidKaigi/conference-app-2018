@@ -173,6 +173,7 @@ dependencies {
 
     implementation(Depends.Kotpref.kotpref)
     implementation(Depends.Kotpref.initializer)
+    implementation(Depends.Kotpref.enumSupport)
 
 //==================== UI ====================
     implementation(Depends.Glide.core)

@@ -80,6 +80,7 @@ object Depends {
     object Kotpref {
         val kotpref = "com.chibatching.kotpref:kotpref:${Versions.kotpref}"
         val initializer = "com.chibatching.kotpref:initializer:${Versions.kotpref}"
+        val enumSupport = "com.chibatching.kotpref:enum-support:${Versions.kotpref}"
     }
 
     object Glide {
