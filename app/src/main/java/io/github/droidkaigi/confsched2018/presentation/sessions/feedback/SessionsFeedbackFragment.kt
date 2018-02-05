@@ -68,7 +68,11 @@ class SessionsFeedbackFragment : Fragment(), Injectable {
     }
 
     private val onPositiveButtonListener = DialogInterface.OnClickListener { _, _ ->
-        sessionsFeedbackViewModel.submit()
+        val session = (sessionsFeedbackViewModel.session.value as? Result.Success)
+                ?.data ?: return@OnClickListener
+        val sessionFeedback = (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)
+                ?.data ?: return@OnClickListener
+        sessionsFeedbackViewModel.submit(session, sessionFeedback.copy(submitted = true))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

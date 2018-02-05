@@ -65,11 +65,7 @@ class SessionsFeedbackViewModel @Inject constructor(
         }
     }
 
-    fun submit() {
-        val sessionFeedback = (sessionFeedback.value as? Result.Success)!!.data
-                .copy(submitted = true)
-        val session = (session.value as? Result.Success)!!.data
-
+    fun submit(session: Session.SpeechSession, sessionFeedback: SessionFeedback) {
         repository.submitSessionFeedback(session, sessionFeedback)
                 .doOnSubscribe { isLoading.value = true }
                 .doOnDispose { isLoading.value = false }
