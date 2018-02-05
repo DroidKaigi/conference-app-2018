@@ -15,7 +15,6 @@ import android.text.style.StyleSpan
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.util.ext.isLayoutDirectionRtl
