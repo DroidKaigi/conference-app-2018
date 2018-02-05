@@ -184,6 +184,10 @@
     <string name="session_feedback_knowledgeable_max">Outstanding</string>
     <string name="session_feedback_comment">Anything else we should know? (Please don\'t add any personal information in your comments)</string>
     <string name="session_feedback_comment_hint">Other session feedback?</string>
+    <string name="session_feedback_confirm">Are you sure to send it?</string>
+    <string name="session_feedback_not_fillout">There are unfilled items</string>
     <string name="submit_feedback">Submit feedback</string>
+    <string name="submit_success">Submit succeeded</string>
+    <string name="submit_failure">Submit failed</string>
     <string name="submitted">Submitted</string>
 </resources>
