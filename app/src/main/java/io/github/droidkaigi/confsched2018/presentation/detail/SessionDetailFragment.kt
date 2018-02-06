@@ -53,7 +53,7 @@ class SessionDetailFragment : Fragment(), Injectable {
                 is Result.Success -> {
                     val sessions = result.data
                     val position = sessions.indexOfFirst { it.id == sessionId }
-                    bindSession(sessions[position], sessionId)
+                    bindSession(sessions[position])
                     setSessionIndicator(sessions.getOrNull(position - 1),
                             sessions.getOrNull(position + 1))
                 }
@@ -78,7 +78,7 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.toolbar.setNavigationOnClickListener { activity?.finish() }
     }
 
-    private fun bindSession(session: Session.SpeechSession, sessionId: String) {
+    private fun bindSession(session: Session.SpeechSession) {
         binding.session = session
         binding.fab.setOnClickListener {
             updateDrawable()
@@ -88,7 +88,7 @@ class SessionDetailFragment : Fragment(), Injectable {
         binding.fabShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = resources.getString(R.string.session_share_intent_type)
-                val text = generateSharedText(session, sessionId)
+                val text = generateSharedText(session)
                 putExtra(Intent.EXTRA_TEXT, text)
             }
             startActivity(Intent.createChooser(shareIntent,
@@ -116,10 +116,9 @@ class SessionDetailFragment : Fragment(), Injectable {
      * https://droidkaigi.jp/2018/timetable/?session=16988
      *
      * @param session The [Session.SpeechSession] object
-     * @param sessionId The session ID
      * @return A shared text
      */
-    private fun generateSharedText(session: Session.SpeechSession, sessionId: String): String {
+    private fun generateSharedText(session: Session.SpeechSession): String {
         var speakerList = listOf<String>()
         session.speakers.forEach { speakerList += it.name }
         val speakers = speakerList.joinToString(", ")
@@ -128,7 +127,7 @@ class SessionDetailFragment : Fragment(), Injectable {
                 session.title,
                 speakers,
                 hashTag)
-        val url = resources.getString(R.string.session_share_url, sessionId)
+        val url = resources.getString(R.string.session_share_url, session.id)
         return "$title\n$url"
     }
 
