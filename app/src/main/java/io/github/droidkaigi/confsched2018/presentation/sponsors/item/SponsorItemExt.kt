@@ -9,10 +9,10 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 
 fun getSponsorItemSpanSize(planType: SponsorPlan.Type, spanCount: Int) = when (planType) {
-    SponsorPlan.Type.Platinum,
-    SponsorPlan.Type.TechnicalForNetwork -> spanCount / 2
+    SponsorPlan.Type.Platinum -> spanCount / 2
     SponsorPlan.Type.Gold,
     SponsorPlan.Type.Silver,
+    SponsorPlan.Type.TechnicalForNetwork,
     SponsorPlan.Type.Supporter -> spanCount / 3
 }
 
