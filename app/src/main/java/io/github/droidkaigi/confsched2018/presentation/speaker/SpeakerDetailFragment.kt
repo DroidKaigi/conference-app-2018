@@ -13,8 +13,6 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.animation.doOnEnd
@@ -37,6 +35,8 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessi
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
+import io.github.droidkaigi.confsched2018.util.ext.toInvisible
+import io.github.droidkaigi.confsched2018.util.ext.toVisible
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -144,7 +144,7 @@ class SpeakerDetailFragment : DaggerFragment() {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initViewTransition(view: View, savedInstanceState: Bundle?) {
-        view.findViewById<View>(R.id.app_bar_background).visibility = INVISIBLE
+        view.findViewById<View>(R.id.app_bar_background).toInvisible()
 
         ViewCompat.setTransitionName(
                 view.findViewById<View>(R.id.speaker_image),
@@ -166,7 +166,7 @@ class SpeakerDetailFragment : DaggerFragment() {
                         doOnCancel { isEnterTransitionCanceled = true }
                     }
         } else {
-            view.findViewById<View>(R.id.app_bar_background).visibility = VISIBLE
+            view.findViewById<View>(R.id.app_bar_background).toVisible()
         }
 
         activity?.window?.sharedElementReturnTransition = transitionInflater
@@ -204,7 +204,7 @@ class SpeakerDetailFragment : DaggerFragment() {
         ViewAnimationUtils.createCircularReveal(revealView, cx, cy, 0F, revealView.width.toFloat())
                 .apply {
                     duration = 400
-                    revealView.visibility = View.VISIBLE
+                    revealView.toVisible()
                     start()
                 }
     }
@@ -215,10 +215,11 @@ class SpeakerDetailFragment : DaggerFragment() {
         val speakerImage = view?.findViewById<View>(R.id.speaker_image) ?: return
         val cx = (speakerImage.x + speakerImage.width / 2).toInt()
         val cy = (speakerImage.y + speakerImage.height / 2).toInt()
+
         ViewAnimationUtils.createCircularReveal(revealView, cx, cy, revealView.width.toFloat(), 0F)
                 .apply {
                     duration = 300
-                    doOnEnd { view?.visibility = View.INVISIBLE }
+                    doOnEnd { view?.toInvisible() }
                     start()
                 }
     }
