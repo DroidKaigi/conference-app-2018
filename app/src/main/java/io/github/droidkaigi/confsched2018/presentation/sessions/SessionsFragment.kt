@@ -16,9 +16,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.analytics.FirebaseAnalytics
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionsBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
@@ -37,7 +37,7 @@ import java.util.Date
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class SessionsFragment : Fragment(), Injectable, Findable, OnReselectedListener {
+class SessionsFragment : DaggerFragment(), Findable, OnReselectedListener {
     private lateinit var binding: FragmentSessionsBinding
     private lateinit var sessionsViewPagerAdapter: SessionsViewPagerAdapter
     private lateinit var sessionsViewModel: SessionsViewModel

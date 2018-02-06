@@ -8,11 +8,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
-import android.transition.Transition
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -23,10 +21,10 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.BottomSheetDialogSpeakerSnsBinding
 import io.github.droidkaigi.confsched2018.databinding.FragmentSpeakerDetailBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -40,7 +38,7 @@ import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
 import javax.inject.Inject
 
-class SpeakerDetailFragment : Fragment(), Injectable {
+class SpeakerDetailFragment : DaggerFragment() {
     private lateinit var binding: FragmentSpeakerDetailBinding
     private lateinit var dialogBinding: BottomSheetDialogSpeakerSnsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
