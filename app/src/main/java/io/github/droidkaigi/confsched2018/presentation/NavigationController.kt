@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.net.toUri
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
@@ -166,10 +167,10 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.primary))
                 .build()
                 .apply {
-                    val referrer = Uri.parse("android-app://${activity.packageName}")
+                    val referrer = "android-app://${activity.packageName}".toUri()
                     intent.putExtra(Intent.EXTRA_REFERRER, referrer)
                 }
-        val webUri = Uri.parse(url)
+        val webUri = url.toUri()
         if (tryUsingCustomTabs(customTabsPackageName, customTabsIntent, webUri)) {
             return
         }
@@ -179,9 +180,9 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     }
 
     private fun tryLaunchingSpecificApp(url: String, customTabsPackageName: String?): Boolean {
-        val appUri = Uri.parse(url).let {
+        val appUri = url.toUri().let {
             if (it.host.contains("facebook")) {
-                Uri.parse(FACEBOOK_SCHEME + url)
+                (FACEBOOK_SCHEME + url).toUri()
             } else it
         }
         val appIntent = Intent(Intent.ACTION_VIEW, appUri)
@@ -213,7 +214,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     fun navigateImplicitly(url: String?) {
         url?.let {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
             intent.resolveActivity(activity.packageManager)?.let {
                 activity.startActivity(intent)
             }

@@ -4,10 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityAboutThisAppBinding
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -15,8 +11,7 @@ import io.github.droidkaigi.confsched2018.presentation.common.activity.BaseActiv
 import io.github.droidkaigi.confsched2018.presentation.common.menu.DrawerMenu
 import javax.inject.Inject
 
-class AboutThisAppActivity : BaseActivity(), HasSupportFragmentInjector {
-    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+class AboutThisAppActivity : BaseActivity() {
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var drawerMenu: DrawerMenu
 
@@ -34,8 +29,6 @@ class AboutThisAppActivity : BaseActivity(), HasSupportFragmentInjector {
         navigationController.navigateToAboutThisApp()
         drawerMenu.setup(binding.drawerLayout, binding.drawer, binding.toolbar)
     }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     override fun onBackPressed() {
         if (drawerMenu.closeDrawerIfNeeded()) {

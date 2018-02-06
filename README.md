@@ -251,6 +251,19 @@ SessionsFragment.kt
         })
 ```
 
+## Release
+The release process is automated by using [gradle-play-publisher](https://github.com/Triple-T/gradle-play-publisher).
+When we add `git tag`, CI deploys the release apk to GooglePlay alpha. 
+To know more details, see [.circleci/config.yml](https://github.com/DroidKaigi/conference-app-2018/blob/master/.circleci/config.yml)
+
+```shell
+elif [[ "${CIRCLE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "Deploy to Google Play"
+    openssl aes-256-cbc -k $PUBLISHER_KEYS_JSON_DECRYPT_PASSWORD -d -in encrypted-publisher-keys.json -out app/publisher-keys.json
+    ./gradlew publishApkRelease
+fi
+```
+
 ## iOS App with Kotlin/Native and Kotlin Multiplatform Projects
 Some contributors are challenging to develop iOS app with [Kotlin/Native](https://kotlinlang.org/docs/reference/native-overview.html) and [Kotlin Multiplatform Projects](https://kotlinlang.org/docs/reference/multiplatform.html).  
 We are watching this project. 
@@ -290,7 +303,7 @@ This project uses some modern Android libraries and source codes.
 * Firebase
   * [Cloud Firestore](https://firebase.google.com/docs/firestore/)
   * [Auth](https://firebase.google.com/docs/auth/)
-* [Dagger2](https://google.github.io/dagger/), Dagger Android Support, [Glide4](https://bumptech.github.io/glide/) - Google
+* [KTX](https://github.com/android/android-ktx/), [Dagger2](https://google.github.io/dagger/), Dagger Android Support, [Glide4](https://bumptech.github.io/glide/) - Google
 * [Kotlin](http://kotlinlang.org/) - JetBrains
 * [Retrofit2](http://square.github.io/retrofit/), [Moshi](https://github.com/square/moshi/) - Square
 * [RxJava2](https://github.com/ReactiveX/RxJava), [RxKotlin](https://github.com/ReactiveX/RxKotlin), RxAndroid  - ReactiveX

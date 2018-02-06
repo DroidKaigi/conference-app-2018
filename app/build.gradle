@@ -21,7 +21,6 @@ android {
     // Play publisher
     playAccountConfigs {
         defaultAccountConfig {
-            // TODO Replace json file to the one which is generated in the API console.
             // https://github.com/Triple-T/gradle-play-publisher#authentication
             jsonFile = file('publisher-keys.json')
         }
@@ -112,6 +111,7 @@ dependencies {
 
     // Kotlin
     implementation depends.kotlin.stdlib
+    implementation depends.ktx
 
     //==================== Support Library ====================
     implementation depends.support.v4
@@ -216,7 +216,9 @@ repositories {
 }
 
 play {
-    track = 'beta' // 'production' or 'rollout' or 'beta' or 'alpha'
+    uploadImages = true
+    track = 'alpha' // 'production' or 'rollout' or 'beta' or 'alpha'
+    untrackOld = true
     // userFraction = 0.1
 }
 
