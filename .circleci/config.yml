@@ -38,19 +38,19 @@ jobs:
       - run:
           name: decrypt keystore
           command: |
-              if [ $CIRCLE_BRANCH = 'master' ] || [ $CIRCLE_BRANCH = 'release' ]; then
+              if [ "$CIRCLE_BRANCH" = "master" ] || [ "$CIRCLE_BRANCH" = "release" ]; then
                   openssl aes-256-cbc -k $KEYSTORE_DECRYPT_PASSWORD -d -in encrypted-droidkaigi-key -out release.keystore
               fi
       - run:
           name: decrypt json
           command: |
-              if [ $CIRCLE_BRANCH = 'master' ] || [ $CIRCLE_BRANCH = 'release' ]; then
+              if [ "$CIRCLE_BRANCH" = "master" ] || [ "$CIRCLE_BRANCH" = "release" ]; then
                   openssl aes-256-cbc -k $JSON_DECRYPT_PASSWORD -d -in encrypted-google-services.json -out app/google-services.json
               fi
       - run:
           name: Test
           command: |
-              if [ $CIRCLE_BRANCH = 'master' ] || [ $CIRCLE_BRANCH = 'release' ]; then
+              if [ "$CIRCLE_BRANCH" = "master" ] || [ "$CIRCLE_BRANCH" = "release" ]; then
                   ./gradlew --stacktrace testRelease
               else
                   ./gradlew --stacktrace test${APP_BUILD_TYPE^}
@@ -58,7 +58,7 @@ jobs:
       - run:
           name: Build
           command: |
-              if [ $CIRCLE_BRANCH = 'master' ] || [ $CIRCLE_BRANCH = 'release' ]; then
+              if [ "$CIRCLE_BRANCH" = "master" ] || [ "$CIRCLE_BRANCH" = "release" ]; then
                   ./gradlew --offline --stacktrace assembleRelease
               else
                   ./gradlew --offline --stacktrace assemble${APP_BUILD_TYPE^}
@@ -66,7 +66,7 @@ jobs:
       - run:
           name: Check
           command: |
-              if [ ! $CIRCLE_BRANCH = 'master' ] && [ ! $CIRCLE_BRANCH = 'release' ]; then
+              if [ ! "$CIRCLE_BRANCH" = "master" ] && [ ! "$CIRCLE_BRANCH" = "release" ]; then
                   ./gradlew --stacktrace lint${APP_BUILD_TYPE^}
                   ./gradlew --stacktrace ktlint${APP_BUILD_TYPE^}Check
                   bundle exec danger
@@ -74,10 +74,12 @@ jobs:
       - run:
           name: Deploy
           command: |
-              if [ $CIRCLE_BRANCH = 'master' ]; then
+              if [ "$CIRCLE_BRANCH" = "master" ]; then
                   ./gradlew :app:uploadDeployGateRelease
-              elif [[ "${CIRCLE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              elif [[ "$CIRCLE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
                   echo "Deploy to Google Play"
+                  openssl aes-256-cbc -k $KEYSTORE_DECRYPT_PASSWORD -d -in encrypted-droidkaigi-key -out release.keystore
+                  openssl aes-256-cbc -k $JSON_DECRYPT_PASSWORD -d -in encrypted-google-services.json -out app/google-services.json
                   openssl aes-256-cbc -k $PUBLISHER_KEYS_JSON_DECRYPT_PASSWORD -d -in encrypted-publisher-keys.json -out app/publisher-keys.json -md md5
                   ./gradlew clean assembleRelease publishApkRelease
               fi
