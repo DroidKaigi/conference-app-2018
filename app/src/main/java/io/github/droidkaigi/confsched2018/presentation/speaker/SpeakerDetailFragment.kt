@@ -1,7 +1,5 @@
 package io.github.droidkaigi.confsched2018.presentation.speaker
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -19,6 +17,11 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
+import androidx.animation.doOnEnd
+import androidx.transition.doOnCancel
+import androidx.transition.doOnEnd
+import androidx.transition.doOnPause
+import androidx.transition.doOnStart
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import dagger.android.support.DaggerFragment
@@ -32,7 +35,6 @@ import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
-import io.github.droidkaigi.confsched2018.util.SimpleTransitionListener
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
@@ -155,23 +157,13 @@ class SpeakerDetailFragment : DaggerFragment() {
                     .inflateTransition(R.transition.shared_element_arc)
                     .apply {
                         duration = 400
-                        addListener(object : SimpleTransitionListener() {
-                            override fun onTransitionEnd(p0: android.transition.Transition?) {
-                                removeListener(this)
-                                // No need to start reveal anim if user pressed back button during shared element transition
-                                if (!isEnterTransitionCanceled) {
-                                    view.post(revealViewRunnable)
-                                }
+                        doOnEnd {
+                            if (!isEnterTransitionCanceled) {
+                                view.post(revealViewRunnable)
                             }
-
-                            override fun onTransitionPause(p0: android.transition.Transition?) {
-                                isEnterTransitionCanceled = true
-                            }
-
-                            override fun onTransitionCancel(p0: android.transition.Transition?) {
-                                isEnterTransitionCanceled = true
-                            }
-                        })
+                        }
+                        doOnPause { isEnterTransitionCanceled = true }
+                        doOnCancel { isEnterTransitionCanceled = true }
                     }
         } else {
             view.findViewById<View>(R.id.app_bar_background).visibility = VISIBLE
@@ -181,13 +173,7 @@ class SpeakerDetailFragment : DaggerFragment() {
                 .inflateTransition(R.transition.shared_element_arc)
                 .apply {
                     duration = 400
-
-                    addListener(object : SimpleTransitionListener() {
-                        override fun onTransitionStart(p0: android.transition.Transition?) {
-                            removeListener(this)
-                            hideReveal()
-                        }
-                    })
+                    doOnStart { hideReveal() }
                 }
     }
 
@@ -232,12 +218,7 @@ class SpeakerDetailFragment : DaggerFragment() {
         ViewAnimationUtils.createCircularReveal(revealView, cx, cy, revealView.width.toFloat(), 0F)
                 .apply {
                     duration = 300
-                    addListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator?) {
-                            super.onAnimationEnd(animation)
-                            view?.visibility = View.INVISIBLE
-                        }
-                    })
+                    doOnEnd { view?.visibility = View.INVISIBLE }
                     start()
                 }
     }
