@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2018.presentation.map
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.v4.app.Fragment
@@ -11,6 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.net.toUri
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -46,7 +46,7 @@ class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
 
         binding.placeText.setOnClickListener {
             val placeName = context?.getString(R.string.map_place_name)
-            val placeUri = Uri.parse("geo:0,0?q=$PLACE_LAT,$PLACE_LNG($placeName)")
+            val placeUri = "geo:0,0?q=$PLACE_LAT,$PLACE_LNG($placeName)".toUri()
             val mapIntent = Intent().apply {
                 action = Intent.ACTION_VIEW
                 data = placeUri

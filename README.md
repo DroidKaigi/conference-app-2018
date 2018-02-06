@@ -290,7 +290,7 @@ This project uses some modern Android libraries and source codes.
 * Firebase
   * [Cloud Firestore](https://firebase.google.com/docs/firestore/)
   * [Auth](https://firebase.google.com/docs/auth/)
-* [Dagger2](https://google.github.io/dagger/), Dagger Android Support, [Glide4](https://bumptech.github.io/glide/) - Google
+* [KTX](https://github.com/android/android-ktx/), [Dagger2](https://google.github.io/dagger/), Dagger Android Support, [Glide4](https://bumptech.github.io/glide/) - Google
 * [Kotlin](http://kotlinlang.org/) - JetBrains
 * [Retrofit2](http://square.github.io/retrofit/), [Moshi](https://github.com/square/moshi/) - Square
 * [RxJava2](https://github.com/ReactiveX/RxJava), [RxKotlin](https://github.com/ReactiveX/RxKotlin), RxAndroid  - ReactiveX
