@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
 import android.support.annotation.DrawableRes
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
@@ -19,11 +18,11 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentMapBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 
-class MapFragment : Fragment(), Injectable, OnMapReadyCallback {
+class MapFragment : DaggerFragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentMapBinding
     private lateinit var mapView: MapView

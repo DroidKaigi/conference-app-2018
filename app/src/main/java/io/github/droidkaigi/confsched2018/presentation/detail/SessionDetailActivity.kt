@@ -9,9 +9,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivitySessionDetailBinding
 import io.github.droidkaigi.confsched2018.model.Session
@@ -25,9 +22,7 @@ import javax.inject.Inject
 
 class SessionDetailActivity :
         BaseActivity(),
-        HasSupportFragmentInjector,
         SessionDetailFragment.OnClickBottomAreaListener {
-    @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var drawerMenu: DrawerMenu
@@ -82,8 +77,6 @@ class SessionDetailActivity :
                     )
         }
     }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
     override fun onBackPressed() {
         if (drawerMenu.closeDrawerIfNeeded()) {

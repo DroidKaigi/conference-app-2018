@@ -4,13 +4,12 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.drawable.Animatable
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -23,7 +22,7 @@ import io.github.droidkaigi.confsched2018.util.lang
 import timber.log.Timber
 import javax.inject.Inject
 
-class SessionDetailFragment : Fragment(), Injectable {
+class SessionDetailFragment : DaggerFragment() {
     private lateinit var binding: FragmentSessionDetailBinding
     @Inject lateinit var navigationController: NavigationController
 

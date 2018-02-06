@@ -5,16 +5,15 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSponsorsBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
@@ -26,7 +25,7 @@ import javax.inject.Inject
 
 const val SPONSOR_SCREEN_MAX_SPAN_SIZE = 6
 
-class SponsorsFragment : Fragment(), Injectable {
+class SponsorsFragment : DaggerFragment() {
     private lateinit var binding: FragmentSponsorsBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController

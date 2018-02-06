@@ -3,16 +3,15 @@ package io.github.droidkaigi.confsched2018.presentation.contributor
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentContributorBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.contributor.item.ContributorItem
@@ -21,7 +20,7 @@ import io.github.droidkaigi.confsched2018.util.ext.observe
 import timber.log.Timber
 import javax.inject.Inject
 
-class ContributorsFragment : Fragment(), Injectable {
+class ContributorsFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentContributorBinding
     private val contributorsViewModel: ContributorsViewModel by lazy {
