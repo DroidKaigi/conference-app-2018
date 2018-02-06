@@ -218,6 +218,7 @@ repositories {
 play {
     uploadImages = true
     track = 'beta' // 'production' or 'rollout' or 'beta' or 'alpha'
+    untrackOld = true
     // userFraction = 0.1
 }
 
