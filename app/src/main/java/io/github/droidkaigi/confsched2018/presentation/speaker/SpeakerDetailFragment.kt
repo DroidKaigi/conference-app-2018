@@ -210,6 +210,9 @@ class SpeakerDetailFragment : Fragment(), Injectable {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun reveal() {
+        // reload recycler view
+        binding.sessionsRecycler.adapter.notifyDataSetChanged()
+
         val revealView = view?.findViewById<View>(R.id.app_bar_background) ?: return
         val speakerImage = view?.findViewById<View>(R.id.speaker_image) ?: return
         val cx = (speakerImage.x + speakerImage.width / 2).toInt()
