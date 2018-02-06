@@ -120,7 +120,9 @@ class SessionsFragment : DaggerFragment(), Findable, OnReselectedListener {
         sessionsViewModel.tab.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsViewPagerAdapter.setSessionTab(result.data)
+                    sessionsViewPagerAdapter.setSessionTab(result.data) {
+                        scrollToRecentScheduleTab()
+                    }
                     activity?.invalidateOptionsMenu()
                     if (Prefs.enableReopenPreviousRoomSessions and (savedInstanceState == null)) {
                         reopenPreviousOpenedItem()
@@ -191,10 +193,14 @@ class SessionsFragment : DaggerFragment(), Findable, OnReselectedListener {
                 }
             }
             SessionTabMode.SCHEDULE -> {
-                val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition()
-                binding.sessionsViewPager.currentItem = position
+                scrollToRecentScheduleTab()
             }
         }
+    }
+
+    private fun scrollToRecentScheduleTab() {
+        val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition()
+        binding.sessionsViewPager.currentItem = position
     }
 
     private fun reopenPreviousOpenedItem() {
@@ -303,13 +309,14 @@ class SessionsViewPagerAdapter(
         return position + 1
     }
 
-    fun setSessionTab(tab: SessionTab) {
+    fun setSessionTab(tab: SessionTab, afterScheduleTabsUpdated: () -> Unit ) {
         when (tab) {
             is SessionTab.Room -> {
                 setRooms(tab.stuffs)
             }
             is SessionTab.Schedule -> {
                 setSchedules(tab.stuffs)
+                afterScheduleTabsUpdated.invoke()
             }
         }
     }
