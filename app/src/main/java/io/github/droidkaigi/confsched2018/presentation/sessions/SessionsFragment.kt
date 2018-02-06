@@ -120,7 +120,8 @@ class SessionsFragment : DaggerFragment(), Findable, OnReselectedListener {
         sessionsViewModel.tab.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
-                    sessionsViewPagerAdapter.setSessionTab(result.data) {
+                    sessionsViewPagerAdapter.setSessionTab(result.data)
+                    if (result.data is SessionTab.Schedule) {
                         scrollToRecentScheduleTab()
                     }
                     activity?.invalidateOptionsMenu()
@@ -309,14 +310,13 @@ class SessionsViewPagerAdapter(
         return position + 1
     }
 
-    fun setSessionTab(tab: SessionTab, afterScheduleTabsUpdated: () -> Unit ) {
+    fun setSessionTab(tab: SessionTab) {
         when (tab) {
             is SessionTab.Room -> {
                 setRooms(tab.stuffs)
             }
             is SessionTab.Schedule -> {
                 setSchedules(tab.stuffs)
-                afterScheduleTabsUpdated.invoke()
             }
         }
     }
