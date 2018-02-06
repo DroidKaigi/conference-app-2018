@@ -119,9 +119,7 @@ class SessionDetailFragment : Fragment(), Injectable {
      * @return A shared text
      */
     private fun generateSharedText(session: Session.SpeechSession): String {
-        var speakerList = listOf<String>()
-        session.speakers.forEach { speakerList += it.name }
-        val speakers = speakerList.joinToString(", ")
+        val speakers = session.speakers.joinToString(", ") { it.name }
         val hashTag = generateHashTagByRoom(session.room.name)
         val title = resources.getString(R.string.session_share_title,
                 session.title,
