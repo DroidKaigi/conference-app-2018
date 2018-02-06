@@ -9,10 +9,10 @@ import io.github.droidkaigi.confsched2018.data.api.FeedFirestoreApi
 import io.github.droidkaigi.confsched2018.data.api.GithubApi
 import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
+import io.github.droidkaigi.confsched2018.data.api.response.mapper.InstantAdapter
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import org.threeten.bp.LocalDateTime
+import org.threeten.bp.Instant
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -44,7 +44,7 @@ open class NetworkModule {
                 .baseUrl("https://droidkaigi.jp/2018/")
                 .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
                         .add(ApplicationJsonAdapterFactory.INSTANCE)
-                        .add(LocalDateTime::class.java, LocalDateTimeAdapter())
+                        .add(Instant::class.java, InstantAdapter())
                         .build()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
@@ -57,7 +57,7 @@ open class NetworkModule {
                 .baseUrl("https://docs.google.com/forms/d/")
                 .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
                         .add(ApplicationJsonAdapterFactory.INSTANCE)
-                        .add(LocalDateTime::class.java, LocalDateTimeAdapter())
+                        .add(Instant::class.java, InstantAdapter())
                         .build()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .build()
@@ -69,7 +69,7 @@ open class NetworkModule {
                 .baseUrl("https://api.github.com")
                 .addConverterFactory(MoshiConverterFactory.create(Moshi.Builder()
                         .add(ApplicationJsonAdapterFactory.INSTANCE)
-                        .add(LocalDateTime::class.java, LocalDateTimeAdapter())
+                        .add(Instant::class.java, InstantAdapter())
                         .build()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                 .client(okHttpClient)

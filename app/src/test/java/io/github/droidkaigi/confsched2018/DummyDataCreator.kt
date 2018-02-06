@@ -13,6 +13,7 @@ import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
+import io.github.droidkaigi.confsched2018.util.ext.atJST
 import org.threeten.bp.LocalDateTime
 import java.util.Date
 
@@ -152,8 +153,8 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
             SessionWithSpeakers(SessionEntity(DUMMY_SESSION_ID1,
                     DUMMY_SESSION_TITLE1,
                     "Endless battle",
-                    LocalDateTime.of(1, 1, 1, 1, 1),
-                    LocalDateTime.of(1, 1, 1, 1, 1),
+                    LocalDateTime.of(1, 1, 1, 1, 1).atJST().toInstant(),
+                    LocalDateTime.of(1, 1, 1, 1, 1).atJST().toInstant(),
                     "30分",
                     "日本語",
                     LevelEntity(3540, "ニッチ / Niche"),
@@ -164,8 +165,8 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
             SessionWithSpeakers(SessionEntity(DUMMY_SESSION_ID2,
                     DUMMY_SESSION_TITLE2,
                     "Endless battle",
-                    LocalDateTime.of(1, 1, 1, 1, 1),
-                    LocalDateTime.of(1, 1, 1, 1, 1),
+                    LocalDateTime.of(1, 1, 1, 1, 1).atJST().toInstant(),
+                    LocalDateTime.of(1, 1, 1, 1, 1).atJST().toInstant(),
                     "30分",
                     "日本語",
                     LevelEntity(3542, "ニッチ / Niche"),

@@ -20,6 +20,7 @@ import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
+import io.github.droidkaigi.confsched2018.util.ext.atJST
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -58,7 +59,7 @@ class SessionDataRepository @Inject constructor(
                     sessionDatabase.getAllSessionFeedback()
                             .doOnNext { if (DEBUG) Timber.d("feedback") },
                     { sessionEntities, speakerEntities, favList, feedbacks ->
-                        val firstDay = sessionEntities.first().session!!.stime.toLocalDate()
+                        val firstDay = sessionEntities.first().session!!.stime.atJST().toLocalDate()
                         val speakerSessions = sessionEntities
                                 .map { it.toSession(speakerEntities, favList, feedbacks, firstDay) }
                                 .sortedWith(compareBy(

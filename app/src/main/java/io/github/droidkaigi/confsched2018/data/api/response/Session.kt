@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2018.data.api.response
 
-import org.threeten.bp.LocalDateTime
+import org.threeten.bp.Instant
 import se.ansman.kotshi.JsonSerializable
 
 @JsonSerializable
@@ -10,9 +10,9 @@ data class Session(
         val isPlenumSession: Boolean?,
         val speakers: List<String?>?,
         val description: String?,
-        val startsAt: LocalDateTime?,
+        val startsAt: Instant?,
         val title: String?,
-        val endsAt: LocalDateTime?,
+        val endsAt: Instant?,
         val roomId: Int?,
         val categoryItems: List<Int?>?,
         val message: SessionMessage?
