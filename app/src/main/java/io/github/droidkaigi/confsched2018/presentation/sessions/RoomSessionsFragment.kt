@@ -11,6 +11,7 @@ import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.os.bundleOf
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import dagger.android.support.DaggerFragment
@@ -189,9 +190,7 @@ class RoomSessionsFragment :
         private const val ARG_ROOM_NAME = "room_name"
 
         fun newInstance(room: Room): RoomSessionsFragment = RoomSessionsFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_ROOM_NAME, room.name)
-            }
+            arguments = bundleOf(ARG_ROOM_NAME to room.name)
         }
     }
 }

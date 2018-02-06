@@ -19,6 +19,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
+import androidx.os.bundleOf
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import dagger.android.support.DaggerFragment
@@ -261,10 +262,10 @@ class SpeakerDetailFragment : DaggerFragment() {
         fun newInstance(speakerId: String, transitionName: String?):
                 SpeakerDetailFragment = SpeakerDetailFragment()
                 .apply {
-                    arguments = Bundle().apply {
-                        putString(EXTRA_SPEAKER_ID, speakerId)
-                        putString(EXTRA_TRANSITION_NAME, transitionName)
-                    }
+                    arguments = bundleOf(
+                            EXTRA_SPEAKER_ID to speakerId,
+                            EXTRA_TRANSITION_NAME to transitionName
+                    )
                 }
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.os.bundleOf
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import dagger.android.support.DaggerFragment
@@ -92,9 +93,7 @@ class TopicDetailFragment : DaggerFragment() {
     companion object {
         const val EXTRA_TOPIC_ID = "EXTRA_TOPIC_ID"
         fun newInstance(topicId: Int): TopicDetailFragment = TopicDetailFragment().apply {
-            arguments = Bundle().apply {
-                putInt(EXTRA_TOPIC_ID, topicId)
-            }
+            arguments = bundleOf(EXTRA_TOPIC_ID to topicId)
         }
     }
 }

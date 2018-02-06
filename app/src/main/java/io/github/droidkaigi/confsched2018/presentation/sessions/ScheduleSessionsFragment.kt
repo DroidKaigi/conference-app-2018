@@ -8,6 +8,7 @@ import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.os.bundleOf
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import dagger.android.support.DaggerFragment
@@ -143,9 +144,7 @@ class ScheduleSessionsFragment :
 
         fun newInstance(schedule: SessionSchedule): ScheduleSessionsFragment =
                 ScheduleSessionsFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable(ARG_SCHEDULE, schedule)
-                    }
+                    arguments = bundleOf(ARG_SCHEDULE to schedule)
                 }
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.os.bundleOf
 import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSessionDetailBinding
@@ -117,9 +118,7 @@ class SessionDetailFragment : DaggerFragment() {
     companion object {
         const val EXTRA_SESSION_ID = "EXTRA_SESSION_ID"
         fun newInstance(sessionId: String): SessionDetailFragment = SessionDetailFragment().apply {
-            arguments = Bundle().apply {
-                putString(EXTRA_SESSION_ID, sessionId)
-            }
+            arguments = bundleOf(EXTRA_SESSION_ID to sessionId)
         }
     }
 }
