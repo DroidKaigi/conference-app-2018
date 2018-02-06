@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -69,18 +68,10 @@ class SpeakerDetailFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentSpeakerDetailBinding.inflate(
-                inflater,
-                container!!,
-                false
-        )
+        binding = FragmentSpeakerDetailBinding.inflate(inflater, container!!, false)
         activity?.supportStartPostponedEnterTransition()
 
-        dialogBinding =
-                BottomSheetDialogSpeakerSnsBinding.inflate(
-                        inflater,
-                        container,
-                        false)
+        dialogBinding = BottomSheetDialogSpeakerSnsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -107,9 +98,8 @@ class SpeakerDetailFragment : DaggerFragment() {
             setCancelable(true)
         }
 
-        if (!TextUtils.isEmpty(arguments!!.getString(EXTRA_TRANSITION_NAME))
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            initViewTransition(view, savedInstanceState)
+        if (arguments!!.getString(EXTRA_TRANSITION_NAME)?.isNotEmpty() == true) {
+            initViewTransition(savedInstanceState)
         }
     }
 
@@ -143,11 +133,12 @@ class SpeakerDetailFragment : DaggerFragment() {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun initViewTransition(view: View, savedInstanceState: Bundle?) {
-        view.findViewById<View>(R.id.app_bar_background).toInvisible()
+    private fun initViewTransition(savedInstanceState: Bundle?) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return
 
-        ViewCompat.setTransitionName(
-                view.findViewById<View>(R.id.speaker_image),
+        binding.appBarBackground.toInvisible()
+
+        ViewCompat.setTransitionName(binding.speakerImage,
                 arguments!!.getString(EXTRA_TRANSITION_NAME))
 
         val transitionInflater = TransitionInflater.from(activity)
@@ -159,14 +150,14 @@ class SpeakerDetailFragment : DaggerFragment() {
                         duration = 400
                         doOnEnd {
                             if (!isEnterTransitionCanceled) {
-                                view.post(revealViewRunnable)
+                                binding.root.post(revealViewRunnable)
                             }
                         }
                         doOnPause { isEnterTransitionCanceled = true }
                         doOnCancel { isEnterTransitionCanceled = true }
                     }
         } else {
-            view.findViewById<View>(R.id.app_bar_background).toVisible()
+            binding.appBarBackground.toVisible()
         }
 
         activity?.window?.sharedElementReturnTransition = transitionInflater
@@ -194,13 +185,14 @@ class SpeakerDetailFragment : DaggerFragment() {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun reveal() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return
+
         // reload recycler view
         binding.sessionsRecycler.adapter.notifyDataSetChanged()
 
-        val revealView = view?.findViewById<View>(R.id.app_bar_background) ?: return
-        val speakerImage = view?.findViewById<View>(R.id.speaker_image) ?: return
-        val cx = (speakerImage.x + speakerImage.width / 2).toInt()
-        val cy = (speakerImage.y + speakerImage.height / 2).toInt()
+        val revealView = binding.appBarBackground
+        val cx = binding.speakerImage.run { (x + width / 2).toInt() }
+        val cy = binding.speakerImage.run { (y + height / 2).toInt() }
         ViewAnimationUtils.createCircularReveal(revealView, cx, cy, 0F, revealView.width.toFloat())
                 .apply {
                     duration = 400
@@ -210,11 +202,12 @@ class SpeakerDetailFragment : DaggerFragment() {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    fun hideReveal() {
-        val revealView = view?.findViewById<View>(R.id.app_bar_background) ?: return
-        val speakerImage = view?.findViewById<View>(R.id.speaker_image) ?: return
-        val cx = (speakerImage.x + speakerImage.width / 2).toInt()
-        val cy = (speakerImage.y + speakerImage.height / 2).toInt()
+    private fun hideReveal() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return
+
+        val revealView = binding.appBarBackground
+        val cx = binding.speakerImage.run { (x + width / 2).toInt() }
+        val cy = binding.speakerImage.run { (y + height / 2).toInt() }
 
         ViewAnimationUtils.createCircularReveal(revealView, cx, cy, revealView.width.toFloat(), 0F)
                 .apply {
@@ -240,9 +233,8 @@ class SpeakerDetailFragment : DaggerFragment() {
     companion object {
         const val EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID"
         const val EXTRA_TRANSITION_NAME = "EXTRA_TRANSITION_NAME"
-        fun newInstance(speakerId: String, transitionName: String?):
-                SpeakerDetailFragment = SpeakerDetailFragment()
-                .apply {
+        fun newInstance(speakerId: String, transitionName: String?): SpeakerDetailFragment =
+                SpeakerDetailFragment().apply {
                     arguments = Bundle().apply {
                         putString(EXTRA_SPEAKER_ID, speakerId)
                         putString(EXTRA_TRANSITION_NAME, transitionName)
