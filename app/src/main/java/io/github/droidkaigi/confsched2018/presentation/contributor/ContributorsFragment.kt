@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentContributorBinding
 import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -72,13 +73,16 @@ class ContributorsFragment : Fragment(), Injectable {
     }
 
     private fun setupSwipeRefresh() {
-        binding.contributorsSwipeRefresh.setOnRefreshListener({
-            contributorsViewModel.onRefreshContributors()
+        binding.contributorsSwipeRefresh.apply {
+            setColorSchemeResources(R.color.accent)
+            setOnRefreshListener({
+                contributorsViewModel.onRefreshContributors()
 
-            if (binding.contributorsSwipeRefresh.isRefreshing) {
-                binding.contributorsSwipeRefresh.isRefreshing = false
-            }
-        })
+                if (binding.contributorsSwipeRefresh.isRefreshing) {
+                    binding.contributorsSwipeRefresh.isRefreshing = false
+                }
+            })
+        }
     }
 
     companion object {
