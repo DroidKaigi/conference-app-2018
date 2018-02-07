@@ -317,6 +317,7 @@ This project uses some modern Android libraries and source codes.
 * [RxBroadcast](https://github.com/cantrowitz/RxBroadcast) - cantrowitz
 * [ProgressTimeLatch](https://github.com/chrisbanes/tivi/blob/96e7cae7560ffd358b8c58c47267ed1024df53f6/app/src/main/java/me/banes/chris/tivi/ui/ProgressTimeLatch.kt) - chrisbanes
 * [Google I/O 2017](https://github.com/google/iosched)
+* [DebouncingOnClickListener](https://github.com/JakeWharton/butterknife/blob/e78507711fe8a7c637ee61c44a7b09f1be8ff9f6/butterknife/src/main/java/butterknife/internal/DebouncingOnClickListener.java) - JakeWharton
 
 ## License
 
