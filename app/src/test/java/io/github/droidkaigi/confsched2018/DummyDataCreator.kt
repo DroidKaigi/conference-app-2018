@@ -8,6 +8,8 @@ import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.model.Level
+import io.github.droidkaigi.confsched2018.model.Level.Companion.BEGINNER
+import io.github.droidkaigi.confsched2018.model.Level.Companion.NICHE
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
@@ -43,7 +45,7 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
             format = "30分",
             language = "JA",
             topic = Topic(2, "Development tool"),
-            level = Level.of(3540, "Beginner"),
+            level = Level.of(BEGINNER, "Beginner"),
             isFavorited = true, speakers = listOf(
             createDummySpeaker(),
             createDummySpeaker()
@@ -156,7 +158,7 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     LocalDateTime.of(1, 1, 1, 1, 1),
                     "30分",
                     "日本語",
-                    LevelEntity(3540, "ニッチ / Niche"),
+                    LevelEntity(NICHE, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
                     RoomEntity(1, "ホール"),
                     null),
@@ -168,7 +170,7 @@ fun createDummySessionWithSpeakersEntities(): List<SessionWithSpeakers> {
                     LocalDateTime.of(1, 1, 1, 1, 1),
                     "30分",
                     "日本語",
-                    LevelEntity(3542, "ニッチ / Niche"),
+                    LevelEntity(NICHE, "ニッチ / Niche"),
                     TopicEntity(1, "開発環境 / Development"),
                     RoomEntity(1, "ホール"),
                     null),
