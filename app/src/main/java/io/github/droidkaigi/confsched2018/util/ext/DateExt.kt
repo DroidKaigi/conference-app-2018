@@ -17,7 +17,6 @@ fun Date.toReadableDateString() =
             dateFormat.format(this)
         }
 
-
 fun Date.toReadableTimeString() =
         synchronized(Prefs) {
             timeFormat.timeZone = timeZone()
