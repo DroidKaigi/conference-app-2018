@@ -68,7 +68,7 @@ class SessionDataRepository @Inject constructor(
 
                         speakerSessions + specialSessions
                     })
-                    .subscribeOn(schedulerProvider.computation())
+                    .subscribeOn(schedulerProvider.io())
                     .doOnNext {
                         if (DEBUG) Timber.d("size:${it.size} current:${System.currentTimeMillis()}")
                     }
@@ -145,7 +145,7 @@ class SessionDataRepository @Inject constructor(
                 .doOnSuccess { response ->
                     sessionDatabase.save(response)
                 }
-                .subscribeOn(schedulerProvider.computation())
+                .subscribeOn(schedulerProvider.io())
                 .toCompletable()
     }
 
@@ -164,7 +164,7 @@ class SessionDataRepository @Inject constructor(
 
     @CheckResult override fun saveSessionFeedback(sessionFeedback: SessionFeedback): Completable =
             Completable.create { sessionDatabase.saveSessionFeedback(sessionFeedback) }
-                    .subscribeOn(schedulerProvider.computation())
+                    .subscribeOn(schedulerProvider.io())
 
     @CheckResult override fun submitSessionFeedback(
             session: Session.SpeechSession,
@@ -183,7 +183,7 @@ class SessionDataRepository @Inject constructor(
             .flatMapCompletable {
                 return@flatMapCompletable saveSessionFeedback(sessionFeedback)
             }
-            .subscribeOn(schedulerProvider.computation())
+            .subscribeOn(schedulerProvider.io())
 
     companion object {
         const val DEBUG = false

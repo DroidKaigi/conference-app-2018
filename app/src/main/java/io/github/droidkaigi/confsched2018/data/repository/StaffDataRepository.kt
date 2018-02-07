@@ -17,11 +17,11 @@ class StaffDataRepository @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : StaffRepository {
     @CheckResult override fun loadStaff(): Completable = getStaff()
-            .subscribeOn(schedulerProvider.computation())
+            .subscribeOn(schedulerProvider.io())
             .toCompletable()
 
     override val staff: Flowable<List<Staff>>
-        get() = getStaff().toFlowable().subscribeOn(schedulerProvider.computation())
+        get() = getStaff().toFlowable().subscribeOn(schedulerProvider.io())
 
     @CheckResult private fun getStaff(): Single<List<Staff>> {
         return Single.create { emitter ->
