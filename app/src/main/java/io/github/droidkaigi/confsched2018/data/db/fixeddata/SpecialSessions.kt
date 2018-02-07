@@ -1,10 +1,9 @@
 package io.github.droidkaigi.confsched2018.data.db.fixeddata
 
 import io.github.droidkaigi.confsched2018.R
-import io.github.droidkaigi.confsched2018.data.api.response.mapper.LocalDateTimeAdapter
+import io.github.droidkaigi.confsched2018.data.api.response.mapper.InstantAdapter
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.util.ext.toUnixMills
 import java.util.Date
 
 class SpecialSessions {
@@ -18,14 +17,12 @@ class SpecialSessions {
                             "100000" + index++,
                             1,
                             Date(
-                                    LocalDateTimeAdapter
-                                            .parseDateString("2018-02-08T10:00:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-08T10:00:00")
+                                            .toEpochMilli()
                             ),
                             Date(
-                                    LocalDateTimeAdapter
-                                            .parseDateString("2018-02-08T10:20:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-08T10:20:00")
+                                            .toEpochMilli()
                             ),
                             R.string.session_special_welcome_talk,
                             specialSessionRoom
@@ -34,12 +31,12 @@ class SpecialSessions {
                             "100000" + index++,
                             1,
                             Date(
-                                    LocalDateTimeAdapter.parseDateString("2018-02-08T11:50:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-08T11:50:00")
+                                            .toEpochMilli()
                             ),
                             Date(
-                                    LocalDateTimeAdapter.parseDateString("2018-02-08T12:50:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-08T12:50:00")
+                                            .toEpochMilli()
                             ),
                             R.string.session_special_lunch,
                             null
@@ -48,12 +45,12 @@ class SpecialSessions {
                             "100000" + index++,
                             1,
                             Date(
-                                    LocalDateTimeAdapter.parseDateString("2018-02-08T17:40:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-08T17:40:00")
+                                            .toEpochMilli()
                             ),
                             Date(
-                                    LocalDateTimeAdapter.parseDateString("2018-02-08T19:40:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-08T19:40:00")
+                                            .toEpochMilli()
                             ),
                             R.string.session_special_party,
                             specialSessionRoom
@@ -63,12 +60,12 @@ class SpecialSessions {
                             "100000" + index,
                             2,
                             Date(
-                                    LocalDateTimeAdapter.parseDateString("2018-02-09T11:50:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-09T11:50:00")
+                                            .toEpochMilli()
                             ),
                             Date(
-                                    LocalDateTimeAdapter.parseDateString("2018-02-09T12:50:00")
-                                            .toUnixMills()
+                                    InstantAdapter.parseDateString("2018-02-09T12:50:00")
+                                            .toEpochMilli()
                             ),
                             R.string.session_special_lunch,
                             null
