@@ -44,8 +44,11 @@ class NewPostProcessor @Inject constructor(
         }
         val notification: Notification = NotificationCompat.Builder(application,
                 NotificationChannelType.NEW_FEED_POST.id)
-                .setContentTitle(title)
-                .setContentText(content)
+                .setStyle(
+                        NotificationCompat.BigTextStyle()
+                                .setBigContentTitle(title)
+                                .bigText(content)
+                )
                 .setAutoCancel(true)
                 .setLargeIcon((ContextCompat.getDrawable(application, largeIcon) as BitmapDrawable)
                         .bitmap)

@@ -24,8 +24,8 @@ plugins {
 }
 
 // Manifest version
-val versionMajor = 0
-val versionMinor = 1
+val versionMajor = 1
+val versionMinor = 0
 val versionPatch = 0
 
 android {
@@ -118,6 +118,7 @@ dependencies {
 
     // Kotlin
     implementation(Depends.Kotlin.stdlib)
+    implementation(Depends.ktx)
 
 //    //==================== Support Library ====================
     implementation(Depends.Support.support_v4)
@@ -222,10 +223,11 @@ repositories {
 }
 
 play {
+    uploadImages = true
+    setTrack("alpha") // 'production' or 'rollout' or 'beta' or 'alpha'
+    untrackOld = true
+    // userFraction = 0.1
     jsonFile = file("publisher-keys.json")
-    setTrack("beta") // 'production' or 'rollout' or 'beta' or 'alpha'
-// userFraction = 0.1
-
 }
 
 ktlint {

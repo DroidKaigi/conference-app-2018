@@ -3,32 +3,39 @@ package io.github.droidkaigi.confsched2018.presentation.sessions
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.os.bundleOf
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentScheduleSessionsBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.pref.PreviousSessionPrefs
 import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
+import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.SavePreviousSessionScroller
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.ScheduleSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
+import io.github.droidkaigi.confsched2018.util.ext.getScrollState
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.restoreScrollState
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import timber.log.Timber
 import javax.inject.Inject
 
-class ScheduleSessionsFragment : Fragment(), Injectable, OnTabReselectedListener {
+class ScheduleSessionsFragment :
+        DaggerFragment(),
+        OnTabReselectedListener,
+        SavePreviousSessionScroller {
 
     private lateinit var binding: FragmentScheduleSessionsBinding
 
@@ -78,6 +85,9 @@ class ScheduleSessionsFragment : Fragment(), Injectable, OnTabReselectedListener
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener,
                             onFeedbackListener)
+                    if (scheduleSessionsViewModel.isNeedRestoreScrollState) {
+                        scrollToPreviousSession()
+                    }
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -109,14 +119,32 @@ class ScheduleSessionsFragment : Fragment(), Injectable, OnTabReselectedListener
         binding.sessionsRecycler.smoothScrollToPosition(0)
     }
 
+    override fun requestSavingScrollState() {
+        val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
+        PreviousSessionPrefs.scrollState = layoutManager.getScrollState()
+    }
+
+    override fun requestRestoringScrollState() {
+        if (scheduleSessionsViewModel.sessions is Result.Success<*>) {
+            scrollToPreviousSession()
+        } else {
+            scheduleSessionsViewModel.isNeedRestoreScrollState = true
+        }
+    }
+
+    private fun scrollToPreviousSession() {
+        scheduleSessionsViewModel.isNeedRestoreScrollState = false
+        val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
+        layoutManager.restoreScrollState(PreviousSessionPrefs.scrollState)
+        PreviousSessionPrefs.initPreviousSessionPrefs()
+    }
+
     companion object {
         private const val ARG_SCHEDULE = "schedule"
 
         fun newInstance(schedule: SessionSchedule): ScheduleSessionsFragment =
                 ScheduleSessionsFragment().apply {
-                    arguments = Bundle().apply {
-                        putSerializable(ARG_SCHEDULE, schedule)
-                    }
+                    arguments = bundleOf(ARG_SCHEDULE to schedule)
                 }
     }
 }

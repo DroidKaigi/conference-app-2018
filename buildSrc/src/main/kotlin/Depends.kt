@@ -15,6 +15,8 @@ object Depends {
         val preference_v7 = "com.android.support:preference-v7:${Versions.supportLibrary}"
         val preference_v14 = "com.android.support:preference-v14:${Versions.supportLibrary}"
     }
+    
+    val ktx = "androidx.core:core-ktx:0.1"
 
     object OkHttp3 {
         val loggingIntercepter = "com.squareup.okhttp3:logging-interceptor:3.9.1"

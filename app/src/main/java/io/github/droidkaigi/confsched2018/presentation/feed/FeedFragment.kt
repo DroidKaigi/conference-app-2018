@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.constraint.ConstraintSet
 import android.support.transition.TransitionInflater
-import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
@@ -15,9 +14,9 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.ViewHolder
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentFeedBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.feed.item.FeedItem
@@ -26,7 +25,7 @@ import io.github.droidkaigi.confsched2018.util.ext.setVisible
 import timber.log.Timber
 import javax.inject.Inject
 
-class FeedFragment : Fragment(), Injectable {
+class FeedFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentFeedBinding
     @Inject lateinit var navigationController: NavigationController

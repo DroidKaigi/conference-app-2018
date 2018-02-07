@@ -25,6 +25,8 @@ class ScheduleSessionsViewModel @Inject constructor(
 
     lateinit var schedule: SessionSchedule
 
+    var isNeedRestoreScrollState: Boolean = false
+
     val sessions: LiveData<Result<List<Session>>> by lazy {
         repository.scheduleSessions
                 .map { t: Map<SessionSchedule, List<Session>> ->

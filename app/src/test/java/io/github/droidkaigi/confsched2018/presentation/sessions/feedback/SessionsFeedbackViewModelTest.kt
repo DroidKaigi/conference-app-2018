@@ -8,7 +8,6 @@ import com.nhaarman.mockito_kotlin.whenever
 import io.github.droidkaigi.confsched2018.createDummySessionFeedback
 import io.github.droidkaigi.confsched2018.createDummySessions
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
-import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.util.rx.TestSchedulerProvider
@@ -43,8 +42,7 @@ class SessionsFeedbackViewModelTest {
         verify(result).onChanged(Result.inProgress())
         verify(result).onChanged(Result.success(
                 createDummySessionFeedback(
-                        sessions[0].id,
-                        (sessions[0] as Session.SpeechSession).title
+                        sessions[0].id
                 )
         ))
     }

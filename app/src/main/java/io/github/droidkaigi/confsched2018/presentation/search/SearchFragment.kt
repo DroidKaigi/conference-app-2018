@@ -25,9 +25,9 @@ import android.widget.TextView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentSearchBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.FragmentStateNullablePagerAdapter
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
@@ -48,7 +48,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class SearchFragment : Fragment(), Injectable {
+class SearchFragment : DaggerFragment() {
     private lateinit var binding: FragmentSearchBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController

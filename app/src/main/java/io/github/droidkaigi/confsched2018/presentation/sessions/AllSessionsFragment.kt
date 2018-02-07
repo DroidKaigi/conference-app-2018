@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.transition.TransitionInflater
 import android.support.transition.TransitionManager
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SimpleItemAnimator
@@ -14,21 +13,25 @@ import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
-import io.github.droidkaigi.confsched2018.di.Injectable
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
 import io.github.droidkaigi.confsched2018.presentation.Result
+import io.github.droidkaigi.confsched2018.presentation.common.pref.PreviousSessionPrefs
 import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.CurrentSessionScroller
+import io.github.droidkaigi.confsched2018.presentation.sessions.SessionsFragment.SavePreviousSessionScroller
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.ProgressTimeLatch
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
+import io.github.droidkaigi.confsched2018.util.ext.getScrollState
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.restoreScrollState
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import io.github.droidkaigi.confsched2018.util.ext.setVisible
@@ -39,10 +42,10 @@ import java.util.Date
 import javax.inject.Inject
 
 class AllSessionsFragment :
-        Fragment(),
-        Injectable,
+        DaggerFragment(),
         CurrentSessionScroller,
-        OnTabReselectedListener {
+        OnTabReselectedListener,
+        SavePreviousSessionScroller {
 
     private lateinit var binding: FragmentAllSessionsBinding
 
@@ -86,7 +89,10 @@ class AllSessionsFragment :
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener,
                             onFeedbackListener, true)
 
-                    sessionsViewModel.onSuccessFetchSessions()
+                    sessionsViewModel.onShowSessions()
+                    if (sessionsViewModel.isNeedRestoreScrollState) {
+                        scrollToPreviousSession()
+                    }
                 }
                 is Result.Failure -> {
                     Timber.e(result.e)
@@ -111,6 +117,26 @@ class AllSessionsFragment :
 
     override fun onTabReselected() {
         binding.sessionsRecycler.smoothScrollToPosition(0)
+    }
+
+    override fun requestSavingScrollState() {
+        val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
+        PreviousSessionPrefs.scrollState = layoutManager.getScrollState()
+    }
+
+    override fun requestRestoringScrollState() {
+        if (sessionsViewModel.sessions is Result.Success<*>) {
+            scrollToPreviousSession()
+        } else {
+            sessionsViewModel.isNeedRestoreScrollState = true
+        }
+    }
+
+    private fun scrollToPreviousSession() {
+        sessionsViewModel.isNeedRestoreScrollState = false
+        val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
+        layoutManager.restoreScrollState(PreviousSessionPrefs.scrollState)
+        PreviousSessionPrefs.initPreviousSessionPrefs()
     }
 
     private fun setupRecyclerView() {

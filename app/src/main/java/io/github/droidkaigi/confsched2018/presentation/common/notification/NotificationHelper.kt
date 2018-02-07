@@ -50,8 +50,11 @@ fun Context.showNotification(
     NotificationManagerCompat.from(this).notify(
             content.text.hashCode(),
             NotificationCompat.Builder(this, content.channelType.id)
-                    .setContentTitle(content.title)
-                    .setContentText(content.text)
+                    .setStyle(
+                            NotificationCompat.BigTextStyle()
+                                    .setBigContentTitle(content.title)
+                                    .bigText(content.text)
+                    )
                     .setFullScreenIntent(content.createPendingContentIntent(this), true)
                     .setAutoCancel(true)
                     .setColor(ContextCompat.getColor(this, R.color.primary))

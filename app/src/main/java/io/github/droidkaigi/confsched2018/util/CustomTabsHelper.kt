@@ -17,8 +17,8 @@ package io.github.droidkaigi.confsched2018.util
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.text.TextUtils
+import androidx.net.toUri
 import timber.log.Timber
 
 /**
@@ -49,7 +49,7 @@ object CustomTabsHelper {
 
         val pm = context.packageManager
         // Get default VIEW intent handler.
-        val activityIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"))
+        val activityIntent = Intent(Intent.ACTION_VIEW, "http://www.example.com".toUri())
         val defaultViewHandlerInfo = pm.resolveActivity(activityIntent, 0)
         var defaultViewHandlerPackageName: String? = null
         if (defaultViewHandlerInfo != null) {

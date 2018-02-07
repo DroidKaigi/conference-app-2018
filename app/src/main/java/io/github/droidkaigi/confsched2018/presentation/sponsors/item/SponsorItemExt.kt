@@ -9,10 +9,10 @@ import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.SponsorPlan
 
 fun getSponsorItemSpanSize(planType: SponsorPlan.Type, spanCount: Int) = when (planType) {
-    SponsorPlan.Type.Platinum,
-    SponsorPlan.Type.TechnicalForNetwork -> spanCount / 2
+    SponsorPlan.Type.Platinum -> spanCount / 2
     SponsorPlan.Type.Gold,
     SponsorPlan.Type.Silver,
+    SponsorPlan.Type.TechnicalForNetwork,
     SponsorPlan.Type.Supporter -> spanCount / 3
 }
 
@@ -29,9 +29,9 @@ fun fromPlanType(context: Context, planType: SponsorPlan.Type?) =
 
 fun toDimensionRatio(planType: SponsorPlan.Type?) = when (planType) {
     SponsorPlan.Type.Platinum,
-    SponsorPlan.Type.Supporter,
-    SponsorPlan.Type.TechnicalForNetwork -> "H,16:9"
+    SponsorPlan.Type.Supporter -> "H,16:9"
     SponsorPlan.Type.Gold -> "H,1:1"
-    SponsorPlan.Type.Silver -> "H,4:3"
+    SponsorPlan.Type.Silver,
+    SponsorPlan.Type.TechnicalForNetwork-> "H,4:3"
     else -> "H,1:1"
 }
