@@ -7,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.droidkaigi.confsched2018.databinding.ItemSpeakersSummaryLayoutBinding
 import io.github.droidkaigi.confsched2018.model.Speaker
+import io.github.droidkaigi.confsched2018.util.DebouncingOnClickListener
 
-/**
- * Created by furusin on 2018/01/17.
- */
 class SpeakersAdapter(var context: Context, var speakerList: List<Speaker>, val textColor: Int) :
         RecyclerView.Adapter<SpeakersAdapter.BindingHolder>() {
-    var onSpeakerClick: (view: View, speakerId: String) -> Unit = { _ , _ -> }
+    var onSpeakerClick: (view: View, speakerId: String) -> Unit = { _, _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BindingHolder? {
         val layoutInflater = LayoutInflater.from(parent!!.context)
@@ -23,8 +21,8 @@ class SpeakersAdapter(var context: Context, var speakerList: List<Speaker>, val 
 
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
         val speaker = speakerList[position]
-        holder.binding.linearLayout.setOnClickListener({
-            onSpeakerClick(it, speaker.id)
+        holder.binding.linearLayout.setOnClickListener(object : DebouncingOnClickListener() {
+            override fun doClick(v: View) = onSpeakerClick(v, speaker.id)
         })
         holder.binding.speakerName.setTextColor(textColor)
         holder.binding.speaker = speaker
