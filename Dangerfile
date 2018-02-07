@@ -11,3 +11,6 @@ android_lint.report_file = "app/build/reports/lint-results-#{ENV['APP_BUILD_TYPE
 android_lint.skip_gradle_task = true
 android_lint.severity = "Error"
 android_lint.lint(inline_mode: true)
+
+# LGTM
+lgtm.check_lgtm
