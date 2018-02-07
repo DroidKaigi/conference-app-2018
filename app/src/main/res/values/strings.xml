@@ -42,6 +42,7 @@
     <string name="session_share_hash_tag" translatable="false">#droidkaigi_%s</string>
     <string name="session_share_intent_type" translatable="false">text/plain</string>
     <string name="session_share_via">Share via</string>
+    <string name="session_content_description_share">Share button</string>
 
     <!-- Session detail -->
     <string name="detail_sessions_next">Next</string>

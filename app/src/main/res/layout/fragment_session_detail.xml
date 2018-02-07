@@ -130,6 +130,18 @@
                             app:speakers="@{session.speakers}"
                             app:textColor="@color/app_bar_text_color"
                             />
+                        <ImageView
+                            android:id="@+id/share_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:contentDescription="@string/session_content_description_share"
+                            android:padding="8dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/session_title"
+                            app:srcCompat="@drawable/ic_share_white_24dp"
+                            />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -364,17 +376,6 @@
                 app:layout_anchorGravity="bottom|end"
                 app:srcCompat="@drawable/state_favorite_icon"
                 app:tintCompat="@{@colorStateList/state_favorite_color}"
-                android:scaleType="center"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="80dp"
-                app:backgroundTint="#FFF"
-                app:layout_anchor="@id/app_bar"
-                app:layout_anchorGravity="bottom|end"
-                app:srcCompat="@drawable/ic_share_black_24dp"
                 android:scaleType="center"/>
 
         </android.support.design.widget.CoordinatorLayout>

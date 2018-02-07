@@ -85,7 +85,7 @@ class SessionDetailFragment : Fragment(), Injectable {
             sessionDetailViewModel.onFavoriteClick(session)
             sessionAlarm.toggleRegister(session)
         }
-        binding.fabShare.setOnClickListener {
+        binding.shareButton.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = resources.getString(R.string.session_share_intent_type)
                 val text = generateSharedText(session)
