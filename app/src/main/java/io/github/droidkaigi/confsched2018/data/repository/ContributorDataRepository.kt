@@ -36,14 +36,14 @@ class ContributorDataRepository @Inject constructor(
                     if (DEBUG) it.forEach { Timber.d("$it") }
                     contributorDatabase.save(it)
                 }
-                .subscribeOn(schedulerProvider.computation())
+                .subscribeOn(schedulerProvider.io())
                 .toCompletable()
     }
 
     override val contributors: Flowable<List<Contributor>> =
             contributorDatabase.getAll()
                     .map { it.toContributors() }
-                    .subscribeOn(schedulerProvider.computation())
+                    .subscribeOn(schedulerProvider.io())
 
     companion object {
         private const val OWNER = "DroidKaigi"

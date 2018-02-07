@@ -30,6 +30,6 @@ class SponsorPlanDataRepository @Inject constructor(
             }.doOnSuccess {
                 val plansResponse = it
                 sponsorDatabase.save(plansResponse.toSponsorsEntities())
-            }.subscribeOn(schedulerProvider.computation())
+            }.subscribeOn(schedulerProvider.io())
                     .toCompletable()
 }
