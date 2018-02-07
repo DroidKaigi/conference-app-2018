@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.view.forEach
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -39,7 +40,6 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.item.SimpleSessi
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
 import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.color
-import io.github.droidkaigi.confsched2018.util.ext.eachChildView
 import io.github.droidkaigi.confsched2018.util.ext.observe
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.toGone
@@ -213,7 +213,7 @@ class SearchFragment : DaggerFragment() {
         }
 
         if (view is ViewGroup) {
-            view.eachChildView {
+            view.forEach {
                 changeSearchViewTextColor(it)
             }
         }

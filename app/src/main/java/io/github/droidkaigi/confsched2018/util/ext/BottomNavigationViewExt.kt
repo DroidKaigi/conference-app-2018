@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.view.forEach
 import timber.log.Timber
 
 @SuppressLint("RestrictedApi")
@@ -17,7 +18,7 @@ fun BottomNavigationView.disableShiftMode() {
         shiftingMode.isAccessible = true
         shiftingMode.setBoolean(menuView, false)
         shiftingMode.isAccessible = false
-        menuView.eachChildView {
+        menuView.forEach {
             val item = it as BottomNavigationItemView
             // NOTE: This removing the BottomNavigationItem labels including small and large text container.
             item.removeViewAt(1)
