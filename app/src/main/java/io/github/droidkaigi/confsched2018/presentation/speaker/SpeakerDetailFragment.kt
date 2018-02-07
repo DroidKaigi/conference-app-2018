@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.animation.doOnEnd
+import androidx.os.bundleOf
 import androidx.transition.doOnCancel
 import androidx.transition.doOnEnd
 import androidx.transition.doOnPause
@@ -235,10 +236,10 @@ class SpeakerDetailFragment : DaggerFragment() {
         const val EXTRA_TRANSITION_NAME = "EXTRA_TRANSITION_NAME"
         fun newInstance(speakerId: String, transitionName: String?): SpeakerDetailFragment =
                 SpeakerDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(EXTRA_SPEAKER_ID, speakerId)
-                        putString(EXTRA_TRANSITION_NAME, transitionName)
-                    }
+                    arguments = bundleOf(
+                            EXTRA_SPEAKER_ID to speakerId,
+                            EXTRA_TRANSITION_NAME to transitionName
+                    )
                 }
     }
 }
