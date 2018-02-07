@@ -32,6 +32,6 @@ fun toDimensionRatio(planType: SponsorPlan.Type?) = when (planType) {
     SponsorPlan.Type.Supporter -> "H,16:9"
     SponsorPlan.Type.Gold -> "H,1:1"
     SponsorPlan.Type.Silver,
-    SponsorPlan.Type.TechnicalForNetwork-> "H,4:3"
+    SponsorPlan.Type.TechnicalForNetwork -> "H,4:3"
     else -> "H,1:1"
 }

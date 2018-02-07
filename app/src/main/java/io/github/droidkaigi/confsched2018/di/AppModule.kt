@@ -53,7 +53,8 @@ import javax.inject.Singleton
             droidKaigiApi: DroidKaigiApi,
             sponsorDatabase: SponsorDatabase,
             schedulerProvider: SchedulerProvider
-    ): SponsorPlanRepository = SponsorPlanDataRepository(droidKaigiApi, sponsorDatabase, schedulerProvider)
+    ): SponsorPlanRepository =
+            SponsorPlanDataRepository(droidKaigiApi, sponsorDatabase, schedulerProvider)
 
     @Singleton @Provides @JvmStatic
     fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
@@ -77,5 +78,5 @@ import javax.inject.Singleton
     @Provides
     @JvmStatic
     fun provideNotificationManager(context: Context): NotificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

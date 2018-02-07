@@ -34,8 +34,8 @@ class SessionsFeedbackFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val onCurrentRankingChangeListener
-            = object : FeedbackRankingView.OnCurrentRankingChangeListener {
+    private val onCurrentRankingChangeListener = object
+        : FeedbackRankingView.OnCurrentRankingChangeListener {
         override fun onCurrentRankingChange(view: FeedbackRankingView, currentRanking: Int) {
 
             val old = (sessionsFeedbackViewModel.sessionFeedback.value as? Result.Success)

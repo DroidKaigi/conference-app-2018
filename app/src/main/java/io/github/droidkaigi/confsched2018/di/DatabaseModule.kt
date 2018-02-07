@@ -74,5 +74,4 @@ import javax.inject.Singleton
 
     @Singleton @Provides
     fun provideSponsorDao(db: AppDatabase): SponsorDao = db.sponsorDao()
-
 }

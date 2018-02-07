@@ -52,5 +52,4 @@ data class SpeechSessionItem(
     }
 
     override fun getLayout(): Int = R.layout.item_speech_session
-
 }
