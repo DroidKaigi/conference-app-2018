@@ -79,8 +79,7 @@ fun createDummySessionFeedbackEntities(): List<SessionFeedbackEntity> {
 
 }
 
-fun createDummySessionFeedback(sessionId: String = DUMMY_SESSION_ID1,
-                               sessionTitle: String = DUMMY_SESSION_TITLE1): SessionFeedback {
+fun createDummySessionFeedback(sessionId: String = DUMMY_SESSION_ID1): SessionFeedback {
     return SessionFeedback(
             sessionId = sessionId,
             totalEvaluation = 1,
