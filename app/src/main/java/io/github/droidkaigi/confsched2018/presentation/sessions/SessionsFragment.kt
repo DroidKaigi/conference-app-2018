@@ -122,7 +122,9 @@ class SessionsFragment : DaggerFragment(), Findable, OnReselectedListener {
                 is Result.Success -> {
                     sessionsViewPagerAdapter.setSessionTab(result.data)
                     activity?.invalidateOptionsMenu()
-                    if (Prefs.enableReopenPreviousRoomSessions and (savedInstanceState == null)) {
+                    if ((result.data is SessionTab.Room) and
+                            Prefs.enableReopenPreviousRoomSessions and
+                            (savedInstanceState == null)) {
                         reopenPreviousOpenedItem()
                     }
                 }
@@ -154,6 +156,9 @@ class SessionsFragment : DaggerFragment(), Findable, OnReselectedListener {
         binding.tabLayout.addOnTabSelectedListener(
                 OnTabReselectedDispatcher(binding.sessionsViewPager)
         )
+        sessionsViewPagerAdapter.openedScheduleTabObserver = {
+            scrollToRecentScheduleTab()
+        }
     }
 
     override fun onPause() {
@@ -191,10 +196,14 @@ class SessionsFragment : DaggerFragment(), Findable, OnReselectedListener {
                 }
             }
             SessionTabMode.SCHEDULE -> {
-                val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition()
-                binding.sessionsViewPager.currentItem = position
+                scrollToRecentScheduleTab()
             }
         }
+    }
+
+    private fun scrollToRecentScheduleTab() {
+        val position = sessionsViewPagerAdapter.getRecentScheduleTabPosition()
+        binding.sessionsViewPager.currentItem = position
     }
 
     private fun reopenPreviousOpenedItem() {
@@ -240,6 +249,7 @@ class SessionsViewPagerAdapter(
     private val tabs = arrayListOf<Tab>()
     private var roomTabs = mutableListOf<Tab.RoomTab>()
     private var schedulesTabs = mutableListOf<Tab.TimeTab>()
+    var openedScheduleTabObserver: (() -> Unit)? = null
 
     sealed class Tab(val title: String) {
         abstract val fragment: Fragment
@@ -277,6 +287,9 @@ class SessionsViewPagerAdapter(
         tabs.add(Tab.All)
         tabs.addAll(otherTabs)
         notifyDataSetChanged()
+        if (otherTabs.first() is Tab.TimeTab) {
+            openedScheduleTabObserver?.invoke()
+        }
     }
 
     override fun getPageTitle(position: Int): CharSequence = tabs[position].title
