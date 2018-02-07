@@ -16,9 +16,7 @@ import android.view.ViewAnimationUtils
 import android.view.ViewGroup
 import androidx.animation.doOnEnd
 import androidx.os.bundleOf
-import androidx.transition.doOnCancel
-import androidx.transition.doOnEnd
-import androidx.transition.doOnPause
+import androidx.transition.addListener
 import androidx.transition.doOnStart
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -149,13 +147,15 @@ class SpeakerDetailFragment : DaggerFragment() {
                     .inflateTransition(R.transition.shared_element_arc)
                     .apply {
                         duration = 400
-                        doOnEnd {
-                            if (!isEnterTransitionCanceled) {
-                                binding.root.post(revealViewRunnable)
-                            }
-                        }
-                        doOnPause { isEnterTransitionCanceled = true }
-                        doOnCancel { isEnterTransitionCanceled = true }
+                        addListener(
+                                onEnd = {
+                                    if (!isEnterTransitionCanceled) {
+                                        binding.root.post(revealViewRunnable)
+                                    }
+                                },
+                                onPause = { isEnterTransitionCanceled = true },
+                                onCancel = { isEnterTransitionCanceled = true }
+                        )
                     }
         } else {
             binding.appBarBackground.toVisible()
