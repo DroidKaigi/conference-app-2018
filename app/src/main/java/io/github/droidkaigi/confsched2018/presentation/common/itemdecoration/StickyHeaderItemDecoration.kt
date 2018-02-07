@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.Typeface
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.text.TextPaint
 import android.text.TextUtils
@@ -30,7 +30,7 @@ class StickyHeaderItemDecoration constructor(
         val resource = context!!.resources
 
         textPaint.apply {
-            typeface = Typeface.DEFAULT
+            typeface = ResourcesCompat.getFont(context, R.font.notosans_medium)
             isAntiAlias = true
             textSize = resource.getDimension(R.dimen.sticky_label_font_size)
             color = ContextCompat.getColor(context, R.color.primary)
