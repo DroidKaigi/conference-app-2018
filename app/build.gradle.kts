@@ -245,7 +245,7 @@ deploygate {
 
     apks {
         create("release") {
-            val hash = Runtime.getRuntime().exec("git rev-parse --short HEAD")
+            val hash = Runtime.getRuntime().exec("git rev-parse --short HEAD").inputStream.reader().use { it.readText() }.trim()
             message = "https://github.com/DroidKaigi/conference-app-2018/tree/$hash ${System.getenv("CIRCLE_BUILD_URL")}"
 
             distributionKey = "aed2445665e27de6571227992d66ea489b6bdb44"
