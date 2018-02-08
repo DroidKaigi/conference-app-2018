@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.view.Window
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.droidkaigi.confsched2018.R
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -20,6 +21,7 @@ open class BaseActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initTaskDescription()
+        initWindowContentTransition()
     }
 
     private fun initTaskDescription() {
@@ -27,6 +29,12 @@ open class BaseActivity : DaggerAppCompatActivity() {
             setTaskDescription(ActivityManager.TaskDescription(
                     null, null, ContextCompat.getColor(this, R.color.recents_background))
             )
+        }
+    }
+
+    private fun initWindowContentTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
         }
     }
 }

@@ -4,12 +4,14 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.annotation.IdRes
 import android.support.annotation.MenuRes
 import android.support.annotation.StringRes
 import android.support.design.widget.CoordinatorLayout
+import android.view.Window
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.ActivityMainBinding
 import io.github.droidkaigi.confsched2018.di.ViewModelFactory
@@ -38,6 +40,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setSupportActionBar(binding.toolbar)
 
         mainViewModel.localTimeConfig.observe(this, {
