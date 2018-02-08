@@ -67,12 +67,15 @@ class SessionsFeedbackViewModel @Inject constructor(
 
     fun submit(session: Session.SpeechSession, sessionFeedback: SessionFeedback) {
         repository.submitSessionFeedback(session, sessionFeedback)
-                .doOnSubscribe { isLoading.value = true }
-                .doOnDispose { isLoading.value = false }
-                .doOnComplete {
-                    alertMessage.value = Alert(Alert.Type.Toast, R.string.submit_success)
+                .doOnSubscribe { isLoading.postValue(true) }
+                .doFinally {
+                    isLoading.postValue(false)
                 }
-                .doOnError { alertMessage.value = Alert(Alert.Type.Toast, R.string.submit_failure) }
+                .doOnComplete {
+                    alertMessage.postValue(Alert(Alert.Type.Toast, R.string.submit_success))
+                }
+                .doOnError { alertMessage.postValue(Alert(Alert.Type.Toast, R.string
+                        .submit_failure)) }
                 .subscribeBy(onError = defaultErrorHandler())
                 .addTo(compositeDisposable)
     }
