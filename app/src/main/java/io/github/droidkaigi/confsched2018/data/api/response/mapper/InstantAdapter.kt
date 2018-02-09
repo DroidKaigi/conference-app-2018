@@ -33,7 +33,7 @@ class InstantAdapter : JsonAdapter<Instant>() {
          * Obtains an instance of Instant from a text string such as "2018-02-08T17:40:00".
          * The string must represent in JST (GMT+9:00).
          */
-        fun parseDateString(dateString: String?): Instant =
+        fun parseDateString(dateString: String): Instant =
                 LocalDateTime.parse(dateString, FORMATTER).atJST().toInstant()
     }
 }
