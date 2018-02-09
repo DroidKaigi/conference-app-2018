@@ -50,6 +50,7 @@ class SessionsViewModel @Inject constructor(
     val isLoading: LiveData<Boolean> by lazy {
         tab.map { it.inProgress }
     }
+    // Share RecycledViewPool between content fragments of sessions ViewPager.
     val viewPool: RecyclerView.RecycledViewPool by lazy {
         RecyclerView.RecycledViewPool()
     }
