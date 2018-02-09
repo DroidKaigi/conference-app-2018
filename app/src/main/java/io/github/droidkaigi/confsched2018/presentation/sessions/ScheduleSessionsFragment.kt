@@ -50,6 +50,11 @@ class ScheduleSessionsFragment :
                 .get(ScheduleSessionsViewModel::class.java)
     }
 
+    private val sessionsViewModel: SessionsViewModel by lazy {
+        ViewModelProviders.of(parentFragment ?: this, viewModelFactory)
+                .get(SessionsViewModel::class.java)
+    }
+
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
         scheduleSessionsViewModel.onFavoriteClick(session)
         sessionAlarm.toggleRegister(session)
@@ -112,6 +117,8 @@ class ScheduleSessionsFragment :
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
+            recycledViewPool = sessionsViewModel.viewPool
+            (layoutManager as LinearLayoutManager).recycleChildrenOnDetach = true
         }
     }
 
