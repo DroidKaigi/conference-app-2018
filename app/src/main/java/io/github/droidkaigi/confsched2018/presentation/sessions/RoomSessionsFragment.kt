@@ -56,15 +56,11 @@ class RoomSessionsFragment :
 
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
+    @Inject lateinit var sharedRecycledViewPool: RecyclerView.RecycledViewPool
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val roomSessionsViewModel: RoomSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(RoomSessionsViewModel::class.java)
-    }
-
-    private val sessionsViewModel: SessionsViewModel by lazy {
-        ViewModelProviders.of(parentFragment ?: this, viewModelFactory)
-                .get(SessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
@@ -180,7 +176,7 @@ class RoomSessionsFragment :
                     })
             setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
-            recycledViewPool = sessionsViewModel.viewPool
+            recycledViewPool = sharedRecycledViewPool
             (layoutManager as LinearLayoutManager).recycleChildrenOnDetach = true
         }
     }
