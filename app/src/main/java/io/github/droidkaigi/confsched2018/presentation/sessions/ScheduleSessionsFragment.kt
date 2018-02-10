@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SimpleItemAnimator
 import android.view.LayoutInflater
 import android.view.View
@@ -44,15 +45,11 @@ class ScheduleSessionsFragment :
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
+    @Inject lateinit var sharedRecycledViewPool: RecyclerView.RecycledViewPool
 
     private val scheduleSessionsViewModel: ScheduleSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory)
                 .get(ScheduleSessionsViewModel::class.java)
-    }
-
-    private val sessionsViewModel: SessionsViewModel by lazy {
-        ViewModelProviders.of(parentFragment ?: this, viewModelFactory)
-                .get(SessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
@@ -117,7 +114,7 @@ class ScheduleSessionsFragment :
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
-            recycledViewPool = sessionsViewModel.viewPool
+            recycledViewPool = sharedRecycledViewPool
             (layoutManager as LinearLayoutManager).recycleChildrenOnDetach = true
         }
     }

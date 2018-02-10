@@ -41,6 +41,7 @@ class FavoriteSessionsFragment : DaggerFragment() {
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var sharedRecycledViewPool: RecyclerView.RecycledViewPool
     private val sessionsViewModel: FavoriteSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(FavoriteSessionsViewModel::class.java)
     }
@@ -114,6 +115,8 @@ class FavoriteSessionsFragment : DaggerFragment() {
                     })
             setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
+            recycledViewPool = sharedRecycledViewPool
+            (layoutManager as LinearLayoutManager).recycleChildrenOnDetach = true
         }
     }
 

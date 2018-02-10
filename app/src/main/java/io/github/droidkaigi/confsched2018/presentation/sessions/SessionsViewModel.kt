@@ -6,7 +6,6 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
-import android.support.v7.widget.RecyclerView
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.mapper.toResult
@@ -49,10 +48,6 @@ class SessionsViewModel @Inject constructor(
     }
     val isLoading: LiveData<Boolean> by lazy {
         tab.map { it.inProgress }
-    }
-    // Share RecycledViewPool between content fragments of sessions ViewPager.
-    val viewPool: RecyclerView.RecycledViewPool by lazy {
-        RecyclerView.RecycledViewPool()
     }
     private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
     val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
