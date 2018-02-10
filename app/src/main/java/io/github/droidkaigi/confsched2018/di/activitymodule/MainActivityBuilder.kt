@@ -6,6 +6,9 @@ import io.github.droidkaigi.confsched2018.di.RecycledViewPoolModule
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 
 @Module interface MainActivityBuilder {
-    @ContributesAndroidInjector(modules = [MainActivityModule::class, RecycledViewPoolModule::class])
+    @ContributesAndroidInjector(modules = [
+        MainActivityModule::class,
+        RecycledViewPoolModule::class
+    ])
     fun contributeMainActivity(): MainActivity
 }
