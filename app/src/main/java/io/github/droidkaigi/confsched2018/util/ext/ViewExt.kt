@@ -39,7 +39,7 @@ var View.elevationForPostLollipop: Float
         }
     }
 
-fun View.setPaddingWithLayoutDirction(start: Int, top: Int, end: Int, bottom: Int) =
+fun View.setPaddingWithLayoutDirection(start: Int, top: Int, end: Int, bottom: Int) =
         if (isLayoutDirectionRtl()) {
             setPadding(end, top, start, bottom)
         } else {

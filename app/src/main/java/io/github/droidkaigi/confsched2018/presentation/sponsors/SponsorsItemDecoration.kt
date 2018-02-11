@@ -5,7 +5,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import io.github.droidkaigi.confsched2018.util.ext.setPaddingWithLayoutDirction
+import io.github.droidkaigi.confsched2018.util.ext.setPaddingWithLayoutDirection
 
 class SponsorsItemDecoration(@LayoutRes private val sponsorItemViewType: Int)
     : RecyclerView.ItemDecoration() {
@@ -45,7 +45,7 @@ class SponsorsItemDecoration(@LayoutRes private val sponsorItemViewType: Int)
             else -> middlePadding
         }.toInt()
 
-        view.setPaddingWithLayoutDirction(
+        view.setPaddingWithLayoutDirection(
                 startPadding, view.paddingTop, endPadding, view.paddingBottom)
     }
 
