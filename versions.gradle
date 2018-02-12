@@ -31,7 +31,7 @@ ext {
 
     depends = [
             kotlin                 : [
-                    stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin",
+                    stdlib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
             ],
 
             //==================== Support Library ====================
