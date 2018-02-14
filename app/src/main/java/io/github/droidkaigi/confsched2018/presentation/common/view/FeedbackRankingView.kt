@@ -39,7 +39,8 @@ class FeedbackRankingView @JvmOverloads constructor(
     private fun customAttributeFrom(attrs: AttributeSet?): CustomAttribute {
         return if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.FeedbackRankingView)
-            val maxSize = a.getInteger(R.styleable.FeedbackRankingView_rankingMaxSize, DEFAULT_MAX_SIZE)
+            val maxSize = a.getInteger(R.styleable.FeedbackRankingView_rankingMaxSize,
+                    DEFAULT_MAX_SIZE)
             val labelMin = a.getString(R.styleable.FeedbackRankingView_rankingLabelMin)
             val labelMax = a.getString(R.styleable.FeedbackRankingView_rankingLabelMax)
             a.recycle()

@@ -56,14 +56,15 @@ class RoomSessionsFragment :
 
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var sessionAlarm: SessionAlarm
+    @Inject lateinit var sharedRecycledViewPool: RecyclerView.RecycledViewPool
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val sessionsViewModel: RoomSessionsViewModel by lazy {
+    private val roomSessionsViewModel: RoomSessionsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(RoomSessionsViewModel::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        sessionsViewModel.onFavoriteClick(session)
+        roomSessionsViewModel.onFavoriteClick(session)
         sessionAlarm.toggleRegister(session)
     }
 
@@ -90,16 +91,16 @@ class RoomSessionsFragment :
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        sessionsViewModel.roomName = roomName
-        sessionsViewModel.sessions.observe(this, { result ->
+        roomSessionsViewModel.roomName = roomName
+        roomSessionsViewModel.sessions.observe(this, { result ->
             when (result) {
                 is Result.Success -> {
                     val sessions = result.data
                     sessionsSection.updateSessions(sessions, onFavoriteClickListener,
                             onFeedbackListener, true)
 
-                    sessionsViewModel.onShowSessions()
-                    if (sessionsViewModel.isNeedRestoreScrollState) {
+                    roomSessionsViewModel.onShowSessions()
+                    if (roomSessionsViewModel.isNeedRestoreScrollState) {
                         scrollToPreviousSession()
                     }
                 }
@@ -108,10 +109,10 @@ class RoomSessionsFragment :
                 }
             }
         })
-        sessionsViewModel.isLoading.observe(this, { isLoading ->
+        roomSessionsViewModel.isLoading.observe(this, { isLoading ->
             progressTimeLatch.loading = isLoading ?: false
         })
-        sessionsViewModel.refreshFocusCurrentSession.observe(this, {
+        roomSessionsViewModel.refreshFocusCurrentSession.observe(this, {
             if (it != true) return@observe
             scrollToCurrentSession()
         })
@@ -134,15 +135,15 @@ class RoomSessionsFragment :
     }
 
     override fun requestRestoringScrollState() {
-        if (sessionsViewModel.sessions is Result.Success<*>) {
+        if (roomSessionsViewModel.sessions is Result.Success<*>) {
             scrollToPreviousSession()
         } else {
-            sessionsViewModel.isNeedRestoreScrollState = true
+            roomSessionsViewModel.isNeedRestoreScrollState = true
         }
     }
 
     private fun scrollToPreviousSession() {
-        sessionsViewModel.isNeedRestoreScrollState = false
+        roomSessionsViewModel.isNeedRestoreScrollState = false
         val layoutManager = binding.sessionsRecycler.layoutManager as LinearLayoutManager
         layoutManager.restoreScrollState(PreviousSessionPrefs.scrollState)
         PreviousSessionPrefs.initPreviousSessionPrefs()
@@ -175,6 +176,8 @@ class RoomSessionsFragment :
                     })
             setLinearDivider(R.drawable.shape_divider_vertical_12dp,
                     layoutManager as LinearLayoutManager)
+            recycledViewPool = sharedRecycledViewPool
+            (layoutManager as LinearLayoutManager).recycleChildrenOnDetach = true
         }
     }
 

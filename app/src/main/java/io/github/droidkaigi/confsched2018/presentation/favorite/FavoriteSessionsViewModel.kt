@@ -20,13 +20,17 @@ class FavoriteSessionsViewModel @Inject constructor(
         private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val shownSessionIds = mutableSetOf<String>()
 
     val sessions: LiveData<Result<List<Session.SpeechSession>>> by lazy {
         repository.sessions
                 .map {
                     it
                             .filterIsInstance<Session.SpeechSession>()
-                            .filter { it.isFavorited }
+                            .filter { it.isFavorited || shownSessionIds.contains(it.id) }
+                }
+                .doOnNext {
+                    shownSessionIds.addAll(it.map { it.id })
                 }
                 .toResult(schedulerProvider)
                 .toLiveData()
@@ -42,5 +46,6 @@ class FavoriteSessionsViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
+        shownSessionIds.clear()
     }
 }

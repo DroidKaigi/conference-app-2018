@@ -94,10 +94,15 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        fragmentManager
-                .beginTransaction()
-                .replace(containerId, fragment, (fragment as? Findable)?.tagForFinding)
-                .commitAllowingStateLoss()
+        val transaction = fragmentManager
+            .beginTransaction()
+            .replace(containerId, fragment, (fragment as? Findable)?.tagForFinding)
+
+        if (fragmentManager.isStateSaved) {
+            transaction.commitAllowingStateLoss()
+        } else {
+            transaction.commit()
+        }
     }
 
     fun navigateToContributor() {

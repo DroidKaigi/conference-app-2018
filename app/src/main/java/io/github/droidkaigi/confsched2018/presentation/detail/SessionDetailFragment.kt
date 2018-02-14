@@ -99,7 +99,11 @@ class SessionDetailFragment : DaggerFragment() {
     }
 
     private fun updateDrawable() {
-        val img = if (binding.fab.isActivated) R.drawable.ic_anim_favorite_unchecking else R.drawable.ic_anim_favorite_checking
+        val img = if (binding.fab.isActivated) {
+            R.drawable.ic_anim_favorite_unchecking
+        } else {
+            R.drawable.ic_anim_favorite_checking
+        }
         binding.fab.setImageResource(img)
         (binding.fab.drawable as? Animatable)?.start()
     }

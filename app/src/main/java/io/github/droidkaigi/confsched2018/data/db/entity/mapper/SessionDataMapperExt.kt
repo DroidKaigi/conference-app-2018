@@ -12,11 +12,11 @@ import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.model.SessionFeedback
-import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.SessionMessage
+import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
-import io.github.droidkaigi.confsched2018.util.ext.toUnixMills
+import io.github.droidkaigi.confsched2018.util.ext.atJST
 import io.reactivex.Flowable
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
@@ -38,9 +38,10 @@ fun SessionWithSpeakers.toSession(
     return Session.SpeechSession(
             id = sessionEntity.id,
             // dayNumber is starts with 1. Example: First day = 1, Second day = 2. So I plus 1 to period days
-            dayNumber = Period.between(firstDay, sessionEntity.stime.toLocalDate()).days + 1,
-            startTime = Date(sessionEntity.stime.toUnixMills()),
-            endTime = Date(sessionEntity.etime.toUnixMills()),
+            dayNumber = Period.between(
+                    firstDay, sessionEntity.stime.atJST().toLocalDate()).days + 1,
+            startTime = Date(sessionEntity.stime.toEpochMilli()),
+            endTime = Date(sessionEntity.etime.toEpochMilli()),
             title = sessionEntity.title,
             desc = sessionEntity.desc,
             room = Room(sessionEntity.room.id, sessionEntity.room.name),

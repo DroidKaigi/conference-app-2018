@@ -4,7 +4,6 @@ import io.github.droidkaigi.confsched2018.data.api.response.SponsorPlan
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SponsorPlanEntity
 
-
 fun List<SponsorPlan>.toSponsorsEntities(): List<SponsorEntity> =
         map { plan ->
             plan.groups.mapIndexed { index, group ->
