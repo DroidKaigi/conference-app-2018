@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2018
 import io.github.droidkaigi.confsched2018.data.db.entity.LevelEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
@@ -12,7 +11,6 @@ import io.github.droidkaigi.confsched2018.model.Level.Companion.BEGINNER
 import io.github.droidkaigi.confsched2018.model.Level.Companion.NICHE
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.ext.atJST
@@ -23,12 +21,6 @@ const val DUMMY_SESSION_ID1 = "111111"
 const val DUMMY_SESSION_ID2 = "222222"
 const val DUMMY_SESSION_TITLE1 = "DroidKaigi"
 const val DUMMY_SESSION_TITLE2 = "RejectKaigi"
-
-fun createDummySessions(): List<Session> =
-        listOf(
-                createDummySession(DUMMY_SESSION_ID1, DUMMY_SESSION_TITLE1),
-                createDummySession(DUMMY_SESSION_ID2, DUMMY_SESSION_TITLE2)
-        )
 
 fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
                        title: String = DUMMY_SESSION_TITLE1,
@@ -51,46 +43,8 @@ fun createDummySession(sessionId: String = DUMMY_SESSION_ID1,
             createDummySpeaker(),
             createDummySpeaker()
     ),
-            feedback = createDummySessionFeedback(),
             message = null
     )
-}
-
-fun createDummySessionFeedbackEntities(): List<SessionFeedbackEntity> {
-    return listOf(
-            SessionFeedbackEntity(
-                    sessionId = DUMMY_SESSION_ID1,
-                    totalEvaluation = 1,
-                    relevancy = 1,
-                    asExpected = 1,
-                    difficulty = 1,
-                    knowledgeable = 1,
-                    comment = "comment",
-                    submitted = false),
-            SessionFeedbackEntity(
-                    sessionId = DUMMY_SESSION_ID2,
-                    totalEvaluation = 3,
-                    relevancy = 3,
-                    asExpected = 3,
-                    difficulty = 3,
-                    knowledgeable = 3,
-                    comment = "comment",
-                    submitted = false)
-    )
-
-}
-
-fun createDummySessionFeedback(sessionId: String = DUMMY_SESSION_ID1): SessionFeedback {
-    return SessionFeedback(
-            sessionId = sessionId,
-            totalEvaluation = 1,
-            relevancy = 1,
-            asExpected = 1,
-            difficulty = 1,
-            knowledgeable = 1,
-            comment = "comment",
-            submitted = false)
-
 }
 
 fun createDummySpecialSession(dayNumber: Int = 1,

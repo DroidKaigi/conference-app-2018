@@ -11,8 +11,7 @@ class DateSessionsSection : Section() {
             sessions: List<Session>,
             onFavoriteClickListener: (Session.SpeechSession) -> Unit,
             onFeedbackListener: (Session.SpeechSession) -> Unit,
-            isShowDayNumber: Boolean = false,
-            simplify: Boolean = false
+            isShowDayNumber: Boolean = false
     ) {
         val sessionItems = sessions.map {
             when (it) {

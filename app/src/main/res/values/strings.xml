@@ -13,12 +13,6 @@
 
     <!-- NavigationDrawer -->
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_map">Access</string>
-    <string name="nav_item_sponsor">Sponsor</string>
-    <string name="nav_item_info">About this app</string>
-    <string name="nav_item_setting">Settings</string>
-    <string name="nav_item_contributor">@string/contributors</string>
-    <string name="nav_item_staff">@string/staff</string>
     <string name="nav_item_all_feedback">Conference feedback</string>
     <string name="nav_content_description_drawer_open">Open navigation drawer</string>
     <string name="nav_content_description_drawer_close">Close navigation drawer</string>
@@ -42,153 +36,11 @@
     <string name="session_menu_tab_mode_schedule">Change to Room-based views</string>
     <string name="session_current_badge" translatable="false">NOW!</string>
 
-    <!-- Session detail -->
-    <string name="detail_sessions_next">Next</string>
-    <string name="detail_sessions_content_description_prev">Previous</string>
-    <string name="detail_sessions_content_description_next">Next</string>
-
-    <!-- Search-->
-    <string name="search_title">Search</string>
-    <string name="search_before_tab_session">Session</string>
-    <string name="search_before_tab_topic">Topic</string>
-    <string name="search_before_tab_speaker">Speaker</string>
-
-    <!-- Favorite -->
-    <string name="favorite_title">My Session</string>
-    <string name="favorite_not_found">My session does not exist</string>
-    <string name="favorite_not_found_detail">Add a fun session\nLet\'s make a schedule for the day</string>
-    <string name="favorite_content_description_not_found">My session does not exist image</string>
-
-    <!-- Feed -->
-    <string name="feed_title">Information</string>
-    <string name="feed_content_description_expand_button">Expand button</string>
-    <string name="feed_content_description_feed_icon">Feed Icon</string>
-    <string name="feed_not_found">Feed does not exist</string>
-    <string name="feed_content_description_not_found">Feed does not exist image</string>
-
-    <!-- Map -->
-    <string name="map_title_activity">Access</string>
-    <string name="map_place_name">Bellesalle Shinjuku Grand Conference Center</string>
-    <string name="map_meeting_rooms_name">DroidKaigi 2018 Place</string>
-    <string name="map_address">Sumitomo Fudosan Shinjuku Grand Tower 1F, 5F 8-17-1 Nishi Shinjuku,
-        Shinjuku City, Tokyo 160-0023</string>
-    <string name="map_nearby_stations">Marunouchi subway line: 3 minutes walk from Nishi Shinjuku Station Gate No.1\nToei Oedo subway line: 7 minutes walk from Tochomae Station Gate E4\nToei Oedo subway line: 11 minutes walk from Shinjuku-Nishiguchi Station Gate D4\nJR lines, Marunouchi/Toei Shinjuku/Toei Oedo subway line, Odakyu line, Keio line: 15 minutes walk from Shinjuku Station West Gate</string>
-    <string name="map_content_description_place_icon">Place icon</string>
-    <string name="map_content_description_train_icon">Train icon</string>
-
-    <!-- Sponsor -->
-    <string name="sponsors_title_activity">Sponsor</string>
-    <string name="sponsors_logo_content_description">Sponsor logo image</string>
-    <string name="sponsors_fetch_failed">Failed to fetch sponsors</string>
-    <string name="sponsors_load_retry">Retry</string>
-
-    <!-- About This App -->
-    <string name="about_title_activity">About this app</string>
-
-    <!-- Settings -->
-    <string name="settings_title_activity">Settings</string>
-    <string name="settings_enable_local_time_title_preference">Use local time</string>
-    <string name="settings_enable_local_time_summary_preference">Use your local time
-        instead of the conference\'s local time.</string>
-    <string name="settings_enable_notification_summary_preference">Choose whether to receive
-        notification in this app.</string>
-    <string name="settings_enable_notification_title_preference">Receive notification</string>
-    <string name="settings_enable_hide_bottom_navigation_title_preference">Hide BottomNavigation</string>
-    <string name="settings_enable_hide_bottom_navigation_summary_preference">Hide
-        BottomNavigationBar by scrolling or not.</string>
-    <string name="settings_enable_reopen_previous_room_sessions_title_preference">Reopen previous
-        room sessions</string>
-    <string name="settings_enable_reopen_previous_room_sessions_summary_preference">Save the
-        room-tab and the sessions when closed.</string>
-
-    <!-- Speaker -->
-    <string name="speaker_title_activity_detail">Speaker</string>
-    <string name="speaker_content_description">Speaker image</string>
-    <string name="speaker_sns_empty_message">Speaker has not set SNS Link..</string>
-    <string name="speaker_dialog_content_description_twitter" translatable="false">Twitter Link Button</string>
-    <string name="speaker_dialog_content_description_github" translatable="false"> Link Button</string>
-    <string name="speaker_dialog_content_description_company" translatable="false">Company Link Button</string>
-    <string name="speaker_dialog_content_description_blog" translatable="false">Blog Link Button</string>
-    <string name="speaker_dialog_text_twitter" translatable="false">Twitter</string>
-    <string name="speaker_dialog_text_github" translatable="false">Github</string>
-    <string name="speaker_dialog_text_company" translatable="false">Company</string>
-    <string name="speaker_dialog_text_blog" translatable="false">Blog</string>
-
-    <!-- Topic -->
-    <plurals name="topic_total_session">
-        <item quantity="zero">%d session</item>
-        <item quantity="one">%d session</item>
-        <item quantity="other">%d sessions</item>
-    </plurals>
-
-    <!-- Contributors -->
-    <string name="contributors">Contributors</string>
-    <string name="contributors_avatar">contributors avatar</string>
-    <plurals name="contributors_header">
-        <item quantity="one">%d Contributor</item>
-        <item quantity="other">%d Contributors</item>
-    </plurals>
-
-    <!-- Staff -->
-    <string name="staff">Staff</string>
-    <string name="staff_avatar">staff avatar</string>
-    <plurals name="staff_header">
-        <item quantity="one">%d Staff</item>
-        <item quantity="other">%d Staffs</item>
-    </plurals>
-
     <!-- Notification -->
     <string name="notification_title">%1$s will start soon</string>
     <string name="notification_message">%1$s ~ %2$s @ %3$s</string>
     <string name="notification_channel_name_start_favorite_session">start favorite session</string>
     <string name="notification_channel_name_new_feed_post">New announcement</string>
 
-    <!-- AboutThisApp -->
-    <!-- TODO check if these English are all natural to international ppl. -->
-    <string name="about_official_head_title">What is "DroidKaigi"?</string>
-    <string name="about_official_head_description">DroidKaigi is the conference where
-        Engineers can share and communicate about Android.</string>
-    <string name="about_official_site_title">DroidKaigi2018 Homepage</string>
-    <string name="about_official_site_description">This is DroidKaigi2018 Official Site</string>
-    <string name="about_licenses_title">Licenses</string>
-    <string name="about_licenses_description">This app introduces many wonderful libraries.</string>
-    <string name="about_sponsors_title">Sponsors</string>
-    <string name="about_sponsors_description">DroidKaigi is supported by many sponsors.</string>
-    <string name="about_contributors_title">Contributors</string>
-    <string name="about_contributors_description">Those who contribute to creation.</string>
-    <string name="about_version_title">Version</string>
-    <string name="about_version_description">%1$s</string>
-    <string name="about_what_is_prefix" translatable="false">What is \" </string>
-    <string name="about_what_is_suffix" translatable="false"> \" ?</string>
-    <string name="about_content_description_conference_name">DroidKaigi Logo</string>
-    <string name="about_content_description_facebook">facebook link button</string>
-    <string name="about_content_description_twitter">twitter link button</string>
-    <string name="about_content_description_github">github link button</string>
-    <string name="about_content_description_youtube">youtube link button</string>
-    <string name="about_content_description_medium">medium link button</string>
 
-    <!-- Session Feedback -->
-    <string name="session_feedback_total_evaluation">How was the session? (Overall Rating)</string>
-    <string name="session_feedback_total_evaluation_min">bored</string>
-    <string name="session_feedback_total_evaluation_max">Awesome</string>
-    <string name="session_feedback_relevancy">How relevant was this session to your projects?</string>
-    <string name="session_feedback_relevancy_min">Not at all</string>
-    <string name="session_feedback_relevancy_max">Extremely</string>
-    <string name="session_feedback_as_expected">Based on the description, was the content as expected?</string>
-    <string name="session_feedback_as_expected_min">Below</string>
-    <string name="session_feedback_as_expected_max">Beyond</string>
-    <string name="session_feedback_difficulty">Was this session easy to understand?</string>
-    <string name="session_feedback_difficulty_min">Easy</string>
-    <string name="session_feedback_difficulty_max">Hard</string>
-    <string name="session_feedback_knowledgeable">How knowledgeable was the content?</string>
-    <string name="session_feedback_knowledgeable_min">Poor</string>
-    <string name="session_feedback_knowledgeable_max">Outstanding</string>
-    <string name="session_feedback_comment">Anything else we should know? (Please don\'t add any personal information in your comments)</string>
-    <string name="session_feedback_comment_hint">Other session feedback?</string>
-    <string name="session_feedback_confirm">Are you sure to send it?</string>
-    <string name="session_feedback_not_fillout">There are unfilled items</string>
-    <string name="submit_feedback">Submit feedback</string>
-    <string name="submit_success">Submit succeeded</string>
-    <string name="submit_failure">Submit failed</string>
-    <string name="submitted">Submitted</string>
 </resources>

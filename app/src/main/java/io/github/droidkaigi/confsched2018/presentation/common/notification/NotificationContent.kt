@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.TaskStackBuilder
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
-import io.github.droidkaigi.confsched2018.presentation.detail.SessionDetailActivity
 
 sealed class NotificationContent(
         open val title: String,
@@ -29,7 +28,6 @@ sealed class NotificationContent(
             return TaskStackBuilder
                     .create(context)
                     .addNextIntent(MainActivity.createIntent(context))
-                    .addNextIntent(SessionDetailActivity.createIntent(context, sessionId))
                     .getPendingIntent(
                             sessionId.hashCode(),
                             PendingIntent.FLAG_UPDATE_CURRENT

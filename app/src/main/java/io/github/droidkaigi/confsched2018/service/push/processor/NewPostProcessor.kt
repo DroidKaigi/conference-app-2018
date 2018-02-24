@@ -5,7 +5,6 @@ import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import com.google.firebase.messaging.RemoteMessage
@@ -31,12 +30,6 @@ class NewPostProcessor @Inject constructor(
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                 // TODO open with announce fragment in front?
                 PendingIntent.FLAG_UPDATE_CURRENT)
-        val largeIcon = when (type) {
-            "tutorial" -> R.drawable.ic_feed_tutorial_pink_20dp
-            "alert" -> R.drawable.ic_feed_alert_amber_20dp
-            "enquete" -> R.drawable.ic_feed_feedback_cyan_20dp
-            else -> R.drawable.ic_feed_notification_blue_20dp
-        }
         val priority = when (type) {
             "notification" -> NotificationCompat.PRIORITY_HIGH
             "alert" -> NotificationCompat.PRIORITY_HIGH
@@ -50,8 +43,6 @@ class NewPostProcessor @Inject constructor(
                                 .bigText(content)
                 )
                 .setAutoCancel(true)
-                .setLargeIcon((ContextCompat.getDrawable(application, largeIcon) as BitmapDrawable)
-                        .bitmap)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setPriority(priority)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)

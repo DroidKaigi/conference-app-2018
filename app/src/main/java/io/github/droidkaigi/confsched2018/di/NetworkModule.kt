@@ -4,10 +4,6 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.github.droidkaigi.confsched2018.data.api.DroidKaigiApi
-import io.github.droidkaigi.confsched2018.data.api.FeedApi
-import io.github.droidkaigi.confsched2018.data.api.FeedFirestoreApi
-import io.github.droidkaigi.confsched2018.data.api.GithubApi
-import io.github.droidkaigi.confsched2018.data.api.SessionFeedbackApi
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.ApplicationJsonAdapterFactory
 import io.github.droidkaigi.confsched2018.data.api.response.mapper.InstantAdapter
 import okhttp3.Interceptor
@@ -79,18 +75,5 @@ open class NetworkModule {
     @Singleton @Provides
     open fun provideDroidKaigiApi(@RetrofitDroidKaigi retrofit: Retrofit): DroidKaigiApi {
         return retrofit.create(DroidKaigiApi::class.java)
-    }
-
-    @Singleton @Provides
-    fun provideFeedApi(): FeedApi = FeedFirestoreApi()
-
-    @Singleton @Provides
-    fun provideSessionFeedbackApi(@RetrofitGoogleForm retrofit: Retrofit): SessionFeedbackApi {
-        return retrofit.create(SessionFeedbackApi::class.java)
-    }
-
-    @Singleton @Provides
-    fun provideGithubApi(@RetrofitGithub retrofit: Retrofit): GithubApi {
-        return retrofit.create(GithubApi::class.java)
     }
 }

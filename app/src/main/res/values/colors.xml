@@ -20,12 +20,6 @@
     <color name="divider_background">#eaeaea</color>
     <color name="recents_background">#B88E0F</color>
 
-    <color name="sponsor_platinum">#f5f8fa</color>
-    <color name="sponsor_gold">#fff8e1</color>
-    <color name="sponsor_silver">#fafafa</color>
-    <color name="sponsor_supporter">#ffffff</color>
-    <color name="sponsor_technical_for_network">#ffffff</color>
-
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="item_header_background">#f5f5f5</color>

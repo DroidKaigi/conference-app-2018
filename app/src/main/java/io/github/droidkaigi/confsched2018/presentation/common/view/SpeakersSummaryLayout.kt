@@ -2,9 +2,8 @@ package io.github.droidkaigi.confsched2018.presentation.common.view
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.support.v4.util.Pair
-import android.support.v7.app.AppCompatActivity
 import android.graphics.Color
+import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -14,7 +13,6 @@ import android.view.View
 import android.widget.LinearLayout
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.model.Speaker
-import io.github.droidkaigi.confsched2018.presentation.speaker.SpeakerDetailActivity
 
 /**
  * A custom view for showing the avatar icons and names of speakers.
@@ -100,10 +98,7 @@ class SpeakersSummaryLayout @JvmOverloads constructor(
                 val sharedElement = Pair(
                         view.findViewById<View>(R.id.speaker_image),
                         speakerId)
-                SpeakerDetailActivity.start(
-                        activity = context as AppCompatActivity,
-                        sharedElement = sharedElement,
-                        speakerId = speakerId)
+                // TODO: GOTO SpeakerDetail
             }
         }
     }

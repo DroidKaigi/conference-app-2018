@@ -24,9 +24,5 @@ fun Date.toReadableTimeString() =
         }
 
 private fun timeZone(): TimeZone {
-    return if (Prefs.enableLocalTime) {
-        TimeZone.getDefault()
-    } else {
-        TimeZone.getTimeZone("Asia/Tokyo")
-    }
+    return TimeZone.getDefault()
 }

@@ -10,51 +10,9 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/nav_item_home"
             />
-        <item
-            android:id="@+id/nav_item_info"
-            android:icon="@drawable/ic_information_black_24dp"
-            android:title="@string/nav_item_info"
-            />
-        <item
-            android:id="@+id/nav_item_map"
-            android:icon="@drawable/ic_access_black_24dp"
-            android:title="@string/nav_item_map"
-            />
-
     </group>
     <group
         android:id="@+id/menu_group_2"
-        android:checkableBehavior="single"
-        >
-        <item
-            android:id="@+id/nav_item_sponsor"
-            android:icon="@drawable/ic_sponsor_black_24dp"
-            android:title="@string/nav_item_sponsor"
-            />
-        <item
-            android:id="@+id/nav_item_contributor"
-            android:icon="@drawable/ic_contributor_black_24dp"
-            android:title="@string/nav_item_contributor"
-            />
-        <!-- TODO: Replace contributor icon with staff icon -->
-        <item
-            android:id="@+id/nav_item_staff"
-            android:icon="@drawable/ic_contributor_black_24dp"
-            android:title="@string/nav_item_staff"
-            />
-    </group>
-    <group
-        android:id="@+id/menu_group_3"
-        android:checkableBehavior="single"
-        >
-        <item
-            android:id="@+id/nav_item_setting"
-            android:icon="@drawable/ic_setting_black_24dp"
-            android:title="@string/nav_item_setting"
-            />
-    </group>
-    <group
-        android:id="@+id/menu_group_4"
         android:checkableBehavior="single"
         >
         <item

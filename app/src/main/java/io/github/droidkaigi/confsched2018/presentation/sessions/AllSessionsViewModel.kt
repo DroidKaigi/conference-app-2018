@@ -1,7 +1,10 @@
 package io.github.droidkaigi.confsched2018.presentation.sessions
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.OnLifecycleEvent
 import android.arch.lifecycle.ViewModel
 import io.github.droidkaigi.confsched2018.data.repository.SessionRepository
 import io.github.droidkaigi.confsched2018.model.Session
@@ -20,13 +23,10 @@ import javax.inject.Inject
 class AllSessionsViewModel @Inject constructor(
         private val repository: SessionRepository,
         private val schedulerProvider: SchedulerProvider
-) : ViewModel() {
+) : ViewModel(), LifecycleObserver {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-
-    private val focusCurrentSession: MutableLiveData<Boolean> = MutableLiveData()
-    val refreshFocusCurrentSession: LiveData<Boolean> = focusCurrentSession
-
-    var isNeedRestoreScrollState: Boolean = false
+    private val mutableRefreshState: MutableLiveData<Result<Unit>> = MutableLiveData()
+    val refreshResult: LiveData<Result<Unit>> = mutableRefreshState
 
     val sessions: LiveData<Result<List<Session>>> by lazy {
         repository.sessions
@@ -45,14 +45,24 @@ class AllSessionsViewModel @Inject constructor(
                 .addTo(compositeDisposable)
     }
 
-    fun onShowSessions() {
-        refreshFocusCurrentSession()
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
+        refreshSessions()
     }
 
-    private fun refreshFocusCurrentSession() {
-        if (focusCurrentSession.value != true) {
-            focusCurrentSession.value = true
-        }
+    private fun refreshSessions() {
+        repository
+                .refreshSessions()
+                .toResult<Unit>(schedulerProvider)
+                .subscribeBy(
+                        onNext = { mutableRefreshState.postValue(it) },
+                        onError = defaultErrorHandler()
+                )
+                .addTo(compositeDisposable)
+    }
+
+    fun onRetrySessions() {
+        refreshSessions()
     }
 
     override fun onCleared() {

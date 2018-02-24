@@ -1,23 +1,17 @@
 package io.github.droidkaigi.confsched2018.data.db.entity.mapper
 
-import android.annotation.SuppressLint
-import android.support.annotation.CheckResult
 import android.support.annotation.VisibleForTesting
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.github.droidkaigi.confsched2018.model.Level
 import io.github.droidkaigi.confsched2018.model.Room
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.model.SessionFeedback
 import io.github.droidkaigi.confsched2018.model.SessionMessage
-import io.github.droidkaigi.confsched2018.model.SessionSchedule
 import io.github.droidkaigi.confsched2018.model.Speaker
 import io.github.droidkaigi.confsched2018.model.Topic
 import io.github.droidkaigi.confsched2018.util.ext.atJST
-import io.reactivex.Flowable
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
 import java.util.Date
@@ -25,7 +19,6 @@ import java.util.Date
 fun SessionWithSpeakers.toSession(
         speakerEntities: List<SpeakerEntity>,
         favList: List<Int>?,
-        feedbacks: List<SessionFeedbackEntity>,
         firstDay: LocalDate
 ): Session.SpeechSession {
     val sessionEntity = session!!
@@ -51,10 +44,6 @@ fun SessionWithSpeakers.toSession(
             level = Level.of(sessionEntity.level.id, sessionEntity.level.name),
             isFavorited = favList!!.map { it.toString() }.contains(sessionEntity.id),
             speakers = speakers,
-            feedback = feedbacks
-                    .firstOrNull { it.sessionId == sessionEntity.id }
-                    ?.toSessionFeedback()
-                    ?: SessionFeedback(sessionEntity.id, 0, 0, 0, 0, 0, "", false),
             message = if (sessionEntity.message == null) {
                 null
             } else {
@@ -62,24 +51,6 @@ fun SessionWithSpeakers.toSession(
             }
     )
 }
-
-fun Session.toSchedule(): SessionSchedule {
-    return SessionSchedule(
-            dayNumber = dayNumber,
-            startTime = startTime
-    )
-}
-
-fun SessionFeedbackEntity.toSessionFeedback(): SessionFeedback = SessionFeedback(
-        sessionId = sessionId,
-        totalEvaluation = totalEvaluation,
-        relevancy = relevancy,
-        asExpected = asExpected,
-        difficulty = difficulty,
-        knowledgeable = knowledgeable,
-        comment = comment,
-        submitted = submitted
-)
 
 fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
         id = id,
@@ -91,18 +62,6 @@ fun SpeakerEntity.toSpeaker(): Speaker = Speaker(
         blogUrl = blogUrl,
         githubUrl = githubUrl
 )
-
-@SuppressLint("VisibleForTests")
-@CheckResult
-fun Flowable<List<RoomEntity>>.toRooms(): Flowable<List<Room>> = map { roomEntities ->
-    roomEntities.toRooms()
-}
-
-@SuppressLint("VisibleForTests")
-@CheckResult
-fun Flowable<List<TopicEntity>>.toTopics(): Flowable<List<Topic>> = map { topicEntities ->
-    topicEntities.toTopics()
-}
 
 @VisibleForTesting
 fun List<RoomEntity>.toRooms() =

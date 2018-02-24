@@ -6,28 +6,7 @@
     <dimen name="session_recycler_bottom_padding">4dp</dimen>
     <dimen name="session_page_margin">16dp</dimen>
 
-    <!-- Feed -->
-    <dimen name="feed_expand_button_size">20dp</dimen>
-    <dimen name="feed_feed_icon_size">20dp</dimen>
-
-    <!-- Search -->
-    <dimen name="search_speaker_image_size">40dp</dimen>
-    <dimen name="search_result_top_margin">18dp</dimen>
-
     <!-- Elevation -->
     <dimen name="elevation_app_bar">4dp</dimen>
 
-    <!-- Contributors -->
-    <dimen name="contributor_image_size">40dp</dimen>
-
-    <!-- Staff -->
-    <dimen name="staff_image_size">@dimen/contributor_image_size</dimen>
-
-    <!-- Sticky label -->
-    <dimen name="sticky_label_padding">20dp</dimen>
-    <dimen name="sticky_label_font_size">24sp</dimen>
-    <dimen name="sticky_label_content_margin">60dp</dimen>
-
-    <!-- Speaker -->
-    <dimen name="speaker_detail_image_size">64dp</dimen>
 </resources>

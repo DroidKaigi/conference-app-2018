@@ -12,12 +12,6 @@ import android.view.View
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
 import io.github.droidkaigi.confsched2018.presentation.NavigationController
-import io.github.droidkaigi.confsched2018.presentation.about.AboutThisAppActivity
-import io.github.droidkaigi.confsched2018.presentation.contributor.ContributorsActivity
-import io.github.droidkaigi.confsched2018.presentation.map.MapActivity
-import io.github.droidkaigi.confsched2018.presentation.settings.SettingsActivity
-import io.github.droidkaigi.confsched2018.presentation.sponsors.SponsorsActivity
-import io.github.droidkaigi.confsched2018.presentation.staff.StaffActivity
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -60,8 +54,8 @@ class DrawerMenu @Inject constructor(
         navigationView.setNavigationItemSelectedListener { item ->
             DrawerNavigationItem
                     .values()
-                    .first { it.menuId == item.itemId }
-                    .apply {
+                    .firstOrNull { it.menuId == item.itemId }
+                    ?.apply {
                         if (this != currentNavigationItem) {
                             navigate(navigationController)
                         }
@@ -95,24 +89,6 @@ class DrawerMenu @Inject constructor(
     ) {
         HOME(R.id.nav_item_home, MainActivity::class, {
             navigateToMainActivity()
-        }),
-        ABOUT(R.id.nav_item_info, AboutThisAppActivity::class, {
-            navigateToAboutThisAppActivity()
-        }),
-        MAP(R.id.nav_item_map, MapActivity::class, {
-            navigateToMapActivity()
-        }),
-        SPONSOR(R.id.nav_item_sponsor, SponsorsActivity::class, {
-            navigateToSponsorsActivity()
-        }),
-        CONTRIBUTOR(R.id.nav_item_contributor, ContributorsActivity::class, {
-            navigateToContributorActivity()
-        }),
-        STAFF(R.id.nav_item_staff, StaffActivity::class, {
-            navigateToStaffActivity()
-        }),
-        SETTINGS(R.id.nav_item_setting, SettingsActivity::class, {
-            navigateToSettingsActivity()
         }),
         FEEDBACK(R.id.nav_item_all_feedback, Unit::class, {
             navigateToExternalBrowser("https://goo.gl/forms/Hjp54vk5P0VILcgf1")

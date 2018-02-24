@@ -9,11 +9,9 @@ import io.github.droidkaigi.confsched2018.data.db.entity.LevelEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.MessageEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.RoomEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionEntity
-import io.github.droidkaigi.confsched2018.data.db.entity.SessionFeedbackEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SessionSpeakerJoinEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
-import io.github.droidkaigi.confsched2018.model.SessionFeedback
 
 fun List<Session>?.toSessionSpeakerJoinEntities(): List<SessionSpeakerJoinEntity> {
     val sessionSpeakerJoinEntity: MutableList<SessionSpeakerJoinEntity> = arrayListOf()
@@ -24,19 +22,6 @@ fun List<Session>?.toSessionSpeakerJoinEntities(): List<SessionSpeakerJoinEntity
         }
     }
     return sessionSpeakerJoinEntity
-}
-
-fun SessionFeedback.toSessionFeedbackEntity(): SessionFeedbackEntity {
-    return SessionFeedbackEntity(
-            sessionId = sessionId,
-            totalEvaluation = totalEvaluation,
-            relevancy = relevancy,
-            asExpected = asExpected,
-            difficulty = difficulty,
-            knowledgeable = knowledgeable,
-            comment = comment,
-            submitted = submitted
-    )
 }
 
 fun List<Session>?.toSessionEntities(
