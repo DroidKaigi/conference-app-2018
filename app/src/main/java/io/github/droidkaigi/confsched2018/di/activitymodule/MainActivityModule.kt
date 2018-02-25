@@ -8,9 +8,8 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import io.github.droidkaigi.confsched2018.di.ViewModelKey
 import io.github.droidkaigi.confsched2018.presentation.MainActivity
-import io.github.droidkaigi.confsched2018.presentation.MainViewModel
 import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsFragment
-import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewModel
+import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsStore
 
 @Module interface MainActivityModule {
     @Binds fun providesAppCompatActivity(mainActivity: MainActivity): AppCompatActivity
@@ -18,14 +17,8 @@ import io.github.droidkaigi.confsched2018.presentation.sessions.AllSessionsViewM
     @ContributesAndroidInjector fun contributeAllSessionsFragment(): AllSessionsFragment
 
     @Binds @IntoMap
-    @ViewModelKey(AllSessionsViewModel::class)
-    fun bindAllSessionsViewModel(
-            allSessionsViewModel: AllSessionsViewModel
-    ): ViewModel
-
-    @Binds @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    fun bindMainViewModel(
-            mainViewModel: MainViewModel
+    @ViewModelKey(AllSessionsStore::class)
+    fun bindAllSessionsStore(
+            allSessionsStore: AllSessionsStore
     ): ViewModel
 }

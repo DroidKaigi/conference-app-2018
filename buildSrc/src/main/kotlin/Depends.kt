@@ -57,6 +57,8 @@ object Depends {
         val compiler = "com.android.databinding:compiler:3.0.1"
     }
 
+    val rxrelay = "com.jakewharton.rxrelay2:rxrelay:2.0.0"
+
     object Dagger {
         val core = "com.google.dagger:dagger:${Versions.dagger}"
         val compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
@@ -113,7 +115,8 @@ object Depends {
     }
 
     val junit = "junit:junit:4.12"
-    val mockitoKotlin = "com.nhaarman:mockito-kotlin:1.5.0"
+    val mockito = "org.mockito:mockito-core:2.15.0"
+    val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-alpha03"
 
     object Robolectric {
         val core = "org.robolectric:robolectric:${Versions.robolectric}"

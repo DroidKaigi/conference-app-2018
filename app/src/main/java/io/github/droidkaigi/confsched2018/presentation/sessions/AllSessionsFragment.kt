@@ -17,8 +17,8 @@ import com.xwray.groupie.ViewHolder
 import dagger.android.support.DaggerFragment
 import io.github.droidkaigi.confsched2018.R
 import io.github.droidkaigi.confsched2018.databinding.FragmentAllSessionsBinding
+import io.github.droidkaigi.confsched2018.model.LoadState
 import io.github.droidkaigi.confsched2018.model.Session
-import io.github.droidkaigi.confsched2018.presentation.Result
 import io.github.droidkaigi.confsched2018.presentation.common.view.OnTabReselectedListener
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.DateSessionsSection
 import io.github.droidkaigi.confsched2018.presentation.sessions.item.SpeechSessionItem
@@ -27,6 +27,7 @@ import io.github.droidkaigi.confsched2018.util.SessionAlarm
 import io.github.droidkaigi.confsched2018.util.ext.addOnScrollListener
 import io.github.droidkaigi.confsched2018.util.ext.isGone
 import io.github.droidkaigi.confsched2018.util.ext.observe
+import io.github.droidkaigi.confsched2018.util.ext.observeNonNull
 import io.github.droidkaigi.confsched2018.util.ext.setLinearDivider
 import io.github.droidkaigi.confsched2018.util.ext.setTextIfChanged
 import io.github.droidkaigi.confsched2018.util.ext.setVisible
@@ -43,13 +44,15 @@ class AllSessionsFragment
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var sessionAlarm: SessionAlarm
     @Inject lateinit var sharedRecycledViewPool: RecyclerView.RecycledViewPool
+    @Inject lateinit var allSessionsActionCreator: AllSessionsActionCreator
 
-    private val allSessionsViewModel: AllSessionsViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(AllSessionsViewModel::class.java)
+    @Inject lateinit var sessionsStore: SessionsStore
+    private val allSessionsStore: AllSessionsStore by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(AllSessionsStore::class.java)
     }
 
     private val onFavoriteClickListener = { session: Session.SpeechSession ->
-        allSessionsViewModel.onFavoriteClick(session)
+        allSessionsActionCreator.favorite(session)
         sessionAlarm.toggleRegister(session)
     }
 
@@ -71,36 +74,28 @@ class AllSessionsFragment
         val progressTimeLatch = ProgressTimeLatch {
             binding.progress.visibility = if (it) View.VISIBLE else View.GONE
         }
-        allSessionsViewModel.sessions.observe(this, { result ->
-            when (result) {
-                is Result.Success -> {
-                    val sessions = result.data
-                    sessionsSection.updateSessions(sessions, onFavoriteClickListener,
-                            onFeedbackListener, true)
-                }
-                is Result.Failure -> {
-                    Timber.e(result.e)
-                }
-            }
+        sessionsStore.sessions.observeNonNull(this, { sessions ->
+            sessionsSection.updateSessions(sessions, onFavoriteClickListener,
+                    onFeedbackListener, true)
+
         })
-        allSessionsViewModel.isLoading.observe(this, { isLoading ->
-            progressTimeLatch.loading = isLoading ?: false
+        sessionsStore.loadingState.observe(this, { state ->
+            progressTimeLatch.loading = state is LoadState.Loading
         })
-        allSessionsViewModel.refreshResult.observe(this, { result ->
-            when (result) {
-                is Result.Failure -> {
-                    // If user is offline, not error. So we write log to debug
-                    Timber.d(result.e)
-                    val view = view ?: return@observe
-                    Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_LONG).apply {
-                        setAction(R.string.session_load_retry) {
-                            allSessionsViewModel.onRetrySessions()
-                        }
-                    }.show()
+        allSessionsStore.refreshLoadState.observe(this, { loadState ->
+            val errorLoadState = loadState as? LoadState.Error ?: return@observe
+            val e = errorLoadState.e
+
+            // If user is offline, not error. So we write log to debug
+            Timber.d(e)
+            val view = view ?: return@observe
+            Snackbar.make(view, R.string.session_fetch_failed, Snackbar.LENGTH_LONG).apply {
+                setAction(R.string.session_load_retry) {
+                    allSessionsActionCreator.refreshSessions()
                 }
-            }
+            }.show()
         })
-        lifecycle.addObserver(allSessionsViewModel)
+        allSessionsActionCreator.refreshSessions()
     }
 
     override fun onTabReselected() {

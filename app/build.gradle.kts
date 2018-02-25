@@ -154,6 +154,7 @@ dependencies {
     implementation(Depends.RxJava2.android)
     implementation(Depends.RxJava2.kotlin)
     implementation(Depends.rxbroadcast)
+    implementation(Depends.rxrelay)
 
     kapt(Depends.Binding.compiler)
 
@@ -204,6 +205,7 @@ dependencies {
 
 //==================== Test ====================
     testImplementation(Depends.junit)
+    testImplementation(Depends.mockito)
     testImplementation(Depends.mockitoKotlin)
 
     testImplementation(Depends.Robolectric.core)
