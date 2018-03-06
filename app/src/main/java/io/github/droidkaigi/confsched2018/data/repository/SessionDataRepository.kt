@@ -14,7 +14,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
 import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -62,9 +62,9 @@ class SessionDataRepository @Inject constructor(
     @CheckResult override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 
-    @CheckResult override suspend fun refreshSessions() = async(CommonPool) {
-        val response = api.getSessions()
-        sessionDatabase.save(response.await())
+    @CheckResult override suspend fun refreshSessions() = withContext(CommonPool) {
+        val response = api.getSessions().await()
+        sessionDatabase.save(response)
     }
 
     companion object {

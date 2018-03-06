@@ -21,7 +21,7 @@ class AllSessionsActionCreator @Inject constructor(
         launch(UI) {
             try {
                 dispatcher.send(SessionRefreshLoadStateChangeAction(LoadState.Loading))
-                repository.refreshSessions().await()
+                repository.refreshSessions()
                 dispatcher.send(SessionRefreshLoadStateChangeAction(LoadState.Finished))
             } catch (e: Exception) {
                 dispatcher.send(
