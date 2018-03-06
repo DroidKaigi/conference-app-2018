@@ -79,10 +79,9 @@ class AllSessionsFragment
                     onFeedbackListener, true)
 
         })
-        sessionsStore.loadingState.observe(this, { state ->
-            progressTimeLatch.loading = state is LoadState.Loading
-        })
+
         allSessionsStore.refreshLoadState.observe(this, { loadState ->
+            progressTimeLatch.loading = loadState is LoadState.Loading
             val errorLoadState = loadState as? LoadState.Error ?: return@observe
             val e = errorLoadState.e
 

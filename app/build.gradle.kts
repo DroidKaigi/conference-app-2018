@@ -8,6 +8,7 @@ import org.gradle.kotlin.dsl.kotlin
 import org.gradle.kotlin.dsl.repositories
 import org.gradle.kotlin.dsl.version
 import org.gradle.kotlin.dsl.*
+import org.jetbrains.kotlin.gradle.dsl.Coroutines.*
 import org.jlleitschuh.gradle.ktlint.ReporterType
 
 plugins {
@@ -138,6 +139,7 @@ dependencies {
     implementation(Depends.Retrofit.core)
     implementation(Depends.Retrofit.converterMoshi)
     implementation(Depends.Retrofit.adapterRxJava2)
+    implementation(Depends.Retrofit.adapterCoroutine)
 
 //==================== Structure ====================
     implementation(Depends.Kotshi.api)
@@ -149,6 +151,9 @@ dependencies {
     implementation(Depends.Room.runtime)
     implementation(Depends.Room.rxjava2)
     kapt(Depends.Room.compiler)
+
+    implementation(Depends.Coroutine.core)
+    implementation(Depends.Coroutine.android)
 
     implementation(Depends.RxJava2.core)
     implementation(Depends.RxJava2.android)
@@ -254,4 +259,8 @@ deploygate {
             releaseNote = "https://github.com/DroidKaigi/conference-app-2018/tree/$hash ${System.getenv("CIRCLE_BUILD_URL")}"
         }
     }
+}
+
+kotlin {
+    experimental.coroutines = ENABLE
 }

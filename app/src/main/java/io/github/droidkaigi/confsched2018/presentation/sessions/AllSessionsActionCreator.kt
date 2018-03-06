@@ -8,6 +8,8 @@ import io.github.droidkaigi.confsched2018.presentation.dispacher.Dispatcher
 import io.github.droidkaigi.confsched2018.util.defaultErrorHandler
 import io.reactivex.Single
 import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 class AllSessionsActionCreator @Inject constructor(
@@ -16,25 +18,17 @@ class AllSessionsActionCreator @Inject constructor(
 ) {
 
     fun refreshSessions() {
-        repository
-                .refreshSessions()
-                .doOnSubscribe {
-                    dispatcher.send(
-                            SessionRefreshLoadStateChangeAction(LoadState.Initialized)
-                    )
-                }
-                .subscribeBy(
-                        onComplete = {
-                            dispatcher.send(
-                                    SessionRefreshLoadStateChangeAction(LoadState.Finished)
-                            )
-                        },
-                        onError = {
-                            dispatcher.send(
-                                    SessionRefreshLoadStateChangeAction(LoadState.Error(it))
-                            )
-                        }
+        launch(UI) {
+            try {
+                dispatcher.send(SessionRefreshLoadStateChangeAction(LoadState.Loading))
+                repository.refreshSessions().await()
+                dispatcher.send(SessionRefreshLoadStateChangeAction(LoadState.Finished))
+            } catch (e: Exception) {
+                dispatcher.send(
+                        SessionRefreshLoadStateChangeAction(LoadState.Error(e))
                 )
+            }
+        }
     }
 
     fun favorite(session: Session.SpeechSession) {

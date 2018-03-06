@@ -11,7 +11,8 @@ import com.nhaarman.mockitokotlin2.whenever
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.presentation.action.SessionChangedAction
 import io.github.droidkaigi.confsched2018.presentation.dispacher.Dispatcher
-import io.reactivex.Flowable
+import kotlinx.coroutines.experimental.channels.Channel
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -24,7 +25,8 @@ class SessionsStoreTest {
     private lateinit var store: SessionsStore
 
     @Test fun sessions_Empty() {
-        whenever(dispatcher.asFlowable<SessionChangedAction>()).doReturn(Flowable.empty())
+        val channel = Channel<SessionChangedAction>()
+        whenever(dispatcher.asChannel<SessionChangedAction>()).doReturn(channel)
         store = SessionsStore(dispatcher)
         val result: Observer<List<Session>> = mock()
 
@@ -35,13 +37,15 @@ class SessionsStoreTest {
 
     @Test fun sessions_Basic() {
         val sessions = listOf(mock<Session>())
-        whenever(dispatcher.asFlowable<SessionChangedAction>()).doReturn(Flowable.just(
-                SessionChangedAction(sessions)
-        ))
+        val channel = Channel<SessionChangedAction>()
+        whenever(dispatcher.asChannel<SessionChangedAction>()).doReturn(channel)
         store = SessionsStore(dispatcher)
         val result: Observer<List<Session>> = mock()
-
         store.sessions.observeForever(result)
+
+        runBlocking {
+            channel.send(SessionChangedAction(sessions))
+        }
 
         verify(result).onChanged(sessions)
     }

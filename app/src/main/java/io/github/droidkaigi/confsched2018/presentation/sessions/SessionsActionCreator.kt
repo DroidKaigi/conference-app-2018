@@ -24,8 +24,7 @@ class SessionsActionCreator @Inject constructor(
                 .subscribeBy(
                         onNext = {
                             dispatcher.send(SessionLoadStateChangeAction(LoadState.Finished))
-                            dispatcher.send(SessionChangedAction(it)
-                            )
+                            dispatcher.send(SessionChangedAction(it))
                         },
                         onError = defaultErrorHandler()
                 )

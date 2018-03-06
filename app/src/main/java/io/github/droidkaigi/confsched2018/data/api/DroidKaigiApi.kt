@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2018.data.api
 
 import android.support.annotation.CheckResult
 import io.github.droidkaigi.confsched2018.data.api.response.Response
-import io.reactivex.Single
+import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
 import javax.inject.Singleton
 
@@ -10,5 +10,5 @@ import javax.inject.Singleton
 interface DroidKaigiApi {
     @GET("sessionize/all.json")
     @CheckResult
-    fun getSessions(): Single<Response>
+    fun getSessions(): Deferred<Response>
 }

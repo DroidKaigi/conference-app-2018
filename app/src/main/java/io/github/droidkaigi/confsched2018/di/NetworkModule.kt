@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2018.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -42,7 +43,7 @@ open class NetworkModule {
                         .add(ApplicationJsonAdapterFactory.INSTANCE)
                         .add(Instant::class.java, InstantAdapter())
                         .build()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build()
     }
 

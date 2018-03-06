@@ -10,10 +10,11 @@ import io.github.droidkaigi.confsched2018.data.db.fixeddata.SpecialSessions
 import io.github.droidkaigi.confsched2018.model.Session
 import io.github.droidkaigi.confsched2018.util.ext.atJST
 import io.github.droidkaigi.confsched2018.util.rx.SchedulerProvider
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.Flowables
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.async
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -61,13 +62,9 @@ class SessionDataRepository @Inject constructor(
     @CheckResult override fun favorite(session: Session.SpeechSession): Single<Boolean> =
             favoriteDatabase.favorite(session)
 
-    @CheckResult override fun refreshSessions(): Completable {
-        return api.getSessions()
-                .doOnSuccess { response ->
-                    sessionDatabase.save(response)
-                }
-                .subscribeOn(schedulerProvider.io())
-                .toCompletable()
+    @CheckResult override suspend fun refreshSessions() = async(CommonPool) {
+        val response = api.getSessions()
+        sessionDatabase.save(response.await())
     }
 
     companion object {

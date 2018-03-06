@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2018.presentation.action.SessionChangedActi
 import io.github.droidkaigi.confsched2018.presentation.action.SessionLoadStateChangeAction
 import io.github.droidkaigi.confsched2018.presentation.dispacher.Dispatcher
 import io.github.droidkaigi.confsched2018.util.ext.toLiveData
+import kotlinx.coroutines.experimental.channels.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,13 +16,13 @@ class SessionsStore @Inject constructor(
         private val dispatcher: Dispatcher
 ) {
     val sessions: LiveData<List<Session>> by lazy {
-        dispatcher.asFlowable<SessionChangedAction>()
+        dispatcher.asChannel<SessionChangedAction>()
                 .map { it.sessions }
                 .toLiveData()
     }
 
     val loadingState: LiveData<LoadState> by lazy {
-        dispatcher.asFlowable<SessionLoadStateChangeAction>()
+        dispatcher.asChannel<SessionLoadStateChangeAction>()
                 .map { it.loadState }
                 .toLiveData()
     }

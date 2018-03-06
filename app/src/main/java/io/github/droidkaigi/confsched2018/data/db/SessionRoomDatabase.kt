@@ -14,6 +14,8 @@ import io.github.droidkaigi.confsched2018.data.db.entity.SessionWithSpeakers
 import io.github.droidkaigi.confsched2018.data.db.entity.SpeakerEntity
 import io.github.droidkaigi.confsched2018.data.db.entity.TopicEntity
 import io.reactivex.Flowable
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
 class SessionRoomDatabase @Inject constructor(
@@ -32,7 +34,7 @@ class SessionRoomDatabase @Inject constructor(
 
     @CheckResult override fun getAllTopic(): Flowable<List<TopicEntity>> = sessionDao.getAllTopic()
 
-    override fun save(response: Response) {
+    override suspend fun save(response: Response) = async(CommonPool) {
         database.runInTransaction {
             speakerDao.clearAndInsert(response.speakers.toSpeakerEntities())
             val sessions = response.sessions

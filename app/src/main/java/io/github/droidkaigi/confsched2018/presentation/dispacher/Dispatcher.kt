@@ -1,39 +1,36 @@
 package io.github.droidkaigi.confsched2018.presentation.dispacher
 
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.jakewharton.rxrelay2.Relay
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import timber.log.Timber
+import kotlinx.coroutines.experimental.channels.BroadcastChannel
+import kotlinx.coroutines.experimental.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.experimental.channels.ReceiveChannel
+import kotlinx.coroutines.experimental.channels.filter
+import kotlinx.coroutines.experimental.channels.map
+import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * @see https://gist.github.com/benjchristensen/04eef9ca0851f3a5d7bf
- *
- * @see https://github.com/kaushikgopal/RxJava-Android-Samples/commit
- * /dedadafd88cd3a5a926d4a7f2761822a43121569
- */
 
+/**
+ * You can use like this.
+ * val channel = Dispatcher().asChannel<ItemChangeAction>()
+ * launch (UI){
+ *   for(action in channel){
+ *     // You can use item
+ *     action.item
+ *   }
+ * }
+ */
 @Singleton
 class Dispatcher @Inject constructor() {
-
-    val bus: Relay<Any> = BehaviorRelay.create<Any>().toSerialized()
+    val bus: BroadcastChannel<Any> = ConflatedBroadcastChannel<Any>()
 
     fun send(o: Any) {
-        Timber.d("event:" + o)
-        bus.accept(o)
+        launch {
+            bus.send(o)
+        }
     }
 
-    inline fun <reified T> asFlowable(): Flowable<T> {
-        return (asAnyFlowable() as Flowable<Any>)
-                .filter({ it is T })
-                .map<T>({ it as T })
-    }
-
-    fun asAnyFlowable() = bus.toFlowable(BackpressureStrategy.LATEST)
-
-    fun hasObservers(): Boolean {
-        return bus.hasObservers()
+    inline fun <reified T> asChannel(): ReceiveChannel<T> {
+        return bus.openSubscription().filter { it is T }.map { it as T }
     }
 }

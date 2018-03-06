@@ -3,6 +3,11 @@ object Depends {
         val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     }
 
+    object Coroutine {
+        val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinx_coroutines}"
+        val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinx_coroutines}"
+    }
+
     object Support {
         val support_v4 = "com.android.support:support-v4:${Versions.supportLibrary}"
         val appcompat_v7 = "com.android.support:appcompat-v7:${Versions.supportLibrary}"
@@ -26,6 +31,7 @@ object Depends {
         val core = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
         val converterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
         val adapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
+        val adapterCoroutine = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0"
     }
 
     object Kotshi {
