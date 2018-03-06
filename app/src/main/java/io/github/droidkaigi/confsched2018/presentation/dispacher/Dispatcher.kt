@@ -5,7 +5,6 @@ import kotlinx.coroutines.experimental.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.experimental.channels.ReceiveChannel
 import kotlinx.coroutines.experimental.channels.filter
 import kotlinx.coroutines.experimental.channels.map
-import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,9 +24,7 @@ class Dispatcher @Inject constructor() {
     val bus: BroadcastChannel<Any> = ConflatedBroadcastChannel<Any>()
 
     fun send(o: Any) {
-        launch {
-            bus.send(o)
-        }
+        bus.offer(o)
     }
 
     inline fun <reified T> asChannel(): ReceiveChannel<T> {
