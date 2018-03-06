@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: punchdrunker/android-27-ruby
+      - image: circleci/android:api-27-alpha
         environment:
           JAVA_OPTS: -Xmx1536m
           GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError"'
