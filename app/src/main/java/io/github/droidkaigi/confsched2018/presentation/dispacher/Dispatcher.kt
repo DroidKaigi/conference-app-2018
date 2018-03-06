@@ -21,13 +21,19 @@ import javax.inject.Singleton
  */
 @Singleton
 class Dispatcher @Inject constructor() {
-    val bus: BroadcastChannel<Any> = ConflatedBroadcastChannel<Any>()
+    private val bus: BroadcastChannel<Any> = ConflatedBroadcastChannel<Any>()
 
     fun send(o: Any) {
         bus.offer(o)
     }
 
     inline fun <reified T> asChannel(): ReceiveChannel<T> {
-        return bus.openSubscription().filter { it is T }.map { it as T }
+        return subscription().filter { it is T }.map { it as T }
     }
+
+    /**
+     * Divide method for workaround for fail unit test(org.mockito.exceptions.misusing
+     * .WrongTypeOfReturnValue)
+     */
+    fun subscription(): ReceiveChannel<Any> = bus.openSubscription()
 }
