@@ -12,7 +12,7 @@ object Versions {
     const val gradleVersions = "0.17.0"
     const val supportLibrary = "27.0.2"
     const val retrofit = "2.3.0"
-    const val kotshi = "0.3.0"
+    const val kotshi = "1.0.1"
     const val archLifecycle = "1.1.0"
     const val archRoom = "1.0.0"
     const val dagger = "2.14.1"
