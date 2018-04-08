@@ -21,6 +21,7 @@ object Versions {
     const val glide = "4.5.0"
     const val groupie = "2.0.3"
     const val stetho = "1.5.0"
+    const val hyperion = "0.9.21"
     const val debot = "2.0.3"
     const val ossLicenses = "0.9.1"
     const val deploygate = "1.1.4"

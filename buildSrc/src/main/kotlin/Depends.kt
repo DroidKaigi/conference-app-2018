@@ -103,6 +103,18 @@ object Depends {
         val okhttp3 = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
     }
 
+    object Hyperion {
+        val core = "com.willowtreeapps.hyperion:hyperion-core:${Versions.hyperion}"
+        val measurement = "com.willowtreeapps.hyperion:hyperion-measurement:${Versions.hyperion}"
+        val attr = "com.willowtreeapps.hyperion:hyperion-attr:${Versions.hyperion}"
+        val disk = "com.willowtreeapps.hyperion:hyperion-disk:${Versions.hyperion}"
+        val recorder = "com.willowtreeapps.hyperion:hyperion-recorder:${Versions.hyperion}"
+        val phoenix = "com.willowtreeapps.hyperion:hyperion-phoenix:${Versions.hyperion}"
+        val crash = "com.willowtreeapps.hyperion:hyperion-crash:${Versions.hyperion}"
+        val preferences = "com.willowtreeapps.hyperion:hyperion-shared-preferences:${Versions.hyperion}"
+        val simpleItem = "com.github.takahirom:Hyperion-Simple-Item:0.3.0"
+    }
+
     val crashlytics = "com.crashlytics.sdk.android:crashlytics:2.8.0@aar"
     val timber = "com.jakewharton.timber:timber:4.6.0"
     val leakcanary = "com.squareup.leakcanary:leakcanary-android:1.5.4"

@@ -190,6 +190,21 @@ dependencies {
 //==================== Debug ====================
     debugImplementation(Depends.Stetho.core)
     debugImplementation(Depends.Stetho.okhttp3)
+    listOf(Depends.Hyperion.core,
+            Depends.Hyperion.measurement,
+            Depends.Hyperion.attr,
+            Depends.Hyperion.disk,
+            Depends.Hyperion.recorder,
+            Depends.Hyperion.phoenix,
+            Depends.Hyperion.crash,
+            Depends.Hyperion.preferences,
+            Depends.Hyperion.simpleItem
+    ).forEach {
+        debugImplementation(it) {
+            exclude(group = "com.android.support")
+            exclude(group = "com.google.dagger")
+        }
+    }
 
     implementation(Depends.crashlytics) {
         isTransitive = true
