@@ -21,7 +21,7 @@ class StaffDataRepository @Inject constructor(
             .subscribeOn(schedulerProvider.io())
 
     private val sender = BehaviorSubject.createDefault<List<Staff>>(emptyList())
-    override val staff : Flowable<List<Staff>> = sender.toFlowable(BackpressureStrategy.LATEST)
+    override val staff: Flowable<List<Staff>> = sender.toFlowable(BackpressureStrategy.LATEST)
 
     @CheckResult private fun getStaff(): Completable {
         return Completable.create { emitter ->
