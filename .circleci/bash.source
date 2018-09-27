@@ -1,0 +1,12 @@
+is_on_master_or_release() {
+    [[ "${CIRCLE_BRANCH:-undefined}" =~ ^(master|release)$ ]]
+}
+should_be_release() {
+    deploy_to_google_play || is_on_master_or_release
+}
+deploy_to_deploygate() {
+    is_on_master_or_release
+}
+deploy_to_google_play() {
+    [[ "${CIRCLE_TAG:-undefined}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+}
