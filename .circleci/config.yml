@@ -59,7 +59,7 @@ jobs:
       - run:
           name: Check
           command: |
-              if ! is_on_master_or_release; then
+              if ! is_on_master_or_release && ! deploy_to_google_play; then
                   ./gradlew --stacktrace lint${APP_BUILD_TYPE^}
                   ./gradlew --stacktrace ktlint${APP_BUILD_TYPE^}Check
                   bundle exec danger
