@@ -30,19 +30,19 @@ jobs:
       - run:
           name: decrypt keystore
           command: |
-              if [[ "${CIRCLE_BRANCH:-undefined}" == 'master' -o "${CIRCLE_BRANCH:-undefined}" == 'release' ]]; then
+              if [[ "${CIRCLE_BRANCH:-undefined}" =~ ^(master|release)$ ]]; then
                   openssl aes-256-cbc -k $KEYSTORE_DECRYPT_PASSWORD -d -in encrypted-droidkaigi-key -out release.keystore -md sha256
               fi
       - run:
           name: decrypt json
           command: |
-              if [[ "${CIRCLE_BRANCH:-undefined}" == 'master' -o "${CIRCLE_BRANCH:-undefined}" == 'release' ]]; then
+              if [[ "${CIRCLE_BRANCH:-undefined}" =~ ^(master|release)$ ]]; then
                   openssl aes-256-cbc -k $JSON_DECRYPT_PASSWORD -d -in encrypted-google-services.json -out app/google-services.json -md sha256
               fi
       - run:
           name: Test
           command: |
-              if [[ "${CIRCLE_BRANCH:-undefined}" == 'master' -o "${CIRCLE_BRANCH:-undefined}" == 'release' ]]; then
+              if [[ "${CIRCLE_BRANCH:-undefined}" =~ ^(master|release)$ ]]; then
                   ./gradlew --stacktrace testRelease
               else
                   ./gradlew --stacktrace test${APP_BUILD_TYPE^}
@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Build
           command: |
-              if [[ "${CIRCLE_BRANCH:-undefined}" == 'master' -o "${CIRCLE_BRANCH:-undefined}" == 'release' ]]; then
+              if [[ "${CIRCLE_BRANCH:-undefined}" =~ ^(master|release)$ ]]; then
                   ./gradlew --offline --stacktrace assembleRelease
               else
                   ./gradlew --offline --stacktrace assemble${APP_BUILD_TYPE^}
@@ -58,7 +58,7 @@ jobs:
       - run:
           name: Check
           command: |
-              if [[ "${CIRCLE_BRANCH:-undefined}" != 'master' -a "${CIRCLE_BRANCH:-undefined}" != 'release' ]]; then
+              if [[ ! "${CIRCLE_BRANCH:-undefined}" =~ ^(master|release)$ ]]; then
                   ./gradlew --stacktrace lint${APP_BUILD_TYPE^}
                   ./gradlew --stacktrace ktlint${APP_BUILD_TYPE^}Check
                   bundle exec danger
